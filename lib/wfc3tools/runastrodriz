@@ -1,0 +1,4 @@
+#! python
+
+import wfc3tools.runastrodriz
+wfc3tools.runastrodriz.main()
