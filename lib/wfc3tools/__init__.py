@@ -32,6 +32,10 @@ except ImportError:
 
 import runastrodriz
 import calwf3 
+import wf32d
+import wf3ccd
+import wf3ir
+import wf3rej
 
 # These lines allow TEAL to print out the names of TEAL-enabled tasks
 # upon importing this package.

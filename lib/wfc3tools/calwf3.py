@@ -23,8 +23,21 @@ In Pyraf:
 
 """
 
+# STDLIB
 import os.path
 import subprocess
+
+#STSCI
+from stsci.tools import parseinput
+try:
+    from stsci.tools import teal
+except:
+    teal = None
+    
+__taskname__ = "calwf3"
+__version__ = "1.0"
+__vdate__ = "03-Jan-2013"
+
 
 def calwf3(input, printtime=False, save_tmp=False,
            verbose=False, debug=False ):
