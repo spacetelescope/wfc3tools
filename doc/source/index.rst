@@ -11,6 +11,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+    calwf3
+    wf32d
+    wf3ccd
+    wf3ir
+    wf3rej
 
 
 Indices and tables
