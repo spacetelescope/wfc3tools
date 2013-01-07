@@ -6,16 +6,21 @@
 Welcome to wfc3tools's documentation!
 =====================================
 
+Modules for WFC3.
+
+http://www.stsci.edu/hst/wfc3/
+
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-    calwf3
-    wf32d
-    wf3ccd
-    wf3ir
-    wf3rej
+   calwf3
+   wf32d
+   wf3ccd
+   wf3ir
+   wf3rej
 
 
 Indices and tables

@@ -1,5 +1,5 @@
 """
-The calwfc3 module contains a function `wf3ir` that calls the wf3ir executable.
+The calwf3 module contains a function `wf3ir` that calls the wf3ir executable.
 Use this function to facilitate batch runs of wf3ir, or for the TEAL interface.
 
 This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:
@@ -22,22 +22,21 @@ will be set to COMPLETE in the corresponding output files.
 
 Examples
 --------
+    In Python without TEAL:
 
-In Python without TEAL:
+    >>> from wfc3tools import wf3ir
+    >>> calwf3.wf3ir(filename)
 
->>> from wfc3tools import wf3ir
->>> calwf3.wf3ir(filename)
+    In Python with TEAL:
 
-In Python with TEAL:
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf3ir
+    >>> teal.teal('wf3ir')
 
->>> from stsci.tools import teal
->>> from wfc3tools import wf3ir
->>> teal.teal('wf3ir')
+    In Pyraf:
 
-In Pyraf:
-
->>> import wfc3tools
->>> epar wf3ir
+    >>> import wfc3tools
+    >>> epar wf3ir
 
 """
 # STDLIB
@@ -64,24 +63,25 @@ def wf3ir(input, output="", verbose=False, quiet=True ):
 
     Parameters
     ----------
-    input : str
-        Name of input files
-        
-            * a single filename ('iaa012wdq_raw.fits')
-            * a Python list of filenames
-            * a partial filename with wildcards ("\*raw.fits")
-            * filename of an ASN table ("\*asn.fits")
-            * an at-file (``@input``) 
+    
+        input : str
+            Name of input files
 
-    output: str
-        Name of the output FITS file.
-                
-    verbose: bool, optional
-        Print verbose time stamps?
-        
-    quiet: bool, optional
-        Print messages only to trailer file?
-        
+                * a single filename ('iaa012wdq_raw.fits')
+                * a Python list of filenames
+                * a partial filename with wildcards ("\*raw.fits")
+                * filename of an ASN table ("\*asn.fits")
+                * an at-file (``@input``) 
+
+        output: str
+            Name of the output FITS file.
+
+        verbose: bool, optional
+            Print verbose time stamps?
+
+        quiet: bool, optional
+            Print messages only to trailer file?
+
   
     """
     call_list = ['wf3ir.e']

@@ -1,6 +1,6 @@
-*****************
-wf3rej.e (HSTCAL)
-*****************
+******
+WF3REJ
+******
 
 .. currentmodule:: wfc3tools.wf3rej
 

@@ -1,5 +1,5 @@
 """
-The calwfc3 module contains a function `wf32d` that calls the WF32D executable.
+The calwf3 module contains a function `wf32d` that calls the WF32D executable.
 Use this function to facilitate batch runs of WF32D, or for the TEAL interface.
 
 
@@ -14,21 +14,21 @@ will be set to COMPLETE in the corresponding output files.
 Examples
 --------
 
-In Python without TEAL:
+    In Python without TEAL:
 
->>> from wfc3tools import wf32d
->>> calwf3.wf32d(filename)
+    >>> from wfc3tools import wf32d
+    >>> calwf3.wf32d(filename)
 
-In Python with TEAL:
+    In Python with TEAL:
 
->>> from stsci.tools import teal
->>> from wfc3tools import wf32d
->>> teal.teal('wf32d')
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf32d
+    >>> teal.teal('wf32d')
 
-In Pyraf:
+    In Pyraf:
 
->>> import wfc3tools
->>> epar wf32d
+    >>> import wfc3tools
+    >>> epar wf32d
 
 """
 # STDLIB
@@ -56,38 +56,39 @@ def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",flatcorr="PERF
 
     Parameters
     ----------
-    input : str
-        Name of input files
-        
-            * a single filename ('iaa012wdq_raw.fits')
-            * a Python list of filenames
-            * a partial filename with wildcards ("\*raw.fits")
-            * filename of an ASN table ("\*asn.fits")
-            * an at-file (``@input``) 
+    
+        input : str
+            Name of input files
 
-    output: str
-        Name of the output FITS file.
-        
-    dqicorr: str, "PERFORM/OMIT", optional
-        Update the dq array from bad pixel table
-        
-    darkcorr: str, "PERFORM/OMIT", optional
-        Subtract the dark image
-        
-    flatcorr: str, "PERFORM/OMIT", optional
-        Multiply by the flatfield image
-        
-    shadcorr: str, "PERFORM/OMIT", optional
-        Correct for shutter shading (CCD)
-        
-    photcorr: str, "PERFORM/OMIT", optional
-        Update photometry keywords in the header
-        
-    verbose: bool, optional
-        Print verbose time stamps?
-        
-    quiet: bool, optional
-        Print messages only to trailer file?
+                * a single filename ('iaa012wdq_raw.fits')
+                * a Python list of filenames
+                * a partial filename with wildcards ("\*raw.fits")
+                * filename of an ASN table ("\*asn.fits")
+                * an at-file (``@input``) 
+
+        output: str
+            Name of the output FITS file.
+
+        dqicorr: str, "PERFORM/OMIT", optional
+            Update the dq array from bad pixel table
+
+        darkcorr: str, "PERFORM/OMIT", optional
+            Subtract the dark image
+
+        flatcorr: str, "PERFORM/OMIT", optional
+            Multiply by the flatfield image
+
+        shadcorr: str, "PERFORM/OMIT", optional
+            Correct for shutter shading (CCD)
+
+        photcorr: str, "PERFORM/OMIT", optional
+            Update photometry keywords in the header
+
+        verbose: bool, optional
+            Print verbose time stamps?
+
+        quiet: bool, optional
+            Print messages only to trailer file?
         
   
     """

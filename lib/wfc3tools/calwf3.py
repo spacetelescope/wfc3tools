@@ -1,5 +1,5 @@
 """
-The calwfc3 module contains a function `calwf3` that calls the CALWF3 executable.
+The calwf3 module contains a function `calwf3` that calls the CALWF3 executable.
 Use this function to facilitate batch runs of CALWF3, or for the TEAL interface.
 
 Examples
@@ -28,7 +28,7 @@ In the meantime, if you have questions not answered in this documentation, pleas
 
 
 Running calwf3
-==============
+--------------
 
 calwf3 can be run on a single input raw file or an asn table listing the members of an associtaion. 
 When processing an association, calwf3 retrieves calibration switch and reference file keyword settings from 
@@ -94,8 +94,8 @@ Batch calwf3
 ------------
 
 The recommended method for running calwf3 in batch mode is to use Python and
-the `wfc3tools` package in `STSDAS distribution
-<http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas>`_.
+the `wfc3tools` package in "STSDAS distribution
+<http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas>."
 
 For example::
 
@@ -109,35 +109,35 @@ For example::
 
 
 Unit Conversion to Electrons
-============================
+----------------------------
 
 The UVIS image is multiplied by gain right after BIASCORR, converting it to
 ELECTRONS. This step is no longer embedded within FLATCORR.
 
 
 Dark Current Subtraction (DARKCORR)
-===================================
+-----------------------------------
 
 It uses DARKFILE for the reference dark image.
 
 The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.
 
 Post-Flash Correction (FLSHCORR)
-================================
+--------------------------------
 
 Post-flash correction is now performed after DARKCORR in the WF32D step.
 When FLSHCORR=PERFORM, it uses FLSHFILE (the post-flash reference file).
 
 
 FLATCORR
-========
+--------
 
 Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM. Unit
 conversion is done for all exposures after BIASCORR.
 
 
 Photometry Keywords (PHOTCORR)
-==============================
+------------------------------
 
 The PHOTCORR step is now performed using tables of precomputed values instead
 of calls  to SYNPHOT. The correct table for a given image must be specified
@@ -149,7 +149,7 @@ If you do not wish to use this feature, set PHOTCORR to OMIT.
 
 
 calwf3 Output
-=============
+-------------
 
 Using RAW as input:
 
@@ -187,20 +187,21 @@ def calwf3(input, printtime=False, save_tmp=False,
 
     Parameters
     ----------
-    input : str
-        Name of input file.
+    
+        input : str
+            Name of input file.
 
-    printtime : bool, optional
-        Set to True to turn on the printing of time stamps.
+        printtime : bool, optional
+            Set to True to turn on the printing of time stamps.
 
-    save_tmp: bool, optional
-        Set to True to have CALWF3 save temporary files.
+        save_tmp: bool, optional
+            Set to True to have CALWF3 save temporary files.
 
-    verbose : bool, optional
-        Set to True for verbose output.
+        verbose : bool, optional
+            Set to True for verbose output.
 
-    debug : bool, optional
-        Set to True to turn on debugging output.
+        debug : bool, optional
+            Set to True to turn on debugging output.
 
 
     """

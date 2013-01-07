@@ -1,6 +1,6 @@
-*****************
-wf3or.e (HSTCAL)
-*****************
+******
+WF3IR
+******
 
 .. currentmodule:: wfc3tools.wf3ir
 

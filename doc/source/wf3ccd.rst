@@ -1,5 +1,5 @@
 *****************
-wf3ccd.e (HSTCAL)
+WF3CCD
 *****************
 
 .. currentmodule:: wfc3tools.wf3ccd

@@ -1,6 +1,6 @@
-*****************
-wf32d.e (HSTCAL)
-*****************
+******
+WF32D
+******
 
 .. currentmodule:: wfc3tools.wf32d
 

@@ -1,14 +1,14 @@
 """
-The calwfc3 module contains a function `wf3rej` that calls the wf3rej executable.
+The calwf3 module contains a function `wf3rej` that calls the wf3rej executable.
 Use this function to facilitate batch runs of wf3rej, or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
 
-    * dqicorr - initializing the data quality array
-    * atodcorr - perform the a to d conversion correction
-    * blevcorr - subtract the bias level from the overscan region
-    * biascorr - subtract the bias image
-    * flshcorr - subtract the post-flash image
+    dqicorr - initializing the data quality array
+    atodcorr - perform the a to d conversion correction
+    blevcorr - subtract the bias level from the overscan region
+    biascorr - subtract the bias image
+    flshcorr - subtract the post-flash image
     
 If blevcorr is performed the output contains the overcan-trimmed region.
   
@@ -18,21 +18,21 @@ will be set to COMPLETE in the corresponding output files.
 Examples
 --------
 
-In Python without TEAL:
+    In Python without TEAL:
 
->>> from wfc3tools import wf3rej
->>> calwf3.wf3rej(filename)
+    >>> from wfc3tools import wf3rej
+    >>> calwf3.wf3rej(filename)
 
-In Python with TEAL:
+    In Python with TEAL:
 
->>> from stsci.tools import teal
->>> from wfc3tools import wf3rej
->>> teal.teal('wf3rej')
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf3rej
+    >>> teal.teal('wf3rej')
 
-In Pyraf:
+    In Pyraf:
 
->>> import wfc3tools
->>> epar wf3rej
+    >>> import wfc3tools
+    >>> epar wf3rej
 
 """
 # STDLIB
@@ -57,46 +57,47 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     Run the wf3rej.e executable as from the shell. For information on CALWF3
     see http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
 
-    By default this function will run the wf3rej given by 'wf3rej.e'.
+    By default this function will run the wf3rej given by wf3rej.e.
 
     Parameters
     ----------
-    input : str
-        Name of input files
-        
-            * a single filename ('iaa012wdq_raw.fits')
-            * a Python list of filenames
-            * a partial filename with wildcards ("\*raw.fits")
-            * filename of an ASN table ("\*asn.fits")
-            * an at-file (``@input``) 
-        
-    output: str
-        Name of the output FITS file.
-        
-    crrejtab: string, reference file name
+    
+        input : str
+            Name of input files
 
-    scalense:   string, scale factor applied to noise
-    
-    initgues:   string, intial value estimate scheme (min|med)
-    
-    skysub:     string, how to compute the sky (none|mode|mean)
-    
-    crsigmas:   string, rejection levels in each iteration
-    
-    crradius:   float, cosmic ray expansion radius in pixels
-    
-    crthresh:   float, rejection propagation threshold
-    
-    badinpdq:   int, data quality flag bits to reject
-    
-    crmask:     bool, flag CR in input DQ imageS?
-    
-    shadcorr;   bool, perform shading shutter correction?
-   
-            
-    verbose: bool, optional
-        Print verbose time stamps?
-        
+                * a single filename ("iaa012wdq_raw.fits")
+                * a Python list of filenames
+                * a partial filename with wildcards ("\*raw.fits")
+                * filename of an ASN table ("\*asn.fits")
+                * an at-file ("@input") 
+
+        output: str
+            Name of the output FITS file.
+
+        crrejtab: string, reference file name
+
+        scalense:   string, scale factor applied to noise
+
+        initgues:   string, intial value estimate scheme (min|med)
+
+        skysub:     string, how to compute the sky (none|mode|mean)
+
+        crsigmas:   string, rejection levels in each iteration
+
+        crradius:   float, cosmic ray expansion radius in pixels
+
+        crthresh:   float, rejection propagation threshold
+
+        badinpdq:   int, data quality flag bits to reject
+
+        crmask:     bool, flag CR in input DQ imageS?
+
+        shadcorr;   bool, perform shading shutter correction?
+
+
+        verbose: bool, optional
+            Print verbose time stamps?
+
         
   
     """

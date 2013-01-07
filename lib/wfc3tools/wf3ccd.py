@@ -1,5 +1,5 @@
 """
-The calwfc3 module contains a function `wf3ccd` that calls the wf3ccd executable.
+The calwf3 module contains a function `wf3ccd` that calls the wf3ccd executable.
 Use this function to facilitate batch runs of wf3ccd, or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
@@ -18,21 +18,21 @@ will be set to COMPLETE in the corresponding output files.
 Examples
 --------
 
-In Python without TEAL:
+    In Python without TEAL:
 
->>> from wfc3tools import wf3ccd
->>> calwf3.wf3ccd(filename)
+    >>> from wfc3tools import wf3ccd
+    >>> calwf3.wf3ccd(filename)
 
-In Python with TEAL:
+    In Python with TEAL:
 
->>> from stsci.tools import teal
->>> from wfc3tools import wf3ccd
->>> teal.teal('wf3ccd')
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf3ccd
+    >>> teal.teal('wf3ccd')
 
-In Pyraf:
+    In Pyraf:
 
->>> import wfc3tools
->>> epar wf3ccd
+    >>> import wfc3tools
+    >>> epar wf3ccd
 
 """
 # STDLIB
@@ -60,38 +60,39 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
 
     Parameters
     ----------
-    input : str
-        Name of input files
-        
-            * a single filename ('iaa012wdq_raw.fits')
-            * a Python list of filenames
-            * a partial filename with wildcards ("\*raw.fits")
-            * filename of an ASN table ("\*asn.fits")
-            * an at-file (``@input``) 
 
-    output: str
-        Name of the output FITS file.
-        
-    dqicorr: str, "PERFORM/OMIT", optional
-        Update the dq array from bad pixel table
-        
-    atodcorr: str, "PERFORM/OMIT", optional
-        Analog to digital correction
-        
-    blevcorr: str, "PERFORM/OMIT", optional
-        Subtract bias from overscan regions
-        
-    biascorr: str, "PERFORM/OMIT", optional
-        Subtract bias image
-        
-    flashcorr: str, "PERFORM/OMIT", optional
-        Subtract post-flash image
-        
-    verbose: bool, optional
-        Print verbose time stamps?
-        
-    quiet: bool, optional
-        Print messages only to trailer file?
+        input : str
+            Name of input files
+
+                * a single filename ('iaa012wdq_raw.fits')
+                * a Python list of filenames
+                * a partial filename with wildcards ("\*raw.fits")
+                * filename of an ASN table ("\*asn.fits")
+                * an at-file (``@input``) 
+
+        output: str
+            Name of the output FITS file.
+
+        dqicorr: str, "PERFORM/OMIT", optional
+            Update the dq array from bad pixel table
+
+        atodcorr: str, "PERFORM/OMIT", optional
+            Analog to digital correction
+
+        blevcorr: str, "PERFORM/OMIT", optional
+            Subtract bias from overscan regions
+
+        biascorr: str, "PERFORM/OMIT", optional
+            Subtract bias image
+
+        flashcorr: str, "PERFORM/OMIT", optional
+            Subtract post-flash image
+
+        verbose: bool, optional
+            Print verbose time stamps?
+
+        quiet: bool, optional
+            Print messages only to trailer file?
         
   
     """
