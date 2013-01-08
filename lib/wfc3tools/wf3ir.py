@@ -1,6 +1,6 @@
 """
-The calwf3 module contains a function `wf3ir` that calls the wf3ir executable.
-Use this function to facilitate batch runs of wf3ir, or for the TEAL interface.
+The calwf3 module contains a function ``wf3ir`` that calls the wf3ir executable.
+Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:
 
@@ -56,21 +56,21 @@ __vdate__ = "03-Jan-2013"
 
 def wf3ir(input, output="", verbose=False, quiet=True ):
     """
-    Run the wf3ir.e executable as from the shell. For information on CALWF3
-    see http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
+    
+    Run the ``wf3ir.e`` executable as from the shell. For more information on CALWF3
+    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
 
-    By default this function will run the wf3ir given by 'wf3ir.e'.
 
-    Parameters
-    ----------
+    Parameters:
+    
     
         input : str
             Name of input files
 
-                * a single filename ('iaa012wdq_raw.fits')
+                * a single filename (``iaa012wdq_raw.fits``)
                 * a Python list of filenames
-                * a partial filename with wildcards ("\*raw.fits")
-                * filename of an ASN table ("\*asn.fits")
+                * a partial filename with wildcards (``\*raw.fits``)
+                * filename of an ASN table (``\*asn.fits``)
                 * an at-file (``@input``) 
 
         output: str
@@ -97,7 +97,7 @@ def wf3ir(input, output="", verbose=False, quiet=True ):
 
 def getHelpAsString():
     """
-    Returns documentation on the `calwf3` function. Required by TEAL.
+    Returns documentation on the ``wf3ir`` function. Required by TEAL.
 
     """
     return wf3ir.__doc__
@@ -105,7 +105,7 @@ def getHelpAsString():
 
 def run(configobj=None):
     """
-    TEAL interface for the `wf3ir` function.
+    TEAL interface for the ``wf3ir`` function.
 
     """
     wf3ir(configobj['input'],

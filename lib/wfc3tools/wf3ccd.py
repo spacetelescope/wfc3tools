@@ -1,6 +1,6 @@
 """
-The calwf3 module contains a function `wf3ccd` that calls the wf3ccd executable.
-Use this function to facilitate batch runs of wf3ccd, or for the TEAL interface.
+The calwf3 module contains a function ``wf3ccd`` that calls the wf3ccd executable.
+Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
 
@@ -53,21 +53,20 @@ __vdate__ = "03-Jan-2013"
 def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PERFORM",
         biascorr="PERFORM", flashcorr="PERFORM", verbose=False, quiet=True ):
     """
-    Run the wf3ccd.e executable as from the shell. For information on CALWF3
-    see http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
+    
+    Run the ``wf3ccd.e`` executable as from the shell. For more information on CALWF3
+    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
 
-    By default this function will run the wf3ccd given by 'wf3ccd.e'.
 
-    Parameters
-    ----------
+    Parameters:
 
         input : str
             Name of input files
 
-                * a single filename ('iaa012wdq_raw.fits')
+                * a single filename (``iaa012wdq_raw.fits``)
                 * a Python list of filenames
-                * a partial filename with wildcards ("\*raw.fits")
-                * filename of an ASN table ("\*asn.fits")
+                * a partial filename with wildcards (``\*raw.fits``)
+                * filename of an ASN table (``\*asn.fits``)
                 * an at-file (``@input``) 
 
         output: str
@@ -127,7 +126,7 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
 
 def getHelpAsString():
     """
-    Returns documentation on the `wf3ccd` function. Required by TEAL.
+    Returns documentation on the ``wf3ccd`` function. Required by TEAL.
 
     """
     return wf3ccd.__doc__
@@ -135,7 +134,7 @@ def getHelpAsString():
 
 def run(configobj=None):
     """
-    TEAL interface for the `wf3ccd` function.
+    TEAL interface for the ``wf3ccd`` function.
 
     """
     wf3ccd(configobj['input'],

@@ -1,14 +1,14 @@
 """
-The calwf3 module contains a function `wf3rej` that calls the wf3rej executable.
-Use this function to facilitate batch runs of wf3rej, or for the TEAL interface.
+The calwf3 module contains a function ``wf3rej`` that calls the wf3rej executable.
+Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
 
-    dqicorr - initializing the data quality array
-    atodcorr - perform the a to d conversion correction
-    blevcorr - subtract the bias level from the overscan region
-    biascorr - subtract the bias image
-    flshcorr - subtract the post-flash image
+    * dqicorr - initializing the data quality array
+    * atodcorr - perform the a to d conversion correction
+    * blevcorr - subtract the bias level from the overscan region
+    * biascorr - subtract the bias image
+    * flshcorr - subtract the post-flash image
     
 If blevcorr is performed the output contains the overcan-trimmed region.
   
@@ -54,49 +54,44 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     skysub="", crsigmas="", crradius=-1, crthresh=-1, 
     badinpdq=-1, crmask=False, shadcorr=False, verbose=False):
     """
-    Run the wf3rej.e executable as from the shell. For information on CALWF3
-    see http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
-
-    By default this function will run the wf3rej given by wf3rej.e.
-
-    Parameters
-    ----------
     
-        input : str
-            Name of input files
-
-                * a single filename ("iaa012wdq_raw.fits")
-                * a Python list of filenames
-                * a partial filename with wildcards ("\*raw.fits")
-                * filename of an ASN table ("\*asn.fits")
-                * an at-file ("@input") 
-
-        output: str
-            Name of the output FITS file.
-
-        crrejtab: string, reference file name
-
-        scalense:   string, scale factor applied to noise
-
-        initgues:   string, intial value estimate scheme (min|med)
-
-        skysub:     string, how to compute the sky (none|mode|mean)
-
-        crsigmas:   string, rejection levels in each iteration
-
-        crradius:   float, cosmic ray expansion radius in pixels
-
-        crthresh:   float, rejection propagation threshold
-
-        badinpdq:   int, data quality flag bits to reject
-
-        crmask:     bool, flag CR in input DQ imageS?
-
-        shadcorr;   bool, perform shading shutter correction?
+    Run the ``wf3rej.e`` executable as from the shell. For more information on CALWF3
+    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
 
 
-        verbose: bool, optional
-            Print verbose time stamps?
+    Parameters:
+    
+        * input : str, Name of input files
+
+                - a single filename (``iaa012wdq_raw.fits``)
+                - a Python list of filenames
+                - a partial filename with wildcards (``\*raw.fits``)
+                - filename of an ASN table (``\*asn.fits``)
+                - an at-file (``@input``) 
+
+        * output: str, Name of the output FITS file.
+
+        * crrejtab: string, reference file name
+
+        * scalense:   string, scale factor applied to noise
+
+        * initgues:   string, intial value estimate scheme (min|med)
+
+        * skysub:     string, how to compute the sky (none|mode|mean)
+
+        * crsigmas:   string, rejection levels in each iteration
+
+        * crradius:   float, cosmic ray expansion radius in pixels
+
+        * crthresh:   float, rejection propagation threshold
+
+        * badinpdq:   int, data quality flag bits to reject
+
+        * crmask:     bool, flag CR in input DQ imageS?
+
+        * shadcorr:   bool, perform shading shutter correction?
+
+        * verbose: bool, optional,  Print verbose time stamps?
 
         
   
@@ -168,7 +163,8 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
 
 def getHelpAsString():
     """
-    Returns documentation on the `calwf3` function. Required by TEAL.
+    
+    Returns documentation on the ``wf3rej`` function. Required by TEAL.
 
     """
     return wf3rej.__doc__
@@ -176,7 +172,8 @@ def getHelpAsString():
 
 def run(configobj=None):
     """
-    TEAL interface for the `wf3rej` function.
+    
+    TEAL interface for the ``wf3rej`` function.
 
     """
     wf3rej(configobj['input'],
