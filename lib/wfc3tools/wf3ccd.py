@@ -1,5 +1,5 @@
 """
-The calwf3 module contains a function ``wf3ccd`` that calls the wf3ccd executable.
+The wfc3tools module contains a function ``wf3ccd`` that calls the wf3ccd executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:

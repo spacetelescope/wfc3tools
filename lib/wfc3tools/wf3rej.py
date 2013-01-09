@@ -1,5 +1,5 @@
 """
-The calwf3 module contains a function ``wf3rej`` that calls the wf3rej executable.
+The wfc3tools module contains a function ``wf3rej`` that calls the wf3rej executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:

@@ -1,5 +1,5 @@
 """
-The calwf3 module contains a function ``calwf3`` that calls the CALWF3 executable.
+The wfc3tools module contains a function ``calwf3`` that calls the CALWF3 executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
 Examples

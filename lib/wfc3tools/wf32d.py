@@ -1,5 +1,5 @@
 """
-The calwf3 module contains a function ``wf32d`` that calls the WF32D executable.
+The wfc3tools module contains a function ``wf32d`` that calls the WF32D executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
 

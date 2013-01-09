@@ -1,5 +1,5 @@
 """
-The calwf3 module contains a function ``wf3ir`` that calls the wf3ir executable.
+The wfc3tools module contains a function ``wf3ir`` that calls the wf3ir executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
 This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:
