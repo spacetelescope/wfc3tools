@@ -23,7 +23,7 @@ Examples
 
 
 A detailed description of this new and improved ``calwf3`` will be available in a future publication of WFC3 Data Handbook. 
-The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbookd/currentDHB/ .  
+The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
 In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu). 
 
 
