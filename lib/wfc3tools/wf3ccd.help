@@ -1,0 +1,31 @@
+This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
+
+    * dqicorr - initializing the data quality array
+    * atodcorr - perform the a to d conversion correction
+    * blevcorr - subtract the bias level from the overscan region
+    * biascorr - subtract the bias image
+    * flshcorr - subtract the post-flash image
+    
+If blevcorr is performed the output contains the overcan-trimmed region.
+  
+Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.
+
+Examples
+--------
+
+    In Python without TEAL:
+
+    >>> from wfc3tools import wf3ccd
+    >>> calwf3.wf3ccd(filename)
+
+    In Python with TEAL:
+
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf3ccd
+    >>> teal.teal('wf3ccd')
+
+    In Pyraf:
+
+    >>> import wfc3tools
+    >>> epar wf3ccd

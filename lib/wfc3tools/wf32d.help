@@ -1,0 +1,29 @@
+Use this function to facilitate batch runs or for the TEAL interface.
+
+The wf32d primary functions include:
+  * dark current subtraction
+  * flat-fielding
+  * photometric keyword calculations
+  
+Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.
+
+Examples
+--------
+
+    In Python without TEAL:
+
+    >>> from wfc3tools import wf32d
+    >>> calwf3.wf32d(filename)
+
+    In Python with TEAL:
+
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf32d
+    >>> teal.teal('wf32d')
+
+    In Pyraf:
+
+    >>> import wfc3tools
+    >>> epar wf32d
+

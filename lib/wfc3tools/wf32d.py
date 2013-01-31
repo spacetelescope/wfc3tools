@@ -121,12 +121,41 @@ def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",flatcorr="PERF
     subprocess.call(call_list)
 
 
-def getHelpAsString():
+def help(file=None):
+    helpstr = getHelpAsString(docstring=True)
+    if file is None:
+        print helpstr
+    else:
+        if os.path.exists(file): os.remove(file)
+        f = open(file,mode='w')
+        f.write(helpstr)
+        f.close()
+    
+
+def getHelpAsString(docstring=False):
     """
-    Returns documentation on the ``calwf3`` function. Required by TEAL.
+    Returns documentation on the 'wf32d' function. Required by TEAL.
+
+    return useful help from a file in the script directory called
+    __taskname__.help
 
     """
-    return wf32d.__doc__
+
+    install_dir = os.path.dirname(__file__)
+    htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
+    helpfile = os.path.join(install_dir, __taskname__ + '.help')
+    if docstring or (not docstring and not os.path.exists(htmlfile)):
+        helpString = ' '.join([__taskname__, 'Version', __version__,
+                               ' updated on ', __vdate__]) + '\n\n'
+        if os.path.exists(helpfile):
+            helpString += teal.getHelpFileAsString(__taskname__, __file__)
+    else:
+        helpString = 'file://' + htmlfile
+
+    return helpString
+
+
+wf32d.__doc__ = getHelpAsString(docstring=True)
 
 
 def run(configobj=None):

@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CALWFC3 &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="WF32D" href="wf32d.html" />
+    <link rel="prev" title="Welcome to wfc3tools’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wf32d.html" title="WF32D"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to wfc3tools’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-wfc3tools.calwf3">
+<span id="calwfc3"></span><h1>CALWFC3<a class="headerlink" href="#module-wfc3tools.calwf3" title="Permalink to this headline">¶</a></h1>
+<p>The wfc3tools module contains a function <tt class="docutils literal"><span class="pre">calwf3</span></tt> that calls the CALWF3 executable.
+Use this function to facilitate batch runs or for the TEAL interface.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>In Python without TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python with TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;calwf3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Pyraf:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">calwf3</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>A detailed description of this new and improved <tt class="docutils literal"><span class="pre">calwf3</span></tt> will be available in a future publication of WFC3 Data Handbook. 
+The current WFC3 Data Handbook can be found at  <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a> .  
+In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
+</div>
+<div class="section" id="running-calwf3">
+<h2>Running calwf3<a class="headerlink" href="#running-calwf3" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> can be run on a single input raw file or an asn table listing the members of an associtaion. 
+When processing an association, it retrieves calibration switch and reference file keyword settings from 
+the first image listed in the asn table. <tt class="docutils literal"><span class="pre">calwf3</span></tt> does not accept a user-defined list of input images on the 
+command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</span></tt> to process all raw files in the current directory).</p>
+<p>The <tt class="docutils literal"><span class="pre">wf3ccd</span></tt>, <tt class="docutils literal"><span class="pre">wf32d</span></tt>, and <tt class="docutils literal"><span class="pre">wf3ir</span></tt> tasks on the other hand, will accept such user-defined input file lists, 
+but they will not accept an association table( asn ) as input.</p>
+</div>
+<div class="section" id="where-to-find-calwf3">
+<h2>Where to Find calwf3<a class="headerlink" href="#where-to-find-calwf3" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is now part of HSTCAL package, which can be downloaded from
+<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a></p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>From the command line:</p>
+<div class="highlight-python"><pre>calwf3.e iaa001kaq_raw.fits [command line options]</pre>
+</div>
+</div>
+<div class="section" id="command-line-options">
+<h2>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> supports several command line options:</p>
+<ul class="simple">
+<li>-t<ul>
+<li>Print verbose time stamps.</li>
+</ul>
+</li>
+<li>-s<ul>
+<li>Save temporary files.</li>
+</ul>
+</li>
+<li>-v<ul>
+<li>Turn on verbose output.</li>
+</ul>
+</li>
+<li>-d<ul>
+<li>Turn on debug output.</li>
+</ul>
+</li>
+<li>-q<ul>
+<li>Turn on quiet output.</li>
+</ul>
+</li>
+<li>-r<ul>
+<li>Print the current software version number (revision)</li>
+</ul>
+</li>
+<li>&#8211;version<ul>
+<li>Print the current software version</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="batch-calwf3">
+<h2>Batch calwf3<a class="headerlink" href="#batch-calwf3" title="Permalink to this headline">¶</a></h2>
+<p>The recommended method for running <tt class="docutils literal"><span class="pre">calwf3</span></tt> in batch mode is to use Python and
+the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package in the &#8220;STSDAS distribution
+&lt;<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a>&gt;.&#8221;</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="k">for</span> <span class="n">fits</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="s">&#39;j*_raw.fits&#39;</span><span class="p">):</span>
+    <span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">fits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="unit-conversion-to-electrons">
+<h2>Unit Conversion to Electrons<a class="headerlink" href="#unit-conversion-to-electrons" title="Permalink to this headline">¶</a></h2>
+<p>The UVIS image is multiplied by gain right after BIASCORR, converting it to
+ELECTRONS. This step is no longer embedded within FLATCORR.</p>
+</div>
+<div class="section" id="dark-current-subtraction-darkcorr">
+<h2>Dark Current Subtraction (DARKCORR)<a class="headerlink" href="#dark-current-subtraction-darkcorr" title="Permalink to this headline">¶</a></h2>
+<p>It uses DARKFILE for the reference dark image.</p>
+<p>The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.</p>
+</div>
+<div class="section" id="post-flash-correction-flshcorr">
+<h2>Post-Flash Correction (FLSHCORR)<a class="headerlink" href="#post-flash-correction-flshcorr" title="Permalink to this headline">¶</a></h2>
+<p>Post-flash correction is now performed after DARKCORR in the WF32D step.
+When FLSHCORR=PERFORM, it uses FLSHFILE (the post-flash reference file).</p>
+</div>
+<div class="section" id="flatcorr">
+<h2>FLATCORR<a class="headerlink" href="#flatcorr" title="Permalink to this headline">¶</a></h2>
+<p>Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM. Unit
+conversion is done for all exposures after BIASCORR.</p>
+</div>
+<div class="section" id="photometry-keywords-photcorr">
+<h2>Photometry Keywords (PHOTCORR)<a class="headerlink" href="#photometry-keywords-photcorr" title="Permalink to this headline">¶</a></h2>
+<p>The PHOTCORR step is now performed using tables of precomputed values instead
+of calls  to SYNPHOT. The correct table for a given image must be specified
+in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step.
+By default, it should be in the <tt class="docutils literal"><span class="pre">iref</span></tt> directory and have the suffix
+<tt class="docutils literal"><span class="pre">_imp.fits</span></tt>. Each DETECTOR uses a different table.</p>
+<p>If you do not wish to use this feature, set PHOTCORR to OMIT.</p>
+</div>
+<div class="section" id="calwf3-output">
+<h2>calwf3 Output<a class="headerlink" href="#calwf3-output" title="Permalink to this headline">¶</a></h2>
+<p>Using RAW as input:</p>
+<blockquote>
+<div><ul class="simple">
+<li>flt.fits: output calibrated exposure.</li>
+<li>ima.fits: output ramp calibration IR exposure.</li>
+</ul>
+</div></blockquote>
+<p>Using ASN as input with WF3REJ:</p>
+<blockquote>
+<div><ul class="simple">
+<li>crj.fits: cosmic ray rejected image</li>
+</ul>
+</div></blockquote>
+<dl class="function">
+<dt id="wfc3tools.calwf3.calwf3">
+<tt class="descclassname">wfc3tools.calwf3.</tt><tt class="descname">calwf3</tt><big>(</big><em>input</em>, <em>printtime=False</em>, <em>save_tmp=False</em>, <em>verbose=False</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#wfc3tools.calwf3.calwf3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the &#8216;calwf3.e&#8217; executable as from the shell. For more information on CALWF3
+see the WFC3 Data Handbook at <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a></p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Name of input file.</dd>
+<dt>printtime <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>Set to True to turn on the printing of time stamps.</dd>
+<dt>save_tmp: bool, optional</dt>
+<dd>Set to True to have CALWF3 save temporary files.</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>Set to True for verbose output.</dd>
+<dt>debug <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>Set to True to turn on debugging output.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CALWFC3</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#running-calwf3">Running calwf3</a></li>
+<li><a class="reference internal" href="#where-to-find-calwf3">Where to Find calwf3</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#command-line-options">Command Line Options</a></li>
+<li><a class="reference internal" href="#batch-calwf3">Batch calwf3</a></li>
+<li><a class="reference internal" href="#unit-conversion-to-electrons">Unit Conversion to Electrons</a></li>
+<li><a class="reference internal" href="#dark-current-subtraction-darkcorr">Dark Current Subtraction (DARKCORR)</a></li>
+<li><a class="reference internal" href="#post-flash-correction-flshcorr">Post-Flash Correction (FLSHCORR)</a></li>
+<li><a class="reference internal" href="#flatcorr">FLATCORR</a></li>
+<li><a class="reference internal" href="#photometry-keywords-photcorr">Photometry Keywords (PHOTCORR)</a></li>
+<li><a class="reference internal" href="#calwf3-output">calwf3 Output</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to wfc3tools&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wf32d.html"
+                        title="next chapter">WF32D</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/calwf3.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wf32d.html" title="WF32D"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to wfc3tools’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

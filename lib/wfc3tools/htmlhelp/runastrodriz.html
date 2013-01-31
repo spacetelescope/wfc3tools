@@ -1,0 +1,145 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>runastrodriz &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="runastrodriz">
+<h1>runastrodriz<a class="headerlink" href="#runastrodriz" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-wfc3tools.runastrodriz"></span><dl class="docutils">
+<dt>runastrodriz.py - Module to control operation of astrodrizzle to</dt>
+<dd>remove distortion and combine HST images in the pipeline.</dd>
+</dl>
+<p>USAGE: runastrodriz.py [-fhibn] inputFilename [newpath]</p>
+<dl class="docutils">
+<dt>Alternative USAGE:</dt>
+<dd>python
+from wfc3tools import runastrodriz
+runastrodriz.process(inputFilename,force=False,newpath=None,inmemory=False)</dd>
+<dt>GUI Usage under Python:</dt>
+<dd>python
+from stsci.tools import teal
+import wfc3tools
+cfg = teal.teal(&#8216;runastrodriz&#8217;)</dd>
+<dt>PyRAF Usage:</dt>
+<dd>epar runastrodriz</dd>
+</dl>
+<p>If the &#8216;-i&#8217; option gets specified, no intermediate products will be written out
+to disk. These products, instead, will be kept in memory. This includes all
+single drizzle products (<a href="#id1"><span class="problematic" id="id2">*</span></a>single_sci and <a href="#id3"><span class="problematic" id="id4">*</span></a>single_wht), median image,
+blot images, and crmask images.  The use of this option will therefore require
+significantly more memory than usual to process the data.</p>
+<p>If a value has been provided for the newpath parameter, all processing will be
+performed in that directory/ramdisk.  The steps involved are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>create a temporary directory under that directory named after the input file</li>
+<li>copy all files related to the input to that new directory</li>
+<li>change to that new directory and run astrodrizzle</li>
+<li>change back to original directory</li>
+<li>move (not copy) ALL files from temp directory to original directory</li>
+<li>delete temp sub-directory</li>
+</ul>
+</div></blockquote>
+<p>The &#8216;-b&#8217; option will run this task in BASIC mode without creating headerlets
+for each input image.</p>
+<p>The &#8216;-n&#8217; option allows the user to specify the number of cores to be used in
+running AstroDrizzle.</p>
+<p><a href="#id5"><span class="problematic" id="id6">**</span></a>* INITIAL VERSION
+W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of</p>
+<blockquote>
+<div>STSDAS$pkg/hst_calib/wfc3/runwf3driz.py</div></blockquote>
+<p>W.J. Hack  27 Jun 2012: Implement support to process in different directory</p>
+<p>W.J. Hack  24 Aug 2012: Provided interface for in-memory option</p>
+<p>W.J. Hack  26 Nov 2012: Option to write out headerlets added and debugged</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/runastrodriz.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
