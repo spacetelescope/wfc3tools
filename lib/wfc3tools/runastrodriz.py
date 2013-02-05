@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import division # confidence high
 
 """ runastrodriz.py - Module to control operation of astrodrizzle to
         remove distortion and combine HST images in the pipeline.
@@ -40,18 +41,19 @@ for each input image.
 The '-n' option allows the user to specify the number of cores to be used in
 running AstroDrizzle.
 
-*** INITIAL VERSION
-W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of
-                        STSDAS$pkg/hst_calib/wfc3/runwf3driz.py
-W.J. Hack  27 Jun 2012: Implement support to process in different directory
 
-W.J. Hack  24 Aug 2012: Provided interface for in-memory option
-
-W.J. Hack  26 Nov 2012: Option to write out headerlets added and debugged
 """
+#*** INITIAL VERSION
+#W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of
+#                        STSDAS$pkg/hst_calib/wfc3/runwf3driz.py
+#W.J. Hack  27 Jun 2012: Implement support to process in different directory
+#
+#W.J. Hack  24 Aug 2012: Provided interface for in-memory option
+#
+#W.J. Hack  26 Nov 2012: Option to write out headerlets added and debugged
+
 
 # Import standard Python modules
-from __future__ import division # confidence high
 import os, sys, string,time, shutil
 import glob
 
@@ -60,9 +62,14 @@ from stsci.tools import fileutil, asnutil
 # Import local modules
 import pyfits
 
-__taskname__ = "runastrodriz"
+try:
+    from stsci.tools import teal
+except:
+    teal = None
+
 
 # Local variables
+__taskname__="runastrodriz"
 __version__ = "1.5.1"
 __vdate__ = "(26-Nov-2012)"
 
@@ -82,14 +89,39 @@ __trlmarker__ = '*** astrodrizzle Processing Version '+__version__+__vdate__+'**
 # Version 1.0.0 - Derived from v1.2.0 of wfc3.runwf3driz to run astrodrizzle
 
 #### TEAL Interfaces
-def getHelpAsString():
-    helpString = 'runastrodriz Version '+__version__+__vdate__+'\n'
-    helpString += __doc__+'\n'
+def help(file=None):
+    helpstr = getHelpAsString(docstring=True)
+    if file is None:
+        print helpstr
+    else:
+        if os.path.exists(file): os.remove(file)
+        f = open(file,mode='w')
+        f.write(helpstr)
+        f.close()
+    
+
+def getHelpAsString(docstring=False):
+    """
+    Returns documentation on the 'calwf3' function. Required by TEAL.
+
+    return useful help from a file in the script directory called
+    __taskname__.help
+
+    """
+
+    install_dir = os.path.dirname(__file__)
+    htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
+    helpfile = os.path.join(install_dir, __taskname__ + '.help')
+    if docstring or (not docstring and not os.path.exists(htmlfile)):
+        helpString = ' '.join([__taskname__, 'Version', __version__,
+                               ' updated on ', __vdate__]) + '\n\n'
+        if os.path.exists(helpfile):
+            helpString += teal.getHelpFileAsString(__taskname__, __file__)
+    else:
+        helpString = 'file://' + htmlfile
 
     return helpString
-
-def help():
-    print getHelpAsString()
+        
 
 def run(configobj=None):
     process(configobj['input'],force=configobj['force'],
@@ -360,6 +392,7 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
     # Provide feedback to user
     print _final_msg
 
+
 def _lowerAsn(asnfile):
     """ Create a copy of the original asn file and change
         the case of all members to lower-case.
@@ -459,6 +492,8 @@ def _removeWorkingDir(newdir):
     """ Delete working directory
     """
     os.rmdir(newdir)
+
+process.__doc__ = getHelpAsString(docstring=True)
 
 #### Functions to support execution from the shell.
 def main():

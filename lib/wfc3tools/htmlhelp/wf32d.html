@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WF32D &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="WF3CCD" href="wf3ccd.html" />
+    <link rel="prev" title="CALWFC3" href="calwf3.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wf3ccd.html" title="WF3CCD"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="calwf3.html" title="CALWFC3"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-wfc3tools.wf32d">
+<span id="wf32d"></span><h1>WF32D<a class="headerlink" href="#module-wfc3tools.wf32d" title="Permalink to this headline">¶</a></h1>
+<p>The wfc3tools module contains a function <tt class="docutils literal"><span class="pre">wf32d</span></tt> that calls the WF32D executable.
+Use this function to facilitate batch runs or for the TEAL interface.</p>
+<dl class="docutils">
+<dt>The wf32d primary functions include:</dt>
+<dd><ul class="first last simple">
+<li>dark current subtraction</li>
+<li>flat-fielding</li>
+<li>photometric keyword calculations</li>
+</ul>
+</dd>
+</dl>
+<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>In Python without TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf32d</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python with TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf32d&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Pyraf:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf32d</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="function">
+<dt id="wfc3tools.wf32d.wf32d">
+<tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">wf32d</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>dqicorr='PERFORM'</em>, <em>darkcorr='PERFORM'</em>, <em>flatcorr='PERFORM'</em>, <em>shadcorr='PERFORM'</em>, <em>photcorr='PERFORM'</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.wf32d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the <tt class="docutils literal"><span class="pre">wf32d.e</span></tt> executable as from the shell. For more information on CALWF3
+see the WFC3 Data Handbook at <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a></p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first">Name of input files</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
+<li>a Python list of filenames</li>
+<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
+<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
+<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>output: str</dt>
+<dd>Name of the output FITS file.</dd>
+<dt>dqicorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Update the dq array from bad pixel table</dd>
+<dt>darkcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Subtract the dark image</dd>
+<dt>flatcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Multiply by the flatfield image</dd>
+<dt>shadcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Correct for shutter shading (CCD)</dd>
+<dt>photcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Update photometry keywords in the header</dd>
+<dt>verbose: bool, optional</dt>
+<dd>Print verbose time stamps?</dd>
+<dt>quiet: bool, optional</dt>
+<dd>Print messages only to trailer file?</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">WF32D</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="calwf3.html"
+                        title="previous chapter">CALWFC3</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wf3ccd.html"
+                        title="next chapter">WF3CCD</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/wf32d.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wf3ccd.html" title="WF3CCD"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="calwf3.html" title="CALWFC3"
+             >previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
