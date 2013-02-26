@@ -97,7 +97,7 @@ For example::
     from wfc3tools import calwf3
     import glob
 
-    for fits in glob.iglob('j*_raw.fits'):
+    for fits in glob.glob('j*_raw.fits'):
         calwf3.calwf3(fits)
    
 

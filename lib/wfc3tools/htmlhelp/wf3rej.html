@@ -27,6 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="Running Astrodrizzle" href="runastrodriz.html" />
     <link rel="prev" title="WF3IR" href="wf3ir.html" /> 
   </head>
   <body>
@@ -39,6 +40,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="wf3ir.html" title="WF3IR"
              accesskey="P">previous</a> |</li>
@@ -91,47 +95,37 @@ will be set to COMPLETE in the corresponding output files.</p>
 <dl class="function">
 <dt id="wfc3tools.wf3rej.wf3rej">
 <tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">wf3rej</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>crrejtab=''</em>, <em>scalense=''</em>, <em>initgues=''</em>, <em>skysub=''</em>, <em>crsigmas=''</em>, <em>crradius=-1</em>, <em>crthresh=-1</em>, <em>badinpdq=-1</em>, <em>crmask=False</em>, <em>shadcorr=False</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.wf3rej" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the <tt class="docutils literal"><span class="pre">wf3rej.e</span></tt> executable as from the shell. For more information on CALWF3
-see the WFC3 Data Handbook at <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a></p>
-<p>Parameters:</p>
-<blockquote>
-<div><ul>
-<li><p class="first">input : str, Name of input files</p>
+<dd><p>wf3rej Version 1.0  updated on  03-Jan-2013</p>
+<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
 <blockquote>
 <div><ul class="simple">
-<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
-<li>a Python list of filenames</li>
-<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
-<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
-<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+<li>dqicorr - initializing the data quality array</li>
+<li>atodcorr - perform the a to d conversion correction</li>
+<li>blevcorr - subtract the bias level from the overscan region</li>
+<li>biascorr - subtract the bias image</li>
+<li>flshcorr - subtract the post-flash image</li>
 </ul>
 </div></blockquote>
-</li>
-<li><p class="first">output: str, Name of the output FITS file.</p>
-</li>
-<li><p class="first">crrejtab: string, reference file name</p>
-</li>
-<li><p class="first">scalense:   string, scale factor applied to noise</p>
-</li>
-<li><p class="first">initgues:   string, intial value estimate scheme (min|med)</p>
-</li>
-<li><p class="first">skysub:     string, how to compute the sky (none|mode|mean)</p>
-</li>
-<li><p class="first">crsigmas:   string, rejection levels in each iteration</p>
-</li>
-<li><p class="first">crradius:   float, cosmic ray expansion radius in pixels</p>
-</li>
-<li><p class="first">crthresh:   float, rejection propagation threshold</p>
-</li>
-<li><p class="first">badinpdq:   int, data quality flag bits to reject</p>
-</li>
-<li><p class="first">crmask:     bool, flag CR in input DQ imageS?</p>
-</li>
-<li><p class="first">shadcorr:   bool, perform shading shutter correction?</p>
-</li>
-<li><p class="first">verbose: bool, optional,  Print verbose time stamps?</p>
-</li>
-</ul>
+<p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
+<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.</p>
+<blockquote>
+<div><p>In Python without TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python with TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3rej&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Pyraf:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3rej</span>
+</pre></div>
+</div>
 </div></blockquote>
 </dd></dl>
 
@@ -155,6 +149,9 @@ see the WFC3 Data Handbook at <a class="reference external" href="http://www.sts
   <h4>Previous topic</h4>
   <p class="topless"><a href="wf3ir.html"
                         title="previous chapter">WF3IR</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="runastrodriz.html"
+                        title="next chapter">Running Astrodrizzle</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/wf3rej.txt"
@@ -187,13 +184,16 @@ see the WFC3 Data Handbook at <a class="reference external" href="http://www.sts
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
+             >next</a> |</li>
+        <li class="right" >
           <a href="wf3ir.html" title="WF3IR"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2012, Megan Sosey.
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>

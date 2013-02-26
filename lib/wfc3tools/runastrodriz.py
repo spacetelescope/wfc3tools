@@ -1,23 +1,40 @@
 #!/usr/bin/env python
 from __future__ import division # confidence high
 
-""" runastrodriz.py - Module to control operation of astrodrizzle to
-        remove distortion and combine HST images in the pipeline.
+""" 
+============
+runastrodriz
+============
 
-USAGE: runastrodriz.py [-fhibn] inputFilename [newpath]
+runastrodriz is a module to control operation of astrodrizzle which removes distortion and combines HST images in the pipeline.
+
+USAGE: 
+------
+
+Typical:
+~~~~~~~~
+
+    runastrodriz.py [-fhibn] inputFilename [newpath]
 
 Alternative USAGE:
+~~~~~~~~~~~~~~~~~~
+
     python
     from wfc3tools import runastrodriz
     runastrodriz.process(inputFilename,force=False,newpath=None,inmemory=False)
 
+
 GUI Usage under Python:
+~~~~~~~~~~~~~~~~~~~~~~~
+
     python
     from stsci.tools import teal
     import wfc3tools
     cfg = teal.teal('runastrodriz')
 
 PyRAF Usage:
+~~~~~~~~~~~~
+
     epar runastrodriz
 
 If the '-i' option gets specified, no intermediate products will be written out
@@ -28,6 +45,7 @@ significantly more memory than usual to process the data.
 
 If a value has been provided for the newpath parameter, all processing will be
 performed in that directory/ramdisk.  The steps involved are:
+
    - create a temporary directory under that directory named after the input file
    - copy all files related to the input to that new directory
    - change to that new directory and run astrodrizzle
