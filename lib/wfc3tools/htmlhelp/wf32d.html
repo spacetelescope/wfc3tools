@@ -93,40 +93,36 @@ will be set to COMPLETE in the corresponding output files.</p>
 <dl class="function">
 <dt id="wfc3tools.wf32d.wf32d">
 <tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">wf32d</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>dqicorr='PERFORM'</em>, <em>darkcorr='PERFORM'</em>, <em>flatcorr='PERFORM'</em>, <em>shadcorr='PERFORM'</em>, <em>photcorr='PERFORM'</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.wf32d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the <tt class="docutils literal"><span class="pre">wf32d.e</span></tt> executable as from the shell. For more information on CALWF3
-see the WFC3 Data Handbook at <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a></p>
-<p>Parameters:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first">Name of input files</p>
-<blockquote class="last">
-<div><ul class="simple">
-<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
-<li>a Python list of filenames</li>
-<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
-<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
-<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+<dd><p>wf32d Version 1.0  updated on  03-Jan-2013</p>
+<p>Use this function to facilitate batch runs or for the TEAL interface.</p>
+<dl class="docutils">
+<dt>The wf32d primary functions include:</dt>
+<dd><ul class="first last simple">
+<li>dark current subtraction</li>
+<li>flat-fielding</li>
+<li>photometric keyword calculations</li>
 </ul>
-</div></blockquote>
 </dd>
-<dt>output: str</dt>
-<dd>Name of the output FITS file.</dd>
-<dt>dqicorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
-<dd>Update the dq array from bad pixel table</dd>
-<dt>darkcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
-<dd>Subtract the dark image</dd>
-<dt>flatcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
-<dd>Multiply by the flatfield image</dd>
-<dt>shadcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
-<dd>Correct for shutter shading (CCD)</dd>
-<dt>photcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
-<dd>Update photometry keywords in the header</dd>
-<dt>verbose: bool, optional</dt>
-<dd>Print verbose time stamps?</dd>
-<dt>quiet: bool, optional</dt>
-<dd>Print messages only to trailer file?</dd>
 </dl>
+<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.</p>
+<blockquote>
+<div><p>In Python without TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf32d</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python with TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf32d&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Pyraf:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf32d</span>
+</pre></div>
+</div>
 </div></blockquote>
 </dd></dl>
 
@@ -194,7 +190,7 @@ see the WFC3 Data Handbook at <a class="reference external" href="http://www.sts
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2012, Megan Sosey.
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>

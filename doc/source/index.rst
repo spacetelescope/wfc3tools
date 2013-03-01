@@ -3,10 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to wfc3tools's documentation!
-=====================================
+    
 
-Modules for WFC3.
+Welcome to the wfc3tools package documentation!
+===============================================
+.. image:: images/wfc_logo.png
+    :align: right
+
+See the team website for more information:
 
 http://www.stsci.edu/hst/wfc3/
 
@@ -21,7 +25,8 @@ Contents:
    wf3ccd
    wf3ir
    wf3rej
-
+   Running Astrodriz <runastrodriz.rst>
+   Software History <history.rst>
 
 Indices and tables
 ==================

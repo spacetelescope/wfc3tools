@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>runastrodriz &mdash; wfc3tools 1.0 documentation</title>
+    <title>Running Astrodrizzle &mdash; wfc3tools 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" /> 
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="Software Update History" href="history.html" />
+    <link rel="prev" title="WF3REJ" href="wf3rej.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,6 +40,12 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="wf3rej.html" title="WF3REJ"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -47,26 +55,40 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="runastrodriz">
-<h1>runastrodriz<a class="headerlink" href="#runastrodriz" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-wfc3tools.runastrodriz"></span><dl class="docutils">
-<dt>runastrodriz.py - Module to control operation of astrodrizzle to</dt>
-<dd>remove distortion and combine HST images in the pipeline.</dd>
-</dl>
-<p>USAGE: runastrodriz.py [-fhibn] inputFilename [newpath]</p>
-<dl class="docutils">
-<dt>Alternative USAGE:</dt>
-<dd>python
-from wfc3tools import runastrodriz
-runastrodriz.process(inputFilename,force=False,newpath=None,inmemory=False)</dd>
-<dt>GUI Usage under Python:</dt>
-<dd>python
-from stsci.tools import teal
-import wfc3tools
-cfg = teal.teal(&#8216;runastrodriz&#8217;)</dd>
-<dt>PyRAF Usage:</dt>
-<dd>epar runastrodriz</dd>
-</dl>
+  <div class="section" id="running-astrodrizzle">
+<h1>Running Astrodrizzle<a class="headerlink" href="#running-astrodrizzle" title="Permalink to this headline">¶</a></h1>
+<p>runastrodriz is a module to control operation of astrodrizzle which removes distortion and combines HST images in the pipeline.</p>
+<div class="section" id="typical-usage">
+<h2>Typical Usage<a class="headerlink" href="#typical-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">runastrodriz</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">fhibn</span><span class="p">]</span> <span class="n">inputFilename</span> <span class="p">[</span><span class="n">newpath</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="alternative-usage">
+<h2>Alternative Usage<a class="headerlink" href="#alternative-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">runastrodriz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">runastrodriz</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">,</span><span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">newpath</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">inmemory</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="gui-usage-under-python">
+<h2>GUI Usage under Python<a class="headerlink" href="#gui-usage-under-python" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;runastrodriz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pyraf-usage">
+<h2>PyRAF Usage<a class="headerlink" href="#pyraf-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">runastrodriz</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <p>If the &#8216;-i&#8217; option gets specified, no intermediate products will be written out
 to disk. These products, instead, will be kept in memory. This includes all
 single drizzle products (<a href="#id1"><span class="problematic" id="id2">*</span></a>single_sci and <a href="#id3"><span class="problematic" id="id4">*</span></a>single_wht), median image,
@@ -88,13 +110,7 @@ performed in that directory/ramdisk.  The steps involved are:</p>
 for each input image.</p>
 <p>The &#8216;-n&#8217; option allows the user to specify the number of cores to be used in
 running AstroDrizzle.</p>
-<p><a href="#id5"><span class="problematic" id="id6">**</span></a>* INITIAL VERSION
-W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of</p>
-<blockquote>
-<div>STSDAS$pkg/hst_calib/wfc3/runwf3driz.py</div></blockquote>
-<p>W.J. Hack  27 Jun 2012: Implement support to process in different directory</p>
-<p>W.J. Hack  24 Aug 2012: Provided interface for in-memory option</p>
-<p>W.J. Hack  26 Nov 2012: Option to write out headerlets added and debugged</p>
+</div>
 </div>
 
 
@@ -103,6 +119,24 @@ W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Running Astrodrizzle</a><ul>
+<li><a class="reference internal" href="#typical-usage">Typical Usage</a></li>
+<li><a class="reference internal" href="#alternative-usage">Alternative Usage</a></li>
+<li><a class="reference internal" href="#gui-usage-under-python">GUI Usage under Python</a></li>
+<li><a class="reference internal" href="#pyraf-usage">PyRAF Usage</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="wf3rej.html"
+                        title="previous chapter">WF3REJ</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="next chapter">Software Update History</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/runastrodriz.txt"
@@ -134,11 +168,17 @@ W.J. Hack  12 Aug 2011: Initial version based on Version 1.2.0 of</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="wf3rej.html" title="WF3REJ"
+             >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2012, Megan Sosey.
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
