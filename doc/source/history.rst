@@ -1,11 +1,15 @@
 Software Update History
 -----------------------
 
-**Updates for Version 3.1.2 11-Feb-2013 - MLS**
+**Updates for  Version 3.1.3  26-Mar-2013 MLS:**
+    *Updated the postflash routine to apply the correct offset for all amps when a user specified subarray is used (no GO users are allowed to do this)
+    *Some unrelated files will change because I formatted the indentation to make the code easier to decipher
+
+**Updates for Version 3.1.2 11-Feb-2013 - MLS:**
     * Updated the bias subtraction to check for CCDAMP values of SINGLE_AMP and SINGLE_OR_ALL in the reference bias file image when a full frame reference file  and a  user specified subarray are used so that the correct overscan region is ignored
     * Removed check for TDFTRANS per team request, see #980, I'm keeping the same version as the previous change because I havent delivered it yet
 
-**Updates for Version 3.1.1 2-Jan-2013 - MLS**
+**Updates for Version 3.1.1 2-Jan-2013 - MLS:**
     * File I/O in acsrej updated to avoid problems with CFITSIO upcasting file permissions to read/write when not needed. This will allow the hstio code to remove logic that allowed the old code to work but caused problems for CADC when CFITSIO opened ref files in read/write mode because of that hstio logic. 
 
 **Updates for version 3.1 31-Dec-2012 MLS:**
