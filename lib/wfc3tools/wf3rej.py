@@ -47,8 +47,7 @@ except:
     teal = None
     
 __taskname__ = "wf3rej"
-__version__ = "1.0"
-__vdate__ = "03-Jan-2013"
+__vdate__ = "12-Jul-2013"
 
 def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     skysub="", crsigmas="", crradius=-1, crthresh=-1, 
@@ -133,7 +132,7 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
                 printf(options)
                 return ValueError
             else:
-                call_list.append(("-sky %s")%(skymode))
+                call_list.append(("-sky %s")%(skysub))
     
     if (crsigmas != ""):
         call_list.append(("-sigmas %s")%(crsigmas))
