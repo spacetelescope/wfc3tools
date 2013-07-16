@@ -45,7 +45,8 @@ try:
     from stsci.tools import teal
 except:
     teal = None
-    
+
+__version__ = "1.0"    
 __taskname__ = "wf3rej"
 __vdate__ = "12-Jul-2013"
 
