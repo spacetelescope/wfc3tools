@@ -2,18 +2,15 @@
 The wfc3tools module contains a function ``wf3rej`` that calls the wf3rej executable.
 Use this function to facilitate batch runs or for the TEAL interface.
 
-This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
+This routine contains the Cosmic Ray rejection and shading correction processing steps for  the WFC3 UVIS and IR data. These steps are:
 
-    * dqicorr - initializing the data quality array
-    * atodcorr - perform the a to d conversion correction
-    * blevcorr - subtract the bias level from the overscan region
-    * biascorr - subtract the bias image
-    * flshcorr - subtract the post-flash image
+    * crcorr - initializing the data quality array
     
 If blevcorr is performed the output contains the overcan-trimmed region.
   
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
+
 
 Examples
 --------
@@ -33,6 +30,26 @@ Examples
 
     >>> import wfc3tools
     >>> epar wf3rej
+    
+    From the OS command line prompt:
+    
+    >>> wf3rej.e input output [-options]
+    
+    Where the options include:
+        
+        * t: print the timestamps
+        * v: verbose
+        * shadcorr: perform shading shutter correction?
+        * crmask: flag CR in input DQ images?
+        * table <filename>: the crrejtab filename
+        * scale: scale factor for noise
+        * init <med|min>: initial value estimate scheme
+        * sky <none|median|mode>: how to compute sky
+        * sigmas: rejection leves for each iteration
+        * radius: CR expansion radius
+        * thresh: rejection propagation threshold
+        * pdq: data quality flag bits to reject
+
 
 """
 # STDLIB
@@ -46,7 +63,7 @@ try:
 except:
     teal = None
 
-__version__ = "1.0"    
+__version__ = "1.0"
 __taskname__ = "wf3rej"
 __vdate__ = "12-Jul-2013"
 
@@ -129,8 +146,8 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
         options=["none","mode","median"]
         for item in options:
             if item not in skysub:
-                printf(("Invalid skysub option: %s")%(skysub))
-                printf(options)
+                print(("Invalid skysub option: %s")%(skysub))
+                print(options)
                 return ValueError
             else:
                 call_list.append(("-sky %s")%(skysub))
@@ -141,20 +158,20 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     if (crradius >= 0.):
         call_list.append(("-radius %f")%(crradius))
     else:
-        printf("Invalid crradius specified")
+        print("Invalid crradius specified")
         return ValueError
     
     if (crthresh >= 0.):
         call_list.append(("-thresh %f")%(crthresh))
     else:
-        printf("Invalid crthresh specified")
+        print("Invalid crthresh specified")
         return ValueError
         
     if (badindq >= 0):
         call_list.append(("-pdq %d")%(badindq))
         
     else:
-        printf("Invalid DQ value specified")
+        print("Invalid DQ value specified")
         return ValueError
  
 
