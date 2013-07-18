@@ -10,9 +10,9 @@ Welcome to the wfc3tools package documentation!
 .. image:: images/wfc_logo.png
     :align: right
 
-See the team website for more information:
+See the team website for more information:  http://www.stsci.edu/hst/wfc3/
 
-http://www.stsci.edu/hst/wfc3/
+The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
 
 
 Contents:

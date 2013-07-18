@@ -20,12 +20,13 @@ The output images include the calibrated image ramp (ima file) and the accumulat
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
---------
+Example
+-------
+
     In Python without TEAL:
 
     >>> from wfc3tools import wf3ir
-    >>> calwf3.wf3ir(filename)
+    >>> wf3ir.wf3ir(filename)
 
     In Python with TEAL:
 
@@ -39,6 +40,9 @@ Examples
     >>> epar wf3ir
 
 """
+#get the auto update version for the call to teal help
+from .version import *
+
 # STDLIB
 import os.path
 import subprocess
@@ -51,46 +55,19 @@ except:
     teal = None
     
 __taskname__ = "wf3ir"
-__version__ = "1.0"
 __vdate__ = "03-Jan-2013"
 
-def wf3ir(input, output="", verbose=False, quiet=True ):
-    """
-    
-    Run the ``wf3ir.e`` executable as from the shell. For more information on CALWF3
-    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
+def wf3ir(input, output="", verbose=False, quiet=True ):    
+    """Run the ``wf3ir.e`` executable as from the shell."""
 
-
-    Parameters:
-    
-    
-        input : str
-            Name of input files
-
-                * a single filename (``iaa012wdq_raw.fits``)
-                * a Python list of filenames
-                * a partial filename with wildcards (``\*raw.fits``)
-                * filename of an ASN table (``\*asn.fits``)
-                * an at-file (``@input``) 
-
-        output: str
-            Name of the output FITS file.
-
-        verbose: bool, optional
-            Print verbose time stamps?
-
-        quiet: bool, optional
-            Print messages only to trailer file?
-
-  
-    """
     call_list = ['wf3ir.e']
 
     infiles, dummpy_out= parseinput.parseinput(input)
     call_list.append(','.join(infiles))
+    call_list += ["output",output]
     
     if verbose:
-        call_list.append('-v -t')
+        call_list += ['-v','-t']
         
     subprocess.call(call_list)
 

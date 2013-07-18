@@ -1,9 +1,9 @@
-Software Update History
------------------------
+Software Update History for HSTCAL.CALWF3
+-----------------------------------------
 
 **Updates for  Version 3.1.3  26-Mar-2013 MLS:**
-    *Updated the postflash routine to apply the correct offset for all amps when a user specified subarray is used (no GO users are allowed to do this)
-    *Some unrelated files will change because I formatted the indentation to make the code easier to decipher
+    * Updated the postflash routine to apply the correct offset for all amps when a user specified subarray is used (no GO users are allowed to do this)
+    * Some unrelated files will change because I formatted the indentation to make the code easier to decipher
 
 **Updates for Version 3.1.2 11-Feb-2013 - MLS:**
     * Updated the bias subtraction to check for CCDAMP values of SINGLE_AMP and SINGLE_OR_ALL in the reference bias file image when a full frame reference file  and a  user specified subarray are used so that the correct overscan region is ignored

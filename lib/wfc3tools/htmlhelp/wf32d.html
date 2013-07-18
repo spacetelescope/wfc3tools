@@ -28,7 +28,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
     <link rel="next" title="WF3CCD" href="wf3ccd.html" />
-    <link rel="prev" title="CALWFC3" href="calwf3.html" /> 
+    <link rel="prev" title="CALWF3" href="calwf3.html" /> 
   </head>
   <body>
     <div class="related">
@@ -44,7 +44,7 @@
           <a href="wf3ccd.html" title="WF3CCD"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWFC3"
+          <a href="calwf3.html" title="CALWF3"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -70,12 +70,12 @@ Use this function to facilitate batch runs or for the TEAL interface.</p>
 </dl>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf32d</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wf32d</span><span class="o">.</span><span class="n">wf32d</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Python with TEAL:</p>
@@ -91,9 +91,23 @@ will be set to COMPLETE in the corresponding output files.</p>
 </div>
 </div></blockquote>
 <dl class="function">
+<dt id="wfc3tools.wf32d.getHelpAsString">
+<tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">getHelpAsString</tt><big>(</big><em>docstring=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.getHelpAsString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns documentation on the &#8216;wf32d&#8217; function. Required by TEAL.</p>
+<p>return useful help from a file in the script directory called
+__taskname__.help</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wfc3tools.wf32d.run">
+<tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">run</tt><big>(</big><em>configobj=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>TEAL interface for the <tt class="docutils literal"><span class="pre">wf32d</span></tt> function.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="wfc3tools.wf32d.wf32d">
 <tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">wf32d</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>dqicorr='PERFORM'</em>, <em>darkcorr='PERFORM'</em>, <em>flatcorr='PERFORM'</em>, <em>shadcorr='PERFORM'</em>, <em>photcorr='PERFORM'</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.wf32d" title="Permalink to this definition">¶</a></dt>
-<dd><p>wf32d Version 1.0  updated on  03-Jan-2013</p>
+<dd><p>wf32d Version 1.1.2.dev25802  updated on  03-Jan-2013</p>
 <p>Use this function to facilitate batch runs or for the TEAL interface.</p>
 <dl class="docutils">
 <dt>The wf32d primary functions include:</dt>
@@ -124,6 +138,53 @@ will be set to COMPLETE in the corresponding output files.</p>
 </pre></div>
 </div>
 </div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first">Name of input files</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
+<li>a Python list of filenames</li>
+<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
+<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
+<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>output: str</dt>
+<dd>Name of the output FITS file.</dd>
+<dt>dqicorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Update the dq array from bad pixel table</dd>
+<dt>darkcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Subtract the dark image</dd>
+<dt>flatcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Multiply by the flatfield image</dd>
+<dt>shadcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Correct for shutter shading (CCD)</dd>
+<dt>photcorr: str, &#8220;PERFORM/OMIT&#8221;, optional</dt>
+<dd>Update photometry keywords in the header</dd>
+<dt>verbose: bool, optional</dt>
+<dd>Print verbose time stamps?</dd>
+<dt>quiet: bool, optional</dt>
+<dd>Print messages only to trailer file?</dd>
+</dl>
+</div></blockquote>
+<p><strong>The wf32d function can also be called directly from the OS command line:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32d</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Where the OS options include:</p>
+<ul class="simple">
+<li>-v: verbose</li>
+<li>-f: print time stamps</li>
+<li>-d: debug</li>
+<li>-dark: perform dark subtraction</li>
+<li>-dqi: update the DQ array</li>
+<li>-flat: perform flat correction</li>
+<li>-shad: perform shading correction</li>
+<li>-phot: perform phot correction</li>
+</ul>
 </dd></dl>
 
 </div>
@@ -135,17 +196,20 @@ will be set to COMPLETE in the corresponding output files.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">WF32D</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="calwf3.html"
-                        title="previous chapter">CALWFC3</a></p>
+                        title="previous chapter">CALWF3</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="wf3ccd.html"
                         title="next chapter">WF3CCD</a></p>
@@ -184,7 +248,7 @@ will be set to COMPLETE in the corresponding output files.</p>
           <a href="wf3ccd.html" title="WF3CCD"
              >next</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWFC3"
+          <a href="calwf3.html" title="CALWF3"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>

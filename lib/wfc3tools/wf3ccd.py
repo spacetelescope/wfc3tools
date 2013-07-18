@@ -15,13 +15,13 @@ If blevcorr is performed the output contains the overcan-trimmed region.
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
---------
+Example
+-------
 
     In Python without TEAL:
 
     >>> from wfc3tools import wf3ccd
-    >>> calwf3.wf3ccd(filename)
+    >>> wf3ccd.wf3ccd(filename)
 
     In Python with TEAL:
 
@@ -35,6 +35,9 @@ Examples
     >>> epar wf3ccd
 
 """
+#get the auto update version for the call to teal help
+from .version import *
+
 # STDLIB
 import os.path
 import subprocess
@@ -47,63 +50,21 @@ except:
     teal = None
     
 __taskname__ = "wf3ccd"
-__version__ = "1.0"
 __vdate__ = "03-Jan-2013"
 
 def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PERFORM",
         biascorr="PERFORM", flashcorr="PERFORM", verbose=False, quiet=True ):
-    """
     
-    Run the ``wf3ccd.e`` executable as from the shell. For more information on CALWF3
-    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
+    """Run the ``wf3ccd.e`` executable as from the shell. For more information on CALWF3 """
 
-
-    Parameters:
-
-        input : str
-            Name of input files
-
-                * a single filename (``iaa012wdq_raw.fits``)
-                * a Python list of filenames
-                * a partial filename with wildcards (``\*raw.fits``)
-                * filename of an ASN table (``\*asn.fits``)
-                * an at-file (``@input``) 
-
-        output: str
-            Name of the output FITS file.
-
-        dqicorr: str, "PERFORM/OMIT", optional
-            Update the dq array from bad pixel table
-
-        atodcorr: str, "PERFORM/OMIT", optional
-            Analog to digital correction
-
-        blevcorr: str, "PERFORM/OMIT", optional
-            Subtract bias from overscan regions
-
-        biascorr: str, "PERFORM/OMIT", optional
-            Subtract bias image
-
-        flashcorr: str, "PERFORM/OMIT", optional
-            Subtract post-flash image
-
-        verbose: bool, optional
-            Print verbose time stamps?
-
-        quiet: bool, optional
-            Print messages only to trailer file?
-        
-  
-    """
     call_list = ['wf3ccd.e']
 
     infiles, dummpy_out= parseinput.parseinput(input)
     call_list.append(','.join(infiles))
+    call_list += ["output",output]
     
     if verbose:
-        call_list.append('-v -t')
-
- 
+        call_list += ['-v','-t']
         
     if (dqicorr == "PERFORM"):
         call_list.append('-dqi')

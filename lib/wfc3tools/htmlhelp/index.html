@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="#" />
-    <link rel="next" title="CALWFC3" href="calwf3.html" /> 
+    <link rel="next" title="CALWF3" href="calwf3.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,7 +40,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWFC3"
+          <a href="calwf3.html" title="CALWF3"
              accesskey="N">next</a> |</li>
         <li><a href="#">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -54,40 +54,33 @@
   <div class="section" id="welcome-to-the-wfc3tools-package-documentation">
 <h1>Welcome to the wfc3tools package documentation!<a class="headerlink" href="#welcome-to-the-wfc3tools-package-documentation" title="Permalink to this headline">¶</a></h1>
 <img alt="_images/wfc_logo.png" class="align-right" src="_images/wfc_logo.png" />
-<p>See the team website for more information:</p>
-<p><a class="reference external" href="http://www.stsci.edu/hst/wfc3/">http://www.stsci.edu/hst/wfc3/</a></p>
+<p>See the team website for more information:  <a class="reference external" href="http://www.stsci.edu/hst/wfc3/">http://www.stsci.edu/hst/wfc3/</a></p>
+<p>The current WFC3 Data Handbook can be found at  <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a> .</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="calwf3.html">CALWFC3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calwf3.html">CALWF3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calwf3.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calwf3.html#parameters">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calwf3.html#running-calwf3">Running calwf3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calwf3.html#where-to-find-calwf3">Where to Find calwf3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#command-line-options">Command Line Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#batch-calwf3">Batch calwf3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#unit-conversion-to-electrons">Unit Conversion to Electrons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#dark-current-subtraction-darkcorr">Dark Current Subtraction (DARKCORR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#post-flash-correction-flshcorr">Post-Flash Correction (FLSHCORR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#flatcorr">FLATCORR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#photometry-keywords-photcorr">Photometry Keywords (PHOTCORR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calwf3.html#calwf3-output">calwf3 Output</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wf32d.html">WF32D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="wf32d.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf32d.html#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">WF3CCD</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="wf3ccd.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf3ccd.html#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wf3ir.html">WF3IR</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="wf3ir.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf3ir.html#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wf3rej.html">WF3REJ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="wf3rej.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf3rej.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf3rej.html#parameters">Parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="runastrodriz.html">Running Astrodriz</a><ul>
@@ -117,6 +110,9 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to the wfc3tools package documentation!</a><ul>
@@ -127,7 +123,7 @@
 
   <h4>Next topic</h4>
   <p class="topless"><a href="calwf3.html"
-                        title="next chapter">CALWFC3</a></p>
+                        title="next chapter">CALWF3</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -160,7 +156,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWFC3"
+          <a href="calwf3.html" title="CALWF3"
              >next</a> |</li>
         <li><a href="#">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
