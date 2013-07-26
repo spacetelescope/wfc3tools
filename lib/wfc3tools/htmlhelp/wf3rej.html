@@ -57,27 +57,18 @@
             
   <div class="section" id="module-wfc3tools.wf3rej">
 <span id="wf3rej"></span><h1>WF3REJ<a class="headerlink" href="#module-wfc3tools.wf3rej" title="Permalink to this headline">¶</a></h1>
-<p>The wfc3tools module contains a function <tt class="docutils literal"><span class="pre">wf3rej</span></tt> that calls the wf3rej executable.
-Use this function to facilitate batch runs or for the TEAL interface.</p>
-<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
-<blockquote>
-<div><ul class="simple">
-<li>dqicorr - initializing the data quality array</li>
-<li>atodcorr - perform the a to d conversion correction</li>
-<li>blevcorr - subtract the bias level from the overscan region</li>
-<li>biascorr - subtract the bias image</li>
-<li>flshcorr - subtract the post-flash image</li>
+<p>This routine contains the Cosmic Ray rejection and shading correction processing steps for  the WFC3 UVIS and IR data. These steps are:</p>
+<ul class="simple">
+<li>crcorr - initializing the data quality array</li>
 </ul>
-</div></blockquote>
 <p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>In Python without TEAL:</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Python with TEAL:</p>
@@ -91,28 +82,54 @@ will be set to COMPLETE in the corresponding output files.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3rej</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>input : str, Name of input files</p>
+<blockquote>
+<div><ul class="simple">
+<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
+<li>a Python list of filenames</li>
+<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
+<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
+<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+</ul>
 </div></blockquote>
+<p>output : str, Name of the output FITS file.</p>
+<p>crrejtab : string, reference file name</p>
+<p>scalense :   string, scale factor applied to noise</p>
+<p>initgues :   string, intial value estimate scheme (min|med)</p>
+<p>skysub :     string, how to compute the sky (none|mode|mean)</p>
+<p>crsigmas :   string, rejection levels in each iteration</p>
+<p>crradius :   float, cosmic ray expansion radius in pixels</p>
+<p>crthresh :   float, rejection propagation threshold</p>
+<p>badinpdq :   int, data quality flag bits to reject</p>
+<p>crmask :     bool, flag CR in input DQ imageS?</p>
+<p>shadcorr :   bool, perform shading shutter correction?</p>
+<p>verbose : bool, optional,  Print verbose time stamps?</p>
+<dl class="function">
+<dt id="wfc3tools.wf3rej.getHelpAsString">
+<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">getHelpAsString</tt><big>(</big><em>docstring=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.getHelpAsString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns documentation on the &#8216;wf3rej&#8217; function. Required by TEAL.</p>
+<p>return useful help from a file in the script directory called
+__taskname__.help</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wfc3tools.wf3rej.run">
+<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">run</tt><big>(</big><em>configobj=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>TEAL interface for the <tt class="docutils literal"><span class="pre">wf3rej</span></tt> function.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="wfc3tools.wf3rej.wf3rej">
-<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">wf3rej</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>crrejtab=''</em>, <em>scalense=''</em>, <em>initgues=''</em>, <em>skysub=''</em>, <em>crsigmas=''</em>, <em>crradius=-1</em>, <em>crthresh=-1</em>, <em>badinpdq=-1</em>, <em>crmask=False</em>, <em>shadcorr=False</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.wf3rej" title="Permalink to this definition">¶</a></dt>
-<dd><p>wf3rej Version 1.0  updated on  03-Jan-2013</p>
-<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
-<blockquote>
-<div><ul class="simple">
-<li>dqicorr - initializing the data quality array</li>
-<li>atodcorr - perform the a to d conversion correction</li>
-<li>blevcorr - subtract the bias level from the overscan region</li>
-<li>biascorr - subtract the bias image</li>
-<li>flshcorr - subtract the post-flash image</li>
-</ul>
-</div></blockquote>
-<p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
-<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
-will be set to COMPLETE in the corresponding output files.</p>
-<blockquote>
-<div><p>In Python without TEAL:</p>
+<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">wf3rej</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>crrejtab=''</em>, <em>scalense=''</em>, <em>initgues=''</em>, <em>skysub=''</em>, <em>crsigmas=''</em>, <em>crradius=0</em>, <em>crthresh=0</em>, <em>badinpdq=0</em>, <em>crmask=False</em>, <em>shadcorr=False</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.wf3rej" title="Permalink to this definition">¶</a></dt>
+<dd><p>wf3rej Version 1.1.2.dev25802  updated on  12-Jul-2013</p>
+<p>This calls the wf3rej executable.
+Use this function to facilitate batch runs or for the TEAL interface.</p>
+<p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Python with TEAL:</p>
@@ -126,7 +143,47 @@ will be set to COMPLETE in the corresponding output files.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3rej</span>
 </pre></div>
 </div>
+<p>input : str, Name of input files</p>
+<blockquote>
+<div><ul class="simple">
+<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
+<li>a Python list of filenames</li>
+<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
+<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
+<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+</ul>
 </div></blockquote>
+<p>output : str, Name of the output FITS file.</p>
+<p>crrejtab : string, reference file name</p>
+<p>scalense :   string, scale factor applied to noise</p>
+<p>initgues :   string, intial value estimate scheme (min|med)</p>
+<p>skysub :     string, how to compute the sky (none|mode|mean)</p>
+<p>crsigmas :   string, rejection levels in each iteration</p>
+<p>crradius :   float, cosmic ray expansion radius in pixels</p>
+<p>crthresh :   float, rejection propagation threshold</p>
+<p>badinpdq :   int, data quality flag bits to reject</p>
+<p>crmask :     bool, flag CR in input DQ imageS?</p>
+<p>shadcorr :   bool, perform shading shutter correction?</p>
+<p>verbose : bool, optional,  Print verbose time stamps?</p>
+<p><strong>The wf3rej executable can also be called directly from the OS command line prompt:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Where the OS options include:</p>
+<ul class="simple">
+<li>t: print the timestamps</li>
+<li>v: verbose</li>
+<li>shadcorr: perform shading shutter correction?</li>
+<li>crmask: flag CR in input DQ images?</li>
+<li>table &lt;filename&gt;: the crrejtab filename</li>
+<li>scale &lt;number&gt;: scale factor for noise</li>
+<li>init &lt;med|min&gt;: initial value estimate scheme</li>
+<li>sky &lt;none|median|mode&gt;: how to compute sky</li>
+<li>sigmas: rejection leves for each iteration</li>
+<li>radius &lt;number&gt;: CR expansion radius</li>
+<li>thresh &lt;number&gt; : rejection propagation threshold</li>
+<li>pdq &lt;number&gt;: data quality flag bits to reject</li>
+</ul>
 </dd></dl>
 
 </div>
@@ -138,10 +195,14 @@ will be set to COMPLETE in the corresponding output files.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">WF3REJ</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
 </ul>
 </li>
 </ul>

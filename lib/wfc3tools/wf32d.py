@@ -11,13 +11,13 @@ The wf32d primary functions include:
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
---------
+Example
+-------
 
     In Python without TEAL:
 
     >>> from wfc3tools import wf32d
-    >>> calwf3.wf32d(filename)
+    >>> wf32d.wf32d(filename)
 
     In Python with TEAL:
 
@@ -31,6 +31,9 @@ Examples
     >>> epar wf32d
 
 """
+#get the auto update version for the call to teal help
+from .version import *
+
 # STDLIB
 import os.path
 import subprocess
@@ -43,62 +46,21 @@ except:
     teal = None
     
 __taskname__ = "wf32d"
-__version__ = "1.0"
 __vdate__ = "03-Jan-2013"
 
 def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",flatcorr="PERFORM",
         shadcorr="PERFORM", photcorr="PERFORM", verbose=False, quiet=True ):
     """
     
-    Run the ``wf32d.e`` executable as from the shell. For more information on CALWF3
-    see the WFC3 Data Handbook at http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/
-    
-
-    Parameters:
-    
-        input : str
-            Name of input files
-
-                * a single filename (``iaa012wdq_raw.fits``)
-                * a Python list of filenames
-                * a partial filename with wildcards (``\*raw.fits``)
-                * filename of an ASN table (``\*asn.fits``)
-                * an at-file (``@input``) 
-
-        output: str
-            Name of the output FITS file.
-
-        dqicorr: str, "PERFORM/OMIT", optional
-            Update the dq array from bad pixel table
-
-        darkcorr: str, "PERFORM/OMIT", optional
-            Subtract the dark image
-
-        flatcorr: str, "PERFORM/OMIT", optional
-            Multiply by the flatfield image
-
-        shadcorr: str, "PERFORM/OMIT", optional
-            Correct for shutter shading (CCD)
-
-        photcorr: str, "PERFORM/OMIT", optional
-            Update photometry keywords in the header
-
-        verbose: bool, optional
-            Print verbose time stamps?
-
-        quiet: bool, optional
-            Print messages only to trailer file?
-        
-  
-    """
+    Run the ``wf32d.e`` executable as from the shell. For more information on CALWF3"""
     call_list = ['wf32d.e']
 
     infiles, dummpy_out= parseinput.parseinput(input)
     call_list.append(','.join(infiles))
-    
+    call_list += ["output",output]
+        
     if verbose:
-        call_list.append('-v -t')
-
+        call_list += ['-v','-t']
  
     if debug:
         call_list.append('-d')

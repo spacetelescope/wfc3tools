@@ -39,7 +39,7 @@ Options
 
 If the '-i' option gets specified, no intermediate products will be written out
 to disk. These products, instead, will be kept in memory. This includes all
-single drizzle products (*single_sci and *single_wht), median image,
+single drizzle products (*single_sci* and *single_wht*), median image,
 blot images, and crmask images.  The use of this option will therefore require
 significantly more memory than usual to process the data.
 

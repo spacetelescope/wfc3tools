@@ -34,57 +34,6 @@ command line (e.g. ``*raw.fits`` to process all raw files in the current directo
 The ``wf3ccd``, ``wf32d``, and ``wf3ir`` tasks on the other hand, will accept such user-defined input file lists, 
 but they will not accept an association table( asn ) as input.
 
-
-Where to Find calwf3
---------------------
-
-``calwf3`` is now part of HSTCAL package, which can be downloaded from
-http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
-
-
-Usage
------
-
-From the command line::
-
-   calwf3.e iaa001kaq_raw.fits [command line options]
-
-
-Command Line Options
---------------------
-
-``calwf3`` supports several command line options:
-
-* -t
-
-  * Print verbose time stamps.
-  
-* -s
-
-  * Save temporary files.
-  
-* -v
-
-  * Turn on verbose output.
-  
-* -d
-
-  * Turn on debug output.
-  
-* -q
-
-  * Turn on quiet output.
-  
-* -r
-   
-  * Print the current software version number (revision)
-
-* --version
-
-  * Print the current software version
-
-
-
 Batch calwf3
 ------------
 
@@ -99,8 +48,41 @@ For example::
 
     for fits in glob.glob('j*_raw.fits'):
         calwf3.calwf3(fits)
-   
 
+
+Where to Find calwf3
+--------------------
+
+``calwf3`` is now part of HSTCAL package, which can be downloaded from
+http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
+
+
+Usage
+-----
+
+**The calwf3 executable can also be called directly from the command line:**
+
+>>> calwf3.e iaa001kaq_raw.fits [command line options]
+
+
+Command Line Options
+--------------------
+
+``calwf3`` supports several command line options:
+
+* -t: Print verbose time stamps.
+  
+* -s: Save temporary files.
+  
+* -v: Turn on verbose output.
+  
+* -d: Turn on debug output.
+  
+* -q: Turn on quiet output.
+  
+* -r: Print the current software version number (revision)
+
+* --version: Print the current software version
 
 
 Unit Conversion to Electrons
