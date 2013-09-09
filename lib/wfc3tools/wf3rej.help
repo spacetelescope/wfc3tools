@@ -61,6 +61,8 @@ verbose : bool, optional,  Print verbose time stamps?
 
 >>> wf3rej.e input output [-options]
 
+Input can be a single file, or a comma-delimited list of files.
+
 Where the OS options include:
 
 * t: print the timestamps
