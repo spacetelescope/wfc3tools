@@ -26,6 +26,7 @@ Contents:
    wf3ir
    wf3rej
    Running Astrodriz <runastrodriz.rst>
+   sampinfo <sampinfo.rst>
    Software History <history.rst>
 
 Indices and tables

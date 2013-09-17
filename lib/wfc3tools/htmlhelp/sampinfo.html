@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sampinfo &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="Software Update History for HSTCAL.CALWF3" href="history.html" />
+    <link rel="prev" title="Running Astrodrizzle" href="runastrodriz.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sampinfo">
+<h1>sampinfo<a class="headerlink" href="#sampinfo" title="Permalink to this headline">¶</a></h1>
+<p>Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).
+The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the total number of image extensions in the file (NEXTEND)</li>
+<li>the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)</li>
+<li>the  total number of samples, including the  &#8220;zeroth&#8221;  read  (NSAMP)</li>
+<li>the total  exposure  time of the observation (EXPTIME).</li>
+</ul>
+</div></blockquote>
+<p>Information that is listed for each sample is the IMSET number (EXTVER),  the  sample number  (SAMPNUM),  the  sample time, which is the total accumulated exposure time for a sample (SAMPTIME),
+and the delta time, which  is the  additional  exposure time accumulated since the previous sample (DELTATIM).</p>
+<p>Note that the samples of a MultiAccum exposure  are  stored  in  the FITS  file  in  reverse  time  order. The initial, or &#8220;zeroth&#8221; read, appears  last  in  the  FITS  file,
+with  IMSET=NSAMP,   SAMPNUM=0, SAMPTIME=0,  and  DELTATIM=0. The final read of the exposure appears first in the file  and  has  IMSET=1,  SAMPNUM=NSAMP-1  (SAMPNUM  is zero-indexed), and SAMPTIME=EXPTIME.</p>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>This version will accept a single image name or a python list of images. The list of images should be a python style list, such as:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s">&quot;image1.fits&quot;</span><span class="p">,</span><span class="s">&quot;image2.fits&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>add_keys=list(): You can also supply a supplimental list of keywords to print for each sample, if the key isn&#8217;t found in the sample the global header will be checked.If a key is not found the &#8220;NA&#8221; string will be printed.
+Additionally you can ask for the median or mean of the datavalues for each sample  using the appropriate switch.</p>
+<p>median=False: Set to True in order to report the median pixel value for each sample</p>
+<p>mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)</p>
+</div>
+<div class="section" id="usage">
+<h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Typical:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">sampinfo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Where imagename can be a single filename or a python list() of names</p>
+<dl class="docutils">
+<dt>To get the median value for each sample:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">median</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>To print additional keys for information:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span><span class="n">add_keys</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;DETECTOR&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+<dt>To get the average balue for each sample:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
+<p>Default output:</p>
+<div class="highlight-python"><pre>In [3]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits')
+IMAGE                       NEXTEND SAMP_SEQ        NSAMP   EXPTIME
+ibcf02faq_raw.fits  80      STEP50          16      499.234009
+
+IMSET       SAMPNUM SAMPTIME        DELTATIM
+1   15      499.234009      50.000412
+2   14      449.233582      50.000412
+3   13      399.233154      50.000412
+4   12      349.232727      50.000412
+5   11      299.2323        50.000412
+6   10      249.231873      50.000412
+7   9       199.231461      50.000412
+8   8       149.231049      50.000412
+9   7       99.230637       50.000412
+10  6       49.230225       25.000511
+11  5       24.229715       12.500551
+12  4       11.729164       2.932291
+13  3       8.796873        2.932291
+14  2       5.864582        2.932291
+15  1       2.932291        2.932291
+16  0       0.0     0.0</pre>
+</div>
+<p>with median=True:</p>
+<div class="highlight-python"><pre>In [4]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits',median=True)
+IMAGE                       NEXTEND SAMP_SEQ        NSAMP   EXPTIME
+ibcf02faq_raw.fits  80      STEP50          16      499.234009
+
+IMSET       SAMPNUM SAMPTIME        DELTATIM
+1   15      499.234009      50.000412       MedPixel: 11384.0
+2   14      449.233582      50.000412       MedPixel: 11360.0
+3   13      399.233154      50.000412       MedPixel: 11335.0
+4   12      349.232727      50.000412       MedPixel: 11309.0
+5   11      299.2323        50.000412       MedPixel: 11283.0
+6   10      249.231873      50.000412       MedPixel: 11256.0
+7   9       199.231461      50.000412       MedPixel: 11228.0
+8   8       149.231049      50.000412       MedPixel: 11198.0
+9   7       99.230637       50.000412       MedPixel: 11166.0
+10  6       49.230225       25.000511       MedPixel: 11131.0
+11  5       24.229715       12.500551       MedPixel: 11111.0
+12  4       11.729164       2.932291        MedPixel: 11099.0
+13  3       8.796873        2.932291        MedPixel: 11097.0
+14  2       5.864582        2.932291        MedPixel: 11093.0
+15  1       2.932291        2.932291        MedPixel: 11090.0
+16  0       0.0     0.0     MedPixel: 11087.0</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">sampinfo</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#usage">USAGE</a></li>
+<li><a class="reference internal" href="#example-output">Example Output</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="runastrodriz.html"
+                        title="previous chapter">Running Astrodrizzle</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="next chapter">Software Update History for HSTCAL.CALWF3</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sampinfo.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
+             >previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
