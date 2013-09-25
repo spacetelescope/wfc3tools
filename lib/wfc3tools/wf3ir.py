@@ -21,7 +21,7 @@ Only those steps with a switch value of PERFORM in the input files will be execu
 will be set to COMPLETE in the corresponding output files.
 
 Example
--------
+
 
     In Python without TEAL:
 

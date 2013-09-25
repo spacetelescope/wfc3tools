@@ -10,7 +10,7 @@ will be set to COMPLETE in the corresponding output files.
 
 
 Example
--------
+
 
 In Python without TEAL:
 
@@ -29,7 +29,7 @@ In Pyraf:
 >>> epar wf3rej
 
 Parameters
-----------
+
 
 input : str, Name of input files
 

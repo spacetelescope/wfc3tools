@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
-    <link rel="next" title="Software Update History for HSTCAL.CALWF3" href="history.html" />
+    <link rel="next" title="pstat" href="pstat.html" />
     <link rel="prev" title="Running Astrodrizzle" href="runastrodriz.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+          <a href="pstat.html" title="pstat"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="runastrodriz.html" title="Running Astrodrizzle"
@@ -59,14 +59,12 @@
 <h1>sampinfo<a class="headerlink" href="#sampinfo" title="Permalink to this headline">¶</a></h1>
 <p>Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>the total number of image extensions in the file (NEXTEND)</li>
 <li>the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)</li>
 <li>the  total number of samples, including the  &#8220;zeroth&#8221;  read  (NSAMP)</li>
 <li>the total  exposure  time of the observation (EXPTIME).</li>
 </ul>
-</div></blockquote>
 <p>Information that is listed for each sample is the IMSET number (EXTVER),  the  sample number  (SAMPNUM),  the  sample time, which is the total accumulated exposure time for a sample (SAMPTIME),
 and the delta time, which  is the  additional  exposure time accumulated since the previous sample (DELTATIM).</p>
 <p>Note that the samples of a MultiAccum exposure  are  stored  in  the FITS  file  in  reverse  time  order. The initial, or &#8220;zeroth&#8221; read, appears  last  in  the  FITS  file,
@@ -86,7 +84,7 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 <p>mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)</p>
 </div>
 <div class="section" id="usage">
-<h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Typical:</dt>
 <dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
@@ -179,7 +177,7 @@ IMSET       SAMPNUM SAMPTIME        DELTATIM
   <ul>
 <li><a class="reference internal" href="#">sampinfo</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
-<li><a class="reference internal" href="#usage">USAGE</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#example-output">Example Output</a></li>
 </ul>
 </li>
@@ -189,8 +187,8 @@ IMSET       SAMPNUM SAMPTIME        DELTATIM
   <p class="topless"><a href="runastrodriz.html"
                         title="previous chapter">Running Astrodrizzle</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="history.html"
-                        title="next chapter">Software Update History for HSTCAL.CALWF3</a></p>
+  <p class="topless"><a href="pstat.html"
+                        title="next chapter">pstat</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/sampinfo.txt"
@@ -223,7 +221,7 @@ IMSET       SAMPNUM SAMPTIME        DELTATIM
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+          <a href="pstat.html" title="pstat"
              >next</a> |</li>
         <li class="right" >
           <a href="runastrodriz.html" title="Running Astrodrizzle"

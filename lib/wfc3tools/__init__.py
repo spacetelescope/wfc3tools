@@ -16,6 +16,8 @@ import wf3ir
 import wf3rej
 import runastrodriz
 import sampinfo
+import pstack
+import pstat
 
 # These lines allow TEAL to print out the names of TEAL-enabled tasks
 # upon importing this package.

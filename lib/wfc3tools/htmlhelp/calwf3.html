@@ -58,8 +58,7 @@
   <div class="section" id="module-wfc3tools.calwf3">
 <span id="calwf3"></span><h1>CALWF3<a class="headerlink" href="#module-wfc3tools.calwf3" title="Permalink to this headline">¶</a></h1>
 <p>CALWF3 calibrates UVIS and IR images for WFC3</p>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Example</p>
 <blockquote>
 <div><p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
@@ -78,9 +77,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>Parameters</p>
 <dl class="docutils">
 <dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd>Name of input file.</dd>
@@ -94,18 +91,14 @@
 <dd>Set to True to turn on debugging output.</dd>
 </dl>
 <p>If you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
-</div>
-<div class="section" id="running-calwf3">
-<h2>Running calwf3<a class="headerlink" href="#running-calwf3" title="Permalink to this headline">¶</a></h2>
+<p>Running calwf3:</p>
 <p><tt class="docutils literal"><span class="pre">calwf3</span></tt> can be run on a single input raw file or an asn table listing the members of an associtaion. 
 When processing an association, it retrieves calibration switch and reference file keyword settings from 
 the first image listed in the asn table. <tt class="docutils literal"><span class="pre">calwf3</span></tt> does not accept a user-defined list of input images on the 
 command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</span></tt> to process all raw files in the current directory).</p>
 <p>The <tt class="docutils literal"><span class="pre">wf3ccd</span></tt>, <tt class="docutils literal"><span class="pre">wf32d</span></tt>, and <tt class="docutils literal"><span class="pre">wf3ir</span></tt> tasks on the other hand, will accept such user-defined input file lists, 
 but they will not accept an association table( asn ) as input.</p>
-</div>
-<div class="section" id="where-to-find-calwf3">
-<h2>Where to Find calwf3<a class="headerlink" href="#where-to-find-calwf3" title="Permalink to this headline">¶</a></h2>
+<p>Where to Find calwf3:</p>
 <p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is now part of HSTCAL package, which can be downloaded from
 <a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a></p>
 <dl class="function">
@@ -210,7 +203,6 @@ __taskname__.help</p>
 </dd></dl>
 
 </div>
-</div>
 
 
           </div>
@@ -221,17 +213,6 @@ __taskname__.help</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">CALWF3</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
-<li><a class="reference internal" href="#running-calwf3">Running calwf3</a></li>
-<li><a class="reference internal" href="#where-to-find-calwf3">Where to Find calwf3</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to the wfc3tools package documentation!</a></p>

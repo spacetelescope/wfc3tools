@@ -2,22 +2,19 @@
 from __future__ import division # confidence high
 
 """ 
-============
+
 runastrodriz
-============
+
 
 runastrodriz is a module to control operation of astrodrizzle which removes distortion and combines HST images in the pipeline.
 
 USAGE: 
-------
 
-Typical:
-~~~~~~~~
 
     runastrodriz.py [-fhibn] inputFilename [newpath]
 
 Alternative USAGE:
-~~~~~~~~~~~~~~~~~~
+
 
     python
     from wfc3tools import runastrodriz
@@ -25,7 +22,7 @@ Alternative USAGE:
 
 
 GUI Usage under Python:
-~~~~~~~~~~~~~~~~~~~~~~~
+
 
     python
     from stsci.tools import teal
@@ -33,7 +30,7 @@ GUI Usage under Python:
     cfg = teal.teal('runastrodriz')
 
 PyRAF Usage:
-~~~~~~~~~~~~
+
 
     epar runastrodriz
 

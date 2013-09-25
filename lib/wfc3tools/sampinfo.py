@@ -1,7 +1,7 @@
 """ 
-============
+
 sampinfo
-============
+
 
 Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).  
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:
@@ -18,7 +18,7 @@ with  IMSET=NSAMP,   SAMPNUM=0, SAMPTIME=0,  and  DELTATIM=0. The final read of 
 
 
 Options:
---------
+
 
 This version will accept a single image name or a python list of images. The list of images should be a python style list, such as:
     >>> ["image1.fits","image2.fits"]
@@ -32,9 +32,10 @@ mean=False: Set to True in order to report the mean pixel value for each sample 
 
 
 USAGE: 
-------
+
 
 Typical:
+
     >>> python
     >>> from wfc3tools import sampinfo
     >>> sampinfo.sampinfo(imagename)
@@ -42,15 +43,16 @@ Typical:
 Where imagename can be a single filename or a python list() of names
 
 To get the median value for each sample:
+
     >>> sampinfo.sampinfo(imagename, median=True)
 
 To print additional keys for information:
+
     >>> sampinfo.sampinfo(imagename,add_keys=["DETECTOR"])
 
-To get the average balue for each sample:
-    >>> sampinfo.sampinfo(imagename, mean=True)
+To get the average value for each sample:
 
-Example Output:
+    >>> sampinfo.sampinfo(imagename, mean=True)
     
 """
 from __future__ import print_function
@@ -65,7 +67,8 @@ import numpy as np
 
 #STSCI
 from stsci.tools import parseinput
-    
+from stsci.tools import teal
+        
 __taskname__ = "sampinfo"
 __vdate__="Sep-16-2013"
 
@@ -139,7 +142,6 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
             print(printline)
         current.close()
 
-
 def getHelpAsString(docstring=False):
     """
     Returns documentation on the 'sampinfo' function.
@@ -149,16 +151,22 @@ def getHelpAsString(docstring=False):
 
     """
 
-    install_dir = os.path.dirname(__file__)
+    install_dir = os.path.dirname(__file__)   
     helpfile = os.path.join(install_dir, __taskname__ + '.help')
-    if docstring or (not docstring ):
+    
+    if docstring or (not docstring):
         helpString = ' '.join([__taskname__, 'Version', __version__,
                                ' updated on ', __vdate__]) + '\n\n'
-        if os.path.exists(helpfile):
+    if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
-            
+        
     return helpString
         
+def help():
+    print(getHelpAsString(docstring=True))
+
+
     
 
 __doc__ = getHelpAsString(docstring=True)
+

@@ -4,10 +4,11 @@ sampinfo
 
 Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).  
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:
-    - the total number of image extensions in the file (NEXTEND)
-    - the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)
-    - the  total number of samples, including the  "zeroth"  read  (NSAMP)
-    - the total  exposure  time of the observation (EXPTIME). 
+
+* the total number of image extensions in the file (NEXTEND)
+* the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)
+* the  total number of samples, including the  "zeroth"  read  (NSAMP)
+* the total  exposure  time of the observation (EXPTIME). 
     
 Information that is listed for each sample is the IMSET number (EXTVER),  the  sample number  (SAMPNUM),  the  sample time, which is the total accumulated exposure time for a sample (SAMPTIME), 
 and the delta time, which  is the  additional  exposure time accumulated since the previous sample (DELTATIM).
@@ -30,7 +31,7 @@ median=False: Set to True in order to report the median pixel value for each sam
 mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)
 
 
-USAGE
+Usage
 -----
 
 Typical:

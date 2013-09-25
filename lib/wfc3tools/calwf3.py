@@ -2,7 +2,6 @@
 CALWF3 calibrates UVIS and IR images for WFC3
 
 Example
--------
 
     In Python without TEAL:
 
@@ -22,7 +21,7 @@ Example
 
 
 Parameters
-----------
+
 
 input : str
     Name of input file.
@@ -43,8 +42,7 @@ debug : bool, optional
 If you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu). 
 
 
-Running calwf3
---------------
+Running calwf3:
 
 ``calwf3`` can be run on a single input raw file or an asn table listing the members of an associtaion. 
 When processing an association, it retrieves calibration switch and reference file keyword settings from 
@@ -56,8 +54,7 @@ but they will not accept an association table( asn ) as input.
 
 
 
-Where to Find calwf3
---------------------
+Where to Find calwf3:
 
 ``calwf3`` is now part of HSTCAL package, which can be downloaded from
 http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
