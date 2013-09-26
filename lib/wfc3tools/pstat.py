@@ -65,7 +65,7 @@ Usage
 
     >>> python
     >>> from wfc3tools import pstat
-    >>> pstat.pstat(inputFilename, pixel=None)
+    >>> pstat.pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="")
 
 """
 
@@ -81,18 +81,32 @@ import os
 import pyfits
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import mode
+from scipy.stats import mode as mode
 
 #STSCI
 from stsci.tools import teal
 
 __taskname__ = "pstat"
-__vdate__ = "19-Sep-2013"
+__vdate__ = "26-Sep-2013"
 
 
 def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=None,ylabel=None):
     """A fucntion to plot the statistics of one or more pixels up the IR ramp  image
     Original implementation in the iraf nicmos package. Pixel values here are 0 based, not 1 based """
+    
+    
+    #pull the image extension from the filename string
+    section_start=filename.find("[")
+    all_pixels=False
+    if (section_start < 0):
+        all_pixels=True #just give the data to np
+        imagename=filename
+    elif (section_start > 0):
+        imagename=filename[:section_start]
+        if ( filename[section_start+1].isalpha()):
+            print(filename[section_start+1])
+            print("Please only specify a pixel range, not an extension in the filename")
+            return 0,0
     
     #check for a valid stat value
     valid_stats=["midpt","mean","mode","stddev","min","max"]
@@ -105,16 +119,6 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
         print("Invalid value given for extname: %s"%(valid_ext))
         return 0,0
         
-    #pull the image extension from the filename string
-    section_start=filename.find("[")
-    all_pixels=False
-    if (section_start < 0):
-        all_pixels=True #just give the data to np
-        
-    elif filename[section_start+1].isalpha():
-        print(filename[section_start+1])
-        print("Please only specify a pixel range, not an extension in the filename")
-        return 0,0
     
     #use the entire image if no section specified
     if not all_pixels:
@@ -130,27 +134,31 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
         try:
             xstart=int(xsec[: xs])
         except ValueError:
-            xstart=0
+            print("Problem getting xstart")
+            return
         try:
             xend=int(xsec[xs+1 :])
         except ValueError:
-            xend=0
+            print("Problem getting xend")
+            return
+            
         ys=ysec.find(":")
         if (ys < 0):
             print("Invalid image section specified")
             return 0,0
         try:
-            ystart=int(ysec[: ys])
+            ystart=int(ysec[:ys])
         except ValueError:
-            ystart=0
+            print("Problems getting ystart")
+            return
         try:
-            yend=int(ysec[ys :])
+            yend=int(ysec[ys+1:])
         except ValueError:
-            yend=0
+            print("Problem getting yend")
+            return
             
-
-    
-    with pyfits.open(filename) as myfile:
+        
+    with pyfits.open(imagename) as myfile:
         nsamp=myfile[0].header["NSAMP"]
         bunit=myfile[1].header["BUNIT"] #must look in a data header for units
         yaxis=np.zeros(nsamp)    
@@ -171,7 +179,7 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
                 yaxis[i-1]=np.mean(myfile[extname.upper(),i].data[xstart:xend,ystart:yend]) 
 
             if "mode" in stat:
-                yaxis[i-1]=mode(myfile[extname.upper(),i].data[xstart:xend,ystart:yend])       
+                yaxis[i-1]=mode(myfile[extname.upper(),i].data[xstart:xend,ystart:yend],axis=None)[0]       
 
             if "min" in stat:
                 yaxis[i-1]=np.min(myfile[extname.upper(),i].data[xstart:xend,ystart:yend])       
@@ -201,7 +209,6 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
                 ylabel=bunit+" per second"
         else:
             if "/" in bunit:
-                print("SLASH")
                 stop_index=bunit.find("/")
                 ylabel=bunit[:stop_index] 
             else:

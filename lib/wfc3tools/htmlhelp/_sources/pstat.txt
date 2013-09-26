@@ -64,6 +64,6 @@ Usage
 
     >>> python
     >>> from wfc3tools import pstat
-    >>> pstat.pstat(inputFilename, pixel=None)
+    >>> pstat.pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="" )
 
 
