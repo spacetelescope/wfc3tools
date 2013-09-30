@@ -81,7 +81,7 @@ with  IMSET=NSAMP,   SAMPNUM=0, SAMPTIME=0,  and  DELTATIM=0. The final read of 
 <p>add_keys=list(): You can also supply a supplimental list of keywords to print for each sample, if the key isn&#8217;t found in the sample the global header will be checked.If a key is not found the &#8220;NA&#8221; string will be printed.
 Additionally you can ask for the median or mean of the datavalues for each sample  using the appropriate switch.</p>
 <p>median=False: Set to True in order to report the median pixel value for each sample</p>
-<p>mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)</p>
+<p>mean=False: Set to True in order to report the mean pixel value for each sample (as measured with np.min and np.max)</p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>

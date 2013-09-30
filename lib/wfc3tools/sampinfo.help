@@ -4,10 +4,11 @@ sampinfo
 
 Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).  
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:
-    - the total number of image extensions in the file (NEXTEND)
-    - the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)
-    - the  total number of samples, including the  "zeroth"  read  (NSAMP)
-    - the total  exposure  time of the observation (EXPTIME). 
+
+* the total number of image extensions in the file (NEXTEND)
+* the name  of the  MultiAccum  exposure  sample  sequence  (SAMP_SEQ)
+* the  total number of samples, including the  "zeroth"  read  (NSAMP)
+* the total  exposure  time of the observation (EXPTIME). 
     
 Information that is listed for each sample is the IMSET number (EXTVER),  the  sample number  (SAMPNUM),  the  sample time, which is the total accumulated exposure time for a sample (SAMPTIME), 
 and the delta time, which  is the  additional  exposure time accumulated since the previous sample (DELTATIM).
@@ -23,15 +24,14 @@ This version will accept a single image name or a python list of images. The lis
     >>> ["image1.fits","image2.fits"]
 
 add_keys=list(): You can also supply a supplimental list of keywords to print for each sample, if the key isn't found in the sample the global header will be checked.If a key is not found the "NA" string will be printed. 
-
 Additionally you can ask for the median or mean of the datavalues for each sample  using the appropriate switch.
 
 median=False: Set to True in order to report the median pixel value for each sample
 
-mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)
+mean=False: Set to True in order to report the mean pixel value for each sample (as measured with np.min and np.max)
 
 
-USAGE
+Usage
 -----
 
 Typical:
@@ -47,7 +47,7 @@ To get the median value for each sample:
 To print additional keys for information:
     >>> sampinfo.sampinfo(imagename,add_keys=["DETECTOR"])
 
-To get the average value for each sample:
+To get the average balue for each sample:
     >>> sampinfo.sampinfo(imagename, mean=True)
 
 Example Output
@@ -55,6 +55,7 @@ Example Output
 
 Default output:
 
+::
 
     In [3]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits')
     IMAGE			NEXTEND	SAMP_SEQ	NSAMP	EXPTIME
@@ -80,6 +81,7 @@ Default output:
 
 with median=True:
 
+::
 
     In [4]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits',median=True)
     IMAGE			NEXTEND	SAMP_SEQ	NSAMP	EXPTIME

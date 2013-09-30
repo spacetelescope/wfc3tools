@@ -28,7 +28,7 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 
 median=False: Set to True in order to report the median pixel value for each sample
 
-mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)
+mean=False: Set to True in order to report the mean pixel value for each sample (as measured with np.min and np.max)
 
 
 Usage

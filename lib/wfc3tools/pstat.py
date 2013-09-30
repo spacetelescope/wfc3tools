@@ -56,7 +56,8 @@ Parameters
        default based on the plot units and the extname of the  data  is
        generated.
     
-
+    plot = True [bool]  set plot to false if you only want the data returned
+    
 Usage
 
 
@@ -90,7 +91,7 @@ __taskname__ = "pstat"
 __vdate__ = "26-Sep-2013"
 
 
-def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=None,ylabel=None):
+def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=None,ylabel=None,plot=True):
     """A fucntion to plot the statistics of one or more pixels up the IR ramp  image
     Original implementation in the iraf nicmos package. Pixel values here are 0 based, not 1 based """
     
@@ -200,34 +201,35 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
             if "counts" in units.lower() and "/" in bunit.lower():
                 yaxis[i-1] *= exptime
                 
-    plt.clf() #clear out any current plot
-    if not ylabel:
-        if "rate" in units.lower():
-            if "/" in bunit.lower():
-                ylabel=bunit 
+    if plot:            
+        plt.clf() #clear out any current plot
+        if not ylabel:
+            if "rate" in units.lower():
+                if "/" in bunit.lower():
+                    ylabel=bunit 
+                else:
+                    ylabel=bunit+" per second"
             else:
-                ylabel=bunit+" per second"
-        else:
-            if "/" in bunit:
-                stop_index=bunit.find("/")
-                ylabel=bunit[:stop_index] 
-            else:
-                ylabel=bunit
-    
-    ylabel += ("   %s"%(stat))   
-    plt.ylabel(ylabel)
+                if "/" in bunit:
+                    stop_index=bunit.find("/")
+                    ylabel=bunit[:stop_index] 
+                else:
+                    ylabel=bunit
 
-        
-        
-    if not xlabel:
-        plt.xlabel("Sample time (s)")
+        ylabel += ("   %s"%(stat))   
+        plt.ylabel(ylabel)
 
-    if not title:
-        title="%s   Pixel stats for [%d:%d,%d:%d]"%(filename,xstart,xend,ystart,yend)
-    plt.title(title)
 
-        
-    plt.plot(xaxis,yaxis,"+")
+
+        if not xlabel:
+            plt.xlabel("Sample time (s)")
+
+        if not title:
+            title="%s   Pixel stats for [%d:%d,%d:%d]"%(filename,xstart,xend,ystart,yend)
+        plt.title(title)
+
+
+        plt.plot(xaxis,yaxis,"+")
         
     return xaxis,yaxis
 

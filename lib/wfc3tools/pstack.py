@@ -56,6 +56,8 @@ Parameters
        default  based  on the plot units and the extname of the data is
        generated.
 
+    plot = True [bool]  set plot to false if you only want the data returned
+
 USAGE: 
 
 
@@ -82,7 +84,7 @@ __taskname__ = "pstack"
 __vdate__ = "06-Sep-2013"
 
 
-def pstack(filename,column=0,row=0,extname="sci",units="counts",title=None,xlabel=None,ylabel=None):
+def pstack(filename,column=0,row=0,extname="sci",units="counts",title=None,xlabel=None,ylabel=None,plot=True):
     """A fucntion to plot the statistics of one or more pixels up the IR ramp  image
     Original implementation in the iraf nicmos package. Pixel values here are 0 based, not 1 based """
 
@@ -135,26 +137,26 @@ def pstack(filename,column=0,row=0,extname="sci",units="counts",title=None,xlabe
                 ylabel=bunit[:stop_index]
             else:
                 ylabel=bunit
-                         
-    plt.clf() #clear out any current plot
-    plt.ylabel(ylabel)
+    if plot:                     
+        plt.clf() #clear out any current plot
+        plt.ylabel(ylabel)
 
         
         
-    if not xlabel and time:
-        plt.xlabel("Sample Number")
-    if not xlabel and not time:
-        plt.xlabel("Sample time")
+        if not xlabel and time:
+            plt.xlabel("Sample Number")
+        if not xlabel and not time:
+            plt.xlabel("Sample time")
 
-    if not title:
-        title="%s   Pixel stack for col=%d, row=%d"%(filename,column,row)
-    plt.title(title)
+        if not title:
+            title="%s   Pixel stack for col=%d, row=%d"%(filename,column,row)
+        plt.title(title)
 
-    if time:
-        plt.xlim(np.max(xaxis),np.min(xaxis))
-        plt.ylabel("Seconds")
-        
-    plt.plot(xaxis,yaxis,"+")
+        if time:
+            plt.xlim(np.max(xaxis),np.min(xaxis))
+            plt.ylabel("Seconds")
+
+        plt.plot(xaxis,yaxis,"+")
         
     return xaxis,yaxis
 

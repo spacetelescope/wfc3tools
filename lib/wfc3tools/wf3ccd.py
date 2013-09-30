@@ -58,10 +58,6 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
     """Run the ``wf3ccd.e`` executable as from the shell. For more information on CALWF3 """
 
     call_list = ['wf3ccd.e']
-
-    infiles, dummpy_out= parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
-    call_list += ["output",output]
     
     if verbose:
         call_list += ['-v','-t']
@@ -81,7 +77,12 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
     if (flashcorr == "PERFORM"):
         call_list.append('-flash')
 
-
+    infiles, dummpy_out= parseinput.parseinput(input)
+    call_list.append(','.join(infiles))
+    if output:
+        outfiles,dumppy_out=parseinput.parseinput(output)
+        call_list += (','.join(outfiles))
+    print call_list
     subprocess.call(call_list)
 
 

@@ -1,5 +1,8 @@
 Software Update History for HSTCAL.CALWF3
 -----------------------------------------
+**Updates for Version 3.1.5 30-Sep-2013 MLS:**
+    * Fixed the individual task executables for wf3ir, wf3ccd, wf32d to properly used the user specfied output filename when they are called standalone
+
 **Updates for Version 3.1.4 09-Sep-2013 MLS:**
     * Added a couple new functions to deal with user specified subarrays when they start in amp A or C and continue to B or D. In these cases the virtual overscan from the reference postflash file must be avoided, and just incrementing the starting pixel for the array in not a good solution.
 

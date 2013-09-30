@@ -62,13 +62,14 @@ def wf3ir(input, output="", verbose=False, quiet=True ):
 
     call_list = ['wf3ir.e']
 
-    infiles, dummpy_out= parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
-    call_list += ["output",output]
-    
     if verbose:
         call_list += ['-v','-t']
-        
+
+    infiles, dummpy_out= parseinput.parseinput(input)
+    call_list.append(','.join(infiles))
+    if output:
+        outfiles, dummpy_out= parseinput.parseinput(output)
+        call_list.append(','.join(outfiles))
     subprocess.call(call_list)
 
 

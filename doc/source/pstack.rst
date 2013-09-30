@@ -56,6 +56,8 @@ Parameters
        default  based  on the plot units and the extname of the data is
        generated.
 
+    plot = True [bool]  set plot to false if you only want the data returned
+
 Usage: 
 ------
 

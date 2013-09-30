@@ -28,7 +28,7 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 
 median=False: Set to True in order to report the median pixel value for each sample
 
-mean=False: Set to True in order to report the mean pixel value for each sample (taken as the average of DATAMIN and DATAMAX)
+mean=False: Set to True in order to report the average pixel value for each sample (as measured with np.min and np.max)
 
 
 USAGE: 
@@ -85,7 +85,7 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
     if add_keys :
         ir_list+=add_keys
         
-    #just use the average of the min and max datavalues from the header    
+    #measure the min and max data
     if (mean):
         if (add_keys):
             if ("DATAMIN" not in add_keys):
@@ -124,10 +124,10 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
             for key in ir_list:
                 if "DATAMIN" in key: 
                     datamin=True
-                    dataminval=float(current["SCI",samp].header[key])
+                    dataminval=np.min(current["SCI",samp].data)
                 if "DATAMAX" in key: 
                     datamax=True
-                    datamaxval=float(current["SCI",samp].header[key])
+                    datamaxval=np.min(current["SCI",samp].data)
                 try:
                     printline+=("\t"+str(current["SCI",samp].header[key]))
                 except KeyError:
