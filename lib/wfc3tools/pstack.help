@@ -1,6 +1,6 @@
-============
+======
 pstack
-============
+======
 
 Plot the stack of MultiAccum sample values for a specified pixel  in
 IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image 
@@ -17,11 +17,18 @@ saved to an output text table or printed to the terminal.
 
 The BUNIT keyword value is used to determine the starting units of the data.
 
-pstack returns the x and y arrays plotted
+
+USAGE 
+-----
+
+    >>> python
+    >>> from wfc3tools import pstack
+    >>> xdata,ydata=pstack.pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")
 
 
-Parameters
-----------    
+PARAMETERS
+----------
+    
     input [file]
         Input MultiAccum image name.  This should be either  a  _ima  or
         _raw  file, containing all the data from multiple readouts.  You
@@ -56,11 +63,7 @@ Parameters
        default  based  on the plot units and the extname of the data is
        generated.
 
-Usage: 
-------
 
-    python
-    from wfc3tools import pstack
-    xdata,ydata=pstack.pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")
-
-
+RETURNS
+-------
+pstack returns the x and y arrays plotted

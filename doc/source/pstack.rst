@@ -58,7 +58,7 @@ Parameters
 
     plot = True [bool]  set plot to false if you only want the data returned
 
-Usage: 
+Usage
 ------
 
     python

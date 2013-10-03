@@ -57,48 +57,7 @@
             
   <div class="section" id="module-wfc3tools.wf3ccd">
 <span id="wf3ccd"></span><h1>WF3CCD<a class="headerlink" href="#module-wfc3tools.wf3ccd" title="Permalink to this headline">¶</a></h1>
-<p>The wfc3tools module contains a function <tt class="docutils literal"><span class="pre">wf3ccd</span></tt> that calls the wf3ccd executable.
-Use this function to facilitate batch runs or for the TEAL interface.</p>
-<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
-<blockquote>
-<div><ul class="simple">
-<li>dqicorr - initializing the data quality array</li>
-<li>atodcorr - perform the a to d conversion correction</li>
-<li>blevcorr - subtract the bias level from the overscan region</li>
-<li>biascorr - subtract the bias image</li>
-<li>flshcorr - subtract the post-flash image</li>
-</ul>
-</div></blockquote>
-<p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
-<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
-will be set to COMPLETE in the corresponding output files.</p>
-<p>Example</p>
-<blockquote>
-<div><p>In Python without TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ccd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wf3ccd</span><span class="o">.</span><span class="n">wf3ccd</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Python with TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ccd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3ccd&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Pyraf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3ccd</span>
-</pre></div>
-</div>
-</div></blockquote>
-<dl class="function">
-<dt id="wfc3tools.wf3ccd.getHelpAsString">
-<tt class="descclassname">wfc3tools.wf3ccd.</tt><tt class="descname">getHelpAsString</tt><big>(</big><em>docstring=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ccd.getHelpAsString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns documentation on the &#8216;wf3ccd&#8217; function. Required by TEAL.</p>
-<p>return useful help from a file in the script directory called
-__taskname__.help</p>
-</dd></dl>
-
+<p>wf3ccd  calls the wf3ccd executable and contains the initial processing steps for all the WFC3 UVIS channel data.</p>
 <dl class="function">
 <dt id="wfc3tools.wf3ccd.run">
 <tt class="descclassname">wfc3tools.wf3ccd.</tt><tt class="descname">run</tt><big>(</big><em>configobj=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ccd.run" title="Permalink to this definition">¶</a></dt>
@@ -109,7 +68,7 @@ __taskname__.help</p>
 <dt id="wfc3tools.wf3ccd.wf3ccd">
 <tt class="descclassname">wfc3tools.wf3ccd.</tt><tt class="descname">wf3ccd</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>dqicorr='PERFORM'</em>, <em>atodcorr='PERFORM'</em>, <em>blevcorr='PERFORM'</em>, <em>biascorr='PERFORM'</em>, <em>flashcorr='PERFORM'</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ccd.wf3ccd" title="Permalink to this definition">¶</a></dt>
 <dd><p>wf3ccd Version 1.2.dev26615  updated on  03-Jan-2013</p>
-<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
+<p>This routine contains the initial processing steps for all the WFC3 UVIS channel data:</p>
 <blockquote>
 <div><ul class="simple">
 <li>dqicorr - initializing the data quality array</li>
@@ -122,26 +81,34 @@ __taskname__.help</p>
 <p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
+<p><strong>USAGE</strong></p>
 <blockquote>
-<div><p>In Python without TEAL:</p>
+<div><ol class="arabic simple">
+<li>In Python without TEAL:</li>
+</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ccd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf3ccd</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Python with TEAL:</p>
+<ol class="arabic simple" start="2">
+<li>In Python with TEAL:</li>
+</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ccd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3ccd&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Pyraf:</p>
+<ol class="arabic simple" start="3">
+<li>In Pyraf:</li>
+</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3ccd</span>
 </pre></div>
 </div>
 </div></blockquote>
-<blockquote>
-<div><dl class="docutils">
+<dl class="docutils">
+<dt><strong>PARAMETERS</strong></dt>
+<dd><dl class="first docutils">
 <dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd><p class="first">Name of input files</p>
 <blockquote class="last">
@@ -171,13 +138,12 @@ will be set to COMPLETE in the corresponding output files.</p>
 <dt>quiet: bool, optional</dt>
 <dd>Print messages only to trailer file?</dd>
 </dl>
-</div></blockquote>
 <p><strong>The wf3ccd function can also be called directly from the OS command line:</strong></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32ccd</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Where the OS options include:</p>
-<ul class="simple">
+<ul class="last simple">
 <li>-v: verbose</li>
 <li>-f: print time stamps</li>
 <li>-dqi: udpate the DQ array</li>
@@ -186,6 +152,8 @@ will be set to COMPLETE in the corresponding output files.</p>
 <li>-bias: perform bias correction</li>
 <li>-flash: remove post-flash image</li>
 </ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
