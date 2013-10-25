@@ -58,105 +58,59 @@
   <div class="section" id="module-wfc3tools.calwf3">
 <span id="calwf3"></span><h1>CALWF3<a class="headerlink" href="#module-wfc3tools.calwf3" title="Permalink to this headline">¶</a></h1>
 <p>CALWF3 calibrates UVIS and IR images for WFC3</p>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>In Python without TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Python with TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;calwf3&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Pyraf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">calwf3</span>
-</pre></div>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Name of input file.</dd>
-<dt>printtime <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
-<dd>Set to True to turn on the printing of time stamps.</dd>
-<dt>save_tmp: bool, optional</dt>
-<dd>Set to True to have CALWF3 save temporary files.</dd>
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
-<dd>Set to True for verbose output.</dd>
-<dt>debug <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
-<dd>Set to True to turn on debugging output.</dd>
-</dl>
-<p>If you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
-</div>
-<div class="section" id="running-calwf3">
-<h2>Running calwf3<a class="headerlink" href="#running-calwf3" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> can be run on a single input raw file or an asn table listing the members of an associtaion. 
-When processing an association, it retrieves calibration switch and reference file keyword settings from 
-the first image listed in the asn table. <tt class="docutils literal"><span class="pre">calwf3</span></tt> does not accept a user-defined list of input images on the 
-command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</span></tt> to process all raw files in the current directory).</p>
-<p>The <tt class="docutils literal"><span class="pre">wf3ccd</span></tt>, <tt class="docutils literal"><span class="pre">wf32d</span></tt>, and <tt class="docutils literal"><span class="pre">wf3ir</span></tt> tasks on the other hand, will accept such user-defined input file lists, 
-but they will not accept an association table( asn ) as input.</p>
-</div>
-<div class="section" id="where-to-find-calwf3">
-<h2>Where to Find calwf3<a class="headerlink" href="#where-to-find-calwf3" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is now part of HSTCAL package, which can be downloaded from
-<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a></p>
 <dl class="function">
 <dt id="wfc3tools.calwf3.calwf3">
 <tt class="descclassname">wfc3tools.calwf3.</tt><tt class="descname">calwf3</tt><big>(</big><em>input</em>, <em>printtime=False</em>, <em>save_tmp=False</em>, <em>verbose=False</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#wfc3tools.calwf3.calwf3" title="Permalink to this definition">¶</a></dt>
-<dd><p>calwf3 Version 1.1.2.dev25802  updated on  03-Jan-2013</p>
-<blockquote>
-<div><p>In Python without TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Python with TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;calwf3&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Pyraf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">calwf3</span>
-</pre></div>
-</div>
-</div></blockquote>
-<p>A detailed description of this new and improved <tt class="docutils literal"><span class="pre">calwf3</span></tt> will be available in a future publication of WFC3 Data Handbook. 
+<dd><p>calwf3 Version 1.2.dev26615  updated on  03-Jan-2013</p>
+<p>A detailed description of this new and improved <tt class="docutils literal"><span class="pre">calwf3</span></tt> is available in the WFC3 Data Handbook. 
 The current WFC3 Data Handbook can be found at  <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a> .  
-In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
+If you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
 <p><tt class="docutils literal"><span class="pre">calwf3</span></tt> can be run on a single input raw file or an asn table listing the members of an associtaion. 
 When processing an association, it retrieves calibration switch and reference file keyword settings from 
 the first image listed in the asn table. <tt class="docutils literal"><span class="pre">calwf3</span></tt> does not accept a user-defined list of input images on the 
 command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</span></tt> to process all raw files in the current directory).</p>
 <p>The <tt class="docutils literal"><span class="pre">wf3ccd</span></tt>, <tt class="docutils literal"><span class="pre">wf32d</span></tt>, and <tt class="docutils literal"><span class="pre">wf3ir</span></tt> tasks on the other hand, will accept such user-defined input file lists, 
 but they will not accept an association table( asn ) as input.</p>
-<p>The recommended method for running <tt class="docutils literal"><span class="pre">calwf3</span></tt> in batch mode is to use Python and
-the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package in the &#8220;STSDAS distribution
-&lt;<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a>&gt;.&#8221;</p>
-<p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-
-<span class="k">for</span> <span class="n">fits</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;j*_raw.fits&#39;</span><span class="p">):</span>
-    <span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">fits</span><span class="p">)</span>
+<p><strong>USAGE</strong></p>
+<blockquote>
+<div><p>This task can be run from either the TEAL GUI or from the Python
+command-line. These examples illustrate the syntax that can be used
+to run the task in a couple of common modes. Batch calwf3: The recommended method for running <tt class="docutils literal"><span class="pre">calwf3</span></tt> 
+in batch mode is to use Python and the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package in the 
+&#8220;STSDAS distribution &lt;<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a>&gt;.&#8221;</p>
+<ol class="arabic">
+<li><p class="first">In Python without TEAL:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is now part of HSTCAL package, which can be downloaded from
-<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a></p>
-<p><strong>The calwf3 executable can also be called directly from the command line:</strong></p>
+<p>&gt;&gt;from wfc3tools import calwf3
+&gt;&gt;import glob
+&gt;&gt;for fits in glob.glob(&#8216;j*_raw.fits&#8217;):
+&gt;&gt;  calwf3.calwf3(fits)</p>
+</div></blockquote>
+</li>
+<li><p class="first">In Python with TEAL:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;calwf3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">In Pyraf:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">calwf3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The calwf3 executable can also be called directly from the os command line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">e</span> <span class="n">iaa001kaq_raw</span><span class="o">.</span><span class="n">fits</span> <span class="p">[</span><span class="n">command</span> <span class="n">line</span> <span class="n">options</span><span class="p">]</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> supports several command line options:</p>
+</li>
+</ol>
+<p>The supported command line options include:</p>
 <ul class="simple">
 <li>-t: Print verbose time stamps.</li>
 <li>-s: Save temporary files.</li>
@@ -166,21 +120,10 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <li>-r: Print the current software version number (revision)</li>
 <li>&#8211;version: Print the current software version</li>
 </ul>
-<p>The UVIS image is multiplied by gain right after BIASCORR, converting it to
-ELECTRONS. This step is no longer embedded within FLATCORR.</p>
-<p>It uses DARKFILE for the reference dark image.</p>
-<p>The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.</p>
-<p>Post-flash correction is now performed after DARKCORR in the WF32D step.
-When FLSHCORR=PERFORM, it uses FLSHFILE (the post-flash reference file).</p>
-<p>Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM. Unit
-conversion is done for all exposures after BIASCORR.</p>
-<p>The PHOTCORR step is now performed using tables of precomputed values instead
-of calls  to SYNPHOT. The correct table for a given image must be specified
-in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step.
-By default, it should be in the <tt class="docutils literal"><span class="pre">iref</span></tt> directory and have the suffix
-<tt class="docutils literal"><span class="pre">_imp.fits</span></tt>. Each DETECTOR uses a different table.</p>
-<p>If you do not wish to use this feature, set PHOTCORR to OMIT.</p>
-<p>Using RAW as input:</p>
+</div></blockquote>
+<p><strong>RETURNS</strong></p>
+<blockquote>
+<div><p>Using RAW as input:</p>
 <blockquote>
 <div><ul class="simple">
 <li>flt.fits: output calibrated exposure.</li>
@@ -193,14 +136,19 @@ By default, it should be in the <tt class="docutils literal"><span class="pre">i
 <li>crj.fits: cosmic ray rejected image</li>
 </ul>
 </div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="wfc3tools.calwf3.getHelpAsString">
-<tt class="descclassname">wfc3tools.calwf3.</tt><tt class="descname">getHelpAsString</tt><big>(</big><em>docstring=False</em><big>)</big><a class="headerlink" href="#wfc3tools.calwf3.getHelpAsString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns documentation on the &#8216;calwf3&#8217; function. Required by TEAL.</p>
-<p>return useful help from a file in the script directory called
-__taskname__.help</p>
+</div></blockquote>
+<p><strong>NOTES</strong></p>
+<blockquote>
+<div><p><em>Unit Conversion to Electrons</em>: The UVIS image is multiplied by gain right after BIASCORR, converting it to ELECTRONS. This step is no longer embedded within FLATCORR.</p>
+<p><em>Dark Current Subtraction (DARKCORR)</em>: It uses DARKFILE for the reference dark image. The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.</p>
+<p><em>Post-Flash Correction (FLSHCORR)</em>: Post-flash correction is now performed after DARKCORR in the WF32D step. When FLSHCORR=PERFORM, it uses FLSHFILE (the post-flash reference file).</p>
+<p><em>Flatfield correction (FLATCORR)</em>: Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM. Unit conversion is done for all exposures after BIASCORR.</p>
+<p><em>Photometry Keywords (PHOTCORR)</em>: The PHOTCORR step is now performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step. By default, it should be in the <tt class="docutils literal"><span class="pre">iref</span></tt> directory and have the suffix <tt class="docutils literal"><span class="pre">_imp.fits</span></tt>. Each DETECTOR uses a different table. If you do not wish to use this feature, set PHOTCORR to OMIT.</p>
+</div></blockquote>
+<p><strong>SEE ALSO</strong></p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">calwf3</span></tt> is now part of HSTCAL package, which can be downloaded from
+<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a></div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -209,7 +157,6 @@ __taskname__.help</p>
 <dd><p>TEAL interface for the &#8216;calwf3&#8217; function.</p>
 </dd></dl>
 
-</div>
 </div>
 
 
@@ -221,17 +168,6 @@ __taskname__.help</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">CALWF3</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
-<li><a class="reference internal" href="#running-calwf3">Running calwf3</a></li>
-<li><a class="reference internal" href="#where-to-find-calwf3">Where to Find calwf3</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to the wfc3tools package documentation!</a></p>

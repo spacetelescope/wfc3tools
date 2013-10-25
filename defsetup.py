@@ -17,7 +17,7 @@ pkg =  "wfc3tools"
 
 
 setupargs = {
-    'version' : 		"1.0",
+    'version' : 		"1.2dev",
     'description' :	    "Python Tools for WFC3 Data",
     'author' : 		    "Megan Sosey",
     'author_email' : 	"help@stsci.edu",

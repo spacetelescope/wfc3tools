@@ -57,52 +57,11 @@
             
   <div class="section" id="module-wfc3tools.wf3ir">
 <span id="wf3ir"></span><h1>WF3IR<a class="headerlink" href="#module-wfc3tools.wf3ir" title="Permalink to this headline">¶</a></h1>
-<p>The wfc3tools module contains a function <tt class="docutils literal"><span class="pre">wf3ir</span></tt> that calls the wf3ir executable.
-Use this function to facilitate batch runs or for the TEAL interface.</p>
-<p>This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:</p>
-<blockquote>
-<div><ul class="simple">
-<li>dqicorr - initialize the data quality array</li>
-<li>zsigcorr - estimate the amount of signal in the zeroth-read</li>
-<li>blevcorr - subtact the bias level from the reference pixels</li>
-<li>zoffcorr - subtract the zeroth read image</li>
-<li>nlincorr - correct for detector non-linear response</li>
-<li>darkcorr - subtract the dark current image</li>
-<li>photcorr - compute the photometric keyword values</li>
-<li>unitcorr - convert to units of count rate</li>
-<li>crcorr - fit accumulating signal and identify the cr hits</li>
-<li>flatcorr - divide by the flatfield images and apply gain coversion</li>
-</ul>
-</div></blockquote>
-<p>The output images include the calibrated image ramp (ima file) and the accumulated ramp image (flt file)</p>
-<p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
-will be set to COMPLETE in the corresponding output files.</p>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>In Python without TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ir</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wf3ir</span><span class="o">.</span><span class="n">wf3ir</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Python with TEAL:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ir</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3ir&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In Pyraf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3ir</span>
-</pre></div>
-</div>
-</div></blockquote>
+<p>The wf3ir  processes IR images</p>
 <dl class="function">
-<dt id="wfc3tools.wf3ir.getHelpAsString">
-<tt class="descclassname">wfc3tools.wf3ir.</tt><tt class="descname">getHelpAsString</tt><big>(</big><em>docstring=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ir.getHelpAsString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns documentation on the &#8216;wf3ir&#8217; function. Required by TEAL.</p>
-<p>return useful help from a file in the script directory called
-__taskname__.help</p>
+<dt id="wfc3tools.wf3ir.help">
+<tt class="descclassname">wfc3tools.wf3ir.</tt><tt class="descname">help</tt><big>(</big><em>file=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ir.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print out syntax help for running wf3ir</p>
 </dd></dl>
 
 <dl class="function">
@@ -114,9 +73,8 @@ __taskname__.help</p>
 <dl class="function">
 <dt id="wfc3tools.wf3ir.wf3ir">
 <tt class="descclassname">wfc3tools.wf3ir.</tt><tt class="descname">wf3ir</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3ir.wf3ir" title="Permalink to this definition">¶</a></dt>
-<dd><p>wf3ir Version 1.1.2.dev25802  updated on  03-Jan-2013</p>
-<p>Use this function to facilitate batch runs or for the TEAL interface.</p>
-<p>This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:</p>
+<dd><p>wf3ir Version 1.2.dev26615  updated on  03-Jan-2013</p>
+<p>This routine contains all the instrumental calibration steps for WFC3 IR channel images:</p>
 <blockquote>
 <div><ul class="simple">
 <li>dqicorr - initialize the data quality array</li>
@@ -134,26 +92,45 @@ __taskname__.help</p>
 <p>The output images include the calibrated image ramp (ima file) and the accumulated ramp image (flt file)</p>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
+<p><strong>USAGE</strong></p>
 <blockquote>
-<div><p>In Python without TEAL:</p>
+<div><ol class="arabic">
+<li><p class="first">In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ir</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf3ir</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Python with TEAL:</p>
+</li>
+<li><p class="first">In Python with TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3ir</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3ir&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Pyraf:</p>
+</li>
+<li><p class="first">In Pyraf:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3ir</span>
 </pre></div>
 </div>
-</div></blockquote>
+</li>
+<li><p class="first">From the OS command line:</p>
 <blockquote>
-<div><dl class="docutils">
+<div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32ir</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Where the OS options include:</p>
+<ul class="simple">
+<li>-v: verbose</li>
+<li>-f: print time stamps</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>PARAMETERS</strong></dt>
+<dd><dl class="first last docutils">
 <dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd><p class="first">Name of input files</p>
 <blockquote class="last">
@@ -173,19 +150,10 @@ will be set to COMPLETE in the corresponding output files.</p>
 <dt>quiet: bool, optional</dt>
 <dd>Print messages only to trailer file?</dd>
 </dl>
-</div></blockquote>
-<p><strong>The wf3ir function can also be called directly from the OS command line:</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32ir</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Where the OS options include:</p>
-<ul class="simple">
-<li>-v: verbose</li>
-<li>-f: print time stamps</li>
-</ul>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
 </div>
 
 
@@ -197,14 +165,6 @@ will be set to COMPLETE in the corresponding output files.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">WF3IR</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="wf3ccd.html"
                         title="previous chapter">WF3CCD</a></p>

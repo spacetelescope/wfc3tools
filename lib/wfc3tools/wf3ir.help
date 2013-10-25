@@ -1,6 +1,4 @@
-Use this function to facilitate batch runs or for the TEAL interface.
-
-This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:
+This routine contains all the instrumental calibration steps for WFC3 IR channel images:
 
     * dqicorr - initialize the data quality array
     * zsigcorr - estimate the amount of signal in the zeroth-read
@@ -18,27 +16,35 @@ The output images include the calibrated image ramp (ima file) and the accumulat
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
---------
-    In Python without TEAL:
+**USAGE**
 
-    >>> from wfc3tools import wf3ir
-    >>> calwf3.wf3ir(filename)
+    1. In Python without TEAL:
 
-    In Python with TEAL:
+        >>> from wfc3tools import wf3ir
+        >>> calwf3.wf3ir(filename)
 
-    >>> from stsci.tools import teal
-    >>> from wfc3tools import wf3ir
-    >>> teal.teal('wf3ir')
+    2. In Python with TEAL:
 
-    In Pyraf:
+        >>> from stsci.tools import teal
+        >>> from wfc3tools import wf3ir
+        >>> teal.teal('wf3ir')
 
-    >>> import wfc3tools
-    >>> epar wf3ir
+    3. In Pyraf:
 
-Parameters
-----------
+        >>> import wfc3tools
+        >>> epar wf3ir
 
+    4. From the OS command line:
+
+        >>> wf32ir.e input output [-options]
+
+        Where the OS options include:
+
+        * -v: verbose
+        * -f: print time stamps
+
+
+**PARAMETERS**
     input : str
         Name of input files
 
@@ -57,13 +63,4 @@ Parameters
     quiet: bool, optional
         Print messages only to trailer file?
 
-
-**The wf3ir function can also be called directly from the OS command line:**
-
->>> wf32ir.e input output [-options]
-
-Where the OS options include:
-
-* -v: verbose
-* -f: print time stamps
 

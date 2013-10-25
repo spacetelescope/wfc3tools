@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pstack &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="Software Update History for HSTCAL.CALWF3" href="history.html" />
+    <link rel="prev" title="pstat" href="pstat.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pstat.html" title="pstat"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pstack">
+<h1>pstack<a class="headerlink" href="#pstack" title="Permalink to this headline">¶</a></h1>
+<p>Plot the stack of MultiAccum sample values for a specified pixel  in
+IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image
+extensions can be plotted.  The total number  of
+samples  is determined from the primary header keyword NSAMP and all
+samples (excluding the zeroth read) are plotted.  The SCI, ERR,  DQ,
+values are plotted as a function of sample time, while TIME
+values are plotted as a  function  of  sample  number.   The  sample
+times  are read from the SAMPTIME keyword in the SCI header for each
+readout. If any of the ERR, DQ, SAMP, or TIME extensions have  null
+data  arrays,  the value of the PIXVALUE extension header keyword is
+substituted for the pixel values.  The plotted data  values  can  be
+saved to an output text table or printed to the terminal.</p>
+<p>The BUNIT keyword value is used to determine the starting units of the data.</p>
+<p>pstack returns the x and y arrays plotted</p>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
+<dt>input [file]</dt>
+<dd>Input MultiAccum image name.  This should be either  a  _ima  or
+_raw  file, containing all the data from multiple readouts.  You
+must specify just the file name, with no extension designation.</dd>
+<dt>col [integer]</dt>
+<dd>The column index of the pixel to be plotted.</dd>
+<dt>row [integer]</dt>
+<dd>The row index of the pixel to be plotted.</dd>
+<dt>extname = &#8220;sci&#8221; [string, allowed values: sci | err | dq | samp | time]</dt>
+<dd>Extension name (EXTNAME keyword value) of data to plot.</dd>
+<dt>units = &#8220;counts&#8221; [string, allowed values: counts | rate]</dt>
+<dd>Plot &#8220;sci&#8221; or  &#8220;err&#8221;  data  in  units  of  counts  or  countrate
+(&#8220;rate&#8221;).   Input data can be in either unit; conversion will be
+performed automatically.  Ignored when  plotting  &#8220;dq&#8221;,  &#8220;samp&#8221;,
+or &#8220;time&#8221; data.</dd>
+<dt>title = &#8220;&#8221; [string]</dt>
+<dd>Title  for  the  plot.   If  left  blank,  the name of the input
+image, appended with  the  extname  and  column  and  row  being
+plotted, is used.</dd>
+<dt>xlabel = &#8220;&#8221; [string]</dt>
+<dd>Label  for  the  X-axis  of the plot.  If left blank, a suitable
+default is generated.</dd>
+<dt>ylabel = &#8220;&#8221; [string]</dt>
+<dd>Label for the Y-axis of the plot.  If  left  blank,  a  suitable
+default  based  on the plot units and the extname of the data is
+generated.</dd>
+</dl>
+<p>plot = True [bool]  set plot to false if you only want the data returned</p>
+</div></blockquote>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>python
+from wfc3tools import pstack
+xdata,ydata=pstack.pstack(inputFilename,column=x,row=y,extname=&#8221;sci&#8221;,units=&#8221;counts|rate&#8221;,title=&#8221;&#8221;,ylabel=&#8221;&#8221;,xlabel=&#8221;&#8221;)</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pstack</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pstat.html"
+                        title="previous chapter">pstat</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="next chapter">Software Update History for HSTCAL.CALWF3</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pstack.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pstat.html" title="pstat"
+             >previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

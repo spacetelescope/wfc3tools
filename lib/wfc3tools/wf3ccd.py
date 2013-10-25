@@ -1,39 +1,5 @@
 """
-The wfc3tools module contains a function ``wf3ccd`` that calls the wf3ccd executable.
-Use this function to facilitate batch runs or for the TEAL interface.
-
-This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
-
-    * dqicorr - initializing the data quality array
-    * atodcorr - perform the a to d conversion correction
-    * blevcorr - subtract the bias level from the overscan region
-    * biascorr - subtract the bias image
-    * flshcorr - subtract the post-flash image
-    
-If blevcorr is performed the output contains the overcan-trimmed region.
-  
-Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
-will be set to COMPLETE in the corresponding output files.
-
-Example
--------
-
-    In Python without TEAL:
-
-    >>> from wfc3tools import wf3ccd
-    >>> wf3ccd.wf3ccd(filename)
-
-    In Python with TEAL:
-
-    >>> from stsci.tools import teal
-    >>> from wfc3tools import wf3ccd
-    >>> teal.teal('wf3ccd')
-
-    In Pyraf:
-
-    >>> import wfc3tools
-    >>> epar wf3ccd
-
+wf3ccd  calls the wf3ccd executable and contains the initial processing steps for all the WFC3 UVIS channel data.
 """
 #get the auto update version for the call to teal help
 from .version import *
@@ -55,13 +21,9 @@ __vdate__ = "03-Jan-2013"
 def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PERFORM",
         biascorr="PERFORM", flashcorr="PERFORM", verbose=False, quiet=True ):
     
-    """Run the ``wf3ccd.e`` executable as from the shell. For more information on CALWF3 """
+    """Run the ``wf3ccd.e`` executable as from the shell."""
 
     call_list = ['wf3ccd.e']
-
-    infiles, dummpy_out= parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
-    call_list += ["output",output]
     
     if verbose:
         call_list += ['-v','-t']
@@ -81,12 +43,14 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
     if (flashcorr == "PERFORM"):
         call_list.append('-flash')
 
-
+    infiles, dummpy_out= parseinput.parseinput(input)
+    call_list.append(','.join(infiles))
+    call_list.append(str(output))
     subprocess.call(call_list)
 
 
 def help(file=None):
-    helpstr = getHelpAsString(docstring=True)
+    helpstr = _getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -96,14 +60,8 @@ def help(file=None):
         f.close()
     
 
-def getHelpAsString(docstring=False):
-    """
-    Returns documentation on the 'wf3ccd' function. Required by TEAL.
-
-    return useful help from a file in the script directory called
-    __taskname__.help
-
-    """
+def _getHelpAsString(docstring=False):
+    """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
     htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
@@ -117,10 +75,6 @@ def getHelpAsString(docstring=False):
         helpString = 'file://' + htmlfile
 
     return helpString
-
-
-wf3ccd.__doc__ = getHelpAsString(docstring=True)
-
 
 def run(configobj=None):
     """
@@ -137,5 +91,6 @@ def run(configobj=None):
            quiet=configobj['quiet'],
            verbose=configobj['verbose'],)
            
-           
+wf3ccd.__doc__ = _getHelpAsString(docstring=True)
+          
           
