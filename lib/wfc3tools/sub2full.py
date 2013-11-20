@@ -21,7 +21,7 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
     ----------
     filename : string
        The name of the image file containing the subarray. This can be a single filename or a list of files.
-       The ippsoot will be used to reference the files RAW and SPT file headers
+       The ippsoot will be used to reference the files SPT file headers
 
      x : int, optional
        input x position to translate, will return x0 otherwise
@@ -37,40 +37,38 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
     """
     
     infiles, dummy_out= parseinput.parseinput(filename)
+    if len(infiles) < 1:
+        return ValueError("Please input a valid HST filename")
+        
     coords=list()
     
     for f in infiles:
-    
-        root = f[0:f.find('_')]
-
-        raw = root + '_raw.fits'
-        spt = root + '_spt.fits'
-
+        spt = f[0:9] + '_spt.fits'
         uvis_x_size = 2051
         serial_over = 25.0
         ir_overscan = 5.0
 
         #open up our image files
         try:
-            fd1=pyfits.open(raw)
             fd2=pyfits.open(spt)
         except (ValueError,IOError) as e:
             raise ValueError('%s '%(e))
  
         #check for required keywords and close the images
         try:
-            detector=fd1[0].header['DETECTOR']
-            subarray=fd1[0].header['SUBARRAY']
+            detector=fd2[0].header['SS_DTCTR']
+            subarray=fd2[0].header['SS_SUBAR']
             xcorner=int(fd2[1].header['XCORNER'])
             ycorner=int(fd2[1].header['YCORNER'])
             numrows=int(fd2[1].header['NUMROWS'])
             numcols=int(fd2[1].header['NUMCOLS'])
-            fd1.close()
             fd2.close()
         except KeyError, e:
             raise KeyError("Required header keyword missing; %s"%(e))
             
-
+        if "NO" in  subarray:
+            raise ValueError("Image is not a subarray: %s"%(f))
+            
         sizaxis1 = numcols
         sizaxis2 = numrows
 
@@ -82,7 +80,7 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
            cornera2a = cornera2 + 1
            cornera2b = cornera2a + sizaxis2 - 1
         else:
-           if detector == 'UVIS':
+           if 'UVIS' in detector:
               cornera1 = ycorner
               cornera2 = uvis_x_size - xcorner - sizaxis2
               if xcorner >= uvis_x_size:
@@ -103,9 +101,9 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
               cornera2 = xcorner - ir_overscan
 
               cornera1a = cornera1 + 1
-              cornera1b =cornera1a + sizaxis1 - 11
-              cornera2a =cornera2 + 1
-              cornera2b =cornera2a + sizaxis2 - 11
+              cornera1b = cornera1a + sizaxis1 - 11
+              cornera2a = cornera2 + 1
+              cornera2b = cornera2a + sizaxis2 - 11
               
         if (x or y):
             if ( (type(x) != type(1))  or (type(y) != type(1))):
