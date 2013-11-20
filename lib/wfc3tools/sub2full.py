@@ -103,18 +103,22 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
               cornera2 = xcorner - ir_overscan
 
               cornera1a = cornera1 + 1
-              cornera1b = cornera1a + sizaxis1 - 11
-              cornera2a = cornera2 + 1
-              cornera2b = cornera2a + sizaxis2 - 11
-        if (x and y):
-            cornera1a=cornera1a+x
-            cornera2a=cornera2a+y
-            fullExtent=False
+              cornera1b =cornera1a + sizaxis1 - 11
+              cornera2a =cornera2 + 1
+              cornera2b =cornera2a + sizaxis2 - 11
+              
+        if (x or y):
+            if ( (type(x) != type(1))  or (type(y) != type(1))):
+                raise ValueError("Must input integer value for x and y ")
+            else:
+                cornera1a=cornera1a+x
+                cornera2a=cornera2a+y
+                fullExtent=False
 
         if (fullExtent):
-            coords.append((cornera1a,cornera1b,cornera2a,cornera2b))         
+            coords.append((int(cornera1a),int(cornera1b),int(cornera2a),int(cornera2b)))         
         else:
-            coords.append((cornera1a,cornera2a))         
+            coords.append((int(cornera1a),int(cornera2a)))         
 
     #return the tuple list of coordinates
     return coords
