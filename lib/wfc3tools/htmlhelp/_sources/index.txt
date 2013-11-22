@@ -29,6 +29,7 @@ Contents:
    sampinfo <sampinfo.rst>
    pstat <pstat.rst>
    pstack <pstack.rst>
+   sub2full <sub2full.rst>
    Software History <history.rst>
 
 Indices and tables

@@ -61,8 +61,9 @@ Parameters
 Usage
 ------
 
-    python
-    from wfc3tools import pstack
-    xdata,ydata=pstack.pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")
+
+    >>> python
+    >>> from wfc3tools import pstack
+    >>> xdata,ydata=pstack.pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")
 
 

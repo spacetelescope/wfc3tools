@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sub2full &mdash; wfc3tools 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
+    <link rel="next" title="Software Update History for HSTCAL.CALWF3" href="history.html" />
+    <link rel="prev" title="pstack" href="pstack.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pstack.html" title="pstack"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sub2full">
+<h1>sub2full<a class="headerlink" href="#sub2full" title="Permalink to this headline">¶</a></h1>
+<p>Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image.</p>
+<div class="section" id="usage">
+<h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">sub2full</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span><span class="o">=</span><span class="n">sub2full</span><span class="o">.</span><span class="n">sub2full</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">fullExtent</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameters">
+<h2>PARAMETERS<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
+<dt>filename [file]</dt>
+<dd>Input image name or list of image names. The rootname will be used to find the _SPT
+files in the same directory, the SPT file has all the necessary information for the transform.</dd>
+<dt>x = None [integer] Optional</dt>
+<dd>Specify an x coordinate in the subarray to translate
+If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
+<dt>y = None [integer] Optional</dt>
+<dd>Specify a y coordinate in the subarray to translate
+If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
+<dt>fullExtent = False [bool] Optional</dt>
+<dd>If set, the returned values will include the full extent of the subarray in the reference image
+For example: (x0,x1,y0,y1)</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="returns">
+<h2>RETURNS<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<p>A list of tuples which specify the translated coordinates, either (x0,y0) for each image or the full extent sections</p>
+</div>
+<div class="section" id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
+<p>Default output:</p>
+<div class="highlight-python"><pre>&gt; sub2full('ibbso1fdq_flt.fits')
+&gt; [(3584.0, 1539)]</pre>
+</div>
+<p>Optional output:</p>
+<div class="highlight-python"><pre>Specify a list of images:
+
+&gt;im = ['ic5p02e0q_spt.fits',
+       'ic5p02e1q_spt.fits',
+       'ic5p02e2q_spt.fits',
+       'ic5p02e3q_spt.fits',
+       'ic5p02e4q_spt.fits']
+&gt;
+&gt; sub2full(im)
+&gt;[(1062.0, 1363),
+&gt; (1062.0, 1363),
+&gt; (1410.0, 1243),
+&gt; (1410.0, 1243),
+&gt; (1402.0, 1539)]
+
+
+Return the full extent of the subarray:
+
+&gt; sub2full('ibbso1fdq_flt.fits',fullExtent=True)
+&gt;[(3584.0, 4096, 1539, 2050)]</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">sub2full</a><ul>
+<li><a class="reference internal" href="#usage">USAGE</a></li>
+<li><a class="reference internal" href="#parameters">PARAMETERS</a></li>
+<li><a class="reference internal" href="#returns">RETURNS</a></li>
+<li><a class="reference internal" href="#example-output">Example Output</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pstack.html"
+                        title="previous chapter">pstack</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="next chapter">Software Update History for HSTCAL.CALWF3</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sub2full.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pstack.html" title="pstack"
+             >previous</a> |</li>
+        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

@@ -1,6 +1,6 @@
-=====
+============
 pstat
-=====
+============
 
 Plot statistics for a specified image section  up  the  stack  of  a
 an IR MultiAccum image.  Sections from any of the SCI,
@@ -17,18 +17,8 @@ To plot the samptime vs sample, use wfc3tools.pstat and the "time" extension
 
 The plotting data is returned as two arrays
 
-USAGE
------
 
-    pstat.py  inputFilename [pixel range]
-
-
-    >>> python
-    >>> from wfc3tools import pstat
-    >>> x,y=pstat.pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="" )
-
-
-PARAMETERS
+Parameters
 ----------
     
     filename [file]
@@ -65,9 +55,16 @@ PARAMETERS
        default based on the plot units and the extname of the  data  is
        generated.
     
+    plot = True [bool]  set plot to false if you only want the data returned
 
-RETURNS
--------
-pstat returns the x and y arrays plotted
+Usage
+-----
+
+    pstat.py  inputFilename [pixel range]
+
+
+    >>> python
+    >>> from wfc3tools import pstat
+    >>> pstat.pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="" )
 
 
