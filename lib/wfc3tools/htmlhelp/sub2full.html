@@ -57,7 +57,11 @@
             
   <div class="section" id="sub2full">
 <h1>sub2full<a class="headerlink" href="#sub2full" title="Permalink to this headline">¶</a></h1>
-<p>Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image.</p>
+<p>Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image (including the full physical extent of the chip), in 1-indexed pixels. If the user supplies an X and Y coordinate, then the translated location of that point will be returned.
+The</p>
+<div class="figure align-center">
+<img alt="_images/sub2full_translate.png" src="_images/sub2full_translate.png" />
+</div>
 <div class="section" id="usage">
 <h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
@@ -74,14 +78,20 @@
 <dd>Input image name or list of image names. The rootname will be used to find the _SPT
 files in the same directory, the SPT file has all the necessary information for the transform.</dd>
 <dt>x = None [integer] Optional</dt>
-<dd>Specify an x coordinate in the subarray to translate
-If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
+<dd><dl class="first last docutils">
+<dt>Specify an x coordinate in the subarray to translate</dt>
+<dd>If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
+</dl>
+</dd>
 <dt>y = None [integer] Optional</dt>
 <dd>Specify a y coordinate in the subarray to translate
 If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
 <dt>fullExtent = False [bool] Optional</dt>
-<dd>If set, the returned values will include the full extent of the subarray in the reference image
-For example: (x0,x1,y0,y1)</dd>
+<dd><dl class="first last docutils">
+<dt>If set, the returned values will include the full extent of the subarray in the reference image</dt>
+<dd>For example: (x0,x1,y0,y1)</dd>
+</dl>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -105,7 +115,7 @@ For example: (x0,x1,y0,y1)</dd>
        'ic5p02e4q_spt.fits']
 &gt;
 &gt; sub2full(im)
-&gt;[(1062.0, 1363),
+&gt; [(1062.0, 1363),
 &gt; (1062.0, 1363),
 &gt; (1410.0, 1243),
 &gt; (1410.0, 1243),
@@ -115,8 +125,45 @@ For example: (x0,x1,y0,y1)</dd>
 Return the full extent of the subarray:
 
 &gt; sub2full('ibbso1fdq_flt.fits',fullExtent=True)
-&gt;[(3584.0, 4096, 1539, 2050)]</pre>
+&gt; [(3584.0, 4096, 1539, 2050)]</pre>
 </div>
+</div>
+<div class="section" id="more-information-on-header-keywords">
+<h2>More information on header keywords<a class="headerlink" href="#more-information-on-header-keywords" title="Permalink to this headline">¶</a></h2>
+<p>The task uses header keywords from the SPT file of the associated image in order to calculate the offset for the subarray.
+The keywords it uses are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Keyword</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SS_DTCTR</td>
+<td>To get the detector for the image</td>
+</tr>
+<tr class="row-odd"><td>SS_SUBAR</td>
+<td>To make sure the image is a subarray</td>
+</tr>
+<tr class="row-even"><td>XCORNER</td>
+<td>The x corner of the subarray</td>
+</tr>
+<tr class="row-odd"><td>YCORNER</td>
+<td>The y corner of the subarray</td>
+</tr>
+<tr class="row-even"><td>NUMROWS</td>
+<td>Subarray x size</td>
+</tr>
+<tr class="row-odd"><td>NUMCOLS</td>
+<td>Subarray y size</td>
+</tr>
+</tbody>
+</table>
+<p>The  UVIS full frame detector has 2051 rows, with 25 pixels of serial overscan. The IR detector has 1024 rows and 5 pixels of overscan.</p>
 </div>
 </div>
 
@@ -136,6 +183,7 @@ Return the full extent of the subarray:
 <li><a class="reference internal" href="#parameters">PARAMETERS</a></li>
 <li><a class="reference internal" href="#returns">RETURNS</a></li>
 <li><a class="reference internal" href="#example-output">Example Output</a></li>
+<li><a class="reference internal" href="#more-information-on-header-keywords">More information on header keywords</a></li>
 </ul>
 </li>
 </ul>
