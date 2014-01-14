@@ -1,45 +1,42 @@
-====================
-Running Astrodrizzle
-====================
+============
+runastrodriz
+============
 
 runastrodriz is a module to control operation of astrodrizzle which removes distortion and combines HST images in the pipeline.
 
 
-Typical Usage
--------------
+USAGE: 
+------
 
-    >>> runastrodriz.py [-fhibn] inputFilename [newpath]
+Typical:
+~~~~~~~~
 
+    runastrodriz.py [-fhibn] inputFilename [newpath]
 
-Alternative Usage
------------------
+Alternative USAGE:
+~~~~~~~~~~~~~~~~~~
 
-    >>> python
-    >>> from wfc3tools import runastrodriz
-    >>> runastrodriz.process(inputFilename,force=False,newpath=None,inmemory=False)
-
-
-GUI Usage under Python
-----------------------
-
-    >>> python
-    >>> from stsci.tools import teal
-    >>> import wfc3tools
-    >>> cfg = teal.teal('runastrodriz')
-
-PyRAF Usage
------------
-
-    >>> epar runastrodriz
+    python
+    from wfc3tools import runastrodriz
+    runastrodriz.process(inputFilename,force=False,newpath=None,inmemory=False)
 
 
+GUI Usage under Python:
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Options
--------
+    python
+    from stsci.tools import teal
+    import wfc3tools
+    cfg = teal.teal('runastrodriz')
+
+PyRAF Usage:
+~~~~~~~~~~~~
+
+    epar runastrodriz
 
 If the '-i' option gets specified, no intermediate products will be written out
 to disk. These products, instead, will be kept in memory. This includes all
-single drizzle products (*single_sci* and *single_wht*), median image,
+single drizzle products (*single_sci and *single_wht), median image,
 blot images, and crmask images.  The use of this option will therefore require
 significantly more memory than usual to process the data.
 
@@ -58,4 +55,5 @@ for each input image.
 
 The '-n' option allows the user to specify the number of cores to be used in
 running AstroDrizzle.
+
 

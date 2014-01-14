@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>WF32D &mdash; wfc3tools 1.0 documentation</title>
+    <title>wf32d &mdash; wfc3tools 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
-    <link rel="next" title="WF3CCD" href="wf3ccd.html" />
-    <link rel="prev" title="CALWF3" href="calwf3.html" /> 
+    <link rel="next" title="wf3ccd" href="wf3ccd.html" />
+    <link rel="prev" title="calwf3" href="calwf3.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,13 +38,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="wf3ccd.html" title="WF3CCD"
+          <a href="wf3ccd.html" title="wf3ccd"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWF3"
+          <a href="calwf3.html" title="calwf3"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -55,19 +52,9 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-wfc3tools.wf32d">
-<span id="wf32d"></span><h1>WF32D<a class="headerlink" href="#module-wfc3tools.wf32d" title="Permalink to this headline">¶</a></h1>
-<p>wf32d processes UVIS images</p>
-<dl class="function">
-<dt id="wfc3tools.wf32d.run">
-<tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">run</tt><big>(</big><em>configobj=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>TEAL interface for the <tt class="docutils literal"><span class="pre">wf32d</span></tt> function.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="wfc3tools.wf32d.wf32d">
-<tt class="descclassname">wfc3tools.wf32d.</tt><tt class="descname">wf32d</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>dqicorr='PERFORM'</em>, <em>darkcorr='PERFORM'</em>, <em>flatcorr='PERFORM'</em>, <em>shadcorr='PERFORM'</em>, <em>photcorr='PERFORM'</em>, <em>verbose=False</em>, <em>quiet=True</em><big>)</big><a class="headerlink" href="#wfc3tools.wf32d.wf32d" title="Permalink to this definition">¶</a></dt>
-<dd><p>wf32d Version 1.2.dev27455  updated on  03-Jan-2013</p>
+  <div class="section" id="wf32d">
+<h1>wf32d<a class="headerlink" href="#wf32d" title="Permalink to this headline">¶</a></h1>
+<p>Use this function to facilitate batch runs or for the TEAL interface.</p>
 <dl class="docutils">
 <dt>The wf32d primary functions include:</dt>
 <dd><ul class="first last simple">
@@ -79,49 +66,29 @@
 </dl>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
-<dl class="docutils">
-<dt><strong>USAGE</strong></dt>
-<dd><ol class="first arabic">
-<li><p class="first">In Python without TEAL:</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">wf32d</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">In Python with TEAL:</p>
+<p>In Python with TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf32d</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf32d&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">In Pyraf:</p>
+<p>In Pyraf:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf32d</span>
 </pre></div>
 </div>
-</li>
-</ol>
-<p>4.The OS command line:</p>
-<blockquote class="last">
-<div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32d</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Where the OS options include:</p>
-<ul class="simple">
-<li>-v: verbose</li>
-<li>-f: print time stamps</li>
-<li>-d: debug</li>
-<li>-dark: perform dark subtraction</li>
-<li>-dqi: update the DQ array</li>
-<li>-flat: perform flat correction</li>
-<li>-shad: perform shading correction</li>
-<li>-phot: perform phot correction</li>
-</ul>
 </div></blockquote>
-</dd>
-</dl>
-<p><strong>PARAMETERS</strong></p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><dl class="docutils">
 <dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
@@ -154,8 +121,22 @@ will be set to COMPLETE in the corresponding output files.</p>
 <dd>Print messages only to trailer file?</dd>
 </dl>
 </div></blockquote>
-</dd></dl>
-
+<p><strong>The wf32d function can also be called directly from the OS command line:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf32d</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Where the OS options include:</p>
+<ul class="simple">
+<li>-v: verbose</li>
+<li>-f: print time stamps</li>
+<li>-d: debug</li>
+<li>-dark: perform dark subtraction</li>
+<li>-dqi: update the DQ array</li>
+<li>-flat: perform flat correction</li>
+<li>-shad: perform shading correction</li>
+<li>-phot: perform phot correction</li>
+</ul>
+</div>
 </div>
 
 
@@ -167,12 +148,21 @@ will be set to COMPLETE in the corresponding output files.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">wf32d</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="calwf3.html"
-                        title="previous chapter">CALWF3</a></p>
+                        title="previous chapter">calwf3</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="wf3ccd.html"
-                        title="next chapter">WF3CCD</a></p>
+                        title="next chapter">wf3ccd</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/wf32d.txt"
@@ -202,13 +192,10 @@ will be set to COMPLETE in the corresponding output files.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="wf3ccd.html" title="WF3CCD"
+          <a href="wf3ccd.html" title="wf3ccd"
              >next</a> |</li>
         <li class="right" >
-          <a href="calwf3.html" title="CALWF3"
+          <a href="calwf3.html" title="calwf3"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>

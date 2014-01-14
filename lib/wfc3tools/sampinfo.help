@@ -57,7 +57,7 @@ Default output:
 
 ::
 
-    In [3]: wfc3tools.sampinfo('ibcf02faq_raw.fits')
+    In [3]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits')
     IMAGE			NEXTEND	SAMP_SEQ	NSAMP	EXPTIME
     ibcf02faq_raw.fits	80	STEP50		16	499.234009
 
@@ -83,7 +83,7 @@ with median=True:
 
 ::
 
-    In [4]: wfc3tools.sampinfo('ibcf02faq_raw.fits',median=True)
+    In [4]: wfc3tools.sampinfo.sampinfo('ibcf02faq_raw.fits',median=True)
     IMAGE			NEXTEND	SAMP_SEQ	NSAMP	EXPTIME
     ibcf02faq_raw.fits	80	STEP50		16	499.234009
 

@@ -118,8 +118,6 @@ def _getHelpAsString(docstring=False):
 def help():
     print(_getHelpAsString(docstring=True))
 
-        
-    
 
 __doc__ = _getHelpAsString(docstring=True)
 

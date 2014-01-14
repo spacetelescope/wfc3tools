@@ -1,8 +1,87 @@
-*****************
-WF3CCD
-*****************
+======
+wf3ccd
+======
 
-.. currentmodule:: wfc3tools.wf3ccd
+This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
 
-.. automodule:: wfc3tools.wf3ccd
-   :members: 
+    * dqicorr - initializing the data quality array
+    * atodcorr - perform the a to d conversion correction
+    * blevcorr - subtract the bias level from the overscan region
+    * biascorr - subtract the bias image
+    * flshcorr - subtract the post-flash image
+    
+If blevcorr is performed the output contains the overcan-trimmed region.
+  
+Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+will be set to COMPLETE in the corresponding output files.
+
+Example
+--------
+
+    In Python without TEAL:
+
+    >>> from wfc3tools import wf3ccd
+    >>> calwf3.wf3ccd(filename)
+
+    In Python with TEAL:
+
+    >>> from stsci.tools import teal
+    >>> from wfc3tools import wf3ccd
+    >>> teal.teal('wf3ccd')
+
+    In Pyraf:
+
+    >>> import wfc3tools
+    >>> epar wf3ccd
+
+Parameters
+----------
+
+    input : str
+        Name of input files
+
+            * a single filename (``iaa012wdq_raw.fits``)
+            * a Python list of filenames
+            * a partial filename with wildcards (``\*raw.fits``)
+            * filename of an ASN table (``\*asn.fits``)
+            * an at-file (``@input``) 
+
+    output: str
+        Name of the output FITS file.
+
+    dqicorr: str, "PERFORM/OMIT", optional
+        Update the dq array from bad pixel table
+
+    atodcorr: str, "PERFORM/OMIT", optional
+        Analog to digital correction
+
+    blevcorr: str, "PERFORM/OMIT", optional
+        Subtract bias from overscan regions
+
+    biascorr: str, "PERFORM/OMIT", optional
+        Subtract bias image
+
+    flashcorr: str, "PERFORM/OMIT", optional
+        Subtract post-flash image
+
+    verbose: bool, optional
+        Print verbose time stamps?
+
+    quiet: bool, optional
+        Print messages only to trailer file?
+
+**The wf3ccd function can also be called directly from the OS command line:**
+
+>>> wf32ccd.e input output [-options]
+
+Where the OS options include:
+
+* -v: verbose
+* -f: print time stamps
+* -dqi: udpate the DQ array
+* -atod: perform gain correction
+* -blev: subtract bias from overscan
+* -bias: perform bias correction
+* -flash: remove post-flash image
+
+
