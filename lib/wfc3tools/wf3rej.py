@@ -89,7 +89,7 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
 
 
 def help(file=None):
-    helpstr = _getHelpAsString(docstring=True)
+    helpstr = getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -99,7 +99,7 @@ def help(file=None):
         f.close()
     
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
@@ -136,4 +136,4 @@ def run(configobj=None):
            
            
 #This replaces the help for the function which is also printed in the HTML and TEAL
-wf3rej.__doc__ = _getHelpAsString(docstring=True)
+wf3rej.__doc__ = getHelpAsString(docstring=True)

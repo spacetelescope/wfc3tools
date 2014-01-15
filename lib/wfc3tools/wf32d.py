@@ -53,7 +53,7 @@ def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",flatcorr="PERF
 
 
 def help(file=None):
-    helpstr = _getHelpAsString(docstring=True)
+    helpstr = getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -63,7 +63,7 @@ def help(file=None):
         f.close()
     
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
@@ -80,7 +80,7 @@ def _getHelpAsString(docstring=False):
     return helpString
 
 
-wf32d.__doc__ = _getHelpAsString(docstring=True)
+wf32d.__doc__ = getHelpAsString(docstring=True)
 
 
 def run(configobj=None):

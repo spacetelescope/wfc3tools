@@ -122,7 +122,7 @@ def embedsub(files):
         print("Image saved to: %s"%(full))
         
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """
     Returns documentation on the 'embedsub' function.
 
@@ -144,9 +144,9 @@ def _getHelpAsString(docstring=False):
         
     
 def help():
-    print(_getHelpAsString(docstring=True))
+    print(getHelpAsString(docstring=True))
 
-__doc__ = _getHelpAsString(docstring=True)
+__doc__ = getHelpAsString(docstring=True)
 
 if __name__ == "main":
     """called as a function from the terminal just return the default corner locations """

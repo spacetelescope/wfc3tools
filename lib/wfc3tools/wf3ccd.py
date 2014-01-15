@@ -50,7 +50,7 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PER
 
 
 def help(file=None):
-    helpstr = _getHelpAsString(docstring=True)
+    helpstr = getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -60,7 +60,7 @@ def help(file=None):
         f.close()
     
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
@@ -91,6 +91,6 @@ def run(configobj=None):
            quiet=configobj['quiet'],
            verbose=configobj['verbose'],)
            
-wf3ccd.__doc__ = _getHelpAsString(docstring=True)
+wf3ccd.__doc__ = getHelpAsString(docstring=True)
           
           
