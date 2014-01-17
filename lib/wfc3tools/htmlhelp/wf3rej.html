@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>WF3REJ &mdash; wfc3tools 1.0 documentation</title>
+    <title>wf3rej &mdash; wfc3tools 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
     <link rel="next" title="Running Astrodrizzle" href="runastrodriz.html" />
-    <link rel="prev" title="WF3IR" href="wf3ir.html" /> 
+    <link rel="prev" title="wf3ir" href="wf3ir.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,13 +38,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="runastrodriz.html" title="Running Astrodrizzle"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="wf3ir.html" title="WF3IR"
+          <a href="wf3ir.html" title="wf3ir"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -55,48 +52,57 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-wfc3tools.wf3rej">
-<span id="wf3rej"></span><h1>WF3REJ<a class="headerlink" href="#module-wfc3tools.wf3rej" title="Permalink to this headline">¶</a></h1>
-<p>wf3rej contains the Cosmic Ray rejection and shading correction processing steps for  the WFC3 UVIS and IR data. These steps are:</p>
-<dl class="function">
-<dt id="wfc3tools.wf3rej.run">
-<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">run</tt><big>(</big><em>configobj=None</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>TEAL interface for the <tt class="docutils literal"><span class="pre">wf3rej</span></tt> function.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="wfc3tools.wf3rej.wf3rej">
-<tt class="descclassname">wfc3tools.wf3rej.</tt><tt class="descname">wf3rej</tt><big>(</big><em>input</em>, <em>output=''</em>, <em>crrejtab=''</em>, <em>scalense=''</em>, <em>initgues=''</em>, <em>skysub=''</em>, <em>crsigmas=''</em>, <em>crradius=0</em>, <em>crthresh=0</em>, <em>badinpdq=0</em>, <em>crmask=False</em>, <em>shadcorr=False</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#wfc3tools.wf3rej.wf3rej" title="Permalink to this definition">¶</a></dt>
-<dd><p>wf3rej Version 1.2.dev27455  updated on  12-Jul-2013</p>
-<p>wf3rej, the cosmic-ray rejection and image combination task in calwf3, combines CR-SPLIT or REPEAT-OBS exposures into a single image, 
-first detecting and then replacing flagged pixels.</p>
-<p><strong>USAGE</strong></p>
-<blockquote>
-<div><ol class="arabic">
-<li><p class="first">In Python without TEAL:</p>
+  <div class="section" id="wf3rej">
+<h1>wf3rej<a class="headerlink" href="#wf3rej" title="Permalink to this headline">¶</a></h1>
+<p>This calls the wf3rej executable. Use this function to facilitate batch runs or for the TEAL interface.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">wf3rej</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">In Python with TEAL:</p>
+<p>In Python with TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">wf3rej</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;wf3rej&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">In Pyraf:</p>
+<p>In Pyraf:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">wfc3tools</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epar</span> <span class="n">wf3rej</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">The wf3rej executable can also be called directly from the OS command line prompt:</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>input : str, Name of input files</p>
 <blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
+<div><ul class="simple">
+<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
+<li>a Python list of filenames</li>
+<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
+<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
+<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
+</ul>
+</div></blockquote>
+<p>output : str, Name of the output FITS file.</p>
+<p>crrejtab : string, reference file name</p>
+<p>scalense :   string, scale factor applied to noise</p>
+<p>initgues :   string, intial value estimate scheme (min|med)</p>
+<p>skysub :     string, how to compute the sky (none|mode|mean)</p>
+<p>crsigmas :   string, rejection levels in each iteration</p>
+<p>crradius :   float, cosmic ray expansion radius in pixels</p>
+<p>crthresh :   float, rejection propagation threshold</p>
+<p>badinpdq :   int, data quality flag bits to reject</p>
+<p>crmask :     bool, flag CR in input DQ imageS?</p>
+<p>shadcorr :   bool, perform shading shutter correction?</p>
+<p>verbose : bool, optional,  Print verbose time stamps?</p>
+<p><strong>The wf3rej executable can also be called directly from the OS command line prompt:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">wf3rej</span><span class="o">.</span><span class="n">e</span> <span class="nb">input</span> <span class="n">output</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>Input can be a single file, or a comma-delimited list of files.</p>
 <p>Where the OS options include:</p>
 <ul class="simple">
 <li>t: print the timestamps</li>
@@ -112,54 +118,7 @@ first detecting and then replacing flagged pixels.</p>
 <li>thresh &lt;number&gt; : rejection propagation threshold</li>
 <li>pdq &lt;number&gt;: data quality flag bits to reject</li>
 </ul>
-</div></blockquote>
-</li>
-</ol>
-</div></blockquote>
-<p><strong>PARAMETERS</strong></p>
-<blockquote>
-<div><dl class="docutils">
-<dt>input <span class="classifier-delimiter">:</span> <span class="classifier">str, </span></dt>
-<dd><dl class="first last docutils">
-<dt>Name of input files</dt>
-<dd><ul class="first last simple">
-<li>a single filename (<tt class="docutils literal"><span class="pre">iaa012wdq_raw.fits</span></tt>)</li>
-<li>a Python list of filenames</li>
-<li>a partial filename with wildcards (<tt class="docutils literal"><span class="pre">\*raw.fits</span></tt>)</li>
-<li>filename of an ASN table (<tt class="docutils literal"><span class="pre">\*asn.fits</span></tt>)</li>
-<li>an at-file (<tt class="docutils literal"><span class="pre">&#64;input</span></tt>)</li>
-</ul>
-</dd>
-</dl>
-</dd>
-<dt>output <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
-<dd>Name of the output FITS file.</dd>
-<dt>crrejtab <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd>reference file name</dd>
-<dt>scalense <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd>scale factor applied to noise</dd>
-<dt>initgues <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd>intial value estimate scheme (min|med)</dd>
-<dt>skysub <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd>how to compute the sky (none|mode|mean)</dd>
-<dt>crsigmas <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd>rejection levels in each iteration</dd>
-<dt>crradius <span class="classifier-delimiter">:</span> <span class="classifier">float, optional</span></dt>
-<dd>cosmic ray expansion radius in pixels</dd>
-<dt>crthresh <span class="classifier-delimiter">:</span> <span class="classifier">float, optional</span></dt>
-<dd>rejection propagation threshold</dd>
-<dt>badinpdq <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
-<dd>data quality flag bits to reject</dd>
-<dt>crmask <span class="classifier-delimiter">:</span> <span class="classifier">bool,optional</span></dt>
-<dd>flag CR in input DQ imageS?</dd>
-<dt>shadcorr <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
-<dd>perform shading shutter correction?</dd>
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
-<dd>Print verbose time stamps?</dd>
-</dl>
-</div></blockquote>
-</dd></dl>
-
+</div>
 </div>
 
 
@@ -171,9 +130,18 @@ first detecting and then replacing flagged pixels.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">wf3rej</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="wf3ir.html"
-                        title="previous chapter">WF3IR</a></p>
+                        title="previous chapter">wf3ir</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="runastrodriz.html"
                         title="next chapter">Running Astrodrizzle</a></p>
@@ -206,13 +174,10 @@ first detecting and then replacing flagged pixels.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="runastrodriz.html" title="Running Astrodrizzle"
              >next</a> |</li>
         <li class="right" >
-          <a href="wf3ir.html" title="WF3IR"
+          <a href="wf3ir.html" title="wf3ir"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
       </ul>

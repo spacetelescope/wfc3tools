@@ -44,7 +44,7 @@ def run(configobj=None):
            verbose=configobj['verbose'],)
            
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
@@ -67,7 +67,7 @@ def help(file=None):
     
     """
         
-    helpstr = _getHelpAsString(docstring=True)
+    helpstr = getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -79,6 +79,6 @@ def help(file=None):
 
 
 
-wf3ir.__doc__ = _getHelpAsString(docstring=True)
+wf3ir.__doc__ = getHelpAsString(docstring=True)
 
            

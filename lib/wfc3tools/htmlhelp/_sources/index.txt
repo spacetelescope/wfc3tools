@@ -20,17 +20,19 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   calwf3
-   wf32d
-   wf3ccd
-   wf3ir
-   wf3rej
+   calwf3 <calwf3.rst>
+   wf32d <wf32d.rst>
+   wf3ccd <wf3ccd.rst>
+   wf3ir <wf3ir.rst>
+   wf3rej <wf3rej.rst>
    Running Astrodriz <runastrodriz.rst>
    sampinfo <sampinfo.rst>
    pstat <pstat.rst>
    pstack <pstack.rst>
    sub2full <sub2full.rst>
+   embedsub <embedsub.rst>
    Software History <history.rst>
+
 
 Indices and tables
 ==================

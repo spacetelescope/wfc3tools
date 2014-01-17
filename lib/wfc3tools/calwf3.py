@@ -49,7 +49,7 @@ def calwf3(input, printtime=False, save_tmp=False,
     subprocess.call(call_list)
 
 def help(file=None):
-    helpstr = _getHelpAsString(docstring=True)
+    helpstr = getHelpAsString(docstring=True)
     if file is None:
         print helpstr
     else:
@@ -59,7 +59,7 @@ def help(file=None):
         f.close()
     
 
-def _getHelpAsString(docstring=False):
+def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
     install_dir = os.path.dirname(__file__)
@@ -88,4 +88,4 @@ def run(configobj=None):
            debug=configobj['debug'])
 
 
-calwf3.__doc__ = _getHelpAsString(docstring=True)
+calwf3.__doc__ = getHelpAsString(docstring=True)
