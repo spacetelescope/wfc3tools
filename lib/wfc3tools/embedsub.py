@@ -104,6 +104,9 @@ def embedsub(files):
             flt[i].header['ltv1']   = 0.0
             flt[i].header['ltv2']   = 0.0
 
+        #set the header value of SUBARRAY to False since it's now  regular size image
+        flt[0].header['SUBARRAY']=False
+        
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
         hdulist=pyfits.HDUList()
         hdulist.append(pyfits.ImageHDU(flt[0].data,header=flt[0].header))
