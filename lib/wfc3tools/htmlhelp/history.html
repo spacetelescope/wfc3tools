@@ -51,6 +51,10 @@
   <div class="section" id="software-update-history-for-hstcal-calwf3">
 <h1>Software Update History for HSTCAL.CALWF3<a class="headerlink" href="#software-update-history-for-hstcal-calwf3" title="Permalink to this headline">¶</a></h1>
 <dl class="docutils">
+<dt><strong>Updates for  Version 3.2.1 08-Dec-2014 MLS:</strong></dt>
+<dd><a href="#id1"><span class="problematic" id="id2">*</span></a>The FLUXCORR step has been updated, changing how the data is processed in the flow of the pipeline. It was discovered that a chain of requirements meant that the values from the IMPHTTAB were not being read or updated correctly. This is a multifold problem which starts with the way that the IMPHTTAB is read and how it is constructed. Since the file, and it&#8217;s calling functions, are common to all instruments, the best way around it was to move where the fluxcorr step was done in the pipeline to OUTSIDE the main wf32d loop. The step then reads in the FLT file which was written out and updates the SCI,1 data and headers with the photometry keyword information.</dd>
+<dt><strong>Updates for  Version 3.2 09-Dec-2013 MLS:</strong></dt>
+<dd><a href="#id3"><span class="problematic" id="id4">*</span></a>A new calibration step was added to the UVIS process, FLUXCORR, can now be run at the end of regular processing. It will scale the chip2 image using the new PHTFLAM1 and PHTFLAM2 values in the IMPHTAB. New flatfields for all filters, as well as a new IMPHTTAB will be delivered by the team for this step to be completely implemented. This is a significant version increase since I had to modify the globablly access GetPhotTab to read the new WFC3 imphttab correctly, as well as touch many routines in the calwf3 process.( see tickets #1088, #1011, #1025)</dd>
 <dt><strong>Updates for Version 3.1.6 15-Nov-2013 MLS:</strong></dt>
 <dd><ul class="first last simple">
 <li>Fixed a file i/o issue after change in cfitsio interaction (see #970, #1073 and #1069)</li>

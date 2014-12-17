@@ -127,6 +127,28 @@ By default, it should be in the ``iref`` directory and have the suffix
 ``_imp.fits``. Each DETECTOR uses a different table.
 
 If you do not wish to use this feature, set PHOTCORR to OMIT.
+If you intend to use FLUXCORR, then PHOTCORR must be set to PERFORM as well.
+
+
+Flux normalization for UVIS1 and UVIS2 (FLUXCORR)
+-------------------------------------------------
+The FLUXCORR step was added in calwf3 v3.2.1 as a way to scale the UVIS chips 
+so that they will produce the same flux when converted to electrons. This requires new keywords 
+which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor 
+for the chips. New flatfields will replace the old flatfields in CDBS but the change will
+not be noticable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
+of the software should not be used with older versions as the data will be scaled incorrectly. 
+
+The new keywords include:
+
+PHTFLAM1: The FLAM for UVIS 1 
+PHTFLAM2: The FLAM for UVIS 2
+PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM2, which is calculated by calwf3 used to scale UVIS2 (SCI,1 in the data file)
+
+In order for FLUXCORR to work the value of PHOTCORR must also be set to perform since this populates
+the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
+
+
 
 
 calwf3 Output
@@ -140,4 +162,5 @@ Using RAW as input:
 Using ASN as input with WF3REJ:
 
     * crj.fits: cosmic ray rejected image
+
 
