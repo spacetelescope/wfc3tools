@@ -1,11 +1,11 @@
 Software Update History for HSTCAL.CALWF3
 -----------------------------------------
 **Updates for  Version 3.2.1 08-Dec-2014 MLS:**
-    *The FLUXCORR step has been updated, changing how the data is processed in the flow of the pipeline. It was discovered that a chain of requirements meant that the values from the IMPHTTAB were not being read or updated correctly. This is a multifold problem which starts with the way that the IMPHTTAB is read and how it is constructed. Since the file, and it's calling functions, are common to all instruments, the best way around it was to move where the fluxcorr step was done in the pipeline to OUTSIDE the main wf32d loop. The step then reads in the FLT file which was written out and updates the SCI,1 data and headers with the photometry keyword information.    
+    * The FLUXCORR step has been updated, changing how the data is processed in the flow of the pipeline. It was discovered that a chain of requirements meant that the values from the IMPHTTAB were not being read or updated correctly. This is a multifold problem which starts with the way that the IMPHTTAB is read and how it is constructed. Since the file, and it's calling functions, are common to all instruments, the best way around it was to move where the fluxcorr step was done in the pipeline to OUTSIDE the main wf32d loop. The step then reads in the FLT file which was written out and updates the SCI,1 data and headers with the photometry keyword information.    
 
 
 **Updates for  Version 3.2 09-Dec-2013 MLS:**
-    *A new calibration step was added to the UVIS process, FLUXCORR, can now be run at the end of regular processing. It will scale the chip2 image using the new PHTFLAM1 and PHTFLAM2 values in the IMPHTAB. New flatfields for all filters, as well as a new IMPHTTAB will be delivered by the team for this step to be completely implemented. This is a significant version increase since I had to modify the globablly access GetPhotTab to read the new WFC3 imphttab correctly, as well as touch many routines in the calwf3 process.( see tickets #1088, #1011, #1025)
+    * A new calibration step was added to the UVIS process, FLUXCORR, can now be run at the end of regular processing. It will scale the chip2 image using the new PHTFLAM1 and PHTFLAM2 values in the IMPHTAB. New flatfields for all filters, as well as a new IMPHTTAB will be delivered by the team for this step to be completely implemented. This is a significant version increase since I had to modify the globablly access GetPhotTab to read the new WFC3 imphttab correctly, as well as touch many routines in the calwf3 process.( see tickets #1088, #1011, #1025)
     
 
 **Updates for Version 3.1.6 15-Nov-2013 MLS:**

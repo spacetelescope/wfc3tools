@@ -143,7 +143,7 @@ The new keywords include:
 
 PHTFLAM1: The FLAM for UVIS 1 
 PHTFLAM2: The FLAM for UVIS 2
-PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM2, which is calculated by calwf3 used to scale UVIS2 (SCI,1 in the data file)
+PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)
 
 In order for FLUXCORR to work the value of PHOTCORR must also be set to perform since this populates
 the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
