@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -99,17 +97,18 @@ If an x and y are specified, the fullExtent option is turned off and only the tr
 <div class="section" id="example-output">
 <h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
 <p>Default output:</p>
-<div class="highlight-python"><pre>&gt; sub2full('ibbso1fdq_flt.fits')
-&gt; [(3584.0, 1539)]</pre>
+<div class="highlight-python"><div class="highlight"><pre>&gt; sub2full(&#39;ibbso1fdq_flt.fits&#39;)
+&gt; [(3584.0, 1539)]
+</pre></div>
 </div>
 <p>Optional output:</p>
-<div class="highlight-python"><pre>Specify a list of images:
+<div class="highlight-python"><div class="highlight"><pre>Specify a list of images:
 
-&gt;im = ['ic5p02e0q_spt.fits',
-       'ic5p02e1q_spt.fits',
-       'ic5p02e2q_spt.fits',
-       'ic5p02e3q_spt.fits',
-       'ic5p02e4q_spt.fits']
+&gt;im = [&#39;ic5p02e0q_spt.fits&#39;,
+       &#39;ic5p02e1q_spt.fits&#39;,
+       &#39;ic5p02e2q_spt.fits&#39;,
+       &#39;ic5p02e3q_spt.fits&#39;,
+       &#39;ic5p02e4q_spt.fits&#39;]
 &gt;
 &gt; sub2full(im)
 &gt; [(1062.0, 1363),
@@ -121,8 +120,9 @@ If an x and y are specified, the fullExtent option is turned off and only the tr
 
 Return the full extent of the subarray:
 
-&gt; sub2full('ibbso1fdq_flt.fits',fullExtent=True)
-&gt; [(3584.0, 4096, 1539, 2050)]</pre>
+&gt; sub2full(&#39;ibbso1fdq_flt.fits&#39;,fullExtent=True)
+&gt; [(3584.0, 4096, 1539, 2050)]
+</pre></div>
 </div>
 </div>
 <div class="section" id="more-information-on-header-keywords">
@@ -230,7 +230,7 @@ The keywords it uses are:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

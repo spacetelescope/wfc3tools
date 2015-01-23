@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -153,7 +151,23 @@ of calls  to SYNPHOT. The correct table for a given image must be specified
 in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step.
 By default, it should be in the <tt class="docutils literal"><span class="pre">iref</span></tt> directory and have the suffix
 <tt class="docutils literal"><span class="pre">_imp.fits</span></tt>. Each DETECTOR uses a different table.</p>
-<p>If you do not wish to use this feature, set PHOTCORR to OMIT.</p>
+<p>If you do not wish to use this feature, set PHOTCORR to OMIT.
+If you intend to use FLUXCORR, then PHOTCORR must be set to PERFORM as well.</p>
+</div>
+<div class="section" id="flux-normalization-for-uvis1-and-uvis2-fluxcorr">
+<h2>Flux normalization for UVIS1 and UVIS2 (FLUXCORR)<a class="headerlink" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr" title="Permalink to this headline">¶</a></h2>
+<p>The FLUXCORR step was added in calwf3 v3.2.1 as a way to scale the UVIS chips
+so that they will produce the same flux when converted to electrons. This requires new keywords
+which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor
+for the chips. New flatfields will replace the old flatfields in CDBS but the change will
+not be noticable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
+of the software should not be used with older versions as the data will be scaled incorrectly.</p>
+<p>The new keywords include:</p>
+<p>PHTFLAM1: The FLAM for UVIS 1
+PHTFLAM2: The FLAM for UVIS 2
+PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)</p>
+<p>In order for FLUXCORR to work the value of PHOTCORR must also be set to perform since this populates
+the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.</p>
 </div>
 <div class="section" id="calwf3-output">
 <h2>calwf3 Output<a class="headerlink" href="#calwf3-output" title="Permalink to this headline">¶</a></h2>
@@ -196,6 +210,7 @@ By default, it should be in the <tt class="docutils literal"><span class="pre">i
 <li><a class="reference internal" href="#post-flash-correction-flshcorr">Post-Flash Correction (FLSHCORR)</a></li>
 <li><a class="reference internal" href="#flatcorr">FLATCORR</a></li>
 <li><a class="reference internal" href="#photometry-keywords-photcorr">Photometry Keywords (PHOTCORR)</a></li>
+<li><a class="reference internal" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr">Flux normalization for UVIS1 and UVIS2 (FLUXCORR)</a></li>
 <li><a class="reference internal" href="#calwf3-output">calwf3 Output</a></li>
 </ul>
 </li>
@@ -246,7 +261,7 @@ By default, it should be in the <tt class="docutils literal"><span class="pre">i
     </div>
     <div class="footer">
         &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
