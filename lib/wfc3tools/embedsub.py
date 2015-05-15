@@ -1,4 +1,4 @@
-from __future__ import division, print_function # confidence high
+from __future__ import absolute_import, division, print_function # confidence high
 
 #get the auto update version 
 from .version import *

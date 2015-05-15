@@ -63,7 +63,7 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
             numrows=int(fd2[1].header['NUMROWS'])
             numcols=int(fd2[1].header['NUMCOLS'])
             fd2.close()
-        except KeyError, e:
+        except KeyError as e:
             raise KeyError("Required header keyword missing; %s"%(e))
             
         if "NO" in  subarray:

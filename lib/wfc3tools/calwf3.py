@@ -3,6 +3,7 @@ CALWF3 calibrates UVIS and IR images for WFC3
 """
 
 #get the auto update version for the call to teal help
+from __future__ import absolute_import, print_function
 from .version import *
 
 # STDLIB
@@ -51,7 +52,7 @@ def calwf3(input, printtime=False, save_tmp=False,
 def help(file=None):
     helpstr = getHelpAsString(docstring=True)
     if file is None:
-        print helpstr
+        print(helpstr)
     else:
         if os.path.exists(file): os.remove(file)
         f = open(file,mode='w')
