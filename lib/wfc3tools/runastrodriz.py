@@ -14,7 +14,7 @@ from __future__ import division, print_function # confidence high
 
 
 # Import standard Python modules
-import os, sys, string,time, shutil
+import os, sys, time, shutil
 import glob
 
 from stsci.tools import fileutil, asnutil
@@ -132,14 +132,14 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
         inFilename = _lowerAsn(inFilename)
         _new_asn = [inFilename]
         _asndict = asnutil.readASNTable(inFilename,None,prodonly=False)
-        _fname = fileutil.buildRootname(string.lower(_asndict['output']),ext=['_drz.fits'])
-        _cal_prodname = string.lower(_asndict['output'])
+        _fname = fileutil.buildRootname(_asndict['output'].lower(),ext=['_drz.fits'])
+        _cal_prodname = _asndict['output'].lower()
 
         # Retrieve the first member's rootname for possible use later
         _fimg = pyfits.open(inFilename)
         for name in _fimg[1].data.field('MEMNAME'):
             if name[-1] != '*':
-                _mname = string.lower(string.split(name,'\0',1)[0])
+                _mname = name.split('\0',1)[0].lower()
                 break
         _fimg.close()
         del _fimg
@@ -147,7 +147,7 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
     else:
         # Check to see if input is a _RAW file
         # If it is, strip off the _raw.fits extension...
-        _indx = string.find(inFilename,'_raw')
+        _indx = inFilename.find('_raw')
         if _indx < 0: _indx = len(inFilename)
         # ... and build the CALXXX product rootname.
         _mname = fileutil.buildRootname(inFilename[:_indx])
