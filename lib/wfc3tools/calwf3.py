@@ -3,8 +3,7 @@ CALWF3 calibrates UVIS and IR images for WFC3
 """
 
 #get the auto update version for the call to teal help
-from __future__ import absolute_import, print_function
-from .version import *
+from __future__ import print_function
 
 # STDLIB
 import os.path
@@ -63,12 +62,13 @@ def help(file=None):
 def getHelpAsString(docstring=False):
     """Return documentation on the 'wf3ir' function. Required by TEAL."""
 
+    from . import version
     install_dir = os.path.dirname(__file__)
     htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
     helpfile = os.path.join(install_dir, __taskname__ + '.help')
     if docstring or (not docstring and not os.path.exists(htmlfile)):
-        helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __vdate__]) + '\n\n'
+        helpString = ' '.join([__taskname__, 'Version', version.__version__,
+                               ' updated on ', version.__vdate__]) + '\n\n'
         if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
     else:
