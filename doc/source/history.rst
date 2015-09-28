@@ -1,5 +1,58 @@
 Software Update History for HSTCAL.CALWF3
 -----------------------------------------
+**Updates for Version 3.3 24-Sep-2015 MLS**
+    * fix for machine dependent precision bug
+
+**Updates for Version 3.3 03-Sep-2015 MLS**
+    * One more precision change needed for the nans in the readnoise section
+
+**Updates for Version 3.3 28-Aug-2015 MLS**
+    * These updates appear to fix the nan issue in the readnoise step that we ran into with some images
+    * I also made the cte code a bit more tidy and organized
+
+**Updates for Version 3.3 25-Aug-2015 MLS**
+    * changed pow() to powf() in the readnoise calculation to deal with memory overrun producing nans in some cases
+
+**Updates for Version 3.3 24-Aug-2015 MLS**
+    * updated the mac os version check in wscript to use sw_vers, the old way was returning junk and we need it for adding the 64bit flags to the compile
+    * added some initializations the clang compiler complained about
+
+**Updates for Version 3.3 20-Aug-2015 MLS**
+    * I changed a float to double in wf3cte readnoise section for added precision
+    * moved GetGlobalInfo and checkGlobal info higher in the code to reject non-wfc3 datasets
+    * moved a delete section further out in the logic and that seemed to fix #1220, tests on cte and non-cte data seemed happy
+
+**Updates for Version 3.3 18-Aug-2015 MLS**
+    * BuildDthInput has to create the input filename from the asn root, but this can be either FLT or FLC now, have to figure out which one to use.
+    * Had to add separate DTH pass for IR data and double DTH pass for UVIS data because the input filename for RPTCORR/EXPCORR associations are built in the code from the data rootnames in the ASN table. So the UVIS data coming out of procccd has to take a double pass through DTH when PCTECORR is PERFORM.
+    * changed the checking order for subarrays in the PCTECORR routine so that it errors out cleanly (has to do with 1 group of images for subarrays)
+    * added the check for INSTRUMENT == WFC3 back to the code, actually related to a user complainging that calwf3 didn't tell them it couldn't reduce ACS data.
+    * had to update the procir call to wf3rej_0 signature for the asn update I added to uvis
+    * updated the mainrej.e calls which were segfaulting (calling wf3rej standalone on input list of images)
+    * added dynamic memory allocation for trailer file list to initrejtrl
+    * updated text in wf3rej to report that Astrodrizzle should be used to align images instead of PyDrizzle since that's how it's advertised to users
+    * found a problem (even in the released version of calwf3) with output file for associations with multiple products, created #1220
+ 
+**Updates for Version 3.3 12-Aug-2015 MLS**
+    * fix for #1215 binned data detection for sink pixel seg faults
+
+**Updates for Version 3.3 11-Aug-2015 MLS**
+    * nrej initialized in wf3rej so that REJ_RATE reported consistently correct, see #1214
+    * fix for #1216, the BIACFILE name was not being populated for bias images with BIASCORR == OMIT
+    * I also went ahead and added a clean exit for images going to PCTECORR which already have BIASCORR complete
+
+**Updates for Version 3.3  21-July-2015 MLS**
+    * Debugged version of the CTE code committed.
+    * see #1193 ticket for extensive changes
+
+**Updates for Version 3.3  31-May-2015 MLS**
+    * UVIS 2.0 added, including CTE correction, Sink Pixel and Photometry updates
+    * (#1011) New photometry correction for UVIS. This includes a delivery of new flatfields for all filters in CDBS as well as a new IMPHTTAB. The new calibration step is controlled by the FLUXCORR keyword in the image header.
+    * (#1154) CTE correction for all UVIS data. This is done in conjunction with a full run through of the pipeline code without the CTE correction applied. This correction is for the same reasons as in ACS, but the CTE correction method and code are different, and they are applied to the raw file instead of later in the processing. Some sections of the CTE code support parallel processing with OpenMP. The default for calwf3 is to use all available processors. To restrict processing to 1 cpu use the flag -1 in the call to calwf3.e  The cte processing is controlled with the PCTECORR keyword.
+    * Sink pixels added to the science image DQ mask using the SNKCFILE reference image. This image has 2 extensions, each in the pre-overscan trimmed format. This step is performed if DQICORR is PERFORM, and is done before BLEVCORR while the science image is still untrimmed.
+    * see #1193 for more detailed information on all the updates
+
+
 **Updates for  Version 3.2.1 08-Dec-2014 MLS:**
     * The FLUXCORR step has been updated, changing how the data is processed in the flow of the pipeline. It was discovered that a chain of requirements meant that the values from the IMPHTTAB were not being read or updated correctly. This is a multifold problem which starts with the way that the IMPHTTAB is read and how it is constructed. Since the file, and it's calling functions, are common to all instruments, the best way around it was to move where the fluxcorr step was done in the pipeline to OUTSIDE the main wf32d loop. The step then reads in the FLT file which was written out and updates the SCI,1 data and headers with the photometry keyword information.    
 

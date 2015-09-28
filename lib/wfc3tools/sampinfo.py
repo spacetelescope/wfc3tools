@@ -55,13 +55,13 @@ To get the average value for each sample:
     >>> sampinfo.sampinfo(imagename, mean=True)
     
 """
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import, print_function, division
 
 #get the auto update version for the call to  help
 from .version import *
 
 # STDLIB
-import pyfits
+from astropy.io import fits
 import os,sys
 import numpy as np
 
@@ -96,7 +96,7 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
             ir_list+=["DATAMIN","DATAMAX"]
                
     for image in imlist[0]:
-        current=pyfits.open(image)
+        current=fits.open(image)
         header0=current[0].header
         nextend=header0["NEXTEND"]
         try:

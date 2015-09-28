@@ -89,6 +89,13 @@ Command Line Options
 * --version: Print the current software version
 
 
+CTE correction (PCTECORR)
+-------------------------
+The charge transfer efficiency (CTE) of the UVIS detector has inevitably been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources in particular can suffer large flux losses or even be lost entirely if observations are not planned and analyzed carefully. The CTE loss will depend on the morphology of the source, the distribution of electrons in the field of view (from sources, background, cosmic rays, and hot pixels) and the population of charge traps in the detector column between the source and the transfer register. And the magnitude of the CTE loss increases continuously with time as new charge traps form. 
+
+CTE is typically measured as a pixel-transfer efficiency, and would be unity for a perfect CCD. One indicator of CTE is the Extended Pixel Edge Response (EPER). Inefficient transfer of electrons in a flat-field exposure produces an exponential tail of charge in the overscan region. Analysis of monitoring observations through January 2013 shows that CTE continues to decline linearly over time (WFC3 ISR 2013-03). For further updates, see the CTE section of the WFC3 Performance Monitoring webpage.
+
+
 Unit Conversion to Electrons
 ----------------------------
 
@@ -102,6 +109,7 @@ Dark Current Subtraction (DARKCORR)
 It uses DARKFILE for the reference dark image.
 
 The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.
+
 
 Post-Flash Correction (FLSHCORR)
 --------------------------------
@@ -135,7 +143,7 @@ Flux normalization for UVIS1 and UVIS2 (FLUXCORR)
 The FLUXCORR step was added in calwf3 v3.2.1 as a way to scale the UVIS chips 
 so that they will produce the same flux when converted to electrons. This requires new keywords 
 which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor 
-for the chips. New flatfields will replace the old flatfields in CDBS but the change will
+for the chips. New flatfields must be used and will replace the old flatfields in CDBS but the change will
 not be noticable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
 of the software should not be used with older versions as the data will be scaled incorrectly. 
 
@@ -147,8 +155,6 @@ PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is m
 
 In order for FLUXCORR to work the value of PHOTCORR must also be set to perform since this populates
 the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
-
-
 
 
 calwf3 Output

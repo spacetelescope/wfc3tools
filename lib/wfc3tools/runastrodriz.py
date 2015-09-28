@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from __future__ import division, print_function # confidence high
+from __future__ import division, print_function, absolute_import # confidence high
 
 """ runastrodriz is a module to control operation of astrodrizzle which removes distortion and combines HST images in the pipeline.
 """
@@ -20,8 +20,7 @@ import glob
 from stsci.tools import fileutil, asnutil
 
 # Import local modules
-import pyfits
-
+from astropy.io import fits
 try:
     from stsci.tools import teal
 except:
@@ -136,7 +135,7 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
         _cal_prodname = _asndict['output'].lower()
 
         # Retrieve the first member's rootname for possible use later
-        _fimg = pyfits.open(inFilename)
+        _fimg = fits.open(inFilename)
         for name in _fimg[1].data.field('MEMNAME'):
             if name[-1] != '*':
                 _mname = name.split('\0',1)[0].lower()
@@ -188,7 +187,7 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
     if force: dcorr = 'PERFORM'
     else:
         if _mname :
-            _fimg = pyfits.open(fileutil.buildRootname(_mname,ext=['_raw.fits']))
+            _fimg = fits.open(fileutil.buildRootname(_mname,ext=['_raw.fits']))
             _phdr = _fimg['PRIMARY'].header
             if dkey in _phdr:
                 dcorr = _phdr[dkey]
@@ -273,9 +272,9 @@ def process(inFile,force=False,newpath=None, inmemory=False, num_cores=None,
             print('Updating trailer file %s with astrodrizzle comments.' % _trlfile)
             _appendTrlFile(_trlfile,_drizlog)
 
-        # Save this for when PyFITS can modify a file 'in-place'
+        # Save this for when fits can modify a file 'in-place'
         # Update calibration switch
-        _fimg = pyfits.open(_cal_prodname,mode='update')
+        _fimg = fits.open(_cal_prodname,mode='update')
         _fimg['PRIMARY'].header.update(dkey,'COMPLETE')
         _fimg.close()
         del _fimg
@@ -366,7 +365,7 @@ def _lowerAsn(asnfile):
     shutil.copy(asnfile,_new_asn)
 
     # Open up the new copy and convert all MEMNAME's to lower-case
-    fasn = pyfits.open(_new_asn,'update')
+    fasn = fits.open(_new_asn,'update')
     for i in range(len(fasn[1].data)):
         fasn[1].data[i].setfield('MEMNAME',fasn[1].data[i].field('MEMNAME').lower())
     fasn.close()
