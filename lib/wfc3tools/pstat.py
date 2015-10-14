@@ -6,7 +6,7 @@ from .version import *
 
 # STDLIB
 import os
-import pyfits
+from astropy.io import fits as pyfits
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import mode as mode

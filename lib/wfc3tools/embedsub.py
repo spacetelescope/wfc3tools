@@ -5,7 +5,7 @@ from .version import *
 from .sub2full import sub2full
 
 # STDLIB
-import pyfits
+from astropy.io import fits as pyfits
 import os
 import numpy
 
