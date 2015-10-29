@@ -1,9 +1,48 @@
-======
+******
 calwf3
-======
+******
 
-Examples
---------
+``calwf3`` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
+appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the pipeline as a whole.
+
+
+
+.. _calflow:
+
+.. figure:: images/wfc3_Ch33.1.png
+    :align: center
+    :alt: Flow diagram for ``calwf3`` data using 
+
+    Flow diagram for ``calwf3`` data. :ref:`wf3cte` occurs as the very first step, before :ref:`wf3ccd`.
+
+
+During automatic pipeline processing by the STScI archive, ``Astrodrizzle`` follows ``calwf3``. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or the section on :ref:`running-astrodrizzle`.
+
+
+Where to Find calwf3
+====================
+
+``calwf3`` is part of HSTCAL package, which can be downloaded from
+http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
+and is installed along with the STScI distributed package Ureka. 
+
+
+A detailed description of the improved ``calwf3``, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and an ISR which will accompany the update.
+
+The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
+In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu). 
+
+
+Running calwf3
+==============
+
+``calwf3`` can be run on a single input raw file or an asn table listing the members of an associtaion. 
+When processing an association, it retrieves calibration switch and reference file keyword settings from 
+the first image listed in the asn table. ``calwf3`` does not accept a user-defined list of input images on the 
+command line (e.g. ``*raw.fits`` to process all raw files in the current directory).
+
+The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the other hand, will accept such user-defined input file lists, but they will not accept an association table( asn ) as input.
+
 
     In Python without TEAL:
 
@@ -22,24 +61,8 @@ Examples
     >>> epar calwf3
 
 
-A detailed description of this new and improved ``calwf3`` will be available in a future publication of WFC3 Data Handbook. 
-The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
-In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu). 
-
-
-Running calwf3
---------------
-
-``calwf3`` can be run on a single input raw file or an asn table listing the members of an associtaion. 
-When processing an association, it retrieves calibration switch and reference file keyword settings from 
-the first image listed in the asn table. ``calwf3`` does not accept a user-defined list of input images on the 
-command line (e.g. ``*raw.fits`` to process all raw files in the current directory).
-
-The ``wf3ccd``, ``wf32d``, and ``wf3ir`` tasks on the other hand, will accept such user-defined input file lists, 
-but they will not accept an association table( asn ) as input.
-
-Batch calwf3
-------------
+Running many files at the same time
+-----------------------------------
 
 The recommended method for running ``calwf3`` in batch mode is to use Python and
 the ``wfc3tools`` package in the "STSDAS distribution
@@ -48,125 +71,110 @@ the ``wfc3tools`` package in the "STSDAS distribution
 For example::
 
     from wfc3tools import calwf3
-    import glob
+    from glob import glob
 
-    for fits in glob.glob('j*_raw.fits'):
+    for fits in glob('j*_raw.fits'):
         calwf3.calwf3(fits)
-
-
-Where to Find calwf3
---------------------
-
-``calwf3`` is now part of HSTCAL package, which can be downloaded from
-http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
-
-
-Usage
------
-
-**The calwf3 executable can also be called directly from the command line:**
-
->>> calwf3.e iaa001kaq_raw.fits [command line options]
 
 
 Command Line Options
 --------------------
 
-``calwf3`` supports several command line options:
+`calwf3`  can also be called directly from the OS command line:
 
-* -t: Print verbose time stamps.
-  
-* -s: Save temporary files.
-  
-* -v: Turn on verbose output.
-  
-* -d: Turn on debug output.
-  
-* -q: Turn on quiet output.
-  
-* -r: Print the current software version number (revision)
-
-* --version: Print the current software version
+>>> calwf3.e iaa001kaq_raw.fits [command line options]
 
 
-CTE correction (PCTECORR)
--------------------------
-The charge transfer efficiency (CTE) of the UVIS detector has inevitably been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources in particular can suffer large flux losses or even be lost entirely if observations are not planned and analyzed carefully. The CTE loss will depend on the morphology of the source, the distribution of electrons in the field of view (from sources, background, cosmic rays, and hot pixels) and the population of charge traps in the detector column between the source and the transfer register. And the magnitude of the CTE loss increases continuously with time as new charge traps form. 
+The command line executable only accepts one file at a time, but you can use os tools like `awk` to process everything in a directory:
 
-CTE is typically measured as a pixel-transfer efficiency, and would be unity for a perfect CCD. One indicator of CTE is the Extended Pixel Edge Response (EPER). Inefficient transfer of electrons in a flat-field exposure produces an exponential tail of charge in the overscan region. Analysis of monitoring observations through January 2013 shows that CTE continues to decline linearly over time (WFC3 ISR 2013-03). For further updates, see the CTE section of the WFC3 Performance Monitoring webpage.
+>>> ls *raw.fits | awk '{print "calwf3.e",$1}' | csh
 
 
-Unit Conversion to Electrons
-----------------------------
+The following options are available
 
-The UVIS image is multiplied by gain right after BIASCORR, converting it to
-ELECTRONS. This step is no longer embedded within FLATCORR.
+* t: Print verbose time stamps.
+
+* s: Save temporary files.
+
+* v: Turn on verbose output.
+
+* d: Turn on debug output.
+
+* q: Turn on quiet output.
+
+* r: Print the current software version number (with full revision information)
+
+* --version: Print the current software version number only
 
 
-Dark Current Subtraction (DARKCORR)
------------------------------------
+Types of files used as input to calwf3
+--------------------------------------
 
-It uses DARKFILE for the reference dark image.
+* _asn file: name of an association table
+* _raw file: name of an individual, uncalibrated exposure
+* _crj file: name of any sub-product from an association table
 
-The UVIS Dark image is now scaled by EXPTIME and FLASHDUR.
+While both CR-SPLIT and REPEAT-OBS exposures from an association get combined using `calwf3`, dithered observations from an association do not.
+
+.. _uvis_data_format:
+
+.. figure:: images/uvis_data_format.png
+    :align: center
+    :alt:  UVIS data raw file format
+
+    UVIS data raw file format
 
 
-Post-Flash Correction (FLSHCORR)
+
+.. _ir_data_format:
+
+.. figure:: images/ir_data_format.png
+    :align: center
+    :alt:  IR data raw file format
+
+    IR data raw file format
+
+
+* The science image contains the data from the focal plane array detectors.
+* The error array contains an estimate of the statistical uncertainty associated with each correcsponding science image pixel 
+* The data quality array contains independent flags indicating various status and problem conditions associated with each correspoinding pixel in the science image
+* The sample array (IR ONLY) contains the number of samples used to derive the corresponding pixel values in the science image. 
+* The time array (IR ONLY) containst the effective integration time associated with each corresponding science image pixel value. 
+
+
+Types of output file from calwf3
 --------------------------------
 
-Post-flash correction is now performed after DARKCORR in the WF32D step.
-When FLSHCORR=PERFORM, it uses FLSHFILE (the post-flash reference file).
+The suffixes used for WFC3 raw and calibrated data products closely mimic those used by ACS and NICMOS:
+
+========   =================================================    ====================
+SUFFIX     DESCRIPTION                                          UNITS
+========   =================================================    ====================
+_raw       raw data                                             DN
+_rac       UVIS CTE corrected raw data, no other calibration    DN
+_asn       association file for observation set                 
+_spt       telescope and wfc3 telemetry and engineering data    
+_blv_tmp   overscan-trimmed UVIS exposure                       DN
+_crj_tmp   uncalibrated, cosmic-ray rejected combined UVIS      DN
+_ima       calibrated intermediate IR multiaccum image          :math:`e^{-}/s`
+_flt       UVIS calibrated exposure                             :math:`e^{-}`
+_flc       UVIS calibrated exposure including CTE correction    :math:`e^{-}`
+_flt       IR calibrated exposure                               :math:`e^{-}/s`
+_crj       UVIS calibrated, cosmic ray rejected image           :math:`e^{-}`
+_crj       IR calibrated, cosmic ray rejected image             :math:`e^{-}/s`
+.tra       trailer file, contains processing messages
+========   =================================================    ====================
 
 
-FLATCORR
---------
-
-Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM. Unit
-conversion is done for all exposures after BIASCORR.
+** DRZ and DRC products are produced with Astrodrizzle, see :ref:`running-astrodrizzle` **
 
 
-Photometry Keywords (PHOTCORR)
-------------------------------
-
-The PHOTCORR step is now performed using tables of precomputed values instead
-of calls  to SYNPHOT. The correct table for a given image must be specified
-in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step.
-By default, it should be in the ``iref`` directory and have the suffix
-``_imp.fits``. Each DETECTOR uses a different table.
-
-If you do not wish to use this feature, set PHOTCORR to OMIT.
-If you intend to use FLUXCORR, then PHOTCORR must be set to PERFORM as well.
-
-
-Flux normalization for UVIS1 and UVIS2 (FLUXCORR)
--------------------------------------------------
-The FLUXCORR step was added in calwf3 v3.2.1 as a way to scale the UVIS chips 
-so that they will produce the same flux when converted to electrons. This requires new keywords 
-which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor 
-for the chips. New flatfields must be used and will replace the old flatfields in CDBS but the change will
-not be noticable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
-of the software should not be used with older versions as the data will be scaled incorrectly. 
-
-The new keywords include:
-
-PHTFLAM1: The FLAM for UVIS 1 
-PHTFLAM2: The FLAM for UVIS 2
-PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)
-
-In order for FLUXCORR to work the value of PHOTCORR must also be set to perform since this populates
-the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
-
-
-calwf3 Output
+Keyword Usage
 -------------
 
-Using RAW as input:
-
-    * flt.fits: output calibrated exposure.
-    * ima.fits: output ramp calibration IR exposure.
-    
-Using ASN as input with WF3REJ:
-
-    * crj.fits: cosmic ray rejected image
+`calwf3` processing is controlled by the values of keywords in the input image headers. Certain keywords, referred to as calibration switches, are used to control which calibration steps are performed. Reference file keywords indicate which reference files to use in the various calibration steps. Users who which to perform custom reprocessing of their data may change the values of these keywords in the _raw FITS file headers and then rerun the modified file through  `calwf3`. See the `WFC3 Data Handbook <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/wfc3_Ch25.html>`_ for a more complete description of these keywords and their values.
 
 
+.. include:: uvis_pipeline.rst
+
+.. include:: ir_pipeline.rst

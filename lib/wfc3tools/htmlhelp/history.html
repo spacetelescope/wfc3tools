@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="prev" title="embedsub" href="embedsub.html" /> 
+    <link rel="next" title="embedsub" href="embedsub.html" />
+    <link rel="prev" title="Running Astrodrizzle" href="runastrodriz.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,6 +37,9 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="embedsub.html" title="embedsub"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -47,8 +51,38 @@
           <div class="body">
             
   <div class="section" id="software-update-history-for-hstcal-calwf3">
-<h1>Software Update History for HSTCAL.CALWF3<a class="headerlink" href="#software-update-history-for-hstcal-calwf3" title="Permalink to this headline">¶</a></h1>
+<span id="software-history"></span><h1>Software Update History for HSTCAL.CALWF3<a class="headerlink" href="#software-update-history-for-hstcal-calwf3" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied</p>
+</div>
 <dl class="docutils">
+<dt><strong>Updates for Version 3.3 24-Oct-2015 MLS</strong></dt>
+<dd><ul class="first last simple">
+<li>The nightly build is specifying a higher level of optimization through to the compiler than the debug mode that I have been using for my testing. Building calwf3 with the lower optimization produced no errors or warnings and ran through cleanly, but the high optimization brought on a segfault inside the CTE code in the first openmp section. This was only happening on the Linux cluster, the MAC builds showed no issue. The problem area seemed to be a set of arrays which would rather be doubles than floats. I also changed the remaining floats to doubles, where I could, and removed more of the memcpy statements, making them regular array assignments.</li>
+<li>I also removed a superfluous openmp print statement from maincte.c and cleaned up some more informational print statements.</li>
+<li>I added a time measurement, with verbose on the code prints how long the CTE section took to run, with the specification of number of threads/cpus.</li>
+</ul>
+</dd>
+<dt><strong>Updates for Version 3.3 21-Oct-2015 MLS</strong></dt>
+<dd><ul class="first last simple">
+<li>Editing text for the screen and trailer files</li>
+<li>Formally removed the rac file before the routine ends since archive isn&#8217;t expecting it</li>
+</ul>
+</dd>
+<dt><strong>Updates for Version 3.3 16-Oct-2015 MLS</strong></dt>
+<dd><ul class="first last simple">
+<li>machine dependent bug, some images were getting nan values on linux machines</li>
+<li>I also removed the temporary image saves we were using for the CTE routines</li>
+</ul>
+</dd>
+<dt><strong>Updates for Version 3.3 29-Sep-2015 MLS</strong></dt>
+<dd><ul class="first last simple">
+<li>bug in original fortran code fixed; the final RAC image should be made by subtracting the CHG image (the net cte effect) from the original non-BIC subtracted raw data. This should remove the additional bias signature that Matthew was seeing in the stacked dark frames. It should NOT make a significant change in the overall output of the code since bias levels are low to begin with.</li>
+<li>I also changed the way the code uses the SCLBYCOL reference file (as called in Jays fortran). The way the fortran code is structured, the reference file information never actually gets used in the calculation. This doesn&#8217;t make a numerical difference at the moment because the reference file values are all ones, ie. there is no additional scaling done on the CTE pixel other than by using the CTE scaling fraction and the column location. However, if the science team ever delivers a new reference file which has these values updated, they wont actually get used by the code unless this change is implemented.</li>
+<li>Reformatted some code for readability, and fixed SEGFAULT error in reference file checking when iref environment variable not set by user, so can&#8217;t find file (also when can&#8217;t find file in general). I made RefExist exit clean the first time it found a missing file, HSTIO was barfing any other way.</li>
+</ul>
+</dd>
 <dt><strong>Updates for Version 3.3 24-Sep-2015 MLS</strong></dt>
 <dd><ul class="first last simple">
 <li>fix for machine dependent precision bug</li>
@@ -923,8 +957,11 @@
               <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
             </a></p>
   <h4>Previous topic</h4>
+  <p class="topless"><a href="runastrodriz.html"
+                        title="previous chapter">Running Astrodrizzle</a></p>
+  <h4>Next topic</h4>
   <p class="topless"><a href="embedsub.html"
-                        title="previous chapter">embedsub</a></p>
+                        title="next chapter">embedsub</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/history.txt"
@@ -955,6 +992,9 @@
              >index</a></li>
         <li class="right" >
           <a href="embedsub.html" title="embedsub"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="runastrodriz.html" title="Running Astrodrizzle"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>

@@ -25,8 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="next" title="embedsub" href="embedsub.html" />
-    <link rel="prev" title="pstack" href="pstack.html" /> 
+    <link rel="prev" title="sampinfo" href="sampinfo.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,10 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="embedsub.html" title="embedsub"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pstack.html" title="pstack"
+          <a href="sampinfo.html" title="sampinfo"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -52,13 +48,12 @@
             
   <div class="section" id="sub2full">
 <h1>sub2full<a class="headerlink" href="#sub2full" title="Permalink to this headline">¶</a></h1>
-<p>Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image (including the full physical extent of the chip), in 1-indexed pixels. If the user supplies an X and Y coordinate, then the translated location of that point will be returned.
-The</p>
+<p>Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image (including the full physical extent of the chip), in 1-indexed pixels. If the user supplies an X and Y coordinate, then the translated location of that point will be returned.</p>
 <div class="figure align-center">
 <img alt="_images/sub2full_translate.png" src="_images/sub2full_translate.png" />
 </div>
 <div class="section" id="usage">
-<h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">sub2full</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span><span class="o">=</span><span class="n">sub2full</span><span class="o">.</span><span class="n">sub2full</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">fullExtent</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
@@ -66,32 +61,36 @@ The</p>
 </div>
 </div>
 <div class="section" id="parameters">
-<h2>PARAMETERS<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><dl class="docutils">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
 <dt>filename [file]</dt>
-<dd>Input image name or list of image names. The rootname will be used to find the _SPT
-files in the same directory, the SPT file has all the necessary information for the transform.</dd>
+<dd><p class="first last">Input image name or list of image names. The rootname will be used to find the _SPT files in the same directory, the SPT file has all the necessary information for the transform.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
 <dt>x = None [integer] Optional</dt>
-<dd><dl class="first last docutils">
-<dt>Specify an x coordinate in the subarray to translate</dt>
-<dd>If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
-</dl>
+<dd><p class="first last">Specify an x coordinate in the subarray to translate. If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</p>
 </dd>
+</dl>
+</li>
+<li><dl class="first docutils">
 <dt>y = None [integer] Optional</dt>
-<dd>Specify a y coordinate in the subarray to translate
-If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</dd>
-<dt>fullExtent = False [bool] Optional</dt>
-<dd><dl class="first last docutils">
-<dt>If set, the returned values will include the full extent of the subarray in the reference image</dt>
-<dd>For example: (x0,x1,y0,y1)</dd>
-</dl>
+<dd><p class="first last">Specify a y coordinate in the subarray to translate. If an x and y are specified, the fullExtent option is turned off and only the translated x,y coords are returned</p>
 </dd>
 </dl>
-</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>fullExtent = False [bool] Optional</dt>
+<dd><p class="first last">If set, the returned values will include the full extent of the subarray in the reference image, for example: (x0,x1,y0,y1)</p>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 <div class="section" id="returns">
-<h2>RETURNS<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <p>A list of tuples which specify the translated coordinates, either (x0,y0) for each image or the full extent sections</p>
 </div>
 <div class="section" id="example-output">
@@ -176,9 +175,9 @@ The keywords it uses are:</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">sub2full</a><ul>
-<li><a class="reference internal" href="#usage">USAGE</a></li>
-<li><a class="reference internal" href="#parameters">PARAMETERS</a></li>
-<li><a class="reference internal" href="#returns">RETURNS</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#example-output">Example Output</a></li>
 <li><a class="reference internal" href="#more-information-on-header-keywords">More information on header keywords</a></li>
 </ul>
@@ -186,11 +185,8 @@ The keywords it uses are:</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pstack.html"
-                        title="previous chapter">pstack</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="embedsub.html"
-                        title="next chapter">embedsub</a></p>
+  <p class="topless"><a href="sampinfo.html"
+                        title="previous chapter">sampinfo</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/sub2full.txt"
@@ -220,10 +216,7 @@ The keywords it uses are:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="embedsub.html" title="embedsub"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pstack.html" title="pstack"
+          <a href="sampinfo.html" title="sampinfo"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>

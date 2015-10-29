@@ -1,34 +1,38 @@
-========
+.. _embedsub:
+
+********
 embedsub
-========
+********
 
 Given an image specified by the user which contains a subarray readout, return a full-frame image with the subarray implanted at the appropriate location.
 
-USAGE 
------
+Usage 
+=====
 
     >>> python
     >>> from wfc3tools import embedsub
     >>> embedsub.embedsub(files)
 
 
-PARAMETERS
-----------
+Parameters
+==========
     
     files [file]
         Input image name or list of image names. The rootname will be used to create the output name
     
 
 
-RETURNS
--------
+Returns
+=======
 Return the full-frame location of the subarray coordinates using a  file specified by the user.
 
 
 Example Output
---------------
+==============
 
-Default output:
+This method calls wfc3tools.sub2full to calculation the subarray position on the full frame image.
+
+This is the default output:
 
 ::
 
@@ -39,4 +43,3 @@ Default output:
 
 
 
-This method calls wfc3tools.sub2full to calculation the subarray position.

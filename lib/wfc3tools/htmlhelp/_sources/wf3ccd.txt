@@ -1,22 +1,31 @@
-======
+.. _wf3ccd:
+
+******
 wf3ccd
-======
+******
 
 This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:
 
-    * dqicorr - initializing the data quality array
-    * atodcorr - perform the a to d conversion correction
-    * blevcorr - subtract the bias level from the overscan region
-    * biascorr - subtract the bias image
-    * flshcorr - subtract the post-flash image
-    
-If blevcorr is performed the output contains the overcan-trimmed region.
+    * DQICORR - initializing the data quality array
+    * ATODCORR - perform the a to d conversion correction
+    * BLEVCORR - subtract the bias level from the overscan region
+    * BIASCORR - subtract the bias image
+    * FLSHCORR - subtract the post-flash image
+
+
+``wf3ccd`` first subtracts the bias and trims the overscan regions from the image. If an associated set of UVIS CR-SPLIT or REPEAT-OBS images is being processed, 
+all of the overscan-trimmed images are sent through ``wf3rej`` to be combined and receive cosmic-ray rejection. The resulting combined image then receives final calibration with ``wf32d``, 
+which includes dark subtraction and flat-fielding. If there are multiple sets of CR-SPLIT or REPEAT-OBS images in an association, each set goes through the cycle of ``wf3ccd``, ``wf3rej`` 
+and ``wf32d`` processing. 
+
+
+If BLEVCORR is performed the output contains the overcan-trimmed region.
   
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
 Example
---------
+=======
 
     In Python without TEAL:
 
@@ -35,7 +44,7 @@ Example
     >>> epar wf3ccd
 
 Parameters
-----------
+==========
 
     input : str
         Name of input files

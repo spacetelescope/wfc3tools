@@ -1,11 +1,13 @@
-======
+.. _wf3rej:
+
+******
 wf3rej
-======
+******
 
 This calls the wf3rej executable. Use this function to facilitate batch runs or for the TEAL interface.
 
 Example
--------
+=======
 
 In Python without TEAL:
 
@@ -25,7 +27,7 @@ In Pyraf:
 
 
 Parameters
-----------
+==========
 
 input : str, Name of input files
 

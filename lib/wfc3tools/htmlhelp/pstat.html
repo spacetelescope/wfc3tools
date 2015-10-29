@@ -26,7 +26,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
     <link rel="next" title="pstack" href="pstack.html" />
-    <link rel="prev" title="sampinfo" href="sampinfo.html" /> 
+    <link rel="prev" title="embedsub" href="embedsub.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,7 +39,7 @@
           <a href="pstack.html" title="pstack"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="sampinfo.html" title="sampinfo"
+          <a href="embedsub.html" title="embedsub"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -51,7 +51,7 @@
           <div class="body">
             
   <div class="section" id="pstat">
-<h1>pstat<a class="headerlink" href="#pstat" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>pstat<a class="headerlink" href="#pstat" title="Permalink to this headline">¶</a></h1>
 <p>Plot statistics for a specified image section  up  the  stack  of  a
 an IR MultiAccum image.  Sections from any of the SCI,
 ERR, DQ,  image extensions can be  plotted.   A  choice
@@ -63,51 +63,113 @@ are  plotted as a function of sample time. The sample times  are  read
 from  the  SAMPTIME  keyword in the SCI header for each readout.</p>
 <p>SAMP and TIME aren&#8217;t generally populated until the FLT image stage
 To plot the samptime vs sample, use wfc3tools.pstat and the &#8220;time&#8221; extension</p>
-<p>The plotting data is returned as two arrays</p>
+<div class="figure align-center">
+<img alt="pstat example plot" src="_images/pstat_example.png" />
+<p class="caption">Figure 1: An example of the default plot from pstat</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: pstat.pstat(&#39;ibh719grq_ima.fits&#39;)
+</pre></div>
+</div>
+<p>The plotting data is returned as two arrays:</p>
+<div class="highlight-python"><div class="highlight"><pre>Out[2]:
+(array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
+          64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
+          28.838205,   21.65683 ,   14.475455,    7.29408 ,    0.112705,
+           0.      ]),
+ array([ 171.85813415,  162.44643275,  148.99918831,  137.60458714,
+         125.91510743,  114.71149769,  102.63038466,   90.97130078,
+          78.26479365,   67.16825321,   53.6897243 ,   41.71639092,
+          29.36628817,   16.47151355,   -0.20821257,    0.        ]))
+</pre></div>
+</div>
+<p>If you want to save the plotting data into the variables <tt class="docutils literal"><span class="pre">time</span></tt> and <tt class="docutils literal"><span class="pre">counts</span></tt> you can issue the command like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: time,counts =pstat.pstat(&#39;ibh719grq_ima.fits&#39;)
+
+In [2]: time
+Out[3]:
+array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
+         64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
+         28.838205,   21.65683 ,   14.475455,    7.29408 ,    0.112705,
+          0.      ])
+
+In [4]: counts
+Out[5]:
+array([ 171.85813415,  162.44643275,  148.99918831,  137.60458714,
+        125.91510743,  114.71149769,  102.63038466,   90.97130078,
+         78.26479365,   67.16825321,   53.6897243 ,   41.71639092,
+         29.36628817,   16.47151355,   -0.20821257,    0.        ])
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note that the arrays are structured in SCI order, so the final exposure is the first element in the array</p>
+</div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><dl class="docutils">
+<ul>
+<li><dl class="first docutils">
 <dt>filename [file]</dt>
-<dd>Input   MultiAccum   image  name  with  optional  image  section
-specification.  If no image section  is  specified,  the  entire
-image  is  used.   This  should  be  either a _raw or _ima file,
-containing all  the  data  from  multiple  readouts.   You  must
-specify  just  the  file name and image section, with no extname
-designation.</dd>
+<dd><p class="first last">Input   MultiAccum   image  name  with  optional  image  section  specification.  If no image section  is  specified,  the  entire image  is  used.   This  should  be  either a _raw or _ima file, containing all  the  data  from  multiple  readouts.   You  must specify  just  the  file name and image section, with no extname designation.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
 <dt>extname = &#8220;sci&#8221; [string, allowed values: sci | err | dq ]</dt>
-<dd>Extension name (EXTNAME keyword value) of data to plot.</dd>
+<dd><p class="first last">Extension name (EXTNAME keyword value) of data to plot.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
 <dt>units = &#8220;counts&#8221; [string, allowed values: counts | rate]</dt>
-<dd>Plot &#8220;sci&#8221; or  &#8220;err&#8221;  data  in  units  of  counts  or  countrate
+<dd><p class="first last">Plot &#8220;sci&#8221; or  &#8220;err&#8221;  data  in  units  of  counts  or  countrate
 (&#8220;rate&#8221;).   Input data can be in either unit; conversion will be
 performed automatically.  Ignored when  plotting  &#8220;dq&#8221;,  &#8220;samp&#8221;,
-or &#8220;time&#8221; data.</dd>
-<dt>stat = &#8220;midpt&#8221; [string, allowed values: mean|midpt|mode|stddev|min|max]</dt>
-<dd>Type of statistic to compute.</dd>
-<dt>title = &#8220;&#8221; [string]</dt>
-<dd>Title  for  the  plot.   If  left  blank,  the name of the input
-image, appended with the extname and image section, is used.</dd>
-<dt>xlabel = &#8220;&#8221; [string]</dt>
-<dd>Label for the X-axis of the plot.  If  left  blank,  a  suitable
-default is generated.</dd>
-<dt>ylabel = &#8220;&#8221; [string]</dt>
-<dd>Label  for  the  Y-axis  of  the plot. If left blank, a suitable
-default based on the plot units and the extname of the  data  is
-generated.</dd>
+or &#8220;time&#8221; data.</p>
+</dd>
 </dl>
-<p>plot = True [bool]  set plot to false if you only want the data returned</p>
-</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>stat = &#8220;midpt&#8221; [string, allowed values: mean|midpt|mode|stddev|min|max]</dt>
+<dd><p class="first last">Type of statistic to compute.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>title = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Title  for  the  plot.   If  left  blank,  the name of the input
+image, appended with the extname and image section, is used.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>xlabel = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Label for the X-axis of the plot.  If  left  blank,  a  suitable
+default is generated.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ylabel = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Label  for  the  Y-axis  of  the plot. If left blank, a suitable
+default based on the plot units and the extname of the  data  is
+generated.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">plot = True [bool]  set plot to false if you only want the data returned</p>
+</li>
+</ul>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>pstat.py  inputFilename [pixel range]</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">pstat</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pstat</span><span class="o">.</span><span class="n">pstat</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">,</span><span class="n">extname</span><span class="o">=</span><span class="s">&quot;sci&quot;</span><span class="p">,</span><span class="n">units</span><span class="o">=</span><span class="s">&quot;counts&quot;</span><span class="p">,</span><span class="n">stat</span><span class="o">=</span><span class="s">&quot;midpt&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre>pstat.py  inputFilename [pixel range]
+
+
+&gt;&gt;&gt; python
+&gt;&gt;&gt; from wfc3tools import pstat
+&gt;&gt;&gt; pstat.pstat(inputFilename,extname=&quot;sci&quot;,units=&quot;counts&quot;,stat=&quot;midpt&quot;,title=&quot;&quot;,xlabel=&quot;&quot;,ylabel=&quot;&quot; )
 </pre></div>
 </div>
-</div></blockquote>
 </div>
 </div>
 
@@ -130,8 +192,8 @@ generated.</dd>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="sampinfo.html"
-                        title="previous chapter">sampinfo</a></p>
+  <p class="topless"><a href="embedsub.html"
+                        title="previous chapter">embedsub</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="pstack.html"
                         title="next chapter">pstack</a></p>
@@ -167,7 +229,7 @@ generated.</dd>
           <a href="pstack.html" title="pstack"
              >next</a> |</li>
         <li class="right" >
-          <a href="sampinfo.html" title="sampinfo"
+          <a href="embedsub.html" title="embedsub"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>

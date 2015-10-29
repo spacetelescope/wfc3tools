@@ -1,5 +1,32 @@
+.. _software-history:
+
+*****************************************
 Software Update History for HSTCAL.CALWF3
------------------------------------------
+*****************************************
+
+
+.. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
+
+
+**Updates for Version 3.3 24-Oct-2015 MLS**
+    * The nightly build is specifying a higher level of optimization through to the compiler than the debug mode that I have been using for my testing. Building calwf3 with the lower optimization produced no errors or warnings and ran through cleanly, but the high optimization brought on a segfault inside the CTE code in the first openmp section. This was only happening on the Linux cluster, the MAC builds showed no issue. The problem area seemed to be a set of arrays which would rather be doubles than floats. I also changed the remaining floats to doubles, where I could, and removed more of the memcpy statements, making them regular array assignments. 
+    * I also removed a superfluous openmp print statement from maincte.c and cleaned up some more informational print statements.
+    * I added a time measurement, with verbose on the code prints how long the CTE section took to run, with the specification of number of threads/cpus.
+
+
+**Updates for Version 3.3 21-Oct-2015 MLS**
+    * Editing text for the screen and trailer files
+    * Formally removed the rac file before the routine ends since archive isn't expecting it
+
+**Updates for Version 3.3 16-Oct-2015 MLS**
+    * machine dependent bug, some images were getting nan values on linux machines
+    * I also removed the temporary image saves we were using for the CTE routines
+
+**Updates for Version 3.3 29-Sep-2015 MLS**
+    * bug in original fortran code fixed; the final RAC image should be made by subtracting the CHG image (the net cte effect) from the original non-BIC subtracted raw data. This should remove the additional bias signature that Matthew was seeing in the stacked dark frames. It should NOT make a significant change in the overall output of the code since bias levels are low to begin with.      
+    * I also changed the way the code uses the SCLBYCOL reference file (as called in Jays fortran). The way the fortran code is structured, the reference file information never actually gets used in the calculation. This doesn't make a numerical difference at the moment because the reference file values are all ones, ie. there is no additional scaling done on the CTE pixel other than by using the CTE scaling fraction and the column location. However, if the science team ever delivers a new reference file which has these values updated, they wont actually get used by the code unless this change is implemented.
+    * Reformatted some code for readability, and fixed SEGFAULT error in reference file checking when iref environment variable not set by user, so can't find file (also when can't find file in general). I made RefExist exit clean the first time it found a missing file, HSTIO was barfing any other way.
+
 **Updates for Version 3.3 24-Sep-2015 MLS**
     * fix for machine dependent precision bug
 

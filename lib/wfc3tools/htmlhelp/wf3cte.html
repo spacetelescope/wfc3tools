@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="next" title="Running Astrodrizzle" href="runastrodriz.html" />
-    <link rel="prev" title="wf3rej" href="wf3rej.html" /> 
+    <link rel="next" title="wf3ccd" href="wf3ccd.html" />
+    <link rel="prev" title="calwf3" href="calwf3.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,10 +36,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="runastrodriz.html" title="Running Astrodrizzle"
+          <a href="wf3ccd.html" title="wf3ccd"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="wf3rej.html" title="wf3rej"
+          <a href="calwf3.html" title="calwf3"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -51,16 +51,20 @@
           <div class="body">
             
   <div class="section" id="wf3cte">
-<h1>wf3cte<a class="headerlink" href="#wf3cte" title="Permalink to this headline">¶</a></h1>
-<p>This routine perform CTE correction on raw data files. These steps are:</p>
-<blockquote>
-<div><ul class="simple">
-<li>pctecorr - initializing the data quality array</li>
+<span id="id1"></span><h1>wf3cte<a class="headerlink" href="#wf3cte" title="Permalink to this headline">¶</a></h1>
+<p>The charge transfer efficiency (CTE) of the UVIS detector has inevitably been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources in particular can suffer large flux losses or even be lost entirely if observations are not planned and analyzed carefully. The CTE loss will depend on the morphology of the source, the distribution of electrons in the field of view (from sources, background, cosmic rays, and hot pixels) and the population of charge traps in the detector column between the source and the transfer register. And the magnitude of the CTE loss increases continuously with time as new charge traps form.</p>
+<p>CTE is typically measured as a pixel-transfer efficiency, and would be unity for a perfect CCD. One indicator of CTE is the Extended Pixel Edge Response (EPER). Inefficient transfer of electrons in a flat-field exposure produces an exponential tail of charge in the overscan region. Analysis of monitoring observations through January 2013 shows that CTE continues to decline linearly over time (<a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2013-03.pdf">WFC3 ISR 2013-03</a>).</p>
+<p>The CTE correction step uses it&#8217;s own dark reference files which have themselves been corrected for CTE. The specific reference file used for any dataset may be found in the image header keyword DRKCFILE. This step also uses a special bias reference file as part of the CTE correction itself, referred to in the header by the BIACFILE keyword. This BIACFILE is only used to facilitate the CTE correction, the resulting corrected image then uses the normal BIASFILE to correct the science frame after the CTE correction has been performed. After the CTE correction has been performed and the data progresses through the rest of the pipeline, the special CTE corrected dark, DRKCFILE in the header, will be used for the dark current correction instead of the DARKFILE.</p>
+<p>There is a PCTETAB refrence file which contains extensions of calibration images and tables of parameters used during the CTE correction stage. The header of this file also contains parameters for the CTE correction algorithm. These parameters, and important scalars which are used to correct the data are stored in the output image headers.
+See the UVIS2.0 reference ISR for more information.</p>
+<p>This routine performs the CTE correction on raw data files. The calibration step keyword is PCTECORR, if this is set to PERFORM then the CTE correction will be applied to the dataset. Some caveats for its use:</p>
+<ul class="simple">
+<li>CTE corrections can <em>ONLY</em> be performed on RAW data which has not been calibrated in any way.</li>
+<li>Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be rejected.</li>
+<li>The CTE correction step in the pipeline is currently only implemented for FULL FRAME images</li>
 </ul>
-</div></blockquote>
-<p>CTE corrections can <em>ONLY</em> be performed on RAW data which has not been calibrated in any way.
-Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be rejected.</p>
-<p>The standalone call make a <a href="#id1"><span class="problematic" id="id2">*</span></a>_rac.fits file by default.</p>
+<p>The standalone call will produce a RAC fits file by default. This contains only the CTE corrected data, no other calibrations have been performed.</p>
+<p>For more information the the WFC3 CTE please see <a class="reference external" href="http://www.stsci.edu/hst/wfc3/ins_performance/CTE/">the WFC3 CTE webpage</a> .</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -114,6 +118,102 @@ Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be reje
 <li>-v: verbose</li>
 <li>-1: turn off multiprocessing</li>
 </ul>
+<div class="section" id="basic-steps-in-the-cte-correction">
+<h3>Basic Steps In The CTE Correction<a class="headerlink" href="#basic-steps-in-the-cte-correction" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The reference bias image named in the BIACFILE header keyword is subtracted from the data</li>
+<li>Parameters from the CTE parameter table, referenced in the PCTETAB header keyword, are read and stored</li>
+<li>The date is reformated so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left</li>
+<li>An additional bias correction is performed using the residual bias level measured for each amplifier from the steadiest pixels in the horizontal overscan, this value is then subtracted from all the pixels in each respective amp</li>
+<li>The image is corrected for gain</li>
+<li>The smoothest  image that is consistent with being the observed image plus readnoise is found and subtracted. This is necessary becasue we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known readnoise. The algorithm then constructs a model that is smoother where there pixel-to-pixel variations aren&#8217;t too large, then it respects the pixel values, using a 2sigma threshold to mitigate readnoise amplification, iteration is not done when the deblurring is less than the readnoise.</li>
+<li>The CTE correction itself is calculated and then subtracted from the original, raw, uncorrected and uncalibrated image.</li>
+<li>The corrected image is now ready to contiue through the rest of the pipeline. When the DARKCORR header keyword is set to perform, the CTE corrected image will use the dark reference file referred to in the DRKCFILE header keyword.</li>
+</ul>
+<div class="figure align-center" id="uvis-raw-data-format">
+<img alt="UVIS data raw full-frame file format" src="_images/raw_uvis_format.png" />
+<p class="caption">Figure 1: UVIS data raw full-frame file format</p>
+</div>
+</div>
+<div class="section" id="the-pctetab-and-algorithm-parameters">
+<h3>The PCTETAB and Algorithm Parameters<a class="headerlink" href="#the-pctetab-and-algorithm-parameters" title="Permalink to this headline">¶</a></h3>
+<p>The following are new primary header keyords which will be updated in the data headers during the <tt class="xref py py-obj docutils literal"><span class="pre">wf3cte</span></tt> step. They are also specified in the PCTETAB reference file.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">KEYWORD</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CTE_NAME</td>
+<td>name of cte algorithm [string]</td>
+</tr>
+<tr class="row-odd"><td>CTE_VER</td>
+<td>version number of cte algorithm [string]</td>
+</tr>
+<tr class="row-even"><td>CTEDATE0</td>
+<td>date of wfc3/uvis installation in HST, in modified Julian days (MJD)</td>
+</tr>
+<tr class="row-odd"><td>CTEDATE1</td>
+<td>reference date of CTE model pinning, in modified Julian days (MJD)</td>
+</tr>
+<tr class="row-even"><td>PCTELEN</td>
+<td>max length of CTE trail</td>
+</tr>
+<tr class="row-odd"><td>PCTERNOI</td>
+<td>readnoise amplitude for clipping</td>
+</tr>
+<tr class="row-even"><td>PCTENFOR</td>
+<td>number of iterations used in CTE forward modeling</td>
+</tr>
+<tr class="row-odd"><td>PCTENPAR</td>
+<td>number of iterations used in the parallel transfer</td>
+</tr>
+<tr class="row-even"><td>PCTENSMD</td>
+<td>readnoise mitigation algorithm</td>
+</tr>
+<tr class="row-odd"><td>PCTETRSH</td>
+<td>over-subtraction threshold</td>
+</tr>
+<tr class="row-even"><td>PCTEFRAC</td>
+<td>cte scaling frac calculated from expstart and used in the algorithm</td>
+</tr>
+<tr class="row-odd"><td>PCTERNOI</td>
+<td>the readnoise clipping level to use</td>
+</tr>
+<tr class="row-even"><td>FIXROCR</td>
+<td>make allowance for readout cosmic rays</td>
+</tr>
+</tbody>
+</table>
+<p>The PCTETAB reference file has 4 extensions, two tables and two images:</p>
+<div class="highlight-python"><div class="highlight"><pre>Filename: wfc3_cte.fits
+No.    Name         Type      Cards   Dimensions   Format
+0    PRIMARY     PrimaryHDU      21   ()
+1    QPROF       BinTableHDU     16   999R x 3C    [&#39;i&#39;, &#39;i&#39;, &#39;i&#39;]
+2    SCLBYCOL    BinTableHDU     20   8412R x 5C   [&#39;i&#39;, &#39;e&#39;, &#39;e&#39;, &#39;e&#39;, &#39;e&#39;]
+3    RPROF       ImageHDU        12   (999, 100)   float32
+4    CPROF       ImageHDU        12   (999, 100)   float32
+</pre></div>
+</div>
+<p>The first extension lists the charge-trap levels, the columns are respectively the trap number, the charge-packet size it applies to (in electrons), and the size of the trap (also in electrons).</p>
+<p>The second extension contains the CTE scalings as a function of column number. There are 5 columns, each with 8412 elements. The first column contains the integer column number in the amp readout-aligned large array. The other columns contain the CTE scaling appropriate for that column at the 512th, 1024th, 1536th and 2048th rows respectively.</p>
+<p>The third extension contains the differential CTE trail profile as a function of charge level in the form of an image</p>
+<p>The fourth extension contains the cumulative CTE trail profile as a function of charge level, also in the form of an image.</p>
+</div>
+<div class="section" id="output-files">
+<h3>Output Files<a class="headerlink" href="#output-files" title="Permalink to this headline">¶</a></h3>
+<p>If you are running the separate <tt class="xref py py-obj docutils literal"><span class="pre">wf3cte.e</span></tt> step a _rac.fits file will be output. This the same as a _raw.fits file except the CTE correction has been applied to the data.</p>
+<p>If the PCTECORR step is set to PEFORM:</p>
+<ul class="simple">
+<li>when the _raw.fits file enters calwf3, then no intermediate _rac.fits file will be saved, unless you specify the <tt class="xref py py-obj docutils literal"><span class="pre">-s</span></tt> flag, which instructs <tt class="xref py py-obj docutils literal"><span class="pre">calwf3.e</span></tt> to save all intermediate files.</li>
+<li>the <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> pipeline will produce both CTE calibrated product and non-CTE calibrated products. The CTE products have a &#8216;c&#8217; at the end of their extension name, such as _blc, _rac, _crc, _flc, and the non-CTE calibrated products contain the familiar : _blv, _crj, _flt.</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -130,17 +230,22 @@ Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be reje
   <ul>
 <li><a class="reference internal" href="#">wf3cte</a><ul>
 <li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#basic-steps-in-the-cte-correction">Basic Steps In The CTE Correction</a></li>
+<li><a class="reference internal" href="#the-pctetab-and-algorithm-parameters">The PCTETAB and Algorithm Parameters</a></li>
+<li><a class="reference internal" href="#output-files">Output Files</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="wf3rej.html"
-                        title="previous chapter">wf3rej</a></p>
+  <p class="topless"><a href="calwf3.html"
+                        title="previous chapter">calwf3</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="runastrodriz.html"
-                        title="next chapter">Running Astrodrizzle</a></p>
+  <p class="topless"><a href="wf3ccd.html"
+                        title="next chapter">wf3ccd</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/wf3cte.txt"
@@ -170,10 +275,10 @@ Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be reje
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="runastrodriz.html" title="Running Astrodrizzle"
+          <a href="wf3ccd.html" title="wf3ccd"
              >next</a> |</li>
         <li class="right" >
-          <a href="wf3rej.html" title="wf3rej"
+          <a href="calwf3.html" title="calwf3"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>

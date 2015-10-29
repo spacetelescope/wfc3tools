@@ -17,7 +17,7 @@ from stsci.sphinxext.conf import *
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../exts/'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -26,7 +26,7 @@ from stsci.sphinxext.conf import *
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.mathjax', 'sphinx.ext.ifconfig']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.mathjax', 'sphinx.ext.ifconfig','numfig']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -172,13 +172,13 @@ htmlhelp_basename = 'wfc3toolsdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'letterpaper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '12t',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': '\setcounter{tocdepth}{2}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -229,7 +229,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'wfc3tools', u'wfc3tools Documentation',
-   u'Megan Sosey', 'wfc3tools', 'One line description of project.',
+   u'Megan Sosey', 'wfc3tools', 'WFC3 calibration pipeline and analysis tools',
    'Miscellaneous'),
 ]
 

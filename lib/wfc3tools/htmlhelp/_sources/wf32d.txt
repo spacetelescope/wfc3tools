@@ -1,6 +1,8 @@
-=====
+.. _wf32d:
+
+*****
 wf32d
-=====
+*****
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
@@ -14,7 +16,7 @@ Only those steps with a switch value of PERFORM in the input files will be execu
 will be set to COMPLETE in the corresponding output files.
 
 Examples
---------
+========
 
     In Python without TEAL:
 
@@ -35,7 +37,7 @@ Examples
     
 
 Parameters
-----------
+==========
 
     input : str
         Name of input files

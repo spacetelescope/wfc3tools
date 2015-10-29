@@ -26,7 +26,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
     <link rel="next" title="wf3rej" href="wf3rej.html" />
-    <link rel="prev" title="wf3ccd" href="wf3ccd.html" /> 
+    <link rel="prev" title="wf32d" href="wf32d.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,7 +39,7 @@
           <a href="wf3rej.html" title="wf3rej"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="wf3ccd.html" title="wf3ccd"
+          <a href="wf32d.html" title="wf32d"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -51,21 +51,21 @@
           <div class="body">
             
   <div class="section" id="wf3ir">
-<h1>wf3ir<a class="headerlink" href="#wf3ir" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>wf3ir<a class="headerlink" href="#wf3ir" title="Permalink to this headline">¶</a></h1>
 <p>Use this function to facilitate batch runs or for the TEAL interface.</p>
 <p>This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:</p>
 <blockquote>
 <div><ul class="simple">
-<li>dqicorr - initialize the data quality array</li>
-<li>zsigcorr - estimate the amount of signal in the zeroth-read</li>
-<li>blevcorr - subtact the bias level from the reference pixels</li>
-<li>zoffcorr - subtract the zeroth read image</li>
-<li>nlincorr - correct for detector non-linear response</li>
-<li>darkcorr - subtract the dark current image</li>
-<li>photcorr - compute the photometric keyword values</li>
-<li>unitcorr - convert to units of count rate</li>
-<li>crcorr - fit accumulating signal and identify the cr hits</li>
-<li>flatcorr - divide by the flatfield images and apply gain coversion</li>
+<li>DQICORR - initialize the data quality array</li>
+<li>ZSIGCORR - estimate the amount of signal in the zeroth-read</li>
+<li>BLEVCORR - subtact the bias level from the reference pixels</li>
+<li>ZOFFCORR - subtract the zeroth read image</li>
+<li>NLINCORR - correct for detector non-linear response</li>
+<li>DARKCORR - subtract the dark current image</li>
+<li>PHOTCORR - compute the photometric keyword values</li>
+<li>UNITCORR - convert to units of count rate</li>
+<li>CRCORR - fit accumulating signal and identify the cr hits</li>
+<li>FLATCORR - divide by the flatfield images and apply gain coversion</li>
 </ul>
 </div></blockquote>
 <p>The output images include the calibrated image ramp (ima file) and the accumulated ramp image (flt file)</p>
@@ -147,8 +147,8 @@ will be set to COMPLETE in the corresponding output files.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="wf3ccd.html"
-                        title="previous chapter">wf3ccd</a></p>
+  <p class="topless"><a href="wf32d.html"
+                        title="previous chapter">wf32d</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="wf3rej.html"
                         title="next chapter">wf3rej</a></p>
@@ -184,7 +184,7 @@ will be set to COMPLETE in the corresponding output files.</p>
           <a href="wf3rej.html" title="wf3rej"
              >next</a> |</li>
         <li class="right" >
-          <a href="wf3ccd.html" title="wf3ccd"
+          <a href="wf32d.html" title="wf32d"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>

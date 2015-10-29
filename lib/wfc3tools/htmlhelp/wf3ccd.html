@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="next" title="wf3ir" href="wf3ir.html" />
-    <link rel="prev" title="wf32d" href="wf32d.html" /> 
+    <link rel="next" title="wf32d" href="wf32d.html" />
+    <link rel="prev" title="wf3cte" href="wf3cte.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,10 +36,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="wf3ir.html" title="wf3ir"
+          <a href="wf32d.html" title="wf32d"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="wf32d.html" title="wf32d"
+          <a href="wf3cte.html" title="wf3cte"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
@@ -51,18 +51,22 @@
           <div class="body">
             
   <div class="section" id="wf3ccd">
-<h1>wf3ccd<a class="headerlink" href="#wf3ccd" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>wf3ccd<a class="headerlink" href="#wf3ccd" title="Permalink to this headline">¶</a></h1>
 <p>This routine contains the initial processing steps for all the WFC3 UVIS channel data. These steps are:</p>
 <blockquote>
 <div><ul class="simple">
-<li>dqicorr - initializing the data quality array</li>
-<li>atodcorr - perform the a to d conversion correction</li>
-<li>blevcorr - subtract the bias level from the overscan region</li>
-<li>biascorr - subtract the bias image</li>
-<li>flshcorr - subtract the post-flash image</li>
+<li>DQICORR - initializing the data quality array</li>
+<li>ATODCORR - perform the a to d conversion correction</li>
+<li>BLEVCORR - subtract the bias level from the overscan region</li>
+<li>BIASCORR - subtract the bias image</li>
+<li>FLSHCORR - subtract the post-flash image</li>
 </ul>
 </div></blockquote>
-<p>If blevcorr is performed the output contains the overcan-trimmed region.</p>
+<p><tt class="docutils literal"><span class="pre">wf3ccd</span></tt> first subtracts the bias and trims the overscan regions from the image. If an associated set of UVIS CR-SPLIT or REPEAT-OBS images is being processed,
+all of the overscan-trimmed images are sent through <tt class="docutils literal"><span class="pre">wf3rej</span></tt> to be combined and receive cosmic-ray rejection. The resulting combined image then receives final calibration with <tt class="docutils literal"><span class="pre">wf32d</span></tt>,
+which includes dark subtraction and flat-fielding. If there are multiple sets of CR-SPLIT or REPEAT-OBS images in an association, each set goes through the cycle of <tt class="docutils literal"><span class="pre">wf3ccd</span></tt>, <tt class="docutils literal"><span class="pre">wf3rej</span></tt>
+and <tt class="docutils literal"><span class="pre">wf32d</span></tt> processing.</p>
+<p>If BLEVCORR is performed the output contains the overcan-trimmed region.</p>
 <p>Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.</p>
 <div class="section" id="example">
@@ -156,11 +160,11 @@ will be set to COMPLETE in the corresponding output files.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="wf32d.html"
-                        title="previous chapter">wf32d</a></p>
+  <p class="topless"><a href="wf3cte.html"
+                        title="previous chapter">wf3cte</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="wf3ir.html"
-                        title="next chapter">wf3ir</a></p>
+  <p class="topless"><a href="wf32d.html"
+                        title="next chapter">wf32d</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/wf3ccd.txt"
@@ -190,10 +194,10 @@ will be set to COMPLETE in the corresponding output files.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="wf3ir.html" title="wf3ir"
+          <a href="wf32d.html" title="wf32d"
              >next</a> |</li>
         <li class="right" >
-          <a href="wf32d.html" title="wf32d"
+          <a href="wf3cte.html" title="wf3cte"
              >previous</a> |</li>
         <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
       </ul>
