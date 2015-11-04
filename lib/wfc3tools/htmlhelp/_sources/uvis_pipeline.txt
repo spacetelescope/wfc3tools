@@ -8,7 +8,7 @@ As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with 
 
 .. _uvisflow:
 
-.. figure:: images/cte_nocte.png
+.. figure:: images/cte_nocte.pdf
     :align: center
     :alt: Flow diagram for UVIS data using calwf3
 
@@ -67,21 +67,16 @@ SOFTERR          1      Reed-Solomon decoding error
 DATALOST         2      data replaced by fill value 
 DETECTORPROB     4      bad detector pixel or beyond aperture 
 DATAMASKED       8      masked by occulting bar 
-BADZERO          8      deviant IR zero-read pixel 
 HOTPIX           16     hot pixel 
 CTETAIL          32     UVIS CTE tail 
-UNSTABLE         32     IR unstable pixel 
 WARMPIX          64     warm pixel 
 BADBIAS          128    bad bias value
 SATPIXEL         256    full-well or a-to-d saturated pixel 
 BADFLAT          512    bad flatfield value 
 TRAP             1024   UVIS charge trap, SINK pixel 
-SPIKE            1024   CR spike detected during cridcalc IR 
 ATODSAT          2048   a-to-d saturated pixel 
-ZEROSIG          2048   IR zero-read signal correction 
 ne TBD           4096   reserved for Multidrizzle CR rej 
 DATAREJECT       8192   rejected during image combination UVIS, IR CR rejection
-HIGH_CURVATURE   16384  pixel has more than max CR's
 CROSSTALK        16384  ghost or crosstalk
 RESERVED2        32768  can't use
 =============== ======  =======================================================

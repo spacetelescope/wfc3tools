@@ -46,7 +46,7 @@
 <span id="uvis-pipeline"></span><h1>UVIS Pipleline<a class="headerlink" href="#uvis-pipleline" title="Permalink to this headline">¶</a></h1>
 <p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction.</p>
 <div class="figure align-center" id="uvisflow">
-<img alt="Flow diagram for UVIS data using calwf3" src="_images/cte_nocte.png" />
+<img alt="Flow diagram for UVIS data using calwf3" src="_images/cte_nocte.pdf" />
 <p class="caption">Figure 1: Flow diagram for UVIS data in calwf3</p>
 </div>
 <p>A short description of the calibration steps, in the order they are performed, follows:</p>
@@ -115,21 +115,13 @@
 <td>8</td>
 <td>masked by occulting bar</td>
 </tr>
-<tr class="row-odd"><td>BADZERO</td>
-<td>8</td>
-<td>deviant IR zero-read pixel</td>
-</tr>
-<tr class="row-even"><td>HOTPIX</td>
+<tr class="row-odd"><td>HOTPIX</td>
 <td>16</td>
 <td>hot pixel</td>
 </tr>
-<tr class="row-odd"><td>CTETAIL</td>
+<tr class="row-even"><td>CTETAIL</td>
 <td>32</td>
 <td>UVIS CTE tail</td>
-</tr>
-<tr class="row-even"><td>UNSTABLE</td>
-<td>32</td>
-<td>IR unstable pixel</td>
 </tr>
 <tr class="row-odd"><td>WARMPIX</td>
 <td>64</td>
@@ -151,17 +143,9 @@
 <td>1024</td>
 <td>UVIS charge trap, SINK pixel</td>
 </tr>
-<tr class="row-even"><td>SPIKE</td>
-<td>1024</td>
-<td>CR spike detected during cridcalc IR</td>
-</tr>
-<tr class="row-odd"><td>ATODSAT</td>
+<tr class="row-even"><td>ATODSAT</td>
 <td>2048</td>
 <td>a-to-d saturated pixel</td>
-</tr>
-<tr class="row-even"><td>ZEROSIG</td>
-<td>2048</td>
-<td>IR zero-read signal correction</td>
 </tr>
 <tr class="row-odd"><td>ne TBD</td>
 <td>4096</td>
@@ -171,15 +155,11 @@
 <td>8192</td>
 <td>rejected during image combination UVIS, IR CR rejection</td>
 </tr>
-<tr class="row-odd"><td>HIGH_CURVATURE</td>
-<td>16384</td>
-<td>pixel has more than max CR&#8217;s</td>
-</tr>
-<tr class="row-even"><td>CROSSTALK</td>
+<tr class="row-odd"><td>CROSSTALK</td>
 <td>16384</td>
 <td>ghost or crosstalk</td>
 </tr>
-<tr class="row-odd"><td>RESERVED2</td>
+<tr class="row-even"><td>RESERVED2</td>
 <td>32768</td>
 <td>can&#8217;t use</td>
 </tr>

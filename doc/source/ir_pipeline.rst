@@ -14,7 +14,7 @@ IR pipeline output files using the RAW file as input:
     
 .. _irflow:
 
-.. figure:: images/wfc3_Ch33.5.png
+.. figure:: images/wfc3_Ch33_5.pdf
     :align: center
     :alt: Flow diagram for IR data using wf3ir in calwf3
 
@@ -37,20 +37,16 @@ DETECTORPROB     4      bad detector pixel or beyond aperture
 DATAMASKED       8      masked by occulting bar 
 BADZERO          8      deviant IR zero-read pixel 
 HOTPIX           16     hot pixel 
-CTETAIL          32     UVIS CTE tail 
 UNSTABLE         32     IR unstable pixel 
 WARMPIX          64     warm pixel 
 BADBIAS          128    bad bias value
 SATPIXEL         256    full-well or a-to-d saturated pixel 
 BADFLAT          512    bad flatfield value 
-TRAP             1024   UVIS charge trap, SINK pixel 
 SPIKE            1024   CR spike detected during cridcalc IR 
-ATODSAT          2048   a-to-d saturated pixel 
 ZEROSIG          2048   IR zero-read signal correction 
 ne TBD           4096   reserved for Multidrizzle CR rej 
 DATAREJECT       8192   rejected during image combination UVIS, IR CR rejection
 HIGH_CURVATURE   16384  pixel has more than max CR's
-CROSSTALK        16384  ghost or crosstalk
 RESERVED2        32768  can't use
 =============== ======  =======================================================
 

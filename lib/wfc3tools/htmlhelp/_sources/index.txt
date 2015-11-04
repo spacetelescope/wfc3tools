@@ -6,7 +6,7 @@
 
 Welcome to the wfc3tools package documentation!
 ===============================================
-.. image:: images/wfc_logo.png
+.. image:: images/wfc_logo.pdf
     :align: right
 
 See the team website for further information:  http://www.stsci.edu/hst/wfc3/

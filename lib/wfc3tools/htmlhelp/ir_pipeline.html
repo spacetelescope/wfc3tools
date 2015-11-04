@@ -54,7 +54,7 @@
 </ul>
 </div></blockquote>
 <div class="figure align-center" id="irflow">
-<img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33.5.png" />
+<img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.pdf" />
 <p class="caption">Figure 1: Flow diagram for IR data using wf3ir in calwf3</p>
 </div>
 <div class="section" id="data-quality-initialization-dqicorr">
@@ -101,61 +101,45 @@
 <td>16</td>
 <td>hot pixel</td>
 </tr>
-<tr class="row-odd"><td>CTETAIL</td>
-<td>32</td>
-<td>UVIS CTE tail</td>
-</tr>
-<tr class="row-even"><td>UNSTABLE</td>
+<tr class="row-odd"><td>UNSTABLE</td>
 <td>32</td>
 <td>IR unstable pixel</td>
 </tr>
-<tr class="row-odd"><td>WARMPIX</td>
+<tr class="row-even"><td>WARMPIX</td>
 <td>64</td>
 <td>warm pixel</td>
 </tr>
-<tr class="row-even"><td>BADBIAS</td>
+<tr class="row-odd"><td>BADBIAS</td>
 <td>128</td>
 <td>bad bias value</td>
 </tr>
-<tr class="row-odd"><td>SATPIXEL</td>
+<tr class="row-even"><td>SATPIXEL</td>
 <td>256</td>
 <td>full-well or a-to-d saturated pixel</td>
 </tr>
-<tr class="row-even"><td>BADFLAT</td>
+<tr class="row-odd"><td>BADFLAT</td>
 <td>512</td>
 <td>bad flatfield value</td>
-</tr>
-<tr class="row-odd"><td>TRAP</td>
-<td>1024</td>
-<td>UVIS charge trap, SINK pixel</td>
 </tr>
 <tr class="row-even"><td>SPIKE</td>
 <td>1024</td>
 <td>CR spike detected during cridcalc IR</td>
 </tr>
-<tr class="row-odd"><td>ATODSAT</td>
-<td>2048</td>
-<td>a-to-d saturated pixel</td>
-</tr>
-<tr class="row-even"><td>ZEROSIG</td>
+<tr class="row-odd"><td>ZEROSIG</td>
 <td>2048</td>
 <td>IR zero-read signal correction</td>
 </tr>
-<tr class="row-odd"><td>ne TBD</td>
+<tr class="row-even"><td>ne TBD</td>
 <td>4096</td>
 <td>reserved for Multidrizzle CR rej</td>
 </tr>
-<tr class="row-even"><td>DATAREJECT</td>
+<tr class="row-odd"><td>DATAREJECT</td>
 <td>8192</td>
 <td>rejected during image combination UVIS, IR CR rejection</td>
 </tr>
-<tr class="row-odd"><td>HIGH_CURVATURE</td>
+<tr class="row-even"><td>HIGH_CURVATURE</td>
 <td>16384</td>
 <td>pixel has more than max CR&#8217;s</td>
-</tr>
-<tr class="row-even"><td>CROSSTALK</td>
-<td>16384</td>
-<td>ghost or crosstalk</td>
 </tr>
 <tr class="row-odd"><td>RESERVED2</td>
 <td>32768</td>

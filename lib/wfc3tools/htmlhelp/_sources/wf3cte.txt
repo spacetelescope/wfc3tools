@@ -86,7 +86,7 @@ Basic Steps In The CTE Correction
 
 .. _uvis_raw_data_format:
 
-.. figure:: images/raw_uvis_format.png
+.. figure:: images/raw_uvis_format.pdf
     :align: center
     :alt:  UVIS data raw full-frame file format
 
