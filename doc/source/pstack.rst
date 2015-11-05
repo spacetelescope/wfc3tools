@@ -21,7 +21,7 @@ The BUNIT keyword value is used to determine the starting units of the data,
 but you can plot either counts or rate using the optional keyword ``units``.
 
 
-.. figure:: images/pstack_example.pdf
+.. figure:: images/pstack_example.png
     :align: center
 
 ::

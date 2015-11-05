@@ -7,7 +7,7 @@ sub2full
 Given an image specified by the user which contains a subarray readout, return the location of the corner of the subarray in a full frame reference image (including the full physical extent of the chip), in 1-indexed pixels. If the user supplies an X and Y coordinate, then the translated location of that point will be returned. 
 
 
-.. figure:: images/sub2full_translate.pdf
+.. figure:: images/sub2full_translate.png
     :align: center
 
 

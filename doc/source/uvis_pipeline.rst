@@ -8,7 +8,7 @@ As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with 
 
 .. _uvisflow:
 
-.. figure:: images/cte_nocte.pdf
+.. figure:: images/cte_nocte.png
     :align: center
     :alt: Flow diagram for UVIS data using calwf3
 

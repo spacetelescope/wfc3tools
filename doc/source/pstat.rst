@@ -18,7 +18,7 @@ SAMP and TIME aren't generally populated until the FLT image stage
 To plot the samptime vs sample, use wfc3tools.pstat and the "time" extension
 
 
-.. figure:: images/pstat_example.pdf
+.. figure:: images/pstat_example.png
     :align: center
     :alt: pstat example plot
     

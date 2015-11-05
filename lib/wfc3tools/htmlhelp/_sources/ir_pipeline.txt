@@ -14,7 +14,7 @@ IR pipeline output files using the RAW file as input:
     
 .. _irflow:
 
-.. figure:: images/wfc3_Ch33_5.pdf
+.. figure:: images/wfc3_Ch33_5.png
     :align: center
     :alt: Flow diagram for IR data using wf3ir in calwf3
 

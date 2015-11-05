@@ -55,7 +55,7 @@
 <p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
 appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a> and <a class="reference internal" href="wf32d.html#wf32d"><em>wf32d</em></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><em>wf3ir</em></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><em>wf3rej</em></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="#calflow">Figure 1</a> is the flow diagram for the pipeline as a whole.</p>
 <div class="figure align-center" id="calflow">
-<img alt="Flow diagram for ``calwf3`` data using" src="_images/wfc3_Ch33_1.pdf" />
+<img alt="Flow diagram for ``calwf3`` data using" src="_images/wfc3_Ch33_1.png" />
 <p class="caption">Figure 1: Flow diagram for <tt class="docutils literal"><span class="pre">calwf3</span></tt> data. <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a>.</p>
 </div>
 <p>During automatic pipeline processing by the STScI archive, <tt class="docutils literal"><span class="pre">Astrodrizzle</span></tt> follows <tt class="docutils literal"><span class="pre">calwf3</span></tt>. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or the section on <a class="reference internal" href="runastrodriz.html#running-astrodrizzle"><em>Running Astrodrizzle</em></a>.</p>
@@ -137,11 +137,11 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 </ul>
 <p>While both CR-SPLIT and REPEAT-OBS exposures from an association get combined using <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt>, dithered observations from an association do not.</p>
 <div class="figure align-center" id="uvis-data-format">
-<img alt="UVIS data raw file format" src="_images/uvis_data_format.pdf" />
+<img alt="UVIS data raw file format" src="_images/uvis_data_format.png" />
 <p class="caption">Figure 2: UVIS data raw file format</p>
 </div>
 <div class="figure align-center" id="ir-data-format">
-<img alt="IR data raw file format" src="_images/ir_data_format.pdf" />
+<img alt="IR data raw file format" src="_images/ir_data_format.png" />
 <p class="caption">Figure 3: IR data raw file format</p>
 </div>
 <ul class="simple">
@@ -233,7 +233,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <span id="uvis-pipeline"></span><h2>UVIS Pipleline<a class="headerlink" href="#uvis-pipleline" title="Permalink to this headline">¶</a></h2>
 <p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction.</p>
 <div class="figure align-center" id="uvisflow">
-<img alt="Flow diagram for UVIS data using calwf3" src="_images/cte_nocte.pdf" />
+<img alt="Flow diagram for UVIS data using calwf3" src="_images/cte_nocte.png" />
 <p class="caption">Figure 4: Flow diagram for UVIS data in calwf3</p>
 </div>
 <p>A short description of the calibration steps, in the order they are performed, follows:</p>
@@ -515,7 +515,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </ul>
 </div></blockquote>
 <div class="figure align-center" id="irflow">
-<img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.pdf" />
+<img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.png" />
 <p class="caption">Figure 5: Flow diagram for IR data using wf3ir in calwf3</p>
 </div>
 <div class="section" id="data-quality-initialization-dqicorr">

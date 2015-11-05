@@ -169,6 +169,9 @@ htmlhelp_basename = 'wfc3toolsdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
+fh = open('latex_preamble.tex', 'r+')
+PREAMBLE = fh.read()
+fh.close()
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
@@ -178,7 +181,7 @@ latex_elements = {
 'pointsize': '12t',
 
 # Additional stuff for the LaTeX preamble.
-'preamble': '\setcounter{tocdepth}{2}',
+'preamble': PREAMBLE,
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

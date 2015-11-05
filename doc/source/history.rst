@@ -7,6 +7,11 @@ Software Update History for HSTCAL.CALWF3
 
 .. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
 
+**Updates for Version 3.3 05-Nov-2015 MLS**
+    * removed explicit downcasts and added calloc returns in procccd
+
+**Updates for Version 3.3 04-Nov-2015 MLS**
+    * add more explicity initializations where I could find them
 
 **Updates for Version 3.3 24-Oct-2015 MLS**
     * The nightly build is specifying a higher level of optimization through to the compiler than the debug mode that I have been using for my testing. Building calwf3 with the lower optimization produced no errors or warnings and ran through cleanly, but the high optimization brought on a segfault inside the CTE code in the first openmp section. This was only happening on the Linux cluster, the MAC builds showed no issue. The problem area seemed to be a set of arrays which would rather be doubles than floats. I also changed the remaining floats to doubles, where I could, and removed more of the memcpy statements, making them regular array assignments. 

@@ -9,7 +9,7 @@ appropriate tasks, but users may also run the tasks independently if they desire
 
 .. _calflow:
 
-.. figure:: images/wfc3_Ch33_1.pdf
+.. figure:: images/wfc3_Ch33_1.png
     :align: center
     :alt: Flow diagram for ``calwf3`` data using 
 
@@ -118,7 +118,7 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 
 .. _uvis_data_format:
 
-.. figure:: images/uvis_data_format.pdf
+.. figure:: images/uvis_data_format.png
     :align: center
     :alt:  UVIS data raw file format
 
@@ -128,7 +128,7 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 
 .. _ir_data_format:
 
-.. figure:: images/ir_data_format.pdf
+.. figure:: images/ir_data_format.png
     :align: center
     :alt:  IR data raw file format
 
