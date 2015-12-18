@@ -23,7 +23,7 @@ setupargs = {
     'author_email' : 	"help@stsci.edu",
     'license' : 		"http://www.stsci.edu/resources/software_hardware/pyraf/LICENSE",
     'data_files' :      [( pkg+"/pars", ['lib/wfc3tools/pars/*']),( pkg, ['lib/wfc3tools/*.help']),(pkg,['LICENSE.txt'])],
-    'scripts' :         [ 'lib/wfc3tools/runastrodriz'] ,
+    'scripts' :         [ ] ,
     'platforms' : 	    ["Linux","Solaris","Mac OS X","Win"],
     'package_dir' :     { 'wfc3tools':'lib/wfc3tools', },
 

@@ -16,7 +16,6 @@ from . import wf3ccd
 from . import wf3ir
 from . import wf3rej
 from . import wf3cte
-from . import runastrodriz
 from . import sampinfo
 from . import pstack
 from . import pstat
