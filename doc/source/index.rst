@@ -28,7 +28,6 @@ Pipeline Software
    wf32d <wf32d.rst>
    wf3ir <wf3ir.rst>
    wf3rej <wf3rej.rst>
-   Running Astrodriz <runastrodriz.rst>
    Software History <history.rst>
    
 ==============
