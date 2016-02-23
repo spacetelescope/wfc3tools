@@ -4,7 +4,8 @@
 wf3rej
 ******
 
-This calls the wf3rej executable. Use this function to facilitate batch runs or for the TEAL interface.
+This calls the wf3rej executable. Use this function to 
+facilitate batch runs or for the TEAL interface.
 
 Example
 =======
@@ -12,7 +13,7 @@ Example
 In Python without TEAL:
 
 >>> from wfc3tools import wf3rej
->>> wf3rej.wf3rej(filename)
+>>> wf3rej(filename)
 
 In Python with TEAL:
 

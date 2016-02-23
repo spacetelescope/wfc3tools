@@ -31,7 +31,7 @@ Example
     In Python without TEAL:
 
     >>> from wfc3tools import wf3cte
-    >>> calwf3.wf3cte(filename)
+    >>> wf3cte(filename)
 
     In Python with TEAL:
 
@@ -86,7 +86,7 @@ Basic Steps In The CTE Correction
 
 .. _uvis_raw_data_format:
 
-.. figure:: images/raw_uvis_format.pdf
+.. figure:: _static/raw_uvis_format.png
     :align: center
     :alt:  UVIS data raw full-frame file format
 
@@ -99,14 +99,14 @@ The PCTETAB and Algorithm Parameters
 
 The following are new primary header keyords which will be updated in the data headers during the `wf3cte` step. They are also specified in the PCTETAB reference file.
 
-========  ======================================================================
+========  ====================================================================
 KEYWORD   DESCRIPTION
-========  ======================================================================
+========  ====================================================================
 CTE_NAME  name of cte algorithm [string]
 CTE_VER   version number of cte algorithm [string]
 CTEDATE0  date of wfc3/uvis installation in HST, in modified Julian days (MJD)
 CTEDATE1  reference date of CTE model pinning, in modified Julian days (MJD)
-PCTELEN   max length of CTE trail
+PCTETLEN  max length of CTE trail
 PCTERNOI  readnoise amplitude for clipping
 PCTENFOR  number of iterations used in CTE forward modeling
 PCTENPAR  number of iterations used in the parallel transfer 
@@ -115,7 +115,7 @@ PCTETRSH  over-subtraction threshold
 PCTEFRAC  cte scaling frac calculated from expstart and used in the algorithm
 PCTERNOI  the readnoise clipping level to use  
 FIXROCR   make allowance for readout cosmic rays
-========  ======================================================================
+========  ====================================================================
 
 
 The PCTETAB reference file has 4 extensions, two tables and two images:

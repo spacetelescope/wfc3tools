@@ -11,7 +11,7 @@ Usage
 
     >>> python
     >>> from wfc3tools import embedsub
-    >>> embedsub.embedsub(files)
+    >>> embedsub(files)
 
 
 Parameters

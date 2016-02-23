@@ -6,7 +6,8 @@ wf3ir
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
-This routine contains all the instrumental calibration steps for WFC3 IR channel images. The steps are:
+This routine contains all the instrumental calibration steps for 
+WFC3 IR channel images. The steps are:
 
     * DQICORR - initialize the data quality array
     * ZSIGCORR - estimate the amount of signal in the zeroth-read
@@ -19,9 +20,11 @@ This routine contains all the instrumental calibration steps for WFC3 IR channel
     * CRCORR - fit accumulating signal and identify the cr hits
     * FLATCORR - divide by the flatfield images and apply gain coversion
     
-The output images include the calibrated image ramp (ima file) and the accumulated ramp image (flt file)
+The output images include the calibrated image ramp (ima file) 
+and the accumulated ramp image (flt file)
   
-Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
+Only those steps with a switch value of PERFORM in the input files 
+will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
 Examples
@@ -30,7 +33,7 @@ Examples
     In Python without TEAL:
 
     >>> from wfc3tools import wf3ir
-    >>> calwf3.wf3ir(filename)
+    >>> wf3ir(filename)
 
     In Python with TEAL:
 

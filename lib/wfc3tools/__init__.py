@@ -8,19 +8,20 @@ module.
 
 """
 from __future__ import absolute_import
-#from .version import *
+from .version import *
 
-from . import calwf3
-from . import wf32d
-from . import wf3ccd
-from . import wf3ir
-from . import wf3rej
-from . import wf3cte
-from . import sampinfo
-from . import pstack
-from . import pstat
-from . import sub2full
-from . import embedsub
+from .calwf3 import calwf3
+from .wf32d import wf32d
+from .wf3ccd import wf3ccd
+from .wf3ir import wf3ir
+from .wf3rej import wf3rej
+from .wf3cte import wf3cte
+from .sampinfo import sampinfo
+from .pstack import pstack
+from .pstat import pstat
+from .sub2full import sub2full
+from .embedsub import embedsub
+from .util import *
 
 # These lines allow TEAL to print out the names of TEAL-enabled tasks
 # upon importing this package.

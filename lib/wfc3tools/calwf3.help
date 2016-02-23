@@ -9,14 +9,14 @@ appropriate tasks, but users may also run the tasks independently if they desire
 
 .. _calflow:
 
-.. figure:: images/wfc3_Ch33_1.pdf
+.. figure:: _static/calwf3_flow.png
     :align: center
     :alt: Flow diagram for ``calwf3`` data using 
 
     Flow diagram for ``calwf3`` data. :ref:`wf3cte` occurs as the very first step, before :ref:`wf3ccd`.
 
 
-During automatic pipeline processing by the STScI archive, ``Astrodrizzle`` follows ``calwf3``. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or the section on :ref:`running-astrodrizzle`.
+During automatic pipeline processing by the STScI archive, ``Astrodrizzle`` follows ``calwf3``. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ .
 
 
 Where to Find calwf3
@@ -27,7 +27,7 @@ http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
 and is installed along with the STScI distributed package Ureka. 
 
 
-A detailed description of the improved ``calwf3``, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and an ISR which will accompany the update.
+A detailed description of the improved ``calwf3``, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and several ISRs which will accompany the update.
 
 The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
 In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu). 
@@ -47,7 +47,7 @@ The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the oth
     In Python without TEAL:
 
     >>> from wfc3tools import calwf3
-    >>> calwf3.calwf3(filename)
+    >>> calwf3(filename)
 
     In Python with TEAL:
 
@@ -65,8 +65,8 @@ Running many files at the same time
 -----------------------------------
 
 The recommended method for running ``calwf3`` in batch mode is to use Python and
-the ``wfc3tools`` package in the "STSDAS distribution
-<http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas>."
+the ``wfc3tools`` package in the `STSDAS distribution
+<http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas>`_ .
 
 For example::
 
@@ -74,7 +74,7 @@ For example::
     from glob import glob
 
     for fits in glob('j*_raw.fits'):
-        calwf3.calwf3(fits)
+        calwf3(fits)
 
 
 Command Line Options
@@ -118,7 +118,7 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 
 .. _uvis_data_format:
 
-.. figure:: images/uvis_data_format.pdf
+.. figure:: _static/uvis_data_format.png
     :align: center
     :alt:  UVIS data raw file format
 
@@ -128,7 +128,7 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 
 .. _ir_data_format:
 
-.. figure:: images/ir_data_format.pdf
+.. figure:: _static/ir_data_format.png
     :align: center
     :alt:  IR data raw file format
 
@@ -139,7 +139,7 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 * The error array contains an estimate of the statistical uncertainty associated with each correcsponding science image pixel 
 * The data quality array contains independent flags indicating various status and problem conditions associated with each correspoinding pixel in the science image
 * The sample array (IR ONLY) contains the number of samples used to derive the corresponding pixel values in the science image. 
-* The time array (IR ONLY) containst the effective integration time associated with each corresponding science image pixel value. 
+* The time array (IR ONLY) contains the effective integration time associated with each corresponding science image pixel value. 
 
 
 Types of output file from calwf3
@@ -155,18 +155,21 @@ _rac       UVIS CTE corrected raw data, no other calibration    DN
 _asn       association file for observation set                 
 _spt       telescope and wfc3 telemetry and engineering data    
 _blv_tmp   overscan-trimmed UVIS exposure                       DN
-_crj_tmp   uncalibrated, cosmic-ray rejected combined UVIS      DN
+_blc_tmp   overscan0trimmed UVIS, CTE corrected exposure        DN
+_crj_tmp   uncalibrated, cosmic-ray rejected combined           DN
+_crc_tmp   uncalibrated, cosmic-rat rejected, cte cleaned       DN
 _ima       calibrated intermediate IR multiaccum image          :math:`e^{-}/s`
 _flt       UVIS calibrated exposure                             :math:`e^{-}`
 _flc       UVIS calibrated exposure including CTE correction    :math:`e^{-}`
 _flt       IR calibrated exposure                               :math:`e^{-}/s`
 _crj       UVIS calibrated, cosmic ray rejected image           :math:`e^{-}`
 _crj       IR calibrated, cosmic ray rejected image             :math:`e^{-}/s`
+_crc       UVIS calibrated, cr rejected, cte cleaned image      :math:`e^{-}`
 .tra       trailer file, contains processing messages
 ========   =================================================    ====================
 
 
-** DRZ and DRC products are produced with Astrodrizzle, see :ref:`running-astrodrizzle` **
+** DRZ and DRC products are produced with Astrodrizzle, see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ **
 
 
 Keyword Usage

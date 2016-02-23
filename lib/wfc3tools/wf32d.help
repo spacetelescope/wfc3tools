@@ -21,7 +21,7 @@ Examples
     In Python without TEAL:
 
     >>> from wfc3tools import wf32d
-    >>> calwf3.wf32d(filename)
+    >>> wf32d(filename)
 
     In Python with TEAL:
 

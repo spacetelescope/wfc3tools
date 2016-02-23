@@ -12,7 +12,7 @@ Example
 In Python without TEAL:
 
 >>> from wfc3tools import wf3rej
->>> wf3rej.wf3rej(filename)
+>>> wf3rej(filename)
 
 In Python with TEAL:
 

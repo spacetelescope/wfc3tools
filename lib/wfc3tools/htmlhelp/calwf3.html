@@ -1,90 +1,226 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>calwf3 &mdash; wfc3tools 1.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="next" title="wf3cte" href="wf3cte.html" />
-    <link rel="prev" title="Welcome to the wfc3tools package documentation!" href="index.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="wf3cte.html" title="wf3cte"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to the wfc3tools package documentation!"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>calwf3 &mdash; wfc3tools 1.3.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="wfc3tools 1.3.1 documentation" href="index.html"/>
+        <link rel="next" title="wf3cte" href="wf3cte.html"/>
+        <link rel="prev" title="WFC3 Python User Tools" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> wfc3tools
+          
+
+          
+            
+            <img src="_static/stsci_pri_combo_mark_white.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">calwf3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#where-to-find-calwf3">Where to Find calwf3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-calwf3">Running calwf3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-many-files-at-the-same-time">Running many files at the same time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command Line Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#types-of-files-used-as-input-to-calwf3">Types of files used as input to calwf3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#types-of-output-file-from-calwf3">Types of output file from calwf3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keyword-usage">Keyword Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#uvis-pipleline">UVIS Pipleline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#correction-for-charge-transfer-efficiency-pctecorr">Correction For Charge Transfer Efficiency (PCTECORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-array-initialization">Error Array Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-quality-array-initialization-dqicorr">Data Quality Array Initialization (DQICORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sink-pixel-detection-and-marking">Sink Pixel Detection and Marking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-conversion-to-electrons">Unit Conversion to Electrons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bias-correction-biascorr">Bias Correction (BIASCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overscan-bias-correction-blevcorr">Overscan Bias Correction (BLEVCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dark-current-subtraction-darkcorr">Dark Current Subtraction (DARKCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shutter-shading-correction-shadcorr">Shutter Shading Correction (SHADCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#post-flash-correction-uvis-only-flshcorr">Post-Flash Correction (UVIS ONLY) (FLSHCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flatcorr">FLATCORR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#photometry-keywords-photcorr">Photometry Keywords (PHOTCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr">Flux normalization for UVIS1 and UVIS2 (FLUXCORR)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ir-pipeline">IR Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-quality-initialization-dqicorr">Data Quality Initialization (DQICORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estimate-the-signal-in-the-zero-read-zsigcorr">Estimate the signal in the zero read (ZSIGCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bias-correction-blevcorr">Bias Correction (BLEVCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zero-read-subtraction-zoffcorr">Zero read subtraction (ZOFFCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Error array initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detector-non-linearity-correction-nlincorr">Detector Non-linearity Correction (NLINCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Dark Current Subtraction (DARKCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Photometry Keywords (PHOTCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conversion-to-signal-rate-unitcorr">Conversion to Signal Rate (UNITCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fit-accumulating-signal-and-identify-cosmic-ray-hits-crcorr">Fit accumulating signal and identify cosmic ray hits (CRCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flatfield-correction-flatcorr">Flatfield Correction (FLATCORR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculation-of-image-statistics">Calculation of image statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reject-cosmic-rays-from-multiple-images-rptcorr">Reject cosmic rays from multiple images (RPTCORR)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wf3cte.html">wf3cte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">wf3ccd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf32d.html">wf32d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ir.html">wf3ir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3rej.html">wf3rej</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Software History</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="embedsub.html">embedsub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstat.html">pstat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstack.html">pstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampinfo.html">sampinfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sub2full.html">sub2full</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">wfc3tools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>calwf3</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/calwf3.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="calwf3">
 <h1>calwf3<a class="headerlink" href="#calwf3" title="Permalink to this headline">¶</a></h1>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
-appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a> and <a class="reference internal" href="wf32d.html#wf32d"><em>wf32d</em></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><em>wf3ir</em></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><em>wf3rej</em></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="#calflow">Figure 1</a> is the flow diagram for the pipeline as a whole.</p>
-<div class="figure align-center" id="calflow">
-<img alt="Flow diagram for ``calwf3`` data using" src="_images/wfc3_Ch33_1.png" />
-<p class="caption">Figure 1: Flow diagram for <tt class="docutils literal"><span class="pre">calwf3</span></tt> data. <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a>.</p>
+<p><code class="docutils literal"><span class="pre">calwf3</span></code> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
+appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> and <a class="reference internal" href="wf32d.html#wf32d"><span>wf32d</span></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><span>wf3ir</span></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><span>wf3rej</span></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="#calflow">Figure 1</a> is the flow diagram for the pipeline as a whole.</p>
+<div class="figure align-center" id="id7">
+<span id="calflow"></span><img alt="Flow diagram for ``calwf3`` data using" src="_images/calwf3_flow.png" />
+<p class="caption"><span class="caption-text">Figure 1: Flow diagram for <code class="docutils literal"><span class="pre">calwf3</span></code> data. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a>.</span></p>
 </div>
-<p>During automatic pipeline processing by the STScI archive, <tt class="docutils literal"><span class="pre">Astrodrizzle</span></tt> follows <tt class="docutils literal"><span class="pre">calwf3</span></tt>. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or the section on <a class="reference internal" href="runastrodriz.html#running-astrodrizzle"><em>Running Astrodrizzle</em></a>.</p>
+<p>During automatic pipeline processing by the STScI archive, <code class="docutils literal"><span class="pre">Astrodrizzle</span></code> follows <code class="docutils literal"><span class="pre">calwf3</span></code>. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or <a class="reference external" href="http://www.stsci.edu/hst/HST_overview/drizzlepac/">Astrodrizzle</a> .</p>
 <div class="section" id="where-to-find-calwf3">
 <h2>Where to Find calwf3<a class="headerlink" href="#where-to-find-calwf3" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> is part of HSTCAL package, which can be downloaded from
+<p><code class="docutils literal"><span class="pre">calwf3</span></code> is part of HSTCAL package, which can be downloaded from
 <a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a>
 and is installed along with the STScI distributed package Ureka.</p>
-<p>A detailed description of the improved <tt class="docutils literal"><span class="pre">calwf3</span></tt>, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and an ISR which will accompany the update.</p>
+<p>A detailed description of the improved <code class="docutils literal"><span class="pre">calwf3</span></code>, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and several ISRs which will accompany the update.</p>
 <p>The current WFC3 Data Handbook can be found at  <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/">http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/</a> .
 In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).</p>
 </div>
 <div class="section" id="running-calwf3">
 <h2>Running calwf3<a class="headerlink" href="#running-calwf3" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">calwf3</span></tt> can be run on a single input raw file or an asn table listing the members of an associtaion.
+<p><code class="docutils literal"><span class="pre">calwf3</span></code> can be run on a single input raw file or an asn table listing the members of an associtaion.
 When processing an association, it retrieves calibration switch and reference file keyword settings from
-the first image listed in the asn table. <tt class="docutils literal"><span class="pre">calwf3</span></tt> does not accept a user-defined list of input images on the
-command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</span></tt> to process all raw files in the current directory).</p>
-<p>The <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a>, <a class="reference internal" href="wf32d.html#wf32d"><em>wf32d</em></a>, <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a> and <a class="reference internal" href="wf3ir.html#wf3ir"><em>wf3ir</em></a> tasks on the other hand, will accept such user-defined input file lists, but they will not accept an association table( asn ) as input.</p>
+the first image listed in the asn table. <code class="docutils literal"><span class="pre">calwf3</span></code> does not accept a user-defined list of input images on the
+command line (e.g. <code class="docutils literal"><span class="pre">*raw.fits</span></code> to process all raw files in the current directory).</p>
+<p>The <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a>, <a class="reference internal" href="wf32d.html#wf32d"><span>wf32d</span></a>, <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> and <a class="reference internal" href="wf3ir.html#wf3ir"><span>wf3ir</span></a> tasks on the other hand, will accept such user-defined input file lists, but they will not accept an association table( asn ) as input.</p>
 <blockquote>
 <div><p>In Python without TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Python with TEAL:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stsci.tools</span> <span class="kn">import</span> <span class="n">teal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s">&#39;calwf3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">teal</span><span class="o">.</span><span class="n">teal</span><span class="p">(</span><span class="s1">&#39;calwf3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Pyraf:</p>
@@ -95,26 +231,25 @@ command line (e.g. <tt class="docutils literal"><span class="pre">*raw.fits</spa
 </div></blockquote>
 <div class="section" id="running-many-files-at-the-same-time">
 <h3>Running many files at the same time<a class="headerlink" href="#running-many-files-at-the-same-time" title="Permalink to this headline">¶</a></h3>
-<p>The recommended method for running <tt class="docutils literal"><span class="pre">calwf3</span></tt> in batch mode is to use Python and
-the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package in the &#8220;STSDAS distribution
-&lt;<a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas</a>&gt;.&#8221;</p>
+<p>The recommended method for running <code class="docutils literal"><span class="pre">calwf3</span></code> in batch mode is to use Python and
+the <code class="docutils literal"><span class="pre">wfc3tools</span></code> package in the <a class="reference external" href="http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas">STSDAS distribution</a> .</p>
 <p>For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">calwf3</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 
-<span class="k">for</span> <span class="n">fits</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">&#39;j*_raw.fits&#39;</span><span class="p">):</span>
-    <span class="n">calwf3</span><span class="o">.</span><span class="n">calwf3</span><span class="p">(</span><span class="n">fits</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">fits</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;j*_raw.fits&#39;</span><span class="p">):</span>
+    <span class="n">calwf3</span><span class="p">(</span><span class="n">fits</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="command-line-options">
 <h3>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h3>
-<p><tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt>  can also be called directly from the OS command line:</p>
+<p><cite>calwf3</cite>  can also be called directly from the OS command line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">calwf3</span><span class="o">.</span><span class="n">e</span> <span class="n">iaa001kaq_raw</span><span class="o">.</span><span class="n">fits</span> <span class="p">[</span><span class="n">command</span> <span class="n">line</span> <span class="n">options</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The command line executable only accepts one file at a time, but you can use os tools like <tt class="xref py py-obj docutils literal"><span class="pre">awk</span></tt> to process everything in a directory:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">*</span><span class="n">raw</span><span class="o">.</span><span class="n">fits</span> <span class="o">|</span> <span class="n">awk</span> <span class="s">&#39;{print &quot;calwf3.e&quot;,$1}&#39;</span> <span class="o">|</span> <span class="n">csh</span>
+<p>The command line executable only accepts one file at a time, but you can use os tools like <cite>awk</cite> to process everything in a directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">*</span><span class="n">raw</span><span class="o">.</span><span class="n">fits</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print &quot;calwf3.e&quot;,$1}&#39;</span> <span class="o">|</span> <span class="n">csh</span>
 </pre></div>
 </div>
 <p>The following options are available</p>
@@ -135,21 +270,21 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <li>_raw file: name of an individual, uncalibrated exposure</li>
 <li>_crj file: name of any sub-product from an association table</li>
 </ul>
-<p>While both CR-SPLIT and REPEAT-OBS exposures from an association get combined using <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt>, dithered observations from an association do not.</p>
-<div class="figure align-center" id="uvis-data-format">
-<img alt="UVIS data raw file format" src="_images/uvis_data_format.png" />
-<p class="caption">Figure 2: UVIS data raw file format</p>
+<p>While both CR-SPLIT and REPEAT-OBS exposures from an association get combined using <cite>calwf3</cite>, dithered observations from an association do not.</p>
+<div class="figure align-center" id="id8">
+<span id="uvis-data-format"></span><img alt="UVIS data raw file format" src="_images/uvis_data_format.png" />
+<p class="caption"><span class="caption-text">Figure 2: UVIS data raw file format</span></p>
 </div>
-<div class="figure align-center" id="ir-data-format">
-<img alt="IR data raw file format" src="_images/ir_data_format.png" />
-<p class="caption">Figure 3: IR data raw file format</p>
+<div class="figure align-center" id="id9">
+<span id="ir-data-format"></span><img alt="IR data raw file format" src="_images/ir_data_format.png" />
+<p class="caption"><span class="caption-text">Figure 3: IR data raw file format</span></p>
 </div>
 <ul class="simple">
 <li>The science image contains the data from the focal plane array detectors.</li>
 <li>The error array contains an estimate of the statistical uncertainty associated with each correcsponding science image pixel</li>
 <li>The data quality array contains independent flags indicating various status and problem conditions associated with each correspoinding pixel in the science image</li>
 <li>The sample array (IR ONLY) contains the number of samples used to derive the corresponding pixel values in the science image.</li>
-<li>The time array (IR ONLY) containst the effective integration time associated with each corresponding science image pixel value.</li>
+<li>The time array (IR ONLY) contains the effective integration time associated with each corresponding science image pixel value.</li>
 </ul>
 </div>
 <div class="section" id="types-of-output-file-from-calwf3">
@@ -157,9 +292,9 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <p>The suffixes used for WFC3 raw and calibrated data products closely mimic those used by ACS and NICMOS:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
-<col width="64%" />
-<col width="26%" />
+<col width="11%" />
+<col width="68%" />
+<col width="21%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">SUFFIX</th>
@@ -188,8 +323,16 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <td>overscan-trimmed UVIS exposure</td>
 <td>DN</td>
 </tr>
-<tr class="row-odd"><td>_crj_tmp</td>
-<td>uncalibrated, cosmic-ray rejected combined UVIS</td>
+<tr class="row-odd"><td>_blc_tmp</td>
+<td>overscan0trimmed UVIS, CTE corrected exposure</td>
+<td>DN</td>
+</tr>
+<tr class="row-even"><td>_crj_tmp</td>
+<td>uncalibrated, cosmic-ray rejected combined</td>
+<td>DN</td>
+</tr>
+<tr class="row-odd"><td>_crc_tmp</td>
+<td>uncalibrated, cosmic-rat rejected, cte cleaned</td>
 <td>DN</td>
 </tr>
 <tr class="row-even"><td>_ima</td>
@@ -216,27 +359,26 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <td>IR calibrated, cosmic ray rejected image</td>
 <td><span class="math">\(e^{-}/s\)</span></td>
 </tr>
-<tr class="row-even"><td>.tra</td>
+<tr class="row-even"><td>_crc</td>
+<td>UVIS calibrated, cr rejected, cte cleaned image</td>
+<td><span class="math">\(e^{-}\)</span></td>
+</tr>
+<tr class="row-odd"><td>.tra</td>
 <td>trailer file, contains processing messages</td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
-<p>** DRZ and DRC products are produced with Astrodrizzle, see <a class="reference internal" href="runastrodriz.html#running-astrodrizzle"><em>Running Astrodrizzle</em></a> **</p>
+<p>** DRZ and DRC products are produced with Astrodrizzle, see <a class="reference external" href="http://www.stsci.edu/hst/HST_overview/drizzlepac/">Astrodrizzle</a> **</p>
 </div>
 <div class="section" id="keyword-usage">
 <h3>Keyword Usage<a class="headerlink" href="#keyword-usage" title="Permalink to this headline">¶</a></h3>
-<p><tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> processing is controlled by the values of keywords in the input image headers. Certain keywords, referred to as calibration switches, are used to control which calibration steps are performed. Reference file keywords indicate which reference files to use in the various calibration steps. Users who which to perform custom reprocessing of their data may change the values of these keywords in the _raw FITS file headers and then rerun the modified file through  <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt>. See the <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/wfc3_Ch25.html">WFC3 Data Handbook</a> for a more complete description of these keywords and their values.</p>
+<p><cite>calwf3</cite> processing is controlled by the values of keywords in the input image headers. Certain keywords, referred to as calibration switches, are used to control which calibration steps are performed. Reference file keywords indicate which reference files to use in the various calibration steps. Users who which to perform custom reprocessing of their data may change the values of these keywords in the _raw FITS file headers and then rerun the modified file through  <cite>calwf3</cite>. See the <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/wfc3_Ch25.html">WFC3 Data Handbook</a> for a more complete description of these keywords and their values.</p>
 </div>
 </div>
 <div class="section" id="uvis-pipleline">
 <span id="uvis-pipeline"></span><h2>UVIS Pipleline<a class="headerlink" href="#uvis-pipleline" title="Permalink to this headline">¶</a></h2>
-<p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction.</p>
-<div class="figure align-center" id="uvisflow">
-<img alt="Flow diagram for UVIS data using calwf3" src="_images/cte_nocte.png" />
-<p class="caption">Figure 4: Flow diagram for UVIS data in calwf3</p>
-</div>
-<p>A short description of the calibration steps, in the order they are performed, follows:</p>
+<p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:</p>
 <ul class="simple">
 <li>Calculate and remove and CTE found in the image (PCTECORR)</li>
 <li>Calculate a noise model for each pixel and record in the error array (ERR) of the image (NOISCORR)</li>
@@ -246,7 +388,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <li>Subtract the bias image (BIASCORR)</li>
 <li>Detect and record SINK pixels in the DQ mask (performed if DQICORR is set to PERFORM)</li>
 <li>Perform unit conversion</li>
-<li>Subtract the post-flash image if applicable (FLASHCORR)</li>
+<li>Subtract the post-flash image if applicable (FLSHCORR)</li>
 <li>Scale and subtract the dark image (DARKCORR)</li>
 <li>Perform flatfielding (FLATCORR)</li>
 <li>Perform shutter-shading correction where necessary, currently skipped (SHADCORR)</li>
@@ -257,7 +399,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <div class="section" id="correction-for-charge-transfer-efficiency-pctecorr">
 <h3>Correction For Charge Transfer Efficiency (PCTECORR)<a class="headerlink" href="#correction-for-charge-transfer-efficiency-pctecorr" title="Permalink to this headline">¶</a></h3>
 <p>The charge transfer (CTE) of the UVIS detector has been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources in particular can suffer large flux losses or even be lost entirely if observtions are not planned and analyzed carefully. The CTE depends on the morphology of the source, the distribution of electrons in the field of view, and the population of charge traps in the detector column between the source and the transfer register. Further details of the current understanding of the state of the WFC3/UVIS charge transfer efficieny (CTE) are presented in <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c05_detector5.html#392274">Section 5</a>  of the data handbook as well as on the <a class="reference external" href="http://www.stsci.edu/hst/wfc3/ins_performance/CTE/">WFC3 CTE webpage</a> .  The PCTECORR step aims to mitigate the flux loss incurred from CTE.</p>
-<p>More information on this part of the pipeline can be found in the <a class="reference internal" href="wf3cte.html#wf3cte"><em>wf3cte</em></a> documentation.</p>
+<p>More information on this part of the pipeline can be found in the <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> documentation.</p>
 </div>
 <div class="section" id="error-array-initialization">
 <h3>Error Array Initialization<a class="headerlink" href="#error-array-initialization" title="Permalink to this headline">¶</a></h3>
@@ -362,10 +504,10 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <li>Go through the reference image pixel by pixel looking for those pixels with values greater than 999, which indicates that the current pixel is a sink pixel. The value of this pixel in the reference file corresponds to the date at which this pixel exibited the sink behavior.</li>
 <li>If the turn on date of the sink pixel is after the exposure date of the science image, then we ignore the sink pixel in this exposure and move on to the next pixel</li>
 <li>If the turn on date of the sink pixel is before the exposure date of the science image, then this science pixel was compromised at the time of the exposure.The corresponding DQ extension pixel for this science pixel is flagged with the &#8220;charge trap&#8221; flag of 1024.</li>
-<li>If the pixel &#8220;below&#8221; the sink pixel in the long format image has a value of -1 in the reference image, then it is also flagged with the &#8220;charge trap&#8221; value in the DQ extension. We then proceed vertically &#8220;up&#8221; from the sink pixel and compare each pixel in the reference file to the value of the sink pixel in the science exposure at hand. If the value of the sink pixel in the exposure is below the value of the upstream pixel in the reference image, we flag that pixel with the &#8220;charge trap&#8221; value in teh DQ extension. We continue to flag pixels until the value of the pixel in the reference image is zero or until the value of the sink pixel in the exposure is greater than the value of the upstream pixel in the reference image.</li>
+<li>If the pixel &#8220;below&#8221; the sink pixel in the long format image has a value of -1 in the reference image, then it is also flagged with the &#8220;charge trap&#8221; value in the DQ extension. We then proceed vertically &#8220;up&#8221; from the sink pixel and compare each pixel in the reference file to the value of the sink pixel in the science exposure at hand. If the value of the sink pixel in the exposure is below the value of the upstream pixel in the reference image, we flag that pixel with the &#8220;charge trap&#8221; value in the DQ extension. We continue to flag pixels until the value of the pixel in the reference image is zero or until the value of the sink pixel in the exposure is greater than the value of the upstream pixel in the reference image.</li>
 </ul>
 <p><a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-19.pdf">WFC3 ISR 2014-19</a> has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-22.pdf">WFC3 ISR 2014-22</a> .</p>
-<p>Sink pixels are currently only flagged in full frame science images, a future release of <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> will also perform flagging in subarray images.
+<p>Sink pixels are currently only flagged in full frame science images, a future release of <cite>calwf3</cite> will also perform flagging in subarray images.
 <strong>The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels</strong></p>
 </div>
 <div class="section" id="unit-conversion-to-electrons">
@@ -374,7 +516,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 </div>
 <div class="section" id="bias-correction-biascorr">
 <h3>Bias Correction (BIASCORR)<a class="headerlink" href="#bias-correction-biascorr" title="Permalink to this headline">¶</a></h3>
-<p>This step subtracts the two dimensional bias struction from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full and sub-array images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of <a class="reference internal" href="wf3ccd.html#wf3ccd"><em>wf3ccd</em></a> are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> will extract the matching region from the full-size bias file and apply it to the subarray image.</p>
+<p>This step subtracts the two dimensional bias struction from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full and sub-array images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, <cite>calwf3</cite> will extract the matching region from the full-size bias file and apply it to the subarray image.</p>
 </div>
 <div class="section" id="overscan-bias-correction-blevcorr">
 <h3>Overscan Bias Correction (BLEVCORR)<a class="headerlink" href="#overscan-bias-correction-blevcorr" title="Permalink to this headline">¶</a></h3>
@@ -394,7 +536,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <p>This step corrects the science image for differential exposure time across the detector cased by the amount of time it takes for the shutter to completely open and close, which is a potentially signiciant effect only for images with very short exposure times (less than ~5 seconds). Pixels are corrected based on the exposure time using the relation:</p>
 <div class="math">
 \[corrected = uncorrected \times EXPTIME \div (EXPTIME + SHADFILE)\]</div>
-<p>WFC3 tests have shown that the shutter shading effect is insignificant (&lt; 1%), even for the shortest allowed UVIS exposure time of 0.5 seconds (see <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2007-17.pdf">WFC3 ISR 2007-17</a>). Therefore this step is <strong>ALWAYS set to OMIT</strong> in <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt>.</p>
+<p>WFC3 tests have shown that the shutter shading effect is insignificant (&lt; 1%), even for the shortest allowed UVIS exposure time of 0.5 seconds (see <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2007-17.pdf">WFC3 ISR 2007-17</a>). Therefore this step is <strong>ALWAYS set to OMIT</strong> in <cite>calwf3</cite>.</p>
 </div>
 <div class="section" id="post-flash-correction-uvis-only-flshcorr">
 <h3>Post-Flash Correction (UVIS ONLY) (FLSHCORR)<a class="headerlink" href="#post-flash-correction-uvis-only-flshcorr" title="Permalink to this headline">¶</a></h3>
@@ -429,7 +571,7 @@ the <tt class="docutils literal"><span class="pre">wfc3tools</span></tt> package
 <td>post flash level in electrons</td>
 </tr>
 <tr class="row-even"><td>MEANFLSH</td>
-<td>the mean level which <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> calculated and then subtracted</td>
+<td>the mean level which <cite>calwf3</cite> calculated and then subtracted</td>
 </tr>
 </tbody>
 </table>
@@ -453,7 +595,7 @@ Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM, all image
 <li>LFLTCORR: apply a low order flat, correcting for large scale sensativity variations (on-orbit)</li>
 </ul>
 <p>The pipeline is currently only using the P-flats. If two or more reference files are specified, they are read in line-by-line and multiplied together to form a combined flatfield correction image.</p>
-<p>Subarray science images use the same reference file as the full-frame images; <tt class="xref py py-obj docutils literal"><span class="pre">calwf3</span></tt> will extract the appropriate region from the reference file and apply it to the subarray input image.</p>
+<p>Subarray science images use the same reference file as the full-frame images; <cite>calwf3</cite> will extract the appropriate region from the reference file and apply it to the subarray input image.</p>
 </div>
 <div class="section" id="photometry-keywords-photcorr">
 <h3>Photometry Keywords (PHOTCORR)<a class="headerlink" href="#photometry-keywords-photcorr" title="Permalink to this headline">¶</a></h3>
@@ -482,7 +624,7 @@ Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM, all image
 5       BINTABLE    PHTFLAM2              1     5Fx256R
 </pre></div>
 </div>
-<p>where each extension contains the photometry keyword information for that specific header keyword. The rows in the tables are split on observation mode.</p>
+<p>where each extension contains the photometry keyword information for that specific header keyword. The rows inside the tables are split on observation mode.</p>
 </div>
 <div class="section" id="flux-normalization-for-uvis1-and-uvis2-fluxcorr">
 <h3>Flux normalization for UVIS1 and UVIS2 (FLUXCORR)<a class="headerlink" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr" title="Permalink to this headline">¶</a></h3>
@@ -504,19 +646,19 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </div>
 </div>
 <div class="section" id="ir-pipeline">
-<span id="id1"></span><h2>IR Pipeline<a class="headerlink" href="#ir-pipeline" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>IR Pipeline<a class="headerlink" href="#ir-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>IR pipeline output files using the RAW file as input:</p>
 <blockquote>
 <div><ul class="simple">
 <li>flt.fits: output calibrated, ramp-fitted exposure produced after CRCORR has been run</li>
-<li>ima.fits: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents teh average flux between that particular readout and the zero read.</li>
+<li>ima.fits: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents the average flux between that particular readout and the zero read.</li>
 <li>_crj.fits: a cosmic-ray rejected sub-product produced from images in an association table</li>
 <li>.tra: output text information about the processing</li>
 </ul>
 </div></blockquote>
-<div class="figure align-center" id="irflow">
-<img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.png" />
-<p class="caption">Figure 5: Flow diagram for IR data using wf3ir in calwf3</p>
+<div class="figure align-center" id="id10">
+<span id="irflow"></span><img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.png" />
+<p class="caption"><span class="caption-text">Figure 4: Flow diagram for IR data using wf3ir in calwf3</span></p>
 </div>
 <div class="section" id="data-quality-initialization-dqicorr">
 <h3>Data Quality Initialization (DQICORR)<a class="headerlink" href="#data-quality-initialization-dqicorr" title="Permalink to this headline">¶</a></h3>
@@ -615,13 +757,13 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <ul class="simple">
 <li>copy the zero sig image from the linearity reference file</li>
 <li>compute any subarray offsets</li>
-<li>subtract the super zero read reference image form the zero read science image</li>
+<li>subtract the super zero read reference image from the zero read science image</li>
 <li>compute the noise in the zero image</li>
 <li>pixels which contain more than ZTHRESH*noise of detected signal are flagged and that signal is passed to the NLINCORR step to help judge saturation and linearity, avoiding reference pixels.</li>
 <li>low signal pixels are masked out by setting them to zero</li>
 <li>the NLINCOR file has an extension with saturation values for each pixel which is referenced here. Pixels which are saturated in the zeroth or first reads are flagged in the DQ and the number of found saturated pixels are reported.</li>
 <li>This step works poorly for bright targets which are already begining to saturate in the zeroth and first reads</li>
-<li>This step acutally subtractes the super zero read from teh science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.</li>
+<li>This step acutally subtractes the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.</li>
 </ul>
 </div>
 <div class="section" id="bias-correction-blevcorr">
@@ -632,8 +774,8 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <h3>Zero read subtraction (ZOFFCORR)<a class="headerlink" href="#zero-read-subtraction-zoffcorr" title="Permalink to this headline">¶</a></h3>
 <p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FTL image only AFTER the CRCORR step has been completed.</p>
 </div>
-<div class="section" id="id2">
-<h3>Error array initialization<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Error array initialization<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>The errors associated with the raw data are estimated according  to the noise model for the detector which currently includes a simple combination of detector readnoise and poisson noise from the pixel. Readnoise and gain are read from the CCDTAB reference file. The ERR array continues to be summed in quadrature as the SCI array is processed. Inside the final FLT image, the ERR array is calculated by CRCORR as the calculated uncertainty of the count-rate fit to the multiaccum samples.</p>
 <div class="math">
 \[\sigma_{IR} = \frac{\sqrt{(readnoise^{2}) + (counts * gain)}}{gain}\]</div>
@@ -650,7 +792,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <ul class="simple">
 <li>At high signal levels, as saturation sets in, the response becomes highly non-linear and is not correctable to a scientifically useful degree.</li>
 </ul>
-<p>The signal in the zero read is temporarily added back to the zeroth read image of the science data before the linearity correction is applied and before teh saturation is judged. Once the correction has been applied the signal is once again removed. This only occurs if the ZSIGCORR step is set to PERFORM. Saturation values for each pixel are stored in the NODE extension of the NLINFILE. After each group is corrected, the routine also sets saturation flags in the next group for those pixels that are flagged as saturated in the current group. This is necessary because the SCI image value of saturated pixels will sometimes start to go back down in the subsequent reads after saturation occurs, which means they could go unflagged by normal checking techniques. The SAMP and TIME arrays are not modified during this step.</p>
+<p>The signal in the zero read is temporarily added back to the zeroth read image of the science data before the linearity correction is applied and before the saturation is judged. Once the correction has been applied the signal is once again removed. This only occurs if the ZSIGCORR step is set to PERFORM. Saturation values for each pixel are stored in the NODE extension of the NLINFILE. After each group is corrected, the routine also sets saturation flags in the next group for those pixels that are flagged as saturated in the current group. This is necessary because the SCI image value of saturated pixels will sometimes start to go back down in the subsequent reads after saturation occurs, which means they could go unflagged by normal checking techniques. The SAMP and TIME arrays are not modified during this step.</p>
 <p>The format of the linearity reference file:</p>
 <div class="highlight-python"><div class="highlight"><pre>EXT#  FITSNAME      FILENAME              EXTVE DIMENS       BITPI OBJECT
 
@@ -676,12 +818,12 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3>Dark Current Subtraction (DARKCORR)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from teh stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and teh science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from teh science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.</p>
-</div>
 <div class="section" id="id4">
-<h3>Photometry Keywords (PHOTCORR)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>Dark Current Subtraction (DARKCORR)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from the stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and the science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from the science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.</p>
+</div>
+<div class="section" id="id5">
+<h3>Photometry Keywords (PHOTCORR)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step. The format of the file for the IR detectors is:</p>
 <div class="highlight-python"><div class="highlight"><pre>EXT#  FITSNAME      FILENAME              EXTVE DIMENS       BITPI OBJECT
 
@@ -764,7 +906,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </div>
 <div class="section" id="flatfield-correction-flatcorr">
 <h3>Flatfield Correction (FLATCORR)<a class="headerlink" href="#flatfield-correction-flatcorr" title="Permalink to this headline">¶</a></h3>
-<p>This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from teh flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.</p>
+<p>This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from the flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.</p>
 </div>
 <div class="section" id="calculation-of-image-statistics">
 <h3>Calculation of image statistics<a class="headerlink" href="#calculation-of-image-statistics" title="Permalink to this headline">¶</a></h3>
@@ -781,114 +923,79 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </div>
 <div class="section" id="reject-cosmic-rays-from-multiple-images-rptcorr">
 <h3>Reject cosmic rays from multiple images (RPTCORR)<a class="headerlink" href="#reject-cosmic-rays-from-multiple-images-rptcorr" title="Permalink to this headline">¶</a></h3>
-<p>Reject cosmic rays from multiple images. CR-SPLIT and REPEAT-OBS exposures get combined, other members of the association file must be combined with Astrodrizzle  (see <a class="reference internal" href="runastrodriz.html#running-astrodrizzle"><em>Running Astrodrizzle</em></a>), which will also correct for geometric distortion.This step is also referred to as <a class="reference internal" href="wf3rej.html#wf3rej"><em>wf3rej</em></a>. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure.</p>
+<p>Reject cosmic rays from multiple images. CR-SPLIT and REPEAT-OBS exposures get combined, other members of the association file must be combined with Astrodrizzle  (see <a class="reference external" href="http://www.stsci.edu/hst/HST_overview/drizzlepac/">Astrodrizzle</a> ), which will also correct for geometric distortion. This step is also referred to as <a class="reference internal" href="wf3rej.html#wf3rej"><span>wf3rej</span></a>. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure.</p>
 </div>
 </div>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">calwf3</a><ul>
-<li><a class="reference internal" href="#where-to-find-calwf3">Where to Find calwf3</a></li>
-<li><a class="reference internal" href="#running-calwf3">Running calwf3</a><ul>
-<li><a class="reference internal" href="#running-many-files-at-the-same-time">Running many files at the same time</a></li>
-<li><a class="reference internal" href="#command-line-options">Command Line Options</a></li>
-<li><a class="reference internal" href="#types-of-files-used-as-input-to-calwf3">Types of files used as input to calwf3</a></li>
-<li><a class="reference internal" href="#types-of-output-file-from-calwf3">Types of output file from calwf3</a></li>
-<li><a class="reference internal" href="#keyword-usage">Keyword Usage</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#uvis-pipleline">UVIS Pipleline</a><ul>
-<li><a class="reference internal" href="#correction-for-charge-transfer-efficiency-pctecorr">Correction For Charge Transfer Efficiency (PCTECORR)</a></li>
-<li><a class="reference internal" href="#error-array-initialization">Error Array Initialization</a></li>
-<li><a class="reference internal" href="#data-quality-array-initialization-dqicorr">Data Quality Array Initialization (DQICORR)</a></li>
-<li><a class="reference internal" href="#sink-pixel-detection-and-marking">Sink Pixel Detection and Marking</a></li>
-<li><a class="reference internal" href="#unit-conversion-to-electrons">Unit Conversion to Electrons</a></li>
-<li><a class="reference internal" href="#bias-correction-biascorr">Bias Correction (BIASCORR)</a></li>
-<li><a class="reference internal" href="#overscan-bias-correction-blevcorr">Overscan Bias Correction (BLEVCORR)</a></li>
-<li><a class="reference internal" href="#dark-current-subtraction-darkcorr">Dark Current Subtraction (DARKCORR)</a></li>
-<li><a class="reference internal" href="#shutter-shading-correction-shadcorr">Shutter Shading Correction (SHADCORR)</a></li>
-<li><a class="reference internal" href="#post-flash-correction-uvis-only-flshcorr">Post-Flash Correction (UVIS ONLY) (FLSHCORR)</a></li>
-<li><a class="reference internal" href="#flatcorr">FLATCORR</a></li>
-<li><a class="reference internal" href="#photometry-keywords-photcorr">Photometry Keywords (PHOTCORR)</a></li>
-<li><a class="reference internal" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr">Flux normalization for UVIS1 and UVIS2 (FLUXCORR)</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#ir-pipeline">IR Pipeline</a><ul>
-<li><a class="reference internal" href="#data-quality-initialization-dqicorr">Data Quality Initialization (DQICORR)</a></li>
-<li><a class="reference internal" href="#estimate-the-signal-in-the-zero-read-zsigcorr">Estimate the signal in the zero read (ZSIGCORR)</a></li>
-<li><a class="reference internal" href="#bias-correction-blevcorr">Bias Correction (BLEVCORR)</a></li>
-<li><a class="reference internal" href="#zero-read-subtraction-zoffcorr">Zero read subtraction (ZOFFCORR)</a></li>
-<li><a class="reference internal" href="#id2">Error array initialization</a></li>
-<li><a class="reference internal" href="#detector-non-linearity-correction-nlincorr">Detector Non-linearity Correction (NLINCORR)</a></li>
-<li><a class="reference internal" href="#id3">Dark Current Subtraction (DARKCORR)</a></li>
-<li><a class="reference internal" href="#id4">Photometry Keywords (PHOTCORR)</a></li>
-<li><a class="reference internal" href="#conversion-to-signal-rate-unitcorr">Conversion to Signal Rate (UNITCORR)</a></li>
-<li><a class="reference internal" href="#fit-accumulating-signal-and-identify-cosmic-ray-hits-crcorr">Fit accumulating signal and identify cosmic ray hits (CRCORR)</a></li>
-<li><a class="reference internal" href="#flatfield-correction-flatcorr">Flatfield Correction (FLATCORR)</a></li>
-<li><a class="reference internal" href="#calculation-of-image-statistics">Calculation of image statistics</a></li>
-<li><a class="reference internal" href="#reject-cosmic-rays-from-multiple-images-rptcorr">Reject cosmic rays from multiple images (RPTCORR)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wf3cte.html" class="btn btn-neutral float-right" title="wf3cte" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="WFC3 Python User Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to the wfc3tools package documentation!</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="wf3cte.html"
-                        title="next chapter">wf3cte</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/calwf3.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, STScI.
+      Last updated on Feb 23, 2016.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="wf3cte.html" title="wf3cte"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to the wfc3tools package documentation!"
-             >previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

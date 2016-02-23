@@ -30,7 +30,7 @@ Example
     In Python without TEAL:
 
     >>> from wfc3tools import wf3ccd
-    >>> calwf3.wf3ccd(filename)
+    >>> wf3ccd(filename)
 
     In Python with TEAL:
 

@@ -1,54 +1,152 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>sampinfo &mdash; wfc3tools 1.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="wfc3tools 1.1 documentation" href="index.html" />
-    <link rel="next" title="sub2full" href="sub2full.html" />
-    <link rel="prev" title="pstack" href="pstack.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pstack.html" title="pstack"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sampinfo &mdash; wfc3tools 1.3.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="wfc3tools 1.3.1 documentation" href="index.html"/>
+        <link rel="next" title="sub2full" href="sub2full.html"/>
+        <link rel="prev" title="pstack" href="pstack.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> wfc3tools
+          
+
+          
+            
+            <img src="_static/stsci_pri_combo_mark_white.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="calwf3.html">calwf3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3cte.html">wf3cte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">wf3ccd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf32d.html">wf32d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ir.html">wf3ir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3rej.html">wf3rej</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Software History</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="embedsub.html">embedsub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstat.html">pstat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstack.html">pstack</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">sampinfo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-output">Example Output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sub2full.html">sub2full</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">wfc3tools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>sampinfo</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/sampinfo.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="sampinfo">
 <span id="id1"></span><h1>sampinfo<a class="headerlink" href="#sampinfo" title="Permalink to this headline">¶</a></h1>
@@ -68,7 +166,7 @@ with  IMSET=NSAMP,   SAMPNUM=0, SAMPTIME=0,  and  DELTATIM=0. The final read of 
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>This version will accept a single image name or a python list of images. The list of images should be a python style list, such as:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s">&quot;image1.fits&quot;</span><span class="p">,</span><span class="s">&quot;image2.fits&quot;</span><span class="p">]</span>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s2">&quot;image1.fits&quot;</span><span class="p">,</span><span class="s2">&quot;image2.fits&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd>
@@ -84,7 +182,7 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 <dt>Typical:</dt>
 <dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">sampinfo</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -97,7 +195,7 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 </div>
 </dd>
 <dt>To print additional keys for information:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span><span class="n">add_keys</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;DETECTOR&quot;</span><span class="p">])</span>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sampinfo</span><span class="o">.</span><span class="n">sampinfo</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span><span class="n">add_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DETECTOR&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd>
@@ -162,70 +260,73 @@ IMSET       SAMPNUM SAMPTIME        DELTATIM
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">sampinfo</a><ul>
-<li><a class="reference internal" href="#options">Options</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#example-output">Example Output</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sub2full.html" class="btn btn-neutral float-right" title="sub2full" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pstack.html" class="btn btn-neutral" title="pstack" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pstack.html"
-                        title="previous chapter">pstack</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="sub2full.html"
-                        title="next chapter">sub2full</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/sampinfo.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, STScI.
+      Last updated on Feb 23, 2016.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pstack.html" title="pstack"
-             >previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

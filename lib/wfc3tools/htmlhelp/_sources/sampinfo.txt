@@ -39,7 +39,7 @@ Usage
 Typical:
     >>> python
     >>> from wfc3tools import sampinfo
-    >>> sampinfo.sampinfo(imagename)
+    >>> sampinfo(imagename)
 
 Where imagename can be a single filename or a python list() of names
 

@@ -4,19 +4,13 @@
    contain the root `toctree` directive.
 
 
-Welcome to the wfc3tools package documentation!
-===============================================
-.. image:: images/wfc_logo.png
-    :align: right
+WFC3 Python User Tools
+======================
+See the team website  http://www.stsci.edu/hst/wfc3/ and the `WFC3 Data Handbook <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/>`_ for more information.  
 
-See the team website for further information:  http://www.stsci.edu/hst/wfc3/
-
-The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .  
-
-
-============================
+=================
 Pipeline Software
-============================
+=================
 
 .. toctree::
    :maxdepth: 2
@@ -29,7 +23,7 @@ Pipeline Software
    wf3ir <wf3ir.rst>
    wf3rej <wf3rej.rst>
    Software History <history.rst>
-   
+  
 ==============
 Analysis Tools
 ==============
@@ -43,11 +37,8 @@ Analysis Tools
    sampinfo <sampinfo.rst>
    sub2full <sub2full.rst>
 
-==================
-Indices and tables
-==================
 
+   
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
 

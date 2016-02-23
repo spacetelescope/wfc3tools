@@ -6,7 +6,7 @@ from .version import *
 
 # STDLIB
 import os
-from astropy.io import fits as pyfits
+from astropy.io import fits 
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import mode as mode
@@ -86,7 +86,7 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
             return
             
         
-    with pyfits.open(imagename) as myfile:
+    with fits.open(imagename) as myfile:
         nsamp=myfile[0].header["NSAMP"]
         bunit=myfile[1].header["BUNIT"] #must look in a data header for units
         yaxis=np.zeros(nsamp)    

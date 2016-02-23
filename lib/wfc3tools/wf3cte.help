@@ -31,7 +31,7 @@ Example
     In Python without TEAL:
 
     >>> from wfc3tools import wf3cte
-    >>> calwf3.wf3cte(filename)
+    >>> wf3cte(filename)
 
     In Python with TEAL:
 
@@ -86,7 +86,7 @@ Basic Steps In The CTE Correction
 
 .. _uvis_raw_data_format:
 
-.. figure:: images/raw_uvis_format.pdf
+.. figure:: _static/raw_uvis_format.png
     :align: center
     :alt:  UVIS data raw full-frame file format
 

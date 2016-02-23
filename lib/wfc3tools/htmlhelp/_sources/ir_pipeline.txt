@@ -7,14 +7,14 @@ IR Pipeline
 IR pipeline output files using the RAW file as input:
 
     * flt.fits: output calibrated, ramp-fitted exposure produced after CRCORR has been run
-    * ima.fits: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents teh average flux between that particular readout and the zero read. 
+    * ima.fits: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents the average flux between that particular readout and the zero read. 
     * _crj.fits: a cosmic-ray rejected sub-product produced from images in an association table
     * .tra: output text information about the processing
     
     
 .. _irflow:
 
-.. figure:: images/wfc3_Ch33_5.png
+.. figure:: _static/wfc3_Ch33_5.png
     :align: center
     :alt: Flow diagram for IR data using wf3ir in calwf3
 
@@ -58,13 +58,13 @@ This step measures the signal between the super zero read in the linearity refer
 
 * copy the zero sig image from the linearity reference file
 * compute any subarray offsets
-* subtract the super zero read reference image form the zero read science image
+* subtract the super zero read reference image from the zero read science image
 * compute the noise in the zero image
 * pixels which contain more than ZTHRESH*noise of detected signal are flagged and that signal is passed to the NLINCORR step to help judge saturation and linearity, avoiding reference pixels.
 * low signal pixels are masked out by setting them to zero
 * the NLINCOR file has an extension with saturation values for each pixel which is referenced here. Pixels which are saturated in the zeroth or first reads are flagged in the DQ and the number of found saturated pixels are reported.
 * This step works poorly for bright targets which are already begining to saturate in the zeroth and first reads
-* This step acutally subtractes the super zero read from teh science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.
+* This step acutally subtractes the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.
 
 Bias Correction (BLEVCORR)
 --------------------------
@@ -103,7 +103,7 @@ where c1, c2, c3, and c4 are the correction coefficients, F is the uncorrected f
 
 * At high signal levels, as saturation sets in, the response becomes highly non-linear and is not correctable to a scientifically useful degree.
 
-The signal in the zero read is temporarily added back to the zeroth read image of the science data before the linearity correction is applied and before teh saturation is judged. Once the correction has been applied the signal is once again removed. This only occurs if the ZSIGCORR step is set to PERFORM. Saturation values for each pixel are stored in the NODE extension of the NLINFILE. After each group is corrected, the routine also sets saturation flags in the next group for those pixels that are flagged as saturated in the current group. This is necessary because the SCI image value of saturated pixels will sometimes start to go back down in the subsequent reads after saturation occurs, which means they could go unflagged by normal checking techniques. The SAMP and TIME arrays are not modified during this step.
+The signal in the zero read is temporarily added back to the zeroth read image of the science data before the linearity correction is applied and before the saturation is judged. Once the correction has been applied the signal is once again removed. This only occurs if the ZSIGCORR step is set to PERFORM. Saturation values for each pixel are stored in the NODE extension of the NLINFILE. After each group is corrected, the routine also sets saturation flags in the next group for those pixels that are flagged as saturated in the current group. This is necessary because the SCI image value of saturated pixels will sometimes start to go back down in the subsequent reads after saturation occurs, which means they could go unflagged by normal checking techniques. The SAMP and TIME arrays are not modified during this step.
 
 The format of the linearity reference file:
 
@@ -137,7 +137,7 @@ The format of the linearity reference file:
 Dark Current Subtraction (DARKCORR)
 -----------------------------------
 
-The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from teh stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and teh science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from teh science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.
+The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from the stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and the science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from the science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.
 
 
 
@@ -179,8 +179,8 @@ The process is described below:
 
 * An iterative fit to the accumulating sample time is calculated for each pixel
     * Finding a cosmic ray ends one interval and beins the next; the cosmic ray must be included in the next interval
-        * intervals are first defined based on existing cosmic rays
-            * CRSIGMAS from the  CRREJTAB reference file is used to set the rejection threshold
+    * intervals are first defined based on existing cosmic rays
+    * CRSIGMAS from the  CRREJTAB reference file is used to set the rejection threshold
         * then each interval is fitted separately
         * then each interval is inspected for SPIKES
         * then each interval is inspected for more cosmic rays
@@ -202,7 +202,7 @@ The result of this step  is stored as a single imset in the output FLT file. In 
 Flatfield Correction (FLATCORR)
 -------------------------------
 
-This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from teh flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.
+This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from the flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.
 
 
 Calculation of image statistics
@@ -222,5 +222,5 @@ The min, mean, maxmin and max SNR (for the SCI and ERR) for data values flagged 
 Reject cosmic rays from multiple images (RPTCORR)
 -------------------------------------------------
 
-Reject cosmic rays from multiple images. CR-SPLIT and REPEAT-OBS exposures get combined, other members of the association file must be combined with Astrodrizzle  (see :ref:`running-astrodrizzle`), which will also correct for geometric distortion.This step is also referred to as :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure.
+Reject cosmic rays from multiple images. CR-SPLIT and REPEAT-OBS exposures get combined, other members of the association file must be combined with Astrodrizzle  (see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ ), which will also correct for geometric distortion. This step is also referred to as :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure.
  
