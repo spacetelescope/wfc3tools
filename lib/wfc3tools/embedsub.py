@@ -1,11 +1,11 @@
-from __future__ import division, print_function # confidence high
+from __future__ import absolute_import, division, print_function # confidence high
 
 #get the auto update version 
 from .version import *
 from .sub2full import sub2full
 
 # STDLIB
-import pyfits
+from astropy.io import fits 
 import os
 import numpy
 
@@ -50,7 +50,7 @@ def embedsub(files):
         full = root[0:len(root)-1] + 'f_flt.fits'
 
         try:
-            flt=pyfits.open(filename)
+            flt=fits.open(filename)
         except EnvironmentError:
             print("Problem opening fits file %s"%(filename))
             
@@ -108,15 +108,15 @@ def embedsub(files):
         flt[0].header['SUBARRAY']=False
         
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
-        hdulist=pyfits.HDUList()
-        hdulist.append(pyfits.ImageHDU(flt[0].data,header=flt[0].header))
-        hdulist.append(pyfits.ImageHDU(sci,header=flt[1].header,name='SCI'))
-        hdulist.append(pyfits.ImageHDU(err,header=flt[2].header,name='ERR'))
-        hdulist.append(pyfits.ImageHDU(dq,header=flt[3].header,name='DQ'))
+        hdulist=fits.HDUList()
+        hdulist.append(fits.ImageHDU(flt[0].data,header=flt[0].header))
+        hdulist.append(fits.ImageHDU(sci,header=flt[1].header,name='SCI'))
+        hdulist.append(fits.ImageHDU(err,header=flt[2].header,name='ERR'))
+        hdulist.append(fits.ImageHDU(dq,header=flt[3].header,name='DQ'))
                 
         if not uvis:
-           hdulist.append(pyfits.ImageHDU(dq,header=flt[4].header,name='SAMP'))
-           hdulist.append(pyfits.ImageHDU(dq,header=flt[5].header,name='TIME'))
+           hdulist.append(fits.ImageHDU(dq,header=flt[4].header,name='SAMP'))
+           hdulist.append(fits.ImageHDU(dq,header=flt[5].header,name='TIME'))
 
         hdulist.writeto(full,clobber=False)
        

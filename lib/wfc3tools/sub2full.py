@@ -4,7 +4,7 @@ from __future__ import division, print_function # confidence high
 from .version import *
 
 # STDLIB
-import pyfits
+from astropy.io import fits
 import os
 from glob import glob
 from stsci.tools import parseinput
@@ -50,7 +50,7 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
 
         #open up our image files
         try:
-            fd2=pyfits.open(spt)
+            fd2=fits.open(spt)
         except (ValueError,IOError) as e:
             raise ValueError('%s '%(e))
  
@@ -63,7 +63,7 @@ def sub2full(filename,x=None,y=None, fullExtent=False):
             numrows=int(fd2[1].header['NUMROWS'])
             numcols=int(fd2[1].header['NUMCOLS'])
             fd2.close()
-        except KeyError, e:
+        except KeyError as e:
             raise KeyError("Required header keyword missing; %s"%(e))
             
         if "NO" in  subarray:

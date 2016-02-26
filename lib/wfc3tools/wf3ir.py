@@ -1,6 +1,8 @@
 """
 The wf3ir  processes IR images
 """
+from __future__ import print_function #confidence high
+
 #get the auto update version for the call to teal help
 from .version import *
 
@@ -69,7 +71,7 @@ def help(file=None):
         
     helpstr = getHelpAsString(docstring=True)
     if file is None:
-        print helpstr
+        print(helpstr)
     else:
         if os.path.exists(file): os.remove(file)
         f = open(file,mode='w')

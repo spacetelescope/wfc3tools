@@ -2,6 +2,8 @@
 wf3rej contains the Cosmic Ray rejection and shading correction processing steps for  the WFC3 UVIS and IR data. These steps are:
 
 """
+from __future__ import print_function #confidence high
+
 # STDLIB
 import os.path
 import subprocess
@@ -48,7 +50,7 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     if (initgues != ""):
         options=["min","med"]
         if initgues not in options:
-            print "Invalid option for intigues"
+            print("Invalid option for intigues")
             return ValueError
         else:
             call_list += ["-init",str(initgues)]
@@ -91,7 +93,7 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
 def help(file=None):
     helpstr = getHelpAsString(docstring=True)
     if file is None:
-        print helpstr
+        print(helpstr)
     else:
         if os.path.exists(file): os.remove(file)
         f = open(file,mode='w')

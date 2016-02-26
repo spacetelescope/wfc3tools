@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UVIS Pipleline &mdash; wfc3tools 1.3.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="wfc3tools 1.3.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> wfc3tools
+          
+
+          
+            
+            <img src="_static/stsci_pri_combo_mark_white.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="calwf3.html">calwf3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3cte.html">wf3cte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">wf3ccd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf32d.html">wf32d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ir.html">wf3ir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3rej.html">wf3rej</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Software History</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="embedsub.html">embedsub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstat.html">pstat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstack.html">pstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampinfo.html">sampinfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sub2full.html">sub2full</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">wfc3tools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>UVIS Pipleline</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/uvis_pipeline.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uvis-pipleline">
+<span id="uvis-pipeline"></span><h1>UVIS Pipleline<a class="headerlink" href="#uvis-pipleline" title="Permalink to this headline">¶</a></h1>
+<p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:</p>
+<ul class="simple">
+<li>Calculate and remove and CTE found in the image (PCTECORR)</li>
+<li>Calculate a noise model for each pixel and record in the error array (ERR) of the image (NOISCORR)</li>
+<li>Initialize the data quality(DQ) array of the image (DQICORR)</li>
+<li>Correct fo A-toD conversion errors where necessary, currently skipped (ATODCORR)</li>
+<li>Subtract bias level determined from overscan regions (BLEVCORR)</li>
+<li>Subtract the bias image (BIASCORR)</li>
+<li>Detect and record SINK pixels in the DQ mask (performed if DQICORR is set to PERFORM)</li>
+<li>Perform unit conversion</li>
+<li>Subtract the post-flash image if applicable (FLSHCORR)</li>
+<li>Scale and subtract the dark image (DARKCORR)</li>
+<li>Perform flatfielding (FLATCORR)</li>
+<li>Perform shutter-shading correction where necessary, currently skipped (SHADCORR)</li>
+<li>Populate photometric header keywords (PHOTCORR)</li>
+<li>Correct chips to be on the same zeropoint (FLUXCORR)</li>
+<li>Calculate image statistics for the header</li>
+</ul>
+<div class="section" id="correction-for-charge-transfer-efficiency-pctecorr">
+<h2>Correction For Charge Transfer Efficiency (PCTECORR)<a class="headerlink" href="#correction-for-charge-transfer-efficiency-pctecorr" title="Permalink to this headline">¶</a></h2>
+<p>The charge transfer (CTE) of the UVIS detector has been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources in particular can suffer large flux losses or even be lost entirely if observtions are not planned and analyzed carefully. The CTE depends on the morphology of the source, the distribution of electrons in the field of view, and the population of charge traps in the detector column between the source and the transfer register. Further details of the current understanding of the state of the WFC3/UVIS charge transfer efficieny (CTE) are presented in <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c05_detector5.html#392274">Section 5</a>  of the data handbook as well as on the <a class="reference external" href="http://www.stsci.edu/hst/wfc3/ins_performance/CTE/">WFC3 CTE webpage</a> .  The PCTECORR step aims to mitigate the flux loss incurred from CTE.</p>
+<p>More information on this part of the pipeline can be found in the <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> documentation.</p>
+</div>
+<div class="section" id="error-array-initialization">
+<h2>Error Array Initialization<a class="headerlink" href="#error-array-initialization" title="Permalink to this headline">¶</a></h2>
+<p>The image error array is initialized. The function examines the RR extension of the input data to determine the state of the array. The input _raw image contains an empty ERR array. If the ERR array has already been expanded and contains values other than zero, then this function does nothing. Otherwise it will intialize the ERR array by assigning pixel values based on a simple noise model. The noise model uses the science (SCI) array and for each pixel calculates the error value <span class="math">\(\sigma\)</span> in units of DN:</p>
+<div class="math">
+\[\sigma_{CCD} = \sqrt{(SCI-bias)/(gain) + (readnoise/gain)^{2}}\]</div>
+<p>The CCDTAB reference file contains the bias, gain and readnoise values used for each CCD aplifier quadrant used in this calculation. The table contains one row for each configuration that can be used during readouse, which is uniquely identified by the list of amplifiers (replicated in the CCDAMP header keyword), the particular chip being read out (CCDCHIP), the commanded gain (CCDGAIN), the commanded bias offset level (CCDOFST) and the pixel bin size (BINAXIS). These commanded values are used to find the table row that matches the characteristics of the image that is being processed and reads each amplifiers characteristics, including readnoise (READNSE), A-to-D gain (ATODGN) and the mean bias level (CCDBIAS).</p>
+</div>
+<div class="section" id="data-quality-array-initialization-dqicorr">
+<h2>Data Quality Array Initialization (DQICORR)<a class="headerlink" href="#data-quality-array-initialization-dqicorr" title="Permalink to this headline">¶</a></h2>
+<p>This step initializas the data quality array by reading a table of known bad pixels for the detector, as stored in the Bad Pixel reference table BPIXTAB. The types of bad pixels that can be flagged are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="8%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NAME</th>
+<th class="head">VALUE</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GOODPIXEL</td>
+<td>0</td>
+<td>OK</td>
+</tr>
+<tr class="row-odd"><td>SOFTERR</td>
+<td>1</td>
+<td>Reed-Solomon decoding error</td>
+</tr>
+<tr class="row-even"><td>DATALOST</td>
+<td>2</td>
+<td>data replaced by fill value</td>
+</tr>
+<tr class="row-odd"><td>DETECTORPROB</td>
+<td>4</td>
+<td>bad detector pixel or beyond aperture</td>
+</tr>
+<tr class="row-even"><td>DATAMASKED</td>
+<td>8</td>
+<td>masked by occulting bar</td>
+</tr>
+<tr class="row-odd"><td>HOTPIX</td>
+<td>16</td>
+<td>hot pixel</td>
+</tr>
+<tr class="row-even"><td>CTETAIL</td>
+<td>32</td>
+<td>UVIS CTE tail</td>
+</tr>
+<tr class="row-odd"><td>WARMPIX</td>
+<td>64</td>
+<td>warm pixel</td>
+</tr>
+<tr class="row-even"><td>BADBIAS</td>
+<td>128</td>
+<td>bad bias value</td>
+</tr>
+<tr class="row-odd"><td>SATPIXEL</td>
+<td>256</td>
+<td>full-well or a-to-d saturated pixel</td>
+</tr>
+<tr class="row-even"><td>BADFLAT</td>
+<td>512</td>
+<td>bad flatfield value</td>
+</tr>
+<tr class="row-odd"><td>TRAP</td>
+<td>1024</td>
+<td>UVIS charge trap, SINK pixel</td>
+</tr>
+<tr class="row-even"><td>ATODSAT</td>
+<td>2048</td>
+<td>a-to-d saturated pixel</td>
+</tr>
+<tr class="row-odd"><td>ne TBD</td>
+<td>4096</td>
+<td>reserved for Multidrizzle CR rej</td>
+</tr>
+<tr class="row-even"><td>DATAREJECT</td>
+<td>8192</td>
+<td>rejected during image combination UVIS, IR CR rejection</td>
+</tr>
+<tr class="row-odd"><td>CROSSTALK</td>
+<td>16384</td>
+<td>ghost or crosstalk</td>
+</tr>
+<tr class="row-even"><td>RESERVED2</td>
+<td>32768</td>
+<td>can&#8217;t use</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sink-pixel-detection-and-marking">
+<h2>Sink Pixel Detection and Marking<a class="headerlink" href="#sink-pixel-detection-and-marking" title="Permalink to this headline">¶</a></h2>
+<p>Sink pixels are a type of image defect. These pixels contain a number of charge traps and under-report the number of electrons that were generated in them during an exposure. These pixels can have an impact on nearby upstread or downstream pixels, though they often only impact one or two pixels when the background is high, they can impact up to 10 pixels if the background is low.</p>
+<p>Flagging of SINK pixels in the DQ extension of calibrated images is controlled with the DQICORR header keyword, happens after the bias correction has been performed, and is done in the amp-rotated CDAB full image format used and described in the CTE correction. When set to perform, the sink pixels are located and flagged with help from the SNKCFILE reference image. Given the reference image, the procedure for flagging the sink pixel in science data involves:</p>
+<ul class="simple">
+<li>Extract the MJD of the science exposure</li>
+<li>Go through the reference image pixel by pixel looking for those pixels with values greater than 999, which indicates that the current pixel is a sink pixel. The value of this pixel in the reference file corresponds to the date at which this pixel exibited the sink behavior.</li>
+<li>If the turn on date of the sink pixel is after the exposure date of the science image, then we ignore the sink pixel in this exposure and move on to the next pixel</li>
+<li>If the turn on date of the sink pixel is before the exposure date of the science image, then this science pixel was compromised at the time of the exposure.The corresponding DQ extension pixel for this science pixel is flagged with the &#8220;charge trap&#8221; flag of 1024.</li>
+<li>If the pixel &#8220;below&#8221; the sink pixel in the long format image has a value of -1 in the reference image, then it is also flagged with the &#8220;charge trap&#8221; value in the DQ extension. We then proceed vertically &#8220;up&#8221; from the sink pixel and compare each pixel in the reference file to the value of the sink pixel in the science exposure at hand. If the value of the sink pixel in the exposure is below the value of the upstream pixel in the reference image, we flag that pixel with the &#8220;charge trap&#8221; value in the DQ extension. We continue to flag pixels until the value of the pixel in the reference image is zero or until the value of the sink pixel in the exposure is greater than the value of the upstream pixel in the reference image.</li>
+</ul>
+<p><a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-19.pdf">WFC3 ISR 2014-19</a> has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-22.pdf">WFC3 ISR 2014-22</a> .</p>
+<p>Sink pixels are currently only flagged in full frame science images, a future release of <cite>calwf3</cite> will also perform flagging in subarray images.
+<strong>The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels</strong></p>
+</div>
+<div class="section" id="unit-conversion-to-electrons">
+<h2>Unit Conversion to Electrons<a class="headerlink" href="#unit-conversion-to-electrons" title="Permalink to this headline">¶</a></h2>
+<p>The UVIS image is multiplied by gain right after BIASCORR, converting it to ELECTRONS. This step is no longer embedded within FLATCORR.</p>
+</div>
+<div class="section" id="bias-correction-biascorr">
+<h2>Bias Correction (BIASCORR)<a class="headerlink" href="#bias-correction-biascorr" title="Permalink to this headline">¶</a></h2>
+<p>This step subtracts the two dimensional bias struction from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full and sub-array images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, <cite>calwf3</cite> will extract the matching region from the full-size bias file and apply it to the subarray image.</p>
+</div>
+<div class="section" id="overscan-bias-correction-blevcorr">
+<h2>Overscan Bias Correction (BLEVCORR)<a class="headerlink" href="#overscan-bias-correction-blevcorr" title="Permalink to this headline">¶</a></h2>
+<p>The location of the overscan regions in a raw image varies, depending upon the type of readout that is performed. The overscan regions are used to monitor the instrument as well as provide a measure of the bias level at the time the detector was exposed. The bias level which is calculated for subtraction is done on a line-by-line basis in the image. If the image has no overscan region the BIAS level to be subtracted is obtained from the CCDTAB reference file. Otherwise, the columns to use for the calculation are referenced in the OSCNTAB reference file. A bias drift calculation is made if there are virtual overscan pixels which exist, if neither of the virtual overscan regions are specfied then the physical overscan region is used.</p>
+<p>If there are two sections available to use for the line because only 1 amp was used then they are averaged. The parallel overscan region is split into two if there is more than one amp. If the virtual overscan is used, a straight line is fit as a function of the column number. The fit is evaluated for each line and then subtracted from the data.  Iterative sigma clipping is used to reject outliers from the array of bias values.</p>
+<p>The mean value of all the bias levels which were subtracted is recorded in the SCI extension output header in MEANBLEV.</p>
+</div>
+<div class="section" id="dark-current-subtraction-darkcorr">
+<h2>Dark Current Subtraction (DARKCORR)<a class="headerlink" href="#dark-current-subtraction-darkcorr" title="Permalink to this headline">¶</a></h2>
+<p>The reference file listed under the DARKFILE header keyword is used as the reference dark image.</p>
+<p>In the UVIS, the dark image is scaled by EXPTIME and FLASHDUR.</p>
+<p>The reference file pointed to with DARKFILE is used for the non-CTE corrected data.</p>
+<p>The reference file pointed to with DRKCFILE is used for the CTE corrected data</p>
+</div>
+<div class="section" id="shutter-shading-correction-shadcorr">
+<h2>Shutter Shading Correction (SHADCORR)<a class="headerlink" href="#shutter-shading-correction-shadcorr" title="Permalink to this headline">¶</a></h2>
+<p>This step corrects the science image for differential exposure time across the detector cased by the amount of time it takes for the shutter to completely open and close, which is a potentially signiciant effect only for images with very short exposure times (less than ~5 seconds). Pixels are corrected based on the exposure time using the relation:</p>
+<div class="math">
+\[corrected = uncorrected \times EXPTIME \div (EXPTIME + SHADFILE)\]</div>
+<p>WFC3 tests have shown that the shutter shading effect is insignificant (&lt; 1%), even for the shortest allowed UVIS exposure time of 0.5 seconds (see <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2007-17.pdf">WFC3 ISR 2007-17</a>). Therefore this step is <strong>ALWAYS set to OMIT</strong> in <cite>calwf3</cite>.</p>
+</div>
+<div class="section" id="post-flash-correction-uvis-only-flshcorr">
+<h2>Post-Flash Correction (UVIS ONLY) (FLSHCORR)<a class="headerlink" href="#post-flash-correction-uvis-only-flshcorr" title="Permalink to this headline">¶</a></h2>
+<p>WFC3 has post-flash capability to provide a means of mitigating the effects of Charge Transfer Efficiency (CTE) degredation.  When FLSHCORR=PERFORM, this routine subtracts the post-flash reference image, FLSHFILE, from the science image after DARKCORR in the WF32D step. The success of the post-flash operation during the exposure is first verified by checking the keyword FLASHSTA. The FLSHFILE is renormalized to the appropriate post-flash current level (LOW, MED, HIGH) recorded in the FLASHCUR keyword, and the flash duration (FLASHDUR) and is then subtracted from the science image. The mean value of the scaled post-flash image is written to MEANFLSH in the output SCI extension header. Different members of an association can have different values of SHUTRPOS because it varies by exposure, and this is fine for calibration because the references files are populated separately for each exposure.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">KEYWORD</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FLSHDUR</td>
+<td>is the length of time of the flash exposure</td>
+</tr>
+<tr class="row-odd"><td>FLSHCUR</td>
+<td>is the current that was used to the lamp as calculated by TRANS, which also calculates FLASHEXP, (ZERO, LOW, MED,HIGH)</td>
+</tr>
+<tr class="row-even"><td>FLSHFILE</td>
+<td>is the flash reference file, which has an illumination pattern for each shutter</td>
+</tr>
+<tr class="row-odd"><td>SHUTRPOS</td>
+<td>says which shutter was used</td>
+</tr>
+<tr class="row-even"><td>FLASHSTA</td>
+<td>indicates an interrupted exposure (ABORTED, SUCCESSFUL, NOT PERFORMED)</td>
+</tr>
+<tr class="row-odd"><td>FLASHLVL</td>
+<td>post flash level in electrons</td>
+</tr>
+<tr class="row-even"><td>MEANFLSH</td>
+<td>the mean level which <cite>calwf3</cite> calculated and then subtracted</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Futher reading:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2013-12.pdf">WFC3 Post-Flash Calibration ISR</a></li>
+<li><a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c06_uvis10.html#439394">CTE-Loss Mitigation Before Data Acquisition</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="flatcorr">
+<h2>FLATCORR<a class="headerlink" href="#flatcorr" title="Permalink to this headline">¶</a></h2>
+<p>Correct the image for pixel quantum efficiency using the reference image specified by the FLATFILE keyword in the header.
+Conversion from DN to ELECTRONS no longer depends on FLATCORR=PERFORM, all images are converted appropriately.</p>
+<p>This actually consists of correction using up to 3 reference flat images:</p>
+<ul class="simple">
+<li>PFLTCORR: apply a pixel-to-pixel flat (ground flats)</li>
+<li>DFLTCORR: apply a delta flat, applies any needed changes to the small-scale PFLTFILE</li>
+<li>LFLTCORR: apply a low order flat, correcting for large scale sensativity variations (on-orbit)</li>
+</ul>
+<p>The pipeline is currently only using the P-flats. If two or more reference files are specified, they are read in line-by-line and multiplied together to form a combined flatfield correction image.</p>
+<p>Subarray science images use the same reference file as the full-frame images; <cite>calwf3</cite> will extract the appropriate region from the reference file and apply it to the subarray input image.</p>
+</div>
+<div class="section" id="photometry-keywords-photcorr">
+<h2>Photometry Keywords (PHOTCORR)<a class="headerlink" href="#photometry-keywords-photcorr" title="Permalink to this headline">¶</a></h2>
+<p>The PHOTCORR step is performed using tables of precomputed values instead of calls to SYNPHOT, it uses the reference table specified in the IMPHTTAB header keyword. Each DETECTOR uses a different table.</p>
+<p>If you do not wish to use this feature, set the header keyword PHOTCORR to OMIT. However, if you intend to use the FLUXCORR step, then PHOTCORR must be set to PERFORM as well.</p>
+<ul class="simple">
+<li>PHOTFNU: the inverse sensitivity in units of :math: Jansky sec electron^{-1}`</li>
+<li>PHOTFLAM: the inverse sensistiy in units of <span class="math">\(ergs\  cm^{-2} A^{-1} electron^{-1}\)</span></li>
+<li>PHOTPLAM: the bandpass pivot wavelength</li>
+<li>PHOTBW: the bandpass RMS width</li>
+<li>PHTFLAM1: the inverse sensistiy in units of <span class="math">\(ergs cm^{-2} A^{-1} electron^{-1}\)</span></li>
+<li>PHTFLAM2: the inverse sensistiy in units of <span class="math">\(ergs cm^{-2} A^{-1} electron^{-1}\)</span></li>
+</ul>
+<p>For versions 3.3 and beyond, the value PHOTFNU is calculated specific for each UVIS chip, see the section on FLUXCORR for more information.</p>
+<p>The SCI headers for each chip contain the PHOTFNU keyword, which is valid for its respective chip, where PHOTFNU is calculated as:</p>
+<p>For UVIS 1:  <span class="math">\(photfnu = 3.33564e^{4} * PHTFLAM1 * PHOTPLAM^{2}\)</span></p>
+<p>For UVIS 2:  <span class="math">\(photfnu = 3.33564e^{4} * PHTFLAM2 * PHOTPLAM^{2}\)</span></p>
+<p>The IMPHTTAB file format for WFC3 UVIS is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>EXT#  FITSNAME      FILENAME              EXTVE DIMENS       BITPI OBJECT
+
+0     z7n21066i_imp z7n21066i_imp.fits                       16
+1       BINTABLE    PHOTFLAM              1     5Fx256R
+2       BINTABLE    PHOTPLAM              1     5Fx256R
+3       BINTABLE    PHOTBW                1     5Fx256R
+4       BINTABLE    PHTFLAM1              1     5Fx256R
+5       BINTABLE    PHTFLAM2              1     5Fx256R
+</pre></div>
+</div>
+<p>where each extension contains the photometry keyword information for that specific header keyword. The rows inside the tables are split on observation mode.</p>
+</div>
+<div class="section" id="flux-normalization-for-uvis1-and-uvis2-fluxcorr">
+<h2>Flux normalization for UVIS1 and UVIS2 (FLUXCORR)<a class="headerlink" href="#flux-normalization-for-uvis1-and-uvis2-fluxcorr" title="Permalink to this headline">¶</a></h2>
+<p>The FLUXCORR step was added in calwf3 v3.1.2 as a way to scale the UVIS chips
+so that the flux correction over both chips is uniform. This requires new keywords
+which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor
+for the chips. New flatfields must be used and will replace the old flatfields in CDBS but the change will
+not be noticable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
+of the software should not be used with older versions as the data, and vice versa will be scaled incorrectly.</p>
+<p>The new keywords include:</p>
+<ul class="simple">
+<li>PHTFLAM1: The FLAM for UVIS 1</li>
+<li>PHTFLAM2: The FLAM for UVIS 2</li>
+<li>PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)</li>
+</ul>
+<p>In order for FLUXCORR to work properly the value of PHOTCORR must also be set to perform since this populates
+the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.</p>
+<p>This step is performed by default in the pipeline and the PHOTFLAM keyword will be valid for both chips after the correction has been applied.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, STScI.
+      Last updated on Feb 23, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

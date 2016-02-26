@@ -1,24 +1,27 @@
-=====
+.. _wf32d:
+
+*****
 wf32d
-=====
+*****
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
 The wf32d primary functions include:
-  * dark current subtraction
-  * flat-fielding
-  * photometric keyword calculations
+  * DARKCORR: dark current subtraction
+  * FLATCORR: flat-fielding
+  * PHOTCORR: photometric keyword calculations
+  * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
   
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
 Examples
---------
+========
 
     In Python without TEAL:
 
     >>> from wfc3tools import wf32d
-    >>> calwf3.wf32d(filename)
+    >>> wf32d(filename)
 
     In Python with TEAL:
 
@@ -34,7 +37,7 @@ Examples
     
 
 Parameters
-----------
+==========
 
     input : str
         Name of input files
@@ -63,6 +66,9 @@ Parameters
     photcorr: str, "PERFORM/OMIT", optional
         Update photometry keywords in the header
 
+    fluxcorr; str, "PERFORM/OMIT", optional
+        Perform chip photometry normalization
+        
     verbose: bool, optional
         Print verbose time stamps?
 

@@ -55,13 +55,13 @@ To get the average value for each sample:
     >>> sampinfo.sampinfo(imagename, mean=True)
     
 """
-from __future__ import print_function
+from __future__ import absolute_import, print_function, division
 
 #get the auto update version for the call to  help
 from .version import *
 
 # STDLIB
-import pyfits
+from astropy.io import fits
 import os,sys
 import numpy as np
 
@@ -96,12 +96,12 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
             ir_list+=["DATAMIN","DATAMAX"]
                
     for image in imlist[0]:
-        current=pyfits.open(image)
+        current=fits.open(image)
         header0=current[0].header
         nextend=header0["NEXTEND"]
         try:
             nsamp=header0["NSAMP"]
-        except KeyError,e:
+        except KeyError as e:
             print(str(e))
             print("Task good for IR data only")
             break
@@ -133,7 +133,7 @@ def sampinfo(imagelist,add_keys=None,mean=False,median=False):
                 except KeyError:
                     try:
                         printline+=("\t"+str(current[0].header[key]))
-                    except KeyError,e:
+                    except KeyError as e:
                         printline+=("\tNA")
             if (datamin and datamax):
                 printline+=("\tAvgPixel: "+str((dataminval+datamaxval)/2.))     

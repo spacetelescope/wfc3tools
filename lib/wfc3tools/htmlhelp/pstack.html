@@ -1,58 +1,155 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>pstack &mdash; wfc3tools 1.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
-    <link rel="next" title="sub2full" href="sub2full.html" />
-    <link rel="prev" title="pstat" href="pstat.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pstat.html" title="pstat"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pstack &mdash; wfc3tools 1.3.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="wfc3tools 1.3.1 documentation" href="index.html"/>
+        <link rel="next" title="sampinfo" href="sampinfo.html"/>
+        <link rel="prev" title="pstat" href="pstat.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> wfc3tools
+          
+
+          
+            
+            <img src="_static/stsci_pri_combo_mark_white.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="calwf3.html">calwf3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3cte.html">wf3cte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">wf3ccd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf32d.html">wf32d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ir.html">wf3ir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3rej.html">wf3rej</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Software History</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="embedsub.html">embedsub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstat.html">pstat</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">pstack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sampinfo.html">sampinfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sub2full.html">sub2full</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">wfc3tools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>pstack</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/pstack.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="pstack">
-<h1>pstack<a class="headerlink" href="#pstack" title="Permalink to this headline">¶</a></h1>
-<p>Plot the stack of MultiAccum sample values for a specified pixel  in
+<span id="id1"></span><h1>pstack<a class="headerlink" href="#pstack" title="Permalink to this headline">¶</a></h1>
+<p>Plot the stack of MultiAccum sample values for a specified pixel  in an
 IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image
 extensions can be plotted.  The total number  of
 samples  is determined from the primary header keyword NSAMP and all
@@ -64,116 +161,167 @@ readout. If any of the ERR, DQ, SAMP, or TIME extensions have  null
 data  arrays,  the value of the PIXVALUE extension header keyword is
 substituted for the pixel values.  The plotted data  values  can  be
 saved to an output text table or printed to the terminal.</p>
-<p>The BUNIT keyword value is used to determine the starting units of the data.</p>
-<p>pstack returns the x and y arrays plotted</p>
+<p>The BUNIT keyword value is used to determine the starting units of the data,
+but you can plot either counts or rate using the optional keyword <code class="docutils literal"><span class="pre">units</span></code>.</p>
+<div class="figure align-center">
+<img alt="_images/pstack_example.png" src="_images/pstack_example.png" />
+</div>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: xdata,ydata=pstack.pstack(&#39;ibh719grq_ima.fits&#39;,column=100,row=25,extname=&#39;sci&#39;)
+</pre></div>
+</div>
+<p>The plotting data is returned as two arrays, to save them into variables issue the command as above:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: xdata
+Out[2]:
+array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
+         64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
+         28.838205,   21.65683 ,   14.475455,    7.29408 ,    0.112705,
+          0.      ])
+
+In [3]: ydata
+Out[4]:
+array([ 221.36606389,  219.5396653 ,  182.63100095,  169.178308  ,
+        186.44084352,  158.3105126 ,  129.46997895,  129.92935701,
+        106.14521852,   72.71721539,   69.68652119,   55.98828663,
+         42.30755279,   13.12659422,   27.71404187,    0.        ])
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note that the arrays are structured in SCI order, so the final exposure is the first element in the array</p>
+</div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><dl class="docutils">
+<ul>
+<li><dl class="first docutils">
 <dt>input [file]</dt>
-<dd>Input MultiAccum image name.  This should be either  a  _ima  or
-_raw  file, containing all the data from multiple readouts.  You
-must specify just the file name, with no extension designation.</dd>
-<dt>col [integer]</dt>
-<dd>The column index of the pixel to be plotted.</dd>
-<dt>row [integer]</dt>
-<dd>The row index of the pixel to be plotted.</dd>
-<dt>extname = &#8220;sci&#8221; [string, allowed values: sci | err | dq | samp | time]</dt>
-<dd>Extension name (EXTNAME keyword value) of data to plot.</dd>
-<dt>units = &#8220;counts&#8221; [string, allowed values: counts | rate]</dt>
-<dd>Plot &#8220;sci&#8221; or  &#8220;err&#8221;  data  in  units  of  counts  or  countrate
-(&#8220;rate&#8221;).   Input data can be in either unit; conversion will be
-performed automatically.  Ignored when  plotting  &#8220;dq&#8221;,  &#8220;samp&#8221;,
-or &#8220;time&#8221; data.</dd>
-<dt>title = &#8220;&#8221; [string]</dt>
-<dd>Title  for  the  plot.   If  left  blank,  the name of the input
-image, appended with  the  extname  and  column  and  row  being
-plotted, is used.</dd>
-<dt>xlabel = &#8220;&#8221; [string]</dt>
-<dd>Label  for  the  X-axis  of the plot.  If left blank, a suitable
-default is generated.</dd>
-<dt>ylabel = &#8220;&#8221; [string]</dt>
-<dd>Label for the Y-axis of the plot.  If  left  blank,  a  suitable
-default  based  on the plot units and the extname of the data is
-generated.</dd>
+<dd><p class="first last">Input MultiAccum image name.  This should be either  a  _ima  or _raw  file, containing all the data from multiple readouts.  You must specify just the file name, with no extension designation.</p>
+</dd>
 </dl>
-<p>plot = True [bool]  set plot to false if you only want the data returned</p>
-</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>col [integer]</dt>
+<dd><p class="first last">The column index of the pixel to be plotted.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>row [integer]</dt>
+<dd><p class="first last">The row index of the pixel to be plotted.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>extname = &#8220;sci&#8221; [string, allowed values: sci | err | dq | samp | time]</dt>
+<dd><p class="first last">Extension name (EXTNAME keyword value) of data to plot.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>units = &#8220;counts&#8221; [string, allowed values: counts | rate]</dt>
+<dd><p class="first last">Plot &#8220;sci&#8221; or  &#8220;err&#8221;  data  in  units  of  counts  or  countrate (&#8220;rate&#8221;).   Input data can be in either unit; conversion will be performed automatically.  Ignored when  plotting  &#8220;dq&#8221;,  &#8220;samp&#8221;, or &#8220;time&#8221; data.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>title = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Title  for  the  plot.   If  left  blank,  the name of the input image, appended with  the  extname  and  column  and  row  being plotted, is used.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>xlabel = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Label  for  the  X-axis  of the plot.  If left blank, a suitable default is generated.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ylabel = &#8220;&#8221; [string]</dt>
+<dd><p class="first last">Label for the Y-axis of the plot.  If  left  blank,  a  suitable default  based  on the plot units and the extname of the data is generated.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">plot = True [bool]  set plot to false if you only want the data returned</p>
+</li>
+</ul>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">pstack</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="o">=</span><span class="n">pstack</span><span class="o">.</span><span class="n">pstack</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">row</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">extname</span><span class="o">=</span><span class="s">&quot;sci&quot;</span><span class="p">,</span><span class="n">units</span><span class="o">=</span><span class="s">&quot;counts|rate&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="o">=</span><span class="n">pstack</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">row</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">extname</span><span class="o">=</span><span class="s2">&quot;sci&quot;</span><span class="p">,</span><span class="n">units</span><span class="o">=</span><span class="s2">&quot;counts|rate&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">pstack</a><ul>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sampinfo.html" class="btn btn-neutral float-right" title="sampinfo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pstat.html" class="btn btn-neutral" title="pstat" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pstat.html"
-                        title="previous chapter">pstat</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="sub2full.html"
-                        title="next chapter">sub2full</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pstack.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, STScI.
+      Last updated on Feb 23, 2016.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pstat.html" title="pstat"
-             >previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

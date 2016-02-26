@@ -1,68 +1,167 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>embedsub &mdash; wfc3tools 1.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="wfc3tools 1.0 documentation" href="index.html" />
-    <link rel="next" title="Software Update History for HSTCAL.CALWF3" href="history.html" />
-    <link rel="prev" title="sub2full" href="sub2full.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>embedsub &mdash; wfc3tools 1.3.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="wfc3tools 1.3.1 documentation" href="index.html"/>
+        <link rel="next" title="pstat" href="pstat.html"/>
+        <link rel="prev" title="Software Update History for HSTCAL.CALWF3" href="history.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> wfc3tools
+          
+
+          
+            
+            <img src="_static/stsci_pri_combo_mark_white.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="calwf3.html">calwf3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3cte.html">wf3cte</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ccd.html">wf3ccd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf32d.html">wf32d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3ir.html">wf3ir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wf3rej.html">wf3rej</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Software History</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">embedsub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#returns">Returns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-output">Example Output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pstat.html">pstat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pstack.html">pstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampinfo.html">sampinfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sub2full.html">sub2full</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">wfc3tools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>embedsub</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/embedsub.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="embedsub">
-<h1>embedsub<a class="headerlink" href="#embedsub" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>embedsub<a class="headerlink" href="#embedsub" title="Permalink to this headline">¶</a></h1>
 <p>Given an image specified by the user which contains a subarray readout, return a full-frame image with the subarray implanted at the appropriate location.</p>
 <div class="section" id="usage">
-<h2>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">embedsub</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">embedsub</span><span class="o">.</span><span class="n">embedsub</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">embedsub</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="parameters">
-<h2>PARAMETERS<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><dl class="docutils">
 <dt>files [file]</dt>
@@ -71,87 +170,89 @@
 </div></blockquote>
 </div>
 <div class="section" id="returns">
-<h2>RETURNS<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <p>Return the full-frame location of the subarray coordinates using a  file specified by the user.</p>
 </div>
 <div class="section" id="example-output">
 <h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
-<p>Default output:</p>
+<p>This method calls wfc3tools.sub2full to calculation the subarray position on the full frame image.</p>
+<p>This is the default output:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; wfc3tools.embedsub.embedsub(&#39;ic5p02eeq_flt.fits&#39;)
 &gt; Subarray image section [x1,x2,y1,y2] = [2828:3339,215:726]
 &gt; Image saved to: ic5p02eef_flt.fits
 </pre></div>
 </div>
-<p>This method calls wfc3tools.sub2full to calculation the subarray position.</p>
 </div>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/stsci_logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">embedsub</a><ul>
-<li><a class="reference internal" href="#usage">USAGE</a></li>
-<li><a class="reference internal" href="#parameters">PARAMETERS</a></li>
-<li><a class="reference internal" href="#returns">RETURNS</a></li>
-<li><a class="reference internal" href="#example-output">Example Output</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pstat.html" class="btn btn-neutral float-right" title="pstat" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="history.html" class="btn btn-neutral" title="Software Update History for HSTCAL.CALWF3" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="sub2full.html"
-                        title="previous chapter">sub2full</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="history.html"
-                        title="next chapter">Software Update History for HSTCAL.CALWF3</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/embedsub.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, STScI.
+      Last updated on Feb 23, 2016.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="history.html" title="Software Update History for HSTCAL.CALWF3"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="sub2full.html" title="sub2full"
-             >previous</a> |</li>
-        <li><a href="index.html">wfc3tools 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2012, Megan Sosey, Howard Bushouse, Warren Hack.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

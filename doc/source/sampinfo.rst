@@ -1,6 +1,8 @@
-============
+.. _sampinfo:
+
+********
 sampinfo
-============
+********
 
 Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).  
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:
@@ -18,7 +20,7 @@ with  IMSET=NSAMP,   SAMPNUM=0, SAMPTIME=0,  and  DELTATIM=0. The final read of 
 
 
 Options
--------
+=======
 
 This version will accept a single image name or a python list of images. The list of images should be a python style list, such as:
     >>> ["image1.fits","image2.fits"]
@@ -32,12 +34,12 @@ mean=False: Set to True in order to report the mean pixel value for each sample 
 
 
 Usage
------
+=====
 
 Typical:
     >>> python
     >>> from wfc3tools import sampinfo
-    >>> sampinfo.sampinfo(imagename)
+    >>> sampinfo(imagename)
 
 Where imagename can be a single filename or a python list() of names
 
@@ -51,7 +53,7 @@ To get the average balue for each sample:
     >>> sampinfo.sampinfo(imagename, mean=True)
 
 Example Output
---------------
+==============
 
 Default output:
 
