@@ -155,7 +155,7 @@
 <dd><p>calwf3 Version 1.3.1  updated on  unspecified</p>
 <p><code class="docutils literal"><span class="pre">calwf3</span></code> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
 appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> and <a class="reference internal" href="wf32d.html#wf32d"><span>wf32d</span></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><span>wf3ir</span></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><span>wf3rej</span></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="#calflow">Figure 1</a> is the flow diagram for the pipeline as a whole.</p>
-<div class="figure align-center" id="id17">
+<div class="figure align-center" id="id18">
 <span id="calflow"></span><img alt="Flow diagram for ``calwf3`` data using " src="_images/calwf3_flow.png" />
 <p class="caption"><span class="caption-text">Figure 1: Flow diagram for <code class="docutils literal"><span class="pre">calwf3</span></code> data. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a>.</span></p>
 </div>
@@ -223,11 +223,11 @@ the <code class="docutils literal"><span class="pre">wfc3tools</span></code> pac
 <li>_crj file: name of any sub-product from an association table</li>
 </ul>
 <p>While both CR-SPLIT and REPEAT-OBS exposures from an association get combined using <cite>calwf3</cite>, dithered observations from an association do not.</p>
-<div class="figure align-center" id="id18">
+<div class="figure align-center" id="id19">
 <span id="uvis-data-format"></span><img alt="UVIS data raw file format" src="_images/uvis_data_format.png" />
 <p class="caption"><span class="caption-text">Figure 2: UVIS data raw file format</span></p>
 </div>
-<div class="figure align-center" id="id19">
+<div class="figure align-center" id="id20">
 <span id="ir-data-format"></span><img alt="IR data raw file format" src="_images/ir_data_format.png" />
 <p class="caption"><span class="caption-text">Figure 3: IR data raw file format</span></p>
 </div>
@@ -320,6 +320,10 @@ the <code class="docutils literal"><span class="pre">wfc3tools</span></code> pac
 </table>
 <p>** DRZ and DRC products are produced with Astrodrizzle, see <a class="reference external" href="http://www.stsci.edu/hst/HST_overview/drizzlepac/">Astrodrizzle</a> **</p>
 <p><cite>calwf3</cite> processing is controlled by the values of keywords in the input image headers. Certain keywords, referred to as calibration switches, are used to control which calibration steps are performed. Reference file keywords indicate which reference files to use in the various calibration steps. Users who which to perform custom reprocessing of their data may change the values of these keywords in the _raw FITS file headers and then rerun the modified file through  <cite>calwf3</cite>. See the <a class="reference external" href="http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/wfc3_Ch25.html">WFC3 Data Handbook</a> for a more complete description of these keywords and their values.</p>
+<div class="figure align-center" id="id21">
+<span id="id2"></span><img alt="Flow diagram for ``calwf3`` data using" src="_images/calwf3_flow.png" />
+<p class="caption"><span class="caption-text">Figure 4: Flow diagram for <code class="docutils literal"><span class="pre">calwf3</span></code> data. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a>.</span></p>
+</div>
 <p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:</p>
 <ul class="simple">
 <li>Calculate and remove and CTE found in the image (PCTECORR)</li>
@@ -556,9 +560,9 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <li>.tra: output text information about the processing</li>
 </ul>
 </div></blockquote>
-<div class="figure align-center" id="id20">
+<div class="figure align-center" id="id22">
 <span id="irflow"></span><img alt="Flow diagram for IR data using wf3ir in calwf3" src="_images/wfc3_Ch33_5.png" />
-<p class="caption"><span class="caption-text">Figure 4: Flow diagram for IR data using wf3ir in calwf3</span></p>
+<p class="caption"><span class="caption-text">Figure 5: Flow diagram for IR data using wf3ir in calwf3</span></p>
 </div>
 <p>Initialize the data quality array for the image using the reference file specified in its header with BPIXTAB. The DQ array is no longer updated to reflect any TDF transition during the sample. If you want to update DQ pixel values yourself before running further processing, do it after this first step has been completed, remembering that the data in this extension is always in units of UNSIGNED INTEGER. The following table lists the DQ flag values and their meanings:</p>
 <table border="1" class="docutils">
@@ -661,7 +665,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <li>This step acutally subtractes the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.</li>
 </ul>
 <p>This step subtracts the bias level using the reference pixels around the perimeter of the detector, the boundries fo the reference pixels are defined in the OSCNTAB reference file. There are 5 reference pixels on each end of each row, but 1 is ignored on each side, for a total of 8 being used per row. The resistent mean of the standard deviation of all the reference pixels in the image is subtracted from the entire image and the value is stored in the MEANBLEV keyword in the output image header. The reference pixels are left in place in the IMA output image through processeing, but the final FLT image has been trimmed to just the science pixels.</p>
-<p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FTL image only AFTER the CRCORR step has been completed.</p>
+<p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FLT image only AFTER the CRCORR step has been completed.</p>
 <p>The errors associated with the raw data are estimated according  to the noise model for the detector which currently includes a simple combination of detector readnoise and poisson noise from the pixel. Readnoise and gain are read from the CCDTAB reference file. The ERR array continues to be summed in quadrature as the SCI array is processed. Inside the final FLT image, the ERR array is calculated by CRCORR as the calculated uncertainty of the count-rate fit to the multiaccum samples.</p>
 <div class="math">
 \[\sigma_{IR} = \frac{\sqrt{(readnoise^{2}) + (counts * gain)}}{gain}\]</div>
@@ -810,7 +814,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 <span id="wfc3tools-embedsub-module"></span><h2>wfc3tools.embedsub module<a class="headerlink" href="#module-wfc3tools.embedsub" title="Permalink to this headline">¶</a></h2>
 <p>embedsub Version 1.3.1  updated on  10-Jan-2014</p>
 <div class="section" id="embedsub">
-<span id="id3"></span><h3>embedsub<a class="headerlink" href="#embedsub" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>embedsub<a class="headerlink" href="#embedsub" title="Permalink to this headline">¶</a></h3>
 <p>Given an image specified by the user which contains a subarray readout, return a full-frame image with the subarray implanted at the appropriate location.</p>
 <div class="section" id="usage">
 <h4>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h4>
@@ -874,7 +878,7 @@ __taskname__.help</p>
 <span id="wfc3tools-pstack-module"></span><h2>wfc3tools.pstack module<a class="headerlink" href="#module-wfc3tools.pstack" title="Permalink to this headline">¶</a></h2>
 <p>pstack Version 1.3.1  updated on  06-Sep-2013</p>
 <div class="section" id="pstack">
-<span id="id4"></span><h3>pstack<a class="headerlink" href="#pstack" title="Permalink to this headline">¶</a></h3>
+<span id="id5"></span><h3>pstack<a class="headerlink" href="#pstack" title="Permalink to this headline">¶</a></h3>
 <p>Plot the stack of MultiAccum sample values for a specified pixel  in an
 IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image 
 extensions can be plotted.  The total number  of
@@ -915,8 +919,8 @@ array([ 221.36606389,  219.5396653 ,  182.63100095,  169.178308  ,
 <p class="first admonition-title">Warning</p>
 <p class="last">Note that the arrays are structured in SCI order, so the final exposure is the first element in the array</p>
 </div>
-<div class="section" id="id5">
-<h4>Parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h4>Parameters<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><dl class="first docutils">
 <dt>input [file]</dt>
@@ -970,8 +974,8 @@ array([ 221.36606389,  219.5396653 ,  182.63100095,  169.178308  ,
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h4>Usage<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>Usage<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">pstack</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="o">=</span><span class="n">pstack</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="n">x</span><span class="p">,</span><span class="n">row</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">extname</span><span class="o">=</span><span class="s2">&quot;sci&quot;</span><span class="p">,</span><span class="n">units</span><span class="o">=</span><span class="s2">&quot;counts|rate&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -1004,7 +1008,7 @@ Original implementation in the iraf nicmos package. Pixel values here are 0 base
 <span id="wfc3tools-pstat-module"></span><h2>wfc3tools.pstat module<a class="headerlink" href="#module-wfc3tools.pstat" title="Permalink to this headline">¶</a></h2>
 <p>pstat Version 1.3.1  updated on  26-Sep-2013</p>
 <div class="section" id="pstat">
-<span id="id7"></span><h3>pstat<a class="headerlink" href="#pstat" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3>pstat<a class="headerlink" href="#pstat" title="Permalink to this headline">¶</a></h3>
 <p>Plot statistics for a specified image section  up  the  stack  of  a
 an IR MultiAccum image.  Sections from any of the SCI,
 ERR, DQ,  image extensions can be  plotted.   A  choice
@@ -1016,9 +1020,9 @@ are  plotted as a function of sample time. The sample times  are  read
 from  the  SAMPTIME  keyword in the SCI header for each readout.</p>
 <p>SAMP and TIME aren&#8217;t generally populated until the FLT image stage
 To plot the samptime vs sample, use wfc3tools.pstat and the &#8220;time&#8221; extension</p>
-<div class="figure align-center" id="id21">
+<div class="figure align-center" id="id23">
 <img alt="pstat example plot" src="_images/pstat_example.png" />
-<p class="caption"><span class="caption-text">Figure 6: An example of the default plot from pstat</span></p>
+<p class="caption"><span class="caption-text">Figure 7: An example of the default plot from pstat</span></p>
 </div>
 <div class="highlight-python"><div class="highlight"><pre>In [1]: pstat(&#39;ibh719grq_ima.fits&#39;)
 </pre></div>
@@ -1057,8 +1061,8 @@ array([ 171.85813415,  162.44643275,  148.99918831,  137.60458714,
 <p class="first admonition-title">Warning</p>
 <p class="last">Note that the arrays are structured in SCI order, so the final exposure is the first element in the array</p>
 </div>
-<div class="section" id="id8">
-<h4>Parameters<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>Parameters<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><dl class="first docutils">
 <dt>filename [file]</dt>
@@ -1113,8 +1117,8 @@ generated.</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h4>Usage<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Usage<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>pstat.py  inputFilename [pixel range]
 
 
@@ -1150,7 +1154,7 @@ Original implementation in the iraf nicmos package. Pixel values here are 0 base
 <span id="wfc3tools-sampinfo-module"></span><h2>wfc3tools.sampinfo module<a class="headerlink" href="#module-wfc3tools.sampinfo" title="Permalink to this headline">¶</a></h2>
 <p>sampinfo Version 1.3.1  updated on  Sep-16-2013</p>
 <div class="section" id="sampinfo">
-<span id="id10"></span><h3>sampinfo<a class="headerlink" href="#sampinfo" title="Permalink to this headline">¶</a></h3>
+<span id="id11"></span><h3>sampinfo<a class="headerlink" href="#sampinfo" title="Permalink to this headline">¶</a></h3>
 <p>Sampinfo prints information about a  WFC3/IR  MultiAccum image,  including  exposure  time  information  for  the  individual samples (readouts).  
 The global information listed  (and  the  names of  the  header  keywords  from  which it is retrieved) includes:</p>
 <ul class="simple">
@@ -1177,8 +1181,8 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 <p>median=False: Set to True in order to report the median pixel value for each sample</p>
 <p>mean=False: Set to True in order to report the mean pixel value for each sample (as measured with np.min and np.max)</p>
 </div>
-<div class="section" id="id11">
-<h4>Usage<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>Usage<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>Typical:</dt>
 <dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
@@ -1207,8 +1211,8 @@ Additionally you can ask for the median or mean of the datavalues for each sampl
 </dd>
 </dl>
 </div>
-<div class="section" id="id12">
-<h4>Example Output<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>Example Output<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>Default output:</p>
 <div class="highlight-python"><div class="highlight"><pre>In [3]: wfc3tools.sampinfo(&#39;ibcf02faq_raw.fits&#39;)
 IMAGE                       NEXTEND SAMP_SEQ        NSAMP   EXPTIME
@@ -1288,16 +1292,16 @@ __taskname__.help</p>
 <div class="figure align-center">
 <img alt="_images/sub2full_translate.png" src="_images/sub2full_translate.png" />
 </div>
-<div class="section" id="id13">
-<h4>Usage<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h4>Usage<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wfc3tools</span> <span class="kn">import</span> <span class="n">sub2full</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span><span class="o">=</span><span class="n">sub2full</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">fullExtent</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id14">
-<h4>Parameters<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>Parameters<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><dl class="first docutils">
 <dt>filename [file]</dt>
@@ -1325,12 +1329,12 @@ __taskname__.help</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id15">
-<h4>Returns<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id16">
+<h4>Returns<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <p>A list of tuples which specify the translated coordinates, either (x0,y0) for each image or the full extent sections</p>
 </div>
-<div class="section" id="id16">
-<h4>Example Output<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id17">
+<h4>Example Output<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
 <p>Default output:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; sub2full(&#39;ibbso1fdq_flt.fits&#39;)
 &gt; [(3584.0, 1539)]
@@ -1760,9 +1764,9 @@ See the UVIS2.0 reference ISR for more information.</p>
 <li>The CTE correction itself is calculated and then subtracted from the original, raw, uncorrected and uncalibrated image.</li>
 <li>The corrected image is now ready to contiue through the rest of the pipeline. When the DARKCORR header keyword is set to perform, the CTE corrected image will use the dark reference file referred to in the DRKCFILE header keyword.</li>
 </ul>
-<div class="figure align-center" id="id22">
+<div class="figure align-center" id="id24">
 <span id="uvis-raw-data-format"></span><img alt="UVIS data raw full-frame file format" src="_images/raw_uvis_format.png" />
-<p class="caption"><span class="caption-text">Figure 8: UVIS data raw full-frame file format</span></p>
+<p class="caption"><span class="caption-text">Figure 9: UVIS data raw full-frame file format</span></p>
 </div>
 <p>The following are new primary header keyords which will be updated in the data headers during the <cite>wf3cte</cite> step. They are also specified in the PCTETAB reference file.</p>
 <table border="1" class="docutils">
@@ -2042,7 +2046,7 @@ module.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2012, STScI.
-      Last updated on Feb 23, 2016.
+      Last updated on Feb 29, 2016.
 
     </p>
   </div>

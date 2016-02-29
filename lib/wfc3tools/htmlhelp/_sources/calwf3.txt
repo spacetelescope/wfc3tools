@@ -3,17 +3,7 @@ calwf3
 ******
 
 ``calwf3`` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
-appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the pipeline as a whole.
-
-
-
-.. _calflow:
-
-.. figure:: _static/calwf3_flow.png
-    :align: center
-    :alt: Flow diagram for ``calwf3`` data using 
-
-    Flow diagram for ``calwf3`` data. :ref:`wf3cte` occurs as the very first step, before :ref:`wf3ccd`.
+appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the UVIS pipeline as a whole, while :num:`Figure#irflow` contains the flow for the IR pipeline. 
 
 
 During automatic pipeline processing by the STScI archive, ``Astrodrizzle`` follows ``calwf3``. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ .
@@ -147,9 +137,9 @@ Types of output file from calwf3
 
 The suffixes used for WFC3 raw and calibrated data products closely mimic those used by ACS and NICMOS:
 
-========   =================================================    ===============
+========   =================================================    ====================
 SUFFIX     DESCRIPTION                                          UNITS
-========   =================================================    ===============
+========   =================================================    ====================
 _raw       raw data                                             DN
 _rac       UVIS CTE corrected raw data, no other calibration    DN
 _asn       association file for observation set                 
@@ -166,7 +156,7 @@ _crj       UVIS calibrated, cosmic ray rejected image           :math:`e^{-}`
 _crj       IR calibrated, cosmic ray rejected image             :math:`e^{-}/s`
 _crc       UVIS calibrated, cr rejected, cte cleaned image      :math:`e^{-}`
 .tra       trailer file, contains processing messages
-========   =================================================    ===============
+========   =================================================    ====================
 
 
 ** DRZ and DRC products are produced with Astrodrizzle, see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ **
