@@ -143,6 +143,10 @@
             
   <div class="section" id="uvis-pipleline">
 <span id="uvis-pipeline"></span><h1>UVIS Pipleline<a class="headerlink" href="#uvis-pipleline" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center" id="id1">
+<span id="calflow"></span><img alt="Flow diagram for ``calwf3`` data using" src="_images/calwf3_flow.png" />
+<p class="caption"><span class="caption-text">Figure 1: Flow diagram for <code class="docutils literal"><span class="pre">calwf3</span></code> data. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a> occurs as the very first step, before <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a>.</span></p>
+</div>
 <p>As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:</p>
 <ul class="simple">
 <li>Calculate and remove and CTE found in the image (PCTECORR)</li>
@@ -422,7 +426,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
   <div role="contentinfo">
     <p>
         &copy; Copyright 2012, STScI.
-      Last updated on Feb 23, 2016.
+      Last updated on Feb 29, 2016.
 
     </p>
   </div>

@@ -3,6 +3,15 @@
 UVIS Pipleline
 ==============
 
+
+.. _calflow:
+
+.. figure:: _static/calwf3_flow.png
+    :align: center
+    :alt: Flow diagram for ``calwf3`` data using 
+
+    Flow diagram for ``calwf3`` data. :ref:`wf3cte` occurs as the very first step, before :ref:`wf3ccd`.
+
 As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:
 
 * Calculate and remove and CTE found in the image (PCTECORR)

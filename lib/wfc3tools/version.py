@@ -9,12 +9,12 @@ import datetime
 
 __version__ = '1.3.1'
 __vdate__ = 'unspecified'
-__svn_revision__ = '49343M'
+__svn_revision__ = '49343:49345M'
 __svn_full_info__ = 'Path: trunk\nWorking Copy Root Path: /Users/sosey/wfc3tools_trunk/trunk\nURL: https://svn.stsci.edu/svn/ssb/stsci_python/wfc3tools/trunk\nRepository Root: https://svn.stsci.edu/svn/ssb/stsci_python\nRepository UUID: fe389314-cf27-0410-b35b-8c050e845b92\nRevision: 49343\nNode Kind: directory\nSchedule: normal\nLast Changed Author: hack\nLast Changed Rev: 47235\nLast Changed Date: 2015-12-18 17:34:58 -0500 (Fri, 18 Dec 2015)'
-__setup_datetime__ = datetime.datetime(2016, 2, 23, 11, 54, 25, 465271)
+__setup_datetime__ = datetime.datetime(2016, 2, 29, 10, 45, 42, 164063)
 
 # what version of stsci.distutils created this version.py
-stsci_distutils_version = '0.3.7'
+stsci_distutils_version = '0.3.8.dev'
 
 if '.dev' in __version__:
     def update_svn_info():

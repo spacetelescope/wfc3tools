@@ -268,7 +268,7 @@
 </div>
 <div class="section" id="zero-read-subtraction-zoffcorr">
 <h2>Zero read subtraction (ZOFFCORR)<a class="headerlink" href="#zero-read-subtraction-zoffcorr" title="Permalink to this headline">¶</a></h2>
-<p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FTL image only AFTER the CRCORR step has been completed.</p>
+<p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FLT image only AFTER the CRCORR step has been completed.</p>
 </div>
 <div class="section" id="error-array-initialization">
 <h2>Error array initialization<a class="headerlink" href="#error-array-initialization" title="Permalink to this headline">¶</a></h2>
@@ -348,16 +348,23 @@
 <li><dl class="first docutils">
 <dt>An iterative fit to the accumulating sample time is calculated for each pixel</dt>
 <dd><ul class="first last">
-<li><p class="first">Finding a cosmic ray ends one interval and beins the next; the cosmic ray must be included in the next interval</p>
-</li>
-<li><p class="first">intervals are first defined based on existing cosmic rays</p>
-</li>
 <li><dl class="first docutils">
-<dt>CRSIGMAS from the  CRREJTAB reference file is used to set the rejection threshold</dt>
+<dt>Finding a cosmic ray ends one interval and beins the next; the cosmic ray must be included in the next interval</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>intervals are first defined based on existing cosmic rays</dt>
 <dd><ul class="first last simple">
-<li>then each interval is fitted separately</li>
-<li>then each interval is inspected for SPIKES</li>
-<li>then each interval is inspected for more cosmic rays</li>
+<li>CRSIGMAS from the  CRREJTAB reference file is used to set the rejection threshold</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">then each interval is fitted separately</p>
+</li>
+<li><p class="first">then each interval is inspected for SPIKES</p>
+</li>
+<li><p class="first">then each interval is inspected for more cosmic rays</p>
+</li>
 </ul>
 </dd>
 </dl>
@@ -427,7 +434,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2012, STScI.
-      Last updated on Feb 23, 2016.
+      Last updated on Feb 29, 2016.
 
     </p>
   </div>
