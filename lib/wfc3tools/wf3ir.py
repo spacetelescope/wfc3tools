@@ -1,10 +1,7 @@
-"""
-The wf3ir  processes IR images
-"""
 from __future__ import print_function #confidence high
 
 #get the auto update version for the call to teal help
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 import os.path
@@ -18,7 +15,6 @@ except:
     teal = None
     
 __taskname__ = "wf3ir"
-__vdate__ = "03-Jan-2013"
 
 def wf3ir(input, output="", verbose=False, quiet=True ):    
     """Call the wf3ir.e executable """

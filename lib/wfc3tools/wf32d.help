@@ -1,8 +1,4 @@
-.. _wf32d:
-
-*****
-wf32d
-*****
+wf32d:
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
@@ -11,12 +7,11 @@ The wf32d primary functions include:
   * FLATCORR: flat-fielding
   * PHOTCORR: photometric keyword calculations
   * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
-  
+
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
-========
+Examples:
 
     In Python without TEAL:
 
@@ -34,10 +29,9 @@ Examples
     >>> import wfc3tools
     >>> epar wf32d
 
-    
 
-Parameters
-==========
+
+Parameters:
 
     input : str
         Name of input files
@@ -46,7 +40,7 @@ Parameters
             * a Python list of filenames
             * a partial filename with wildcards (``\*raw.fits``)
             * filename of an ASN table (``\*asn.fits``)
-            * an at-file (``@input``) 
+            * an at-file (``@input``)
 
     output: str
         Name of the output FITS file.
@@ -68,7 +62,7 @@ Parameters
 
     fluxcorr; str, "PERFORM/OMIT", optional
         Perform chip photometry normalization
-        
+
     verbose: bool, optional
         Print verbose time stamps?
 

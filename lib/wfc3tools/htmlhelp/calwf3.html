@@ -188,8 +188,7 @@
             
   <div class="section" id="calwf3">
 <h1>calwf3<a class="headerlink" href="#calwf3" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal"><span class="pre">calwf3</span></code> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the
-appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> and <a class="reference internal" href="wf32d.html#wf32d"><span>wf32d</span></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><span>wf3ir</span></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><span>wf3rej</span></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="wfc3tools.html#calflow">Figure 3</a> is the flow diagram for the UVIS pipeline as a whole, while <a class="pageref" href="wfc3tools.html#irflow">Figure 4</a> contains the flow for the IR pipeline.</p>
+<p><code class="docutils literal"><span class="pre">calwf3</span></code> is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. <a class="reference internal" href="wf3cte.html#wf3cte"><span>wf3cte</span></a>, <a class="reference internal" href="wf3ccd.html#wf3ccd"><span>wf3ccd</span></a> and <a class="reference internal" href="wf32d.html#wf32d"><span>wf32d</span></a> are used for processing UVIS images, while IR image processing is done with <a class="reference internal" href="wf3ir.html#wf3ir"><span>wf3ir</span></a>. The <a class="reference internal" href="wf3rej.html#wf3rej"><span>wf3rej</span></a> program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. <a class="pageref" href="uvis_pipeline.html#calflow">Figure 3</a> is the flow diagram for the UVIS pipeline as a whole, while <a class="pageref" href="ir_pipeline.html#irflow">Figure 4</a> contains the flow for the IR pipeline.</p>
 <p>During automatic pipeline processing by the STScI archive, <code class="docutils literal"><span class="pre">Astrodrizzle</span></code> follows <code class="docutils literal"><span class="pre">calwf3</span></code>. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or <a class="reference external" href="http://www.stsci.edu/hst/HST_overview/drizzlepac/">Astrodrizzle</a> .</p>
 <div class="section" id="where-to-find-calwf3">
 <h2>Where to Find calwf3<a class="headerlink" href="#where-to-find-calwf3" title="Permalink to this headline">¶</a></h2>
@@ -772,7 +771,7 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 </div>
 <div class="section" id="zero-read-subtraction-zoffcorr">
 <h3>Zero read subtraction (ZOFFCORR)<a class="headerlink" href="#zero-read-subtraction-zoffcorr" title="Permalink to this headline">¶</a></h3>
-<p>The original zero read is subtracted form all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FLT image only AFTER the CRCORR step has been completed.</p>
+<p>The original zero read is subtracted from all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we&#8217;ve subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What&#8217;s left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FLT image only AFTER the CRCORR step has been completed.</p>
 </div>
 <div class="section" id="id3">
 <h3>Error array initialization<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -947,8 +946,8 @@ the header of the data with the keywords FLUXCORR requires to compute the PHTRAT
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, STScI.
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2012, Sosey M.,STScI.
+      Last updated on Mar 06, 2016.
 
     </p>
   </div>

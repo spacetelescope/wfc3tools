@@ -1,10 +1,7 @@
-"""
-wf3cte  calls the wf3cte executable and contains the initial processing steps for all the WFC3 UVIS channel data.
-"""
 from __future__ import print_function #confidence high
 
 #get the auto update version for the call to teal help
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 import os.path
@@ -18,7 +15,6 @@ except:
     teal = None
     
 __taskname__ = "wf3cte"
-__vdate__ = "28-Sep-2015"
 
 def wf3cte(input, parallel=True, verbose=False):
     
@@ -27,10 +23,10 @@ def wf3cte(input, parallel=True, verbose=False):
     call_list = ['wf3cte.e']
     
     if verbose:
-        call_list += ['-v']
+        call_list.append('-v')
         
-    if parallel:
-        call_list += ['-1']
+    if not parallel:
+        call_list.append('-1')
         
     infiles, dummpy_out= parseinput.parseinput(input)
     call_list.append(','.join(infiles))

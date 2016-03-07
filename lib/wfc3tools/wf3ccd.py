@@ -1,10 +1,7 @@
-"""
-wf3ccd  calls the wf3ccd executable and contains the initial processing steps for all the WFC3 UVIS channel data.
-"""
 from __future__ import print_function #confidence high
 
 #get the auto update version for the call to teal help
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 import os.path
@@ -18,7 +15,6 @@ except:
     teal = None
     
 __taskname__ = "wf3ccd"
-__vdate__ = "03-Jan-2013"
 
 def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",blevcorr="PERFORM",
         biascorr="PERFORM", flashcorr="PERFORM", verbose=False, quiet=True ):
