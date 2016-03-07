@@ -31,8 +31,8 @@ sys.path.insert(0, os.path.abspath('../../lib/'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.intersphinx',
-              'sphinx.ext.autodoc', 
-              'sphinx.ext.mathjax', 
+              'sphinx.ext.autodoc',
+              'sphinx.ext.mathjax',
               'sphinx.ext.autosummary',
               'numfig']
 
@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'wfc3tools'
-copyright = u'2012, STScI'
+copyright = u'2012, Sosey M.,STScI'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -111,10 +111,10 @@ html_theme = 'sphinx_rtd_theme'
 # documentation.
 #html_theme_options = {
 #        "nosidebar": "false",
-#        "sidebarbgcolor": "#4db8ff", 
+#        "sidebarbgcolor": "#4db8ff",
 #        "sidebartextcolor": "black",
 #        "sidebarlinkcolor": "black",
-#        "headbgcolor": "white",        
+#        "headbgcolor": "white",
 #        }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -198,10 +198,13 @@ latex_elements = {
 'papersize': 'letterpaper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '14pt',
+'pointsize': '14pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': r'''
+\usepackage{enumitem}
+\setlistdepth{99}
+'''
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -276,7 +279,7 @@ texinfo_show_urls = 'inline'
 epub_title = u'WFC3Tools'
 epub_author = u'Megan Sosey, STSCI'
 epub_publisher = u'STSCI'
-epub_copyright = u'2015, WFC3Tools, STScI'
+epub_copyright = u'2015, M. Sosey, STScI'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'wfc3tools'
