@@ -1,7 +1,3 @@
-"""
-wf3rej contains the Cosmic Ray rejection and shading correction processing steps for  the WFC3 UVIS and IR data. These steps are:
-
-"""
 from __future__ import print_function #confidence high
 
 # STDLIB
@@ -9,7 +5,7 @@ import os.path
 import subprocess
 
 #get the auto update version for the call to teal help
-from .version import *
+from .version import __vdate__,__version__
 
 #STSCI
 from stsci.tools import parseinput
@@ -33,13 +29,14 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     call_list.append(str(output))
     
     if verbose:
-        call_list += ["-v","-t"]
+        call_list.append("-v")
+        call_list.append("-t")
             
     if (shadcorr):
-        call_list += ["-shadcorr"]
+        call_list.append("-shadcorr")
     
     if (crmask):
-        call_list += ["-crmask"]
+        call_list.append("-crmask")
         
     if (crrejtab != ""):
         call_list += ["-table",crrejtab]

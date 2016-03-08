@@ -1,8 +1,14 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 
 from __future__ import print_function, division
+import os
 
 __all__ = ["display_help"]
+
+try:
+    from stsci.tools import teal
+except:
+    teal = None
 
 
 def display_help():
@@ -21,4 +27,5 @@ def display_help():
     location.append("index.html")
     url = "file://" + "/".join(location)
     webbrowser.open(url)
+
 

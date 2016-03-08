@@ -1,40 +1,18 @@
 from __future__ import division, print_function # confidence high
 
 #get the auto update version 
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 from astropy.io import fits
 import os
 from glob import glob
-from stsci.tools import parseinput
-from stsci.tools import teal
+from stsci.tools import parseinput, teal
 
 __taskname__ = "sub2full"
-__vdate__ = "19-Nov-2013"
 
 
 def sub2full(filename,x=None,y=None, fullExtent=False):
-    """Return the full-frame location of the subarray coordinates using a  file specified by the user. 
-    
-    Parameters
-    ----------
-    filename : string
-       The name of the image file containing the subarray. This can be a single filename or a list of files.
-       The ippsoot will be used to reference the files SPT file headers
-
-     x : int, optional
-       input x position to translate, will return x0 otherwise
-       if x and y are specified the fullExtent option is turned off
-
-     y : int, optional
-       input y position to translate, will return y0 otherwise
-       if x and y are specified the fullExtent option is turned off
-     
-     fullExtent: bool, optional
-      return the full extent of the subarray in the raw frame (x0,x1, y0,y1)
-      This option will only work with the default specification of the corner, x0,y0
-    """
     
     infiles, dummy_out= parseinput.parseinput(filename)
     if len(infiles) < 1:
@@ -145,7 +123,7 @@ def getHelpAsString(docstring=False):
 def help():
     print(getHelpAsString(docstring=True))
 
-__doc__ = getHelpAsString(docstring=True)
+sub2full.__doc__ = getHelpAsString(docstring=True)
 
 if __name__ == "main":
     """called as a function from the terminal just return the default corner locations """

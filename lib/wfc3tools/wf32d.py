@@ -1,10 +1,7 @@
-"""
-wf32d processes UVIS images
-"""
 from __future__ import print_function #confidence high
 
 #get the auto update version for the call to teal help
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 import os.path
@@ -18,7 +15,6 @@ except:
     teal = None
     
 __taskname__ = "wf32d"
-__vdate__ = "03-Jan-2013"
 
 def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",flatcorr="PERFORM",
         shadcorr="PERFORM", photcorr="PERFORM", verbose=False, quiet=True ):

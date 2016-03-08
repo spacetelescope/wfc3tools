@@ -2,7 +2,7 @@ from __future__ import division # confidence high
 from __future__ import print_function #confidence high
 
 #get the auto update version 
-from .version import *
+from .version import __vdate__,__version__
 
 # STDLIB
 import os
@@ -15,7 +15,6 @@ from scipy.stats import mode as mode
 from stsci.tools import teal
 
 __taskname__ = "pstat"
-__vdate__ = "26-Sep-2013"
 
 
 def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=None,ylabel=None,plot=True):
@@ -158,39 +157,39 @@ def pstat(filename,extname="sci",units="counts",stat="midpt",title=None,xlabel=N
 
         plt.plot(xaxis,yaxis,"+")
         
-    return xaxis,yaxis
-
-
-
-
-def getHelpAsString(docstring=False):
-    """
-    Returns documentation on the 'sampinfo' function.
-
-    return useful help from a file in the script directory called
-    __taskname__.help
-
-    """
-
-    install_dir = os.path.dirname(__file__)   
-    helpfile = os.path.join(install_dir, __taskname__ + '.help')
+    return xaxis,yaxis       
     
-    if docstring or (not docstring):
+def getHelpAsString(docstring=False):
+    """Return documentation on the 'wf3ir' function. Required by TEAL."""
+
+    install_dir = os.path.dirname(__file__)
+    htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
+    helpfile = os.path.join(install_dir, __taskname__ + '.help')
+    if docstring or (not docstring and not os.path.exists(htmlfile)):
         helpString = ' '.join([__taskname__, 'Version', __version__,
                                ' updated on ', __vdate__]) + '\n\n'
-    
-    if os.path.exists(helpfile):
+        if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
-        
+    else:
+        helpString = 'file://' + htmlfile
+
     return helpString
-        
+
+
+def help(file=None):
+    """
+    Print out syntax help for running wf3ir
     
-
-def help():
-    print(getHelpAsString(docstring=True))
-
+    """
         
-    
+    helpstr = getHelpAsString(docstring=True)
+    if file is None:
+        print(helpstr)
+    else:
+        if os.path.exists(file): os.remove(file)
+        f = open(file,mode='w')
+        f.write(helpstr)
+        f.close()
 
-__doc__ = getHelpAsString(docstring=True)
+pstat.__doc__ = getHelpAsString(docstring=True)
 

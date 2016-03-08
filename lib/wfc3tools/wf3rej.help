@@ -1,14 +1,10 @@
-.. _wf3rej:
 
-******
-wf3rej
-******
+wf3rej:
 
-This calls the wf3rej executable. Use this function to 
+This calls the wf3rej executable. Use this function to
 facilitate batch runs or for the TEAL interface.
 
-Example
-=======
+Example:
 
 In Python without TEAL:
 
@@ -27,8 +23,7 @@ In Pyraf:
 >>> epar wf3rej
 
 
-Parameters
-==========
+Parameters:
 
 input : str, Name of input files
 
@@ -36,7 +31,7 @@ input : str, Name of input files
       - a Python list of filenames
       - a partial filename with wildcards (``\*raw.fits``)
       - filename of an ASN table (``\*asn.fits``)
-      - an at-file (``@input``) 
+      - an at-file (``@input``)
 
 output : str, Name of the output FITS file.
 
@@ -83,5 +78,3 @@ Where the OS options include:
 * radius <number>: CR expansion radius
 * thresh <number> : rejection propagation threshold
 * pdq <number>: data quality flag bits to reject
-
-

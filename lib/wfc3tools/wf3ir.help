@@ -1,12 +1,8 @@
-.. _wf3ir:
-
-*****
-wf3ir
-*****
+wf3ir:
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
-This routine contains all the instrumental calibration steps for 
+This routine contains all the instrumental calibration steps for
 WFC3 IR channel images. The steps are:
 
     * DQICORR - initialize the data quality array
@@ -19,16 +15,15 @@ WFC3 IR channel images. The steps are:
     * UNITCORR - convert to units of count rate
     * CRCORR - fit accumulating signal and identify the cr hits
     * FLATCORR - divide by the flatfield images and apply gain coversion
-    
-The output images include the calibrated image ramp (ima file) 
+
+The output images include the calibrated image ramp (ima file)
 and the accumulated ramp image (flt file)
-  
-Only those steps with a switch value of PERFORM in the input files 
+
+Only those steps with a switch value of PERFORM in the input files
 will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
-========
+Examples:
 
     In Python without TEAL:
 
@@ -46,8 +41,7 @@ Examples
     >>> import wfc3tools
     >>> epar wf3ir
 
-Parameters
-==========
+Parameters:
 
     input : str
         Name of input files
@@ -56,7 +50,7 @@ Parameters
             * a Python list of filenames
             * a partial filename with wildcards (``\*raw.fits``)
             * filename of an ASN table (``\*asn.fits``)
-            * an at-file (``@input``) 
+            * an at-file (``@input``)
 
     output: str
         Name of the output FITS file.
@@ -76,4 +70,3 @@ Where the OS options include:
 
 * -v: verbose
 * -f: print time stamps
-
