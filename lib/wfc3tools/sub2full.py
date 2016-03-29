@@ -1,7 +1,7 @@
 from __future__ import division, print_function # confidence high
 
 #get the auto update version 
-from .version import __vdate__,__version__
+from .version import __version_date__,__version__
 
 # STDLIB
 from astropy.io import fits
@@ -113,7 +113,7 @@ def getHelpAsString(docstring=False):
     
     if docstring or (not docstring):
         helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __vdate__]) + '\n\n'
+                               ' updated on ', __version_date__]) + '\n\n'
     if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
         

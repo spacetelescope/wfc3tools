@@ -2,7 +2,7 @@ from __future__ import division # confidence high
 from __future__ import print_function #confidence high
 
 #get the auto update version 
-from .version import __vdate__,__version__
+from .version import __version_date__,__version__
 
 # STDLIB
 import os
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from stsci.tools import teal
 
 __taskname__ = "pstack"
-__vdate__ = "06-Sep-2013"
+__version_date__ = "06-Sep-2013"
 
 
 def pstack(filename,column=0,row=0,extname="sci",units="counts",title=None,xlabel=None,ylabel=None,plot=True):
@@ -100,7 +100,7 @@ def getHelpAsString(docstring=False):
     helpfile = os.path.join(install_dir, __taskname__ + '.help')
     if docstring or (not docstring and not os.path.exists(htmlfile)):
         helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __vdate__]) + '\n\n'
+                               ' updated on ', __version_date__]) + '\n\n'
         if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
     else:
