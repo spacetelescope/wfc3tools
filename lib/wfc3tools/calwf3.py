@@ -4,7 +4,7 @@ from __future__ import print_function
 # STDLIB
 import os.path
 import subprocess
-from .version import __vdate__,__version__
+from .version import __version_date__,__version__
 
 #STSCI
 from stsci.tools import parseinput
@@ -66,7 +66,7 @@ def getHelpAsString(docstring=False):
     helpfile = os.path.join(install_dir, __taskname__ + '.help')
     if docstring or (not docstring and not os.path.exists(htmlfile)):
         helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __vdate__]) + '\n\n'
+                               ' updated on ', __version_date__]) + '\n\n'
         if os.path.exists(helpfile):
             helpString += teal.getHelpFileAsString(__taskname__, __file__)
     else:
