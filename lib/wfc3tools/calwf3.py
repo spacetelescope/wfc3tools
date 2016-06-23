@@ -43,7 +43,6 @@ def calwf3(input, printtime=False, save_tmp=False,
 
     call_list.append(input)
 
-    subprocess.check_call(call_list)
     proc = subprocess.Popen(
         call_list,
         stderr=subprocess.STDOUT,
