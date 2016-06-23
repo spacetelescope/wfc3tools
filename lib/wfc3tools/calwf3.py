@@ -18,8 +18,8 @@ __taskname__ = "calwf3"
 
 
 def calwf3(input, printtime=False, save_tmp=False,
-           verbose=False, debug=False, parallel=True ):
-    
+           verbose=False, debug=False, parallel=True, log_func=print):
+
     call_list = ['calwf3.e']
 
     if printtime:
@@ -43,9 +43,18 @@ def calwf3(input, printtime=False, save_tmp=False,
 
     call_list.append(input)
 
-    subprocess.call(call_list)
+    subprocess.check_call(call_list)
+    proc = subprocess.Popen(
+        call_list,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+    for line in proc.stdout:
+        log_func(line.decode('utf8'))
 
-    
+    return_code = proc.wait()
+    if return_code != 0:
+        raise RuntimeError("calwf3.e exited with code {}".format(return_code))
 
 
 def run(configobj=None):
