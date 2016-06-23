@@ -48,8 +48,9 @@ def calwf3(input, printtime=False, save_tmp=False,
         stderr=subprocess.STDOUT,
         stdout=subprocess.PIPE,
     )
-    for line in proc.stdout:
-        log_func(line.decode('utf8'))
+    if log_func is not None:
+        for line in proc.stdout:
+            log_func(line.decode('utf8'))
 
     return_code = proc.wait()
     if return_code != 0:
