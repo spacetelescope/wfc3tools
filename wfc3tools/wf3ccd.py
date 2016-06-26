@@ -11,8 +11,9 @@ import subprocess
 from stsci.tools import parseinput
 try:
     from stsci.tools import teal
+    has_teal = True
 except ImportError:
-    teal = None
+    has_teal = None
     print("Teal not available")
 
 __taskname__ = "wf3ccd"
