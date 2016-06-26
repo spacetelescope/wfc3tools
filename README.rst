@@ -4,7 +4,7 @@ WFC3TOOLS
 .. image:: https://readthedocs.org/projects/wfc3tools/badge/?version=latest
     :target: http://wfc3tools.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
-
+                
 .. image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org
     :alt: Powered by Astropy Badge
