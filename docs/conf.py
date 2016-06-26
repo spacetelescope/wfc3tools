@@ -39,6 +39,10 @@ needs_sphinx = '1.3'
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 
+def setup(app):
+    app.add_stylesheet('_static/css/theme.css_t')
+
+
 def check_sphinx_version(expected_version):
     sphinx_version = LooseVersion(sphinx.__version__)
     expected_version = LooseVersion(expected_version)
