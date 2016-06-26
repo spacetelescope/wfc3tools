@@ -2,10 +2,24 @@
 import os
 import subprocess
 import sys
-from glob import glob
-from numpy import get_include as np_include
-from setuptools import setup, find_packages, Extension
+from setuptools import setup, find_packages
 
+try:
+    from distutils.config import ConfigParser
+except ImportError:
+    from configparser import ConfigParser
+
+conf = ConfigParser()
+conf.read(['setup.cfg'])
+
+# Get some config values
+metadata = dict(conf.items('metadata'))
+PACKAGENAME = metadata.get('package_name', 'wfc3tools')
+DESCRIPTION = metadata.get('description', '')
+AUTHOR = metadata.get('author', 'STScI')
+AUTHOR_EMAIL = metadata.get('author_email', 'help@stsci.edu')
+URL = metadata.get('url', 'https://wfc3tools.readthedocs.io/')
+LICENSE = metadata.get('licesnce', 'BSD')
 
 if os.path.exists('relic'):
     sys.path.insert(1, 'relic')
@@ -16,7 +30,7 @@ else:
     except ImportError:
         try:
             subprocess.check_call(['git', 'clone',
-                'https://github.com/jhunkeler/relic.git'])
+                                   'https://github.com/jhunkeler/relic.git'])
             sys.path.insert(1, 'relic')
             import relic.release
         except subprocess.CalledProcessError as e:
@@ -25,16 +39,17 @@ else:
 
 
 version = relic.release.get_info()
-relic.release.write_template(version, 'lib/wfc3tools')
+relic.release.write_template(version, PACKAGENAME)
 
 setup(
-    name = 'wfc3tools',
-    version = version.pep386,
-    author = 'Megan Sosey',
-    author_email = 'help@stsci.edu',
-    description = 'Python Tools for WFC3 Data',
-    url = 'https://github.com/spacetelescope/wfc3tools',
-    classifiers = [
+    name=PACKAGENAME,
+    version=version.pep386,
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    description=DESCRIPTION,
+    license=LICENSE,
+    url=URL,
+    classifiers=[
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
@@ -42,26 +57,9 @@ setup(
         'Topic :: Scientific/Engineering :: Astronomy',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    install_requires = [
+    install_requires=[
         'astropy',
-        'nose',
-        'numpy',
-        'scipy',
-        'sphinx',
-        'stsci.sphinxext',
-        'stsci.tools',
     ],
-    package_dir = {
-        '': 'lib',
-    },
-    packages = find_packages('lib'),
-    package_data = {
-        'wfc3tools': [
-            'pars/*',
-            '*.help',
-            'htmlhelp/*.html',
-            'htmlhelp/_images/*.png',
-            'htmlhelp/_images/math/*.png'
-        ],
-    },
+    packages=find_packages(),
+    package_data={PACKAGENAME: ['pars/*']}
 )
