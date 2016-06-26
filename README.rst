@@ -2,8 +2,8 @@ WFC3TOOLS
 =========
 
 .. image:: https://readthedocs.org/projects/wfc3tools/badge/?version=latest
-    :target: https://readthedocs.org/projects/wfc3tools/?badge=latest
-    :alt: Documentation Status
+:target: http://wfc3tools.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
 
 
 
