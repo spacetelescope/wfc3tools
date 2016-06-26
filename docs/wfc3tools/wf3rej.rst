@@ -4,11 +4,11 @@
 wf3rej
 ******
 
-This calls the wf3rej executable. Use this function to 
+This calls the wf3rej executable. Use this function to
 facilitate batch runs or for the TEAL interface.
 
-Example
-=======
+Running ``wf3rej`` from a python terminal
+=========================================
 
 In Python without TEAL:
 
@@ -27,6 +27,15 @@ In Pyraf:
 >>> epar wf3rej
 
 
+Displaying output from wf3rej in a Jupyter Notebook
+===================================================
+
+When calling ``wf3rej`` from a Jupyter notebook, informational text output from the underlying ``wf3rej.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``wf3rej``. As output is read from the underlying program, the ``wf3rej`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``wf3rej`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+
+If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
+
+
+
 Parameters
 ==========
 
@@ -36,7 +45,7 @@ input : str, Name of input files
       - a Python list of filenames
       - a partial filename with wildcards (``\*raw.fits``)
       - filename of an ASN table (``\*asn.fits``)
-      - an at-file (``@input``) 
+      - an at-file (``@input``)
 
 output : str, Name of the output FITS file.
 
@@ -83,5 +92,3 @@ Where the OS options include:
 * radius <number>: CR expansion radius
 * thresh <number> : rejection propagation threshold
 * pdq <number>: data quality flag bits to reject
-
-

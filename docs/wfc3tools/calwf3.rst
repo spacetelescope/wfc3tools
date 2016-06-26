@@ -35,6 +35,9 @@ command line (e.g. ``*raw.fits`` to process all raw files in the current directo
 The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the other hand, will accept such user-defined input file lists, but they will not accept an association table( asn ) as input.
 
 
+Running ``calwf3`` from a python terminal
+-----------------------------------------
+
     In Python without TEAL:
 
     >>> from wfc3tools import calwf3
@@ -50,6 +53,7 @@ The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the oth
 
     >>> import wfc3tools
     >>> epar calwf3
+
 
 Running many files at the same time
 -----------------------------------
@@ -70,12 +74,14 @@ For example::
 
    ``calwf3()`` may raise a RuntimeError if the underlying ``calwf3.e`` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong.
 
-Controlling output from calwf3 in Python
-----------------------------------------
 
-When calling ``calwf3`` from Python, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs, and show up in the user's terminal. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+Displaying output from calwf3 in a Jupyter Notebook
+---------------------------------------------------
+
+When calling ``calwf3`` from a Jupyter notebook, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
 
 If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
+
 
 Command Line Options
 --------------------
@@ -140,6 +146,43 @@ While both CR-SPLIT and REPEAT-OBS exposures from an association get combined us
 * The data quality array contains independent flags indicating various status and problem conditions associated with each corresponding pixel in the science image
 * The sample array (IR ONLY) contains the number of samples used to derive the corresponding pixel values in the science image.
 * The time array (IR ONLY) contains the effective integration time associated with each corresponding science image pixel value.
+
+Parameters
+==========
+
+    input : str
+        Name of input files
+
+            * a single filename (``iaa012wdq_raw.fits``)
+            * a Python list of filenames
+            * a partial filename with wildcards (``\*raw.fits``)
+            * filename of an ASN table (``\*asn.fits``)
+            * an at-file (``@input``)
+
+    output: str
+        Name of the output FITS file.
+
+    printtime: bool
+        print a detailed time stamp
+
+    save_tmp: bool
+        save temporary files
+
+    debug: bool
+        print optionsl debugging statements
+
+    parallel: bool
+        run the code with OpemMP parallel processing turned on for the UVIS CTE correction
+
+    log_func: func()
+        if not specified, the print function is used for logging to facilitate use in the jupyter notebook
+
+    verbose: bool, optional
+        Print verbose time stamps?
+
+    quiet: bool, optional
+        Print messages only to trailer file?
+
 
 
 Types of output file from calwf3

@@ -15,15 +15,15 @@ __all__ = [
     '__build_status__'
 ]
 
-__version__ = '1.3.1.dev6'
+__version__ = '1.3.1.dev12'
 __version_short__ = '1.3.1'
-__version_long__ = '1.3.1-6-g3c821a5a-dirty'
-__version_post__ = '6'
-__version_commit__ = '3c821a5a'
-__version_date__ = '2016-06-25 20:54:53 -0400'
+__version_long__ = '1.3.1-12-gedde1bec-dirty'
+__version_post__ = '12'
+__version_commit__ = 'edde1bec'
+__version_date__ = '2016-06-25 20:57:13 -0400'
 __version_dirty__ = True
 __build_date__ = '2016-06-25'
-__build_time__ = '20:56:21.674639'
+__build_time__ = '21:16:44.853516'
 __build_status__ = 'release' if not int(__version_post__) > 0 \
     and not __version_dirty__ \
     else 'development'

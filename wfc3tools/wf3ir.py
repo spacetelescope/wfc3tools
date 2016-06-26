@@ -19,7 +19,7 @@ except ImportError:
 __taskname__ = "wf3ir"
 
 
-def wf3ir(input, output="", verbose=False, quiet=True):
+def wf3ir(input, output=None, verbose=False, quiet=True, log_func=print):
     """Call the wf3ir.e executable """
 
     call_list = ['wf3ir.e']
@@ -29,9 +29,21 @@ def wf3ir(input, output="", verbose=False, quiet=True):
 
     infiles, dummpy_out = parseinput.parseinput(input)
     call_list.append(','.join(infiles))
-    call_list.append(str(output))
+    if output:
+        call_list.append(str(output))
 
-    subprocess.call(call_list)
+    proc = subprocess.Popen(
+        call_list,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+    if log_func is not None:
+        for line in proc.stdout:
+            log_func(line.decode('utf8'))
+
+    return_code = proc.wait()
+    if return_code != 0:
+        raise RuntimeError("wf3ir.e exited with code {}".format(return_code))
 
 
 def run(configobj=None):

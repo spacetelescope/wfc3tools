@@ -21,7 +21,8 @@ __taskname__ = "wf3rej"
 
 def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
            skysub="", crsigmas="", crradius=0, crthresh=0,
-           badinpdq=0, crmask=False, shadcorr=False, verbose=False):
+           badinpdq=0, crmask=False, shadcorr=False, verbose=False,
+           log_func=print):
     """call the calwf3.e executable"""
 
     call_list = ["wf3rej.e"]
@@ -85,7 +86,18 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
         print("Invalid DQ value specified")
         return ValueError
 
-    subprocess.call(call_list)
+    proc = subprocess.Popen(
+        call_list,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+    if log_func is not None:
+        for line in proc.stdout:
+            log_func(line.decode('utf8'))
+
+    return_code = proc.wait()
+    if return_code != 0:
+        raise RuntimeError("wf3rej.e exited with code {}".format(return_code))
 
 
 def help(file=None):

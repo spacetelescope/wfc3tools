@@ -19,9 +19,9 @@ except ImportError:
 __taskname__ = "wf3ccd"
 
 
-def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",
+def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
            blevcorr="PERFORM", biascorr="PERFORM", flashcorr="PERFORM",
-           verbose=False, quiet=True):
+           verbose=False, quiet=True, log_func=print):
 
     """Run the ``wf3ccd.e`` executable as from the shell."""
 
@@ -47,8 +47,21 @@ def wf3ccd(input, output="", dqicorr="PERFORM", atodcorr="PERFORM",
 
     infiles, dummpy_out = parseinput.parseinput(input)
     call_list.append(','.join(infiles))
-    call_list.append(str(output))
-    subprocess.call(call_list)
+    if output:
+        call_list.append(str(output))
+
+    proc = subprocess.Popen(
+        call_list,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+    if log_func is not None:
+        for line in proc.stdout:
+            log_func(line.decode('utf8'))
+
+    return_code = proc.wait()
+    if return_code:
+        raise RuntimeError("wf3ccd.e exited with code {}".format(return_code))
 
 
 def help(file=None):

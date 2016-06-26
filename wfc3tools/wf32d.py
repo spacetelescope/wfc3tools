@@ -19,10 +19,12 @@ except ImportError:
 __taskname__ = "wf32d"
 
 
-def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",
+def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
           flatcorr="PERFORM", shadcorr="PERFORM", photcorr="PERFORM",
-          verbose=False, quiet=True, debug=False):
+          verbose=False, quiet=True, debug=False, log_func=print):
     """  Call the wf32d.e executable."""
+
+    call_list = ['wf32d.e']
 
     if verbose:
         call_list += ['-v', '-t']
@@ -47,9 +49,21 @@ def wf32d(input, output="", dqicorr="PERFORM", darkcorr="PERFORM",
 
     infiles, dummpy_out = parseinput.parseinput(input)
     call_list.append(','.join(infiles))
-    call_list.append(str(output))
+    if output:
+        call_list.append(str(output))
 
-    subprocess.call(call_list)
+    proc = subprocess.Popen(
+        call_list,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+    if log_func is not None:
+        for line in proc.stdout:
+            log_func(line.decode('utf8'))
+
+    return_code = proc.wait()
+    if return_code != 0:
+        raise RuntimeError("calwf3.e exited with code {}".format(return_code))
 
 
 def help(file=None):

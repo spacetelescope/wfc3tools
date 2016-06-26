@@ -25,8 +25,8 @@ The standalone call will produce a RAC fits file by default. This contains only 
 
 For more information the the WFC3 CTE please see `the WFC3 CTE webpage <http://www.stsci.edu/hst/wfc3/ins_performance/CTE/>`_ .
 
-Example
-=======
+Running ``wf3cte`` from a python terminal
+=========================================
 
     In Python without TEAL:
 
@@ -44,12 +44,22 @@ Example
     >>> import wfc3tools
     >>> epar wf3cte
 
+
+Displaying output from wf3ccd in a Jupyter Notebook
+===================================================
+
+When calling ``wf3cte`` from a Jupyter notebook, informational text output from the underlying ``wf3cte.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``wf3cte``. As output is read from the underlying program, the ``wf3cte`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``wf3cte`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+
+If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
+
+
+
 Parameters
 ==========
 
+
     input : str
         Name of input files
-
             * a single filename (``iaa012wdq_raw.fits``)
             * a Python list of filenames
             * a partial filename with wildcards (``\*raw.fits``)
@@ -77,12 +87,12 @@ Basic Steps In The CTE Correction
 
 * The reference bias image named in the BIACFILE header keyword is subtracted from the data
 * Parameters from the CTE parameter table, referenced in the PCTETAB header keyword, are read and stored
-* The date is reformated so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left
+* The date is reformatted so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left
 * An additional bias correction is performed using the residual bias level measured for each amplifier from the steadiest pixels in the horizontal overscan, this value is then subtracted from all the pixels in each respective amp
 * The image is corrected for gain
-* The smoothest  image that is consistent with being the observed image plus readnoise is found and subtracted. This is necessary becasue we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known readnoise. The algorithm then constructs a model that is smoother where there pixel-to-pixel variations aren't too large, then it respects the pixel values, using a 2sigma threshold to mitigate readnoise amplification, iteration is not done when the deblurring is less than the readnoise.
+* The smoothest  image that is consistent with being the observed image plus readnoise is found and subtracted. This is necessary because we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known readnoise. The algorithm then constructs a model that is smoother where there pixel-to-pixel variations aren't too large, then it respects the pixel values, using a 2sigma threshold to mitigate readnoise amplification, iteration is not done when the deblurring is less than the readnoise.
 * The CTE correction itself is calculated and then subtracted from the original, raw, uncorrected and uncalibrated image.
-* The corrected image is now ready to contiue through the rest of the pipeline. When the DARKCORR header keyword is set to perform, the CTE corrected image will use the dark reference file referred to in the DRKCFILE header keyword.
+* The corrected image is now ready to continue through the rest of the pipeline. When the DARKCORR header keyword is set to perform, the CTE corrected image will use the dark reference file referred to in the DRKCFILE header keyword.
 
 .. _uvis_raw_data_format:
 
@@ -97,7 +107,7 @@ Basic Steps In The CTE Correction
 The PCTETAB and Algorithm Parameters
 ------------------------------------
 
-The following are new primary header keyords which will be updated in the data headers during the `wf3cte` step. They are also specified in the PCTETAB reference file.
+The following are new primary header keywords which will be updated in the data headers during the `wf3cte` step. They are also specified in the PCTETAB reference file.
 
 ========  ====================================================================
 KEYWORD   DESCRIPTION

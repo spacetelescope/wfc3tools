@@ -7,7 +7,7 @@ wf3ir
 
 Use this function to facilitate batch runs or for the TEAL interface.
 
-This routine contains all the instrumental calibration steps for 
+This routine contains all the instrumental calibration steps for
 WFC3 IR channel images. The steps are:
 
     * DQICORR - initialize the data quality array
@@ -20,16 +20,16 @@ WFC3 IR channel images. The steps are:
     * UNITCORR - convert to units of count rate
     * CRCORR - fit accumulating signal and identify the cr hits
     * FLATCORR - divide by the flatfield images and apply gain coversion
-    
-The output images include the calibrated image ramp (ima file) 
+
+The output images include the calibrated image ramp (ima file)
 and the accumulated ramp image (flt file)
-  
-Only those steps with a switch value of PERFORM in the input files 
+
+Only those steps with a switch value of PERFORM in the input files
 will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Examples
-========
+Running ``wf3ir`` from a python terminal
+=========================================
 
     In Python without TEAL:
 
@@ -47,6 +47,16 @@ Examples
     >>> import wfc3tools
     >>> epar wf3ir
 
+
+Displaying output from wf3ir in a Jupyter Notebook
+===================================================
+
+When calling ``wf3ir`` from a Jupyter notebook, informational text output from the underlying ``wf3ir.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``wf3ir``. As output is read from the underlying program, the ``wf3ir`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``wf3ir`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+
+If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
+
+
+
 Parameters
 ==========
 
@@ -57,7 +67,7 @@ Parameters
             * a Python list of filenames
             * a partial filename with wildcards (``\*raw.fits``)
             * filename of an ASN table (``\*asn.fits``)
-            * an at-file (``@input``) 
+            * an at-file (``@input``)
 
     output: str
         Name of the output FITS file.
@@ -77,4 +87,3 @@ Where the OS options include:
 
 * -v: verbose
 * -f: print time stamps
-
