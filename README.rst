@@ -49,7 +49,7 @@ the the astropy `contributing`_ and `developer`_ documentation.
 License
 -------
 
-wfc3tools is licensed under a 3-clause BSD style license (see the ``licenses/LICENSE.rst`` file).
+wfc3tools is licensed under a 3-clause BSD style license (see the ``LICENSE.txt`` file).
 
 .. _AstroPy: http://www.astropy.org/
 .. _contributing: http://docs.astropy.org/en/stable/index.html#contributing
