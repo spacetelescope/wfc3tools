@@ -51,7 +51,6 @@ The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the oth
     >>> import wfc3tools
     >>> epar calwf3
 
-
 Running many files at the same time
 -----------------------------------
 
@@ -67,6 +66,16 @@ For example::
     for fits in glob('j*_raw.fits'):
         calwf3(fits)
 
+.. note::
+
+   ``calwf3()`` may raise a RuntimeError if the underlying ``calwf3.e`` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong.
+
+Controlling output from calwf3 in Python
+----------------------------------------
+
+When calling ``calwf3`` from Python, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs, and show up in the user's terminal. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+
+If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
 Command Line Options
 --------------------
