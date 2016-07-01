@@ -86,6 +86,7 @@ extensions = [
 
 if on_rtd:
     extensions.append('sphinx.ext.mathjax')
+    
 elif LooseVersion(sphinx.__version__) < LooseVersion('1.4'):
     extensions.append('sphinx.ext.pngmath')
 else:
@@ -210,7 +211,7 @@ html_theme = 'sphinx_rtd_theme'
 #        }
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = ['_static/css/']
+html_theme_path = ['_static/']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -232,6 +233,12 @@ html_logo = '_static/stsci_pri_combo_mark_white.png'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+html_context = {
+    'css_files' : [
+        '_static/custom.css',
+    ],
+}
+    
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
