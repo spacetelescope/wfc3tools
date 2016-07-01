@@ -7,6 +7,8 @@ from .version import __version_date__, __version__
 
 # STSCI
 from stsci.tools import parseinput
+from .util import error_code
+
 try:
     from stsci.tools import teal
     has_teal = True
@@ -16,48 +18,56 @@ except ImportError:
 
 __taskname__ = "calwf3"
 
-def calwf3(input, output=None, printtime=False, save_tmp=False,
-           verbose=False, debug=False, parallel=True, log_func=print):
+def calwf3(input=None, output=None, printtime=False, save_tmp=False,
+           verbose=False, debug=False, parallel=True, version=False,
+           log_func=print):
 
     call_list = ['calwf3.e']
 
-    if printtime:
-        call_list.append('-t')
+    if version and input is None:
+        call_list.append('-r')
+    else:
+        if printtime:
+            call_list.append('-t')
 
-    if save_tmp:
-        call_list.append('-s')
+        if save_tmp:
+            call_list.append('-s')
 
-    if verbose:
-        call_list.append('-v')
+        if verbose:
+            call_list.append('-v')
 
-    if debug:
-        call_list.append('-d')
+        if debug:
+            call_list.append('-d')
 
-    if not parallel:
-        call_list.append('-1')
+        if not parallel:
+            call_list.append('-1')
 
-    infiles, dummy_out = parseinput.parseinput(input)
-    for image in infiles:
-        if not os.path.exists(image):
-            raise IOError('Input file not found: ' + image)
+        infiles, dummy_out = parseinput.parseinput(input)
+        for image in infiles:
+            if not os.path.exists(image):
+                raise IOError('Input file not found: ' + image)
 
-    call_list.append(','.join(infiles))
+        call_list.append(','.join(infiles))
 
-    if output:
-        call_list.append(str(output))
+        if output:
+            call_list.append(str(output))
 
     proc = subprocess.Popen(
         call_list,
         stderr=subprocess.STDOUT,
         stdout=subprocess.PIPE,
     )
+
     if log_func is not None:
         for line in proc.stdout:
             log_func(line.decode('utf8'))
 
     return_code = proc.wait()
-    if return_code != 0:
-        raise RuntimeError("calwf3.e exited with code {}".format(return_code))
+    ec = None
+    if return_code:
+        ec = error_code(return_code)
+        print(return_code)
+        raise RuntimeError("calwf3.e exited with code {}".format(ec))
 
 
 def run(configobj=None):
