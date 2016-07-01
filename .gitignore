@@ -1,6 +1,6 @@
 RELIC-INFO
 relic/
-lib/*/version.py
+wfc3tools/version.py
 build/
 dist/
 *.pyc
