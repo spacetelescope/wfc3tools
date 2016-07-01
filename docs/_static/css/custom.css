@@ -3510,7 +3510,7 @@ button[disabled] {
 
 .btn-link {
     background-color: transparent !important;
-    color: #2980B9;
+    color: #2980B9 !important;
     box-shadow: none;
     border-color: transparent !important
 }

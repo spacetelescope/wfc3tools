@@ -86,7 +86,7 @@ extensions = [
 
 if on_rtd:
     extensions.append('sphinx.ext.mathjax')
-    
+
 elif LooseVersion(sphinx.__version__) < LooseVersion('1.4'):
     extensions.append('sphinx.ext.pngmath')
 else:
@@ -202,7 +202,9 @@ html_theme = 'sphinx_rtd_theme'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-# html_theme_options = {
+html_theme_options = {
+    "collapse_navigation": True
+    }
 #        "nosidebar": "false",
 #        "sidebarbgcolor": "#4db8ff",
 #        "sidebartextcolor": "black",
@@ -234,11 +236,11 @@ html_logo = '_static/stsci_pri_combo_mark_white.png'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 html_context = {
-    'css_files' : [
-        '_static/custom.css',
+    'css_files': [
+        '_static/css/custom.css',
     ],
 }
-    
+
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
