@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
 
 try:
     from distutils.config import ConfigParser
@@ -41,6 +42,20 @@ else:
 version = relic.release.get_info()
 relic.release.write_template(version, PACKAGENAME)
 
+
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = ['wfc3tools/tests']
+        self.test_suite = True
+
+    def run_tests(self):
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
+
+
 setup(
     name=PACKAGENAME,
     version=version.pep386,
@@ -60,6 +75,8 @@ setup(
     install_requires=[
         'astropy',
     ],
+    tests_require=['pytest'],
     packages=find_packages(),
-    package_data={PACKAGENAME: ['pars/*']}
+    package_data={PACKAGENAME: ['pars/*']},
+    cmdclass = {'test': PyTest}
 )
