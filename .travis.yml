@@ -1,0 +1,98 @@
+language: python
+
+python:
+  - 2.7
+  - 3.5
+
+sudo: false
+
+
+env:
+  global:
+    - USE_CONDA=false
+
+# The apt packages below are needed for sphinx builds, which can no longer
+# be installed with sudo apt-get.
+addons:
+    apt:
+        packages:
+            - graphviz
+            - texlive-latex-extra
+            - dvipng
+
+env:
+    global:
+        # SET DEFAULTS TO AVOID REPEATING IN MOST CASES
+        - NUMPY_VERSION=stable
+        - ASTROPY_VERSION=stable
+        - CONDA_DEPENDENCIES='matplotlib scipy ipython stsci.tools'
+        - MAIN_CMD='python setup.py'
+        - SETUP_CMD='test'
+
+    matrix:
+        # make sure that egg_info works without dependencies
+        - SETUP_CMD='egg_info'
+        # Try all python versions with the latest numpy
+        - SETUP_CMD='test -v'
+
+
+matrix:
+
+  # Don't wait for allowed failures
+  fast_finish: true
+
+  include:
+    - python: 2.7
+      env: SETUP_CMD='build_sphinx -w' CONDA_DEPENDENCIES='ipython scipy matplotlib stsci.tools'
+
+    - python: 3.5
+      env: SETUP_CMD='build_sphinx -w' CONDA_DEPENDENCIES='ipython scipy matplotlib stsci.tools'
+
+    # Try Astropy development and LTS versions
+    - python: 2.7
+      env: ASTROPY_VERSION=development
+    - python: 2.7
+      env: ASTROPY_VERSION=lts
+    - python: 3.5
+      env: ASTROPY_VERSION=lts
+    - python: 3.5
+      env: ASTROPY_VERSION=development
+
+    # Try older numpy versions
+    - python: 2.7
+      env: NUMPY_VERSION=1.10
+    - python: 2.7
+      env: NUMPY_VERSION=1.9
+    - python: 3.5
+      env: NUMPY_VERSION=1.10
+    - python: 3.5
+      env: NUMPY_VERSION=1.9
+
+
+
+before_install:
+
+    - uname -a
+    - python --version
+
+
+   # We now use the ci-helpers package to set up our testing environment.
+    # This is done by using Miniconda and then using conda and pip to install
+    # dependencies. Which dependencies are installed using conda and pip is
+    # determined by the CONDA_DEPDENDENCIES and PIP_DEPENDENCIES variables,
+    # which should be space-delimited lists of package names. See the README
+    # in https://github.com/astropy/ci-helpers for information about the full
+    # list of environment variables that can be used to customize your
+    # environment. In some cases, ci-helpers may not offer enough flexibility
+    # in how to install a package, in which case you can have additional
+    # commands in the install: section below.
+
+
+install:
+    - git clone git://github.com/astropy/ci-helpers.git
+    - source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh
+    - pip install pytest-pep8
+
+
+script:
+    - $MAIN_CMD  $SETUP_CMD
