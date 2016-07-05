@@ -72,13 +72,13 @@ For example::
 
 .. note::
 
-   ``calwf3()`` may raise a RuntimeError if the underlying ``calwf3.e`` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong.
+   When running in the notebook or from the python wrappers ``calwf3()`` may raise a RuntimeError if the underlying ``calwf3.e`` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong. Full runtime and error messages are printed to the terminal window and saved in the trailer file (.tra) for every run to help you diagnose the issue. 
 
 
 Displaying output from calwf3 in a Jupyter Notebook
 ---------------------------------------------------
 
-When calling ``calwf3`` from a Jupyter notebook, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+When calling ``calwf3`` from a Jupyter notebook or from the python wrappers, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
 
 If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
