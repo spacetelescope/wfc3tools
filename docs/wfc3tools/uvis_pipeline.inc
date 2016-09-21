@@ -2,7 +2,6 @@
 
 :orphan:
 
-
 UVIS Pipleline
 ==============
 
@@ -116,11 +115,53 @@ This step subtracts the two dimensional bias struction from the image using the 
 Overscan Bias Correction (BLEVCORR)
 -----------------------------------
 
-The location of the overscan regions in a raw image varies, depending upon the type of readout that is performed. The overscan regions are used to monitor the instrument as well as provide a measure of the bias level at the time the detector was exposed. The bias level which is calculated for subtraction is done on a line-by-line basis in the image. If the image has no overscan region the BIAS level to be subtracted is obtained from the CCDTAB reference file. Otherwise, the columns to use for the calculation are referenced in the OSCNTAB reference file. A bias drift calculation is made if there are virtual overscan pixels which exist, if neither of the virtual overscan regions are specfied then the physical overscan region is used.
+The location of the overscan regions in a raw image varies, depending upon the type of readout that is performed. The overscan regions are used to monitor the instrument as well as provide a measure of the bias level at the time the detector was exposed. The bias level which is calculated for subtraction is done on a line-by-line basis in the image. If the image has no overscan region the BIAS level to be subtracted is obtained from the CCDTAB reference file. Otherwise, the columns to use for the calculation are referenced in the OSCNTAB reference file. The OSCNTAB refers to all regions in pixel coordinates, even when the image is binned. A bias drift calculation is made if there are virtual overscan pixels which exist, if neither of the virtual overscan regions are specfied then the physical overscan region is used.
 
 If there are two sections available to use for the line because only 1 amp was used then they are averaged. The parallel overscan region is split into two if there is more than one amp. If the virtual overscan is used, a straight line is fit as a function of the column number. The fit is evaluated for each line and then subtracted from the data.  Iterative sigma clipping is used to reject outliers from the array of bias values.
 
 The mean value of all the bias levels which were subtracted is recorded in the SCI extension output header in MEANBLEV.
+
+::
+
+        parallel readout direction, amp A
+        |
+        |
+        v
+        (VX1,VX2)     (VX2,VY2)
+        A       /         \     B
+        -----/-----------+---
+        |   |/     |      |   | } TRIMY2
+        |   +------+------    |
+        |   |      |      |   | <--- serial readout direction, amp A
+        |   |      |      |   |
+        | - | -----+------|---|<-- AMPY
+        |   |      |      |   |
+        |   |      |      |   |
+        |   |      |      |   |
+        |    ------+------    |
+        |   |      |      |   | } TRIMY1
+        ---------------------
+        C /  \      ^       / \ D
+        A1  A2     |      B1  B2
+          AMPX
+
+        A,B,C,D   - Amps
+        AMPX 	  - First column affected by second AMP
+        AMPY 	  - First line affected by second set of AMPS
+        (VX1,VY1) - image coordinates of virtual overscan region origin
+        (VX2,VY2) - image coordinates of top corner of virtual overscan region
+        A1,A2 	  - beginning and ending columns for leading bias section
+            (BIASSECTA1,BIASSECTA2 from OSCNTAB)
+        B1,B2 	  - beginning and ending columns for trailing bias section
+            (BIASSECTB1,BIASSECTB2 from OSCNTAB)
+        TRIMX1    - Number of columns to trim off beginning of each line,
+            contains A1,A2
+        TRIMX2    - Number of columns to trim off end of each line,
+            contains B1,B2
+        TRIMY1    - Number of lines to trim off beginning of each column
+        TRIMY2    - Number of line to trim off end of each column
+
+
 
 
 Dark Current Subtraction (DARKCORR)

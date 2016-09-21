@@ -10,16 +10,32 @@ CTE is typically measured as a pixel-transfer efficiency, and would be unity for
 
 The CTE correction step uses it's own dark reference files which have themselves been corrected for CTE. The specific reference file used for any dataset may be found in the image header keyword DRKCFILE. This step also uses a special bias reference file as part of the CTE correction itself, referred to in the header by the BIACFILE keyword. This BIACFILE is only used to facilitate the CTE correction, the resulting corrected image then uses the normal BIASFILE to correct the science frame after the CTE correction has been performed. After the CTE correction has been performed and the data progresses through the rest of the pipeline, the special CTE corrected dark, DRKCFILE in the header, will be used for the dark current correction instead of the DARKFILE.
 
-There is a PCTETAB refrence file which contains extensions of calibration images and tables of parameters used during the CTE correction stage. The header of this file also contains parameters for the CTE correction algorithm. These parameters, and important scalars which are used to correct the data are stored in the output image headers.
-See the UVIS2.0 reference ISR for more information.
+There is a PCTETAB refrence file which contains extensions of calibration images and tables of parameters used during the CTE correction stage. The header of this file also contains parameters for the CTE correction algorithm. These parameters, and important scalars which are used to correct the data are stored in the output image headers. Users who wish to use other settings for the CTE correction algorithm can adjust the pertinent keywords in their dataset header and `calwf3` will show them preference. See the `<http://www.stsci.edu/hst/wfc3/documents/ISRs>`_ UVIS2.0 reference ISR or Cookbook for more information.
 
 
-
-This routine performs the CTE correction on raw data files. The calibration step keyword is PCTECORR, if this is set to PERFORM then the CTE correction will be applied to the dataset. Some caveats for its use:
+`wf3cte` performs the CTE correction on raw data files. The calibration step keyword is PCTECORR, if this is set to PERFORM then the CTE correction will be applied to the dataset. Some caveats for its use:
 
 * CTE corrections can *ONLY* be performed on RAW data which has not been calibrated in any way.
 * Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be rejected.
-* The CTE correction step in the pipeline is currently only implemented for FULL FRAME images
+* The CTE correction step in the pipeline is implemented for FULL FRAME images only in v3.3, but v3.4 will also correct the CTE in the following subarray apertures, the primary distinction being that these apertures have physical overscan pixels included which are used to calculate a secondary bias subtraction for the image before the CTE is measured; a future version of `calwf3` may enable cte corrections for the remaining subarrays but is still being validated by the science team.
+
+::
+
+
+        UVIS1-2K2A-SUB
+        UVIS1-2K2B-SUB
+        UVIS2-2K2C-SUB
+        UVIS2-2K2D-SUB
+        UVIS2-C1K1C-SUB
+        UVIS2-C512C-SUB
+        UVIS2-C512D-SUB
+        UVIS1-C512A-SUB
+        UVIS1-C512B-SUB
+        UVIS1-2K4-SUB
+        UVIS-QUAD-SUB
+        UVIS2-2K4-SUB
+
+
 
 The standalone call will produce a RAC fits file by default. This contains only the CTE corrected data, no other calibrations have been performed.
 
@@ -156,6 +172,6 @@ If you are running the separate `wf3cte.e` step a _rac.fits file will be output.
 
 If the PCTECORR step is set to PEFORM:
 
-* when the _raw.fits file enters calwf3, then no intermediate _rac.fits file will be saved, unless you specify the `-s` flag, which instructs `calwf3.e` to save all intermediate files.
+* when the _raw.fits file enters `calwf3`, then no intermediate _rac.fits file will be saved, unless you specify the `-s` flag, which instructs `calwf3.e` to save all intermediate files.
 
 * the `calwf3` pipeline will produce both CTE calibrated product and non-CTE calibrated products. The CTE products have a 'c' at the end of their extension name, such as _blc, _rac, _crc, _flc, and the non-CTE calibrated products contain the familiar : _blv, _crj, _flt.

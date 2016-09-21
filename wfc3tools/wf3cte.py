@@ -37,6 +37,8 @@ def wf3cte(input, out=None, parallel=True, verbose=False, log_func=print):
     if out:
         call_list.append(str(out))
 
+    print(call_list)
+    
     proc = subprocess.Popen(
         call_list,
         stderr=subprocess.STDOUT,

@@ -18,8 +18,11 @@ import sys
 import os
 import sphinx
 from distutils.version import LooseVersion
-from distutils.config import ConfigParser
-
+try:
+    from ConfigParser import ConfigParser
+except ImportError:
+    from configparser import ConfigParser
+conf = ConfigParser()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -29,7 +32,6 @@ sys.path.insert(0, os.path.abspath('wfc3tools/'))
 sys.path.insert(0, os.path.abspath('exts/'))
 
 # -- General configuration ------------------------------------------------
-conf = ConfigParser()
 conf.read([os.path.join(os.path.dirname(__file__), '..', 'setup.cfg')])
 setup_cfg = dict(conf.items('metadata'))
 
