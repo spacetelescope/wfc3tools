@@ -1,6 +1,5 @@
 .. _uvis_pipeline:
 
-:orphan:
 
 UVIS Pipleline
 ==============
