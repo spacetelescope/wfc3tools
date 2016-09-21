@@ -18,6 +18,7 @@ except ImportError:
 
 __taskname__ = "calwf3"
 
+
 def calwf3(input=None, output=None, printtime=False, save_tmp=False,
            verbose=False, debug=False, parallel=True, version=False,
            log_func=print):

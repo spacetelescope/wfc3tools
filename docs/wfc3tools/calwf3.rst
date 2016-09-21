@@ -4,21 +4,19 @@ calwf3
 ******
 
 
-``calwf3`` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the UVIS pipeline as a whole, while :num:`Figure#irflow` contains the flow for the IR pipeline.
+`calwf3` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code automatically calls the appropriate tasks, but users may also run the tasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the UVIS pipeline as a whole, while :num:`Figure#irflow` contains the flow for the IR pipeline.
 
 
-During automatic pipeline processing by the STScI archive, ``Astrodrizzle`` follows ``calwf3``. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ .
+During automatic pipeline processing by the STScI archive, `Astrodrizzle` follows `calwf3`. All calibrated images are corrected for geometric distortion correction and associated sets of dithered images are combined into a single product. See the WFC3 Data Handbook for more information, or `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ .
 
 
 Where to Find calwf3
 ====================
 
-``calwf3`` is part of HSTCAL package, which can be downloaded from
-http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas
-and is installed along with the STScI distributed package Ureka.
+`calwf3` is part of HSTCAL package, which can be downloaded separately from its GIT repository in the `Spacetelescope <https://github.com/spacetelescope/hstcal>`_ area.  It is also installed along with the STScI distributed package `Astroconda <http://astroconda.readthedocs.io/en/latest/installation.html>`_ .
 
 
-A detailed description of the improved ``calwf3``, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and several ISRs which will accompany the update.
+A detailed description of the improved `calwf3`, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and several ISRs which will accompany the update.
 
 The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .
 In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).
@@ -27,15 +25,15 @@ In the meantime, if you have questions not answered in this documentation, pleas
 Running calwf3
 ==============
 
-``calwf3`` can be run on a single input raw file or an asn table listing the members of an associtaion.
+`calwf3` can be run on a single input raw file or an asn table listing the members of an associtaion.
 When processing an association, it retrieves calibration switch and reference file keyword settings from
-the first image listed in the asn table. ``calwf3`` does not accept a user-defined list of input images on the
+the first image listed in the asn table. `calwf3` does not accept a user-defined list of input images on the
 command line (e.g. ``*raw.fits`` to process all raw files in the current directory).
 
 The :ref:`wf3ccd`, :ref:`wf32d`, :ref:`wf3cte` and :ref:`wf3ir` tasks on the other hand, will accept such user-defined input file lists, but they will not accept an association table( asn ) as input.
 
 
-Running ``calwf3`` from a python terminal
+Running `calwf3` from a python terminal
 -----------------------------------------
 
     In Python without TEAL:
@@ -58,9 +56,8 @@ Running ``calwf3`` from a python terminal
 Running many files at the same time
 -----------------------------------
 
-The recommended method for running ``calwf3`` in batch mode is to use Python and
-the ``wfc3tools`` package in the `STSDAS distribution
-<http://www.stsci.edu/institute/software_hardware/stsdas/download-stsdas>`_ .
+The recommended method for running `calwf3` in batch mode is to use Python and
+the `wfc3tools` package in the `Astroconda distribution <http://astroconda.readthedocs.io/en/latest/installation.html>`_ .
 
 For example::
 
@@ -72,13 +69,13 @@ For example::
 
 .. note::
 
-   ``calwf3()`` may raise a RuntimeError if the underlying ``calwf3.e`` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong.
+   When running in the notebook or from the python wrappers `calwf3()` may raise a RuntimeError if the underlying `calwf3.e` program fails with a non-zero exit code. Review the text output during the calibration call for hints as to what went wrong. Full runtime and error messages are printed to the terminal window and saved in the trailer file (.tra) for every run to help you diagnose the issue.
 
 
 Displaying output from calwf3 in a Jupyter Notebook
 ---------------------------------------------------
 
-When calling ``calwf3`` from a Jupyter notebook, informational text output from the underlying ``calwf3.e`` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the ``log_func`` keyword argument to ``calwf3``. As output is read from the underlying program, the ``calwf3`` Python wrapper will call ``log_func`` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect ``calwf3`` to the Python logging system by passing the ``logging.debug`` function or similar.)
+When calling `calwf3` from a Jupyter notebook or from the python wrappers, informational text output from the underlying `calwf3.e` program will be passed through ``print`` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `calwf3`. As output is read from the underlying program, the `calwf3` Python wrapper will call `log_func` with the contents of each line. (``print`` is an obvious choice for a log function, but this also provides a way to connect `calwf3` to the Python logging system by passing the ``logging.debug`` function or similar.)
 
 If ``log_func=None`` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
@@ -221,6 +218,6 @@ Keyword Usage
 `calwf3` processing is controlled by the values of keywords in the input image headers. Certain keywords, referred to as calibration switches, are used to control which calibration steps are performed. Reference file keywords indicate which reference files to use in the various calibration steps. Users who which to perform custom reprocessing of their data may change the values of these keywords in the _raw FITS file headers and then rerun the modified file through  `calwf3`. See the `WFC3 Data Handbook <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/wfc3_Ch25.html>`_ for a more complete description of these keywords and their values.
 
 
-.. include:: uvis_pipeline.inc
+.. include:: ./uvis_pipeline.inc
 
-.. include:: ir_pipeline.inc
+.. include:: ./ir_pipeline.inc

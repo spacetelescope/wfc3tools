@@ -1,7 +1,5 @@
 .. _ir_pipeline:
 
-:orphan:
-
 
 IR Pipeline
 ===========
@@ -176,7 +174,13 @@ Fit accumulating signal and identify cosmic ray hits (CRCORR)
 
 This step fits the accumulating signal up the image ramp and identifies cosmic-ray hits for each sample using the `Fixsen et al (2000) <http://adsabs.harvard.edu/abs/2000PASP..112.1350F>`_  methods.
 
-The process is described below:
+.. note::
+
+        With the release of `calwf3` version 3.3, the WFC3 Science Team requested that HST Data Processing also change the way IR SCAN data was processed in the pipeline. Specifically, that data processing set the value of CRCORR to OMIT.  CALWF3 performs up-the-ramp fitting during the CRCORR step, which for scan data  produces a minimally useful result. Setting CRCORR=OMIT stops the ramp fit from happening and instead produces an FLT output image which contains the first-minus-last read result. This by nature is not a count-rate image, but a count image if UNITCORR = OMIT. UNITCORR converts the image to count rates.  Additionally, if  FLATCORR is set to complete then the output units should be in electrons, otherwise they are in counts.
+
+
+
+The ramp-fitting process is described below:
 
 
 * An iterative fit to the accumulating sample time is calculated for each pixel
