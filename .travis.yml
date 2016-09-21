@@ -1,8 +1,11 @@
-language: python
+language: c
 
 python:
   - 2.7
   - 3.5
+
+os:
+  - linux
 
 sudo: false
 
@@ -19,11 +22,16 @@ addons:
 env:
     global:
         # SET DEFAULTS TO AVOID REPEATING IN MOST CASES
+        - PYTHON_VERSION=3.5
         - NUMPY_VERSION=stable
         - ASTROPY_VERSION=stable
-        - CONDA_DEPENDENCIES='matplotlib scipy ipython stsci.tools'
+        - CONDA_CHANNELS='http://ssb.stsci.edu/astroconda'
+        - CONDA_DEPENDENCIES='matplotlib scipy ipython hstcal'
+        - PIP_DEPENDENCIES='git+https://github.com/spacetelescope/stsci.tools.git'
+        - PIP_DEPENDENCIES_FLAGS='--upgrade --no-deps'
         - MAIN_CMD='python setup.py'
         - SETUP_CMD='test'
+
 
     matrix:
         # make sure that egg_info works without dependencies
@@ -38,23 +46,25 @@ matrix:
   fast_finish: true
 
   include:
+
+    # Test Documentation Builds
     - python: 2.7
-      env: SETUP_CMD='build_sphinx -w' CONDA_DEPENDENCIES='ipython scipy matplotlib stsci.tools'
+      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib'
 
     - python: 3.5
-      env: SETUP_CMD='build_sphinx -w' CONDA_DEPENDENCIES='ipython scipy matplotlib stsci.tools'
+      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib'
 
     # Try Astropy development and LTS versions
     - python: 2.7
       env: ASTROPY_VERSION=development
     - python: 2.7
-      env: ASTROPY_VERSION=lts
-    - python: 3.5
-      env: ASTROPY_VERSION=lts
+      env: ASTROPY_VERSION=lts NUMPY_VERSION=1.9
     - python: 3.5
       env: ASTROPY_VERSION=development
 
     # Try older numpy versions
+    - python: 2.7
+      env: NUMPY_VERSION=1.11
     - python: 2.7
       env: NUMPY_VERSION=1.10
     - python: 2.7
