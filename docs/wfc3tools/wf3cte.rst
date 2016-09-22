@@ -17,7 +17,7 @@ There is a PCTETAB refrence file which contains extensions of calibration images
 
 * CTE corrections can *ONLY* be performed on RAW data which has not been calibrated in any way.
 * Data which have already been through BLEVCORR, BIASCORR or DARKCORR will be rejected.
-* The CTE correction step in the pipeline is implemented for FULL FRAME images only in v3.3, but v3.4 will also correct the CTE in the following subarray apertures, the primary distinction being that these apertures have physical overscan pixels included which are used to calculate a secondary bias subtraction for the image before the CTE is measured; a future version of `calwf3` may enable cte corrections for the remaining subarrays but is still being validated by the science team.
+* The CTE correction step in the pipeline is implemented for FULL FRAME images only in v3.3, but v3.4 will also correct the CTE in the following subarray apertures, the primary distinction being that these apertures have physical overscan pixels included which are used to calculate a secondary bias subtraction for the image before the CTE is measured; a future version of `calwf3` may enable CTE corrections for the remaining subarrays which don't have physical overscan pixels, but is still being validated by the science team.
 
 ::
 
@@ -103,12 +103,13 @@ Basic Steps In The CTE Correction
 
 * The reference bias image named in the BIACFILE header keyword is subtracted from the data
 * Parameters from the CTE parameter table, referenced in the PCTETAB header keyword, are read and stored
-* The date is reformatted so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left
+* The data is reformatted so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan pixels) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left
 * An additional bias correction is performed using the residual bias level measured for each amplifier from the steadiest pixels in the horizontal overscan, this value is then subtracted from all the pixels in each respective amp
 * The image is corrected for gain
-* The smoothest  image that is consistent with being the observed image plus readnoise is found and subtracted. This is necessary because we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known readnoise. The algorithm then constructs a model that is smoother where there pixel-to-pixel variations aren't too large, then it respects the pixel values, using a 2sigma threshold to mitigate readnoise amplification, iteration is not done when the deblurring is less than the readnoise.
+* The smoothest  image that is consistent with being the observed image plus read-noise is found and subtracted. This is necessary because we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known read-noise. The algorithm then constructs a model that is smooth where the pixel-to-pixel variations aren't too large. It respects the pixel values, using a 2-sigma threshold to mitigate read-noise amplification, and iteration is not done when the deblurring is less than the read-noise.
 * The CTE correction itself is calculated and then subtracted from the original, raw, uncorrected and uncalibrated image.
 * The corrected image is now ready to continue through the rest of the pipeline. When the DARKCORR header keyword is set to perform, the CTE corrected image will use the dark reference file referred to in the DRKCFILE header keyword.
+* In the case of subarray image, the same steps are performed as above after the image has been placed into the correct full-frame reference position since the correction is dependent on the distance of the pixels away from the read-out amplifier.
 
 .. _uvis_raw_data_format:
 
@@ -133,13 +134,13 @@ CTE_VER   version number of cte algorithm [string]
 CTEDATE0  date of wfc3/uvis installation in HST, in modified Julian days (MJD)
 CTEDATE1  reference date of CTE model pinning, in modified Julian days (MJD)
 PCTETLEN  max length of CTE trail
-PCTERNOI  readnoise amplitude for clipping
+PCTERNOI  read-noise amplitude for clipping
 PCTENFOR  number of iterations used in CTE forward modeling
 PCTENPAR  number of iterations used in the parallel transfer
-PCTENSMD  readnoise mitigation algorithm
+PCTENSMD  read-noise mitigation algorithm
 PCTETRSH  over-subtraction threshold
 PCTEFRAC  cte scaling frac calculated from expstart and used in the algorithm
-PCTERNOI  the readnoise clipping level to use
+PCTERNOI  the read-noise clipping level to use
 FIXROCR   make allowance for readout cosmic rays
 ========  ====================================================================
 
