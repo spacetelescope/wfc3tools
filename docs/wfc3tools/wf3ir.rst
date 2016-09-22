@@ -28,7 +28,7 @@ Only those steps with a switch value of PERFORM in the input files
 will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
-Running `wf3ir from a python terminal
+Running `wf3ir` from a python terminal
 =========================================
 
     In Python without TEAL:

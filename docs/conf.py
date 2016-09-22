@@ -327,7 +327,7 @@ latex_show_urls = 'True'
 # latex_appendices = []
 
 # If false, no module index is generated.
-latex_domain_indices = 'True'
+latex_domain_indices = True
 
 
 # -- Options for manual page output ---------------------------------------

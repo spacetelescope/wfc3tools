@@ -165,7 +165,7 @@ where each extension contains the photometry keyword information for that specif
 Conversion to Signal Rate (UNITCORR)
 ------------------------------------
 
-This step converts the science data from a time-integrated signal to a signal rate by dividing the SCI and ERR arrays for reach readout by the TIME array. No reference file is needed. The BUNIT keyword in the output data header reflects the appropriate data units. The FLATCORR keyword is checked to decide on  proper units for BUNIT and skip this step if "countrate" is found. If FLATCORR is set to "complete", then the units should be electrons, otherwise they are counts(the digitized signal from the FPA).
+This step converts the science data from a time-integrated signal to a signal rate by dividing the SCI and ERR arrays for reach readout by the TIME array. No reference file is needed. The BUNIT keyword in the output data header reflects the appropriate data units. The FLATCORR keyword is checked to decide on  proper units for BUNIT and skip this step if "countrate" is found. If FLATCORR is set to "complete", then the units should be electrons, otherwise they are counts (the digitized signal from the FPA).
 
 
 
