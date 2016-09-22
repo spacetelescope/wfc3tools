@@ -46,7 +46,7 @@ or haven't used github before, please feel free to contact `@sosey`.
 Feedback and feature requests?   Is there something missing you would like
 to see?  Please open an issue or send an email to  `@sosey`.
 
-wfc3tools follows the `_Astropy Code of Conduct`_ and strives to provide a
+wfc3tools follows the `Astropy Code of Conduct`_ and strives to provide a
 welcoming community to all of our users and contributors.
 
 Want more information about how to make a contribution?  Take a look at
