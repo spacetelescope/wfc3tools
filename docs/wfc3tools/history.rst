@@ -7,6 +7,9 @@ Software Update History for HSTCAL.CALWF3
 
 .. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
 
+**Updates for Version 3.4 26-Sep-2016 MLS**
+    - Fixed memory allocation around some print statements
+
 **Updates for Version 3.4 20-Sep-2016 MLS**
     - Moved the init for the CTE params back to the top of the code, it had gotten moved below the header update for the information
 

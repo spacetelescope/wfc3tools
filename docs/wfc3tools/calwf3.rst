@@ -16,7 +16,7 @@ Where to Find calwf3
 `calwf3` is part of HSTCAL package, which can be downloaded separately from its GIT repository in the `Spacetelescope <https://github.com/spacetelescope/hstcal>`_ area.  It is also installed along with the STScI distributed package `Astroconda <http://astroconda.readthedocs.io/en/latest/installation.html>`_ .
 
 
-A detailed description of the improved `calwf3`, Version 3.3, which is more generally referred to as the UVIS2.0 update, will be available in a future publication of WFC3 Data Handbook and several ISRs which will accompany the update.
+A detailed description of the improvements in `calwf3 v3.3`, which is more generally referred to as the UVIS2.0 update, can be found in the `February 22, 2016 issue of the STAN <http://www.stsci.edu/hst/wfc3/documents/newsletters/STAN_02_23_2016#STANIssue22-CALWF3Version3.3>`_.
 
 The current WFC3 Data Handbook can be found at  http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/ .
 In the meantime, if you have questions not answered in this documentation, please contact STScI Help Desk (help[at]stsci.edu).
@@ -75,7 +75,7 @@ For example::
 Displaying output from calwf3 in a Jupyter Notebook
 ---------------------------------------------------
 
-When calling `calwf3` from a Jupyter notebook or from the python wrappers, informational text output from the underlying `calwf3.e` program will be passed through `print as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `calwf3`. As output is read from the underlying program, the `calwf3` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `calwf3` to the Python logging system by passing the `logging.debug function or similar.)
+When calling `calwf3` from a Jupyter notebook or from the python wrappers, informational text output from the underlying `calwf3.e` program will be passed through `print as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `calwf3`. As output is read from the underlying program, the `calwf3` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `calwf3` to the Python logging system by passing the `logging.debug` function or similar.)
 
 If log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
