@@ -13,7 +13,7 @@ UVIS Pipleline
 
     Flow diagram for ``calwf3`` data. :ref:`wf3cte` occurs as the very first step, before :ref:`wf3ccd`.
 
-As of version 3.3, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:
+As of `calwf3 v3.3`, the calwf3 pipeline processes all UVIS data twice, once with the CTE correction applied as the first step, and a second time without the CTE correction. A short description of the calibration steps, in the order they are performed:
 
 * Calculate and remove and CTE found in the image (PCTECORR)
 * Calculate a noise model for each pixel and record in the error array (ERR) of the image (NOISCORR)
@@ -94,7 +94,7 @@ Flagging of SINK pixels in the DQ extension of calibrated images is controlled w
 
 `WFC3 ISR 2014-19 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-19.pdf>`_ has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in `WFC3 ISR 2014-22 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-22.pdf>`_ .
 
-Sink pixels are currently only flagged in full frame science images, a future release of `calwf3` will also perform flagging in subarray images.
+Sink pixels are currently only flagged in full frame science images, `calwf3v3.4` will also perform flagging in subarray images.
 **The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels**
 
 
