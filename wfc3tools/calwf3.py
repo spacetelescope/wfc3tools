@@ -45,15 +45,17 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
             call_list.append('-1')
 
         infiles = parseinput.irafglob(input)
+        if len(infiles) == 0:
+            raise IOError("No valid image specified")
         if len(infiles) > 1:
             raise IOError("calwf3 can only accept 1 file for"
-                           "input at a time: {0}".format(infiles))
+                          "input at a time: {0}".format(infiles))
 
-            for image in infiles:
-                if not os.path.exists(image):
-                    raise IOError("Input file not found: {0}".format(image))
-        else:
-            call_list.append(input)
+        for image in infiles:
+            if not os.path.exists(image):
+                raise IOError("Input file not found: {0}".format(image))
+
+        call_list.append(input)
 
         if output:
             call_list.append(str(output))
