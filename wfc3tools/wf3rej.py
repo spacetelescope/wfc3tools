@@ -9,6 +9,8 @@ from .version import __version_date__, __version__
 
 # STSCI
 from stsci.tools import parseinput
+from .util import error_code
+
 try:
     from stsci.tools import teal
     has_teal = True
@@ -26,10 +28,21 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     """call the calwf3.e executable"""
 
     call_list = ["wf3rej.e"]
+    return_code = None
 
-    infiles, dummy_out = parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
-    call_list.append(str(output))
+    infiles = parseinput.irafglob(input)
+    if len(infiles) > 1:
+        raise IOError("wf3ccd can only accept 1 file for "
+                       "input at a time: {0}".format(infiles))
+
+        for image in infiles:
+            if not os.path.exists(image):
+                raise IOError("Input file not found: {0}".format(image))
+    else:
+        call_list.append(input)
+
+    if output:
+        call_list.append(str(output))
 
     if verbose:
         call_list.append("-v")
@@ -96,8 +109,12 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
             log_func(line.decode('utf8'))
 
     return_code = proc.wait()
-    if return_code != 0:
-        raise RuntimeError("wf3rej.e exited with code {}".format(return_code))
+    ec = error_code(return_code)
+    if return_code:
+        if ec is None:
+            print("Unknown return code found!")
+            ec = return_code
+        raise RuntimeError("wf3rej.e exited with code {}".format(ec))
 
 
 def help(file=None):

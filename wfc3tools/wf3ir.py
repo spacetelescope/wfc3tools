@@ -9,6 +9,7 @@ import subprocess
 
 # STSCI
 from stsci.tools import parseinput
+from .util import error_code
 try:
     from stsci.tools import teal
     has_teal = True
@@ -23,12 +24,22 @@ def wf3ir(input, output=None, verbose=False, quiet=True, log_func=print):
     """Call the wf3ir.e executable """
 
     call_list = ['wf3ir.e']
+    return_code = None
 
     if verbose:
         call_list += ['-v', '-t']
 
-    infiles, dummpy_out = parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
+    infiles = parseinput.irafglob(input)
+    if len(infiles) > 1:
+        raise IOError("wf3ir can only accept 1 file for"
+                       "input at a time: {0}".format(infiles))
+
+        for image in infiles:
+            if not os.path.exists(image):
+                raise IOError("Input file not found: {0}".format(image))
+    else:
+        call_list.append(input)
+
     if output:
         call_list.append(str(output))
 
@@ -42,8 +53,12 @@ def wf3ir(input, output=None, verbose=False, quiet=True, log_func=print):
             log_func(line.decode('utf8'))
 
     return_code = proc.wait()
-    if return_code != 0:
-        raise RuntimeError("wf3ir.e exited with code {}".format(return_code))
+    ec = error_code(return_code)
+    if return_code:
+        if ec is None:
+            print("Unknown return code found!")
+            ec = return_code
+        raise RuntimeError("wf3ir.e exited with code {}".format(ec))
 
 
 def run(configobj=None):

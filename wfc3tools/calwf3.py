@@ -24,6 +24,7 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
            log_func=print):
 
     call_list = ['calwf3.e']
+    return_code = None
 
     if version and input is None:
         call_list.append('-r')
@@ -43,12 +44,16 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         if not parallel:
             call_list.append('-1')
 
-        infiles, dummy_out = parseinput.parseinput(input)
-        for image in infiles:
-            if not os.path.exists(image):
-                raise IOError('Input file not found: ' + image)
+        infiles = parseinput.irafglob(input)
+        if len(infiles) > 1:
+            raise IOError("calwf3 can only accept 1 file for"
+                           "input at a time: {0}".format(infiles))
 
-        call_list.append(','.join(infiles))
+            for image in infiles:
+                if not os.path.exists(image):
+                    raise IOError("Input file not found: {0}".format(image))
+        else:
+            call_list.append(input)
 
         if output:
             call_list.append(str(output))
@@ -64,10 +69,11 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
             log_func(line.decode('utf8'))
 
     return_code = proc.wait()
-    ec = None
-    if return_code:
-        ec = error_code(return_code)
-        print(return_code)
+    ec = error_code(return_code)
+    if ec:
+        if ec is None:
+            print("Unknown return code found!")
+            ec = return_code
         raise RuntimeError("calwf3.e exited with code {}".format(ec))
 
 
