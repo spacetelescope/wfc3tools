@@ -60,5 +60,7 @@ def error_code(code=None):
 
     if code is None:
         return codes
-    else:
+    elif code in codes:
         return codes[code]
+    else:
+        return None

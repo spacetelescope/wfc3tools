@@ -6,13 +6,13 @@ import pytest
 from wfc3tools import calwf3
 
 
-def test_no_input():
+def test_no_valid_input():
     """Run a very simple aliveness test."""
-    with pytest.raises(RuntimeError) as e:
+    with pytest.raises(IOError) as e:
         def cal():
             calwf3()
         cal()
-    assert 'ERROR_RETURN' in str(e.value)
+    assert 'No valid image specified' in str(e.value)
 
 
 def test_version_print():

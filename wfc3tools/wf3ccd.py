@@ -9,6 +9,8 @@ import subprocess
 
 # STSCI
 from stsci.tools import parseinput
+from .util import error_code
+
 try:
     from stsci.tools import teal
     has_teal = True
@@ -26,6 +28,7 @@ def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
     """Run the ``wf3ccd.e`` executable as from the shell."""
 
     call_list = ['wf3ccd.e']
+    return_code = None
 
     if verbose:
         call_list += ['-v', '-t']
@@ -45,8 +48,21 @@ def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
     if (flashcorr == "PERFORM"):
         call_list.append('-flash')
 
-    infiles, dummpy_out = parseinput.parseinput(input)
-    call_list.append(','.join(infiles))
+    infiles, dummy = parseinput.parseinput(input)
+    if "_asn" in input:
+        raise IOError("wf3ccd does not accept association tables")
+    if len(parseinput.irafglob(input)) == 0:
+        raise IOError("No valid image specified")
+    if len(parseinput.irafglob(input)) > 1:
+        raise IOError("wf3ccd can only accept 1 file for"
+                      "input at a time: {0}".format(infiles))
+
+    for image in infiles:
+        if not os.path.exists(image):
+            raise IOError("Input file not found: {0}".format(image))
+
+    call_list.append(input)
+
     if output:
         call_list.append(str(output))
 
@@ -60,8 +76,12 @@ def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
             log_func(line.decode('utf8'))
 
     return_code = proc.wait()
+    ec = error_code(return_code)
     if return_code:
-        raise RuntimeError("wf3ccd.e exited with code {}".format(return_code))
+        if ec is None:
+            print("Unknown return code found!")
+            ec = return_code
+        raise RuntimeError("wf3ccd.e exited with code {}".format(ec))
 
 
 def help(file=None):
