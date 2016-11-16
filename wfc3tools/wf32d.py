@@ -49,10 +49,12 @@ def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
     if (photcorr == "PERFORM"):
         call_list.append('-phot')
 
-    infiles = parseinput.irafglob(input)
-    if len(infiles) == 0:
+    infiles, dummy = parseinput.parseinput(input)
+    if "_asn" in input:
+        raise IOError("wf32d does not accept association tables")
+    if len(parseinput.irafglob(input)) == 0:
         raise IOError("No valid image specified")
-    if len(infiles) > 1:
+    if len(parseinput.irafglob(input)) > 1:
         raise IOError("wf32d can only accept 1 file for"
                       "input at a time: {0}".format(infiles))
 

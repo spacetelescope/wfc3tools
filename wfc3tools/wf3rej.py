@@ -30,10 +30,12 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     call_list = ["wf3rej.e"]
     return_code = None
 
-    infiles = parseinput.irafglob(input)
-    if len(infiles) == 0:
+    infiles, dummy = parseinput.parseinput(input)
+    if "_asn" in input:
+        raise IOError("wf3rej does not accept association tables")
+    if len(parseinput.irafglob(input)) == 0:
         raise IOError("No valid image specified")
-    if len(infiles) > 1:
+    if len(parseinput.irafglob(input)) > 1:
         raise IOError("wf3rej can only accept 1 file for"
                       "input at a time: {0}".format(infiles))
 

@@ -29,10 +29,12 @@ def wf3ir(input, output=None, verbose=False, quiet=True, log_func=print):
     if verbose:
         call_list += ['-v', '-t']
 
-    infiles = parseinput.irafglob(input)
-    if len(infiles) == 0:
+    infiles, dummy = parseinput.parseinput(input)
+    if "_asn" in input:
+        raise IOError("wf3ir does not accept association tables")
+    if len(parseinput.irafglob(input)) == 0:
         raise IOError("No valid image specified")
-    if len(infiles) > 1:
+    if len(parseinput.irafglob(input)) > 1:
         raise IOError("wf3ir can only accept 1 file for"
                       "input at a time: {0}".format(infiles))
 
