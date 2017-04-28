@@ -1,3 +1,8 @@
+1.3.5
+-----
+- Documentation-only updates corresponding to calwf3 3.4.1 release
+- travis sphinx install update for testing
+
 1.3.4
 -----
 - bugfix for input string to calwf3 executables
