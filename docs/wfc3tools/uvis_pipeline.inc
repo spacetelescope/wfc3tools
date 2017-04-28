@@ -284,8 +284,14 @@ The new keywords include:
 * PHTFLAM2: The FLAM for UVIS 2
 * PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)
 
+.. note::
 
-In order for FLUXCORR to work properly the value of PHOTCORR must also be set to perform since this populates
-the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
+    In order for FLUXCORR to work properly the value of PHOTCORR must also be set to PERFORM since this populates
+    the header of the data with the keywords FLUXCORR requires to compute the PHTRATIO.
 
 This step is performed by default in the pipeline and the PHOTFLAM keyword will be valid for both chips after the correction has been applied.
+
+
+Cosmic-ray rejection
+--------------------
+Associations with more than one member, which have been associated using either CR-SPLIT or REPEAT-OBS, will be combined using :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure. The DRZ and DRC products will be created from the association, with `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_, which will also correct for geometric distortion.

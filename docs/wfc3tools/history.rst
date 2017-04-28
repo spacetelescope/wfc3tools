@@ -4,8 +4,17 @@
 Software Update History for HSTCAL.CALWF3
 *****************************************
 
-
 .. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
+
+**Updates for Version 3.4.1 10-Apr-2017 - MLS**
+    - Fixed missed init for header vars in cte code
+
+**Updates for Version 3.4.1 02-Apr-2017 - MLS**
+    - Fixed logic brackets in subarray prescan bias call which didn't explicitly do the gain correction in the if loop, see Issue #55
+    - Fixed double statement, see Issue #63
+
+**Updates for Version 3.4.1 27-Mar-2017 - MLS**
+    - Update photometry keyword descriptions for UVIS
 
 **Updates for Version 3.4 26-Sep-2016 MLS**
     - Fixed memory allocation around some print statements

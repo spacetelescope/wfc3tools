@@ -14,9 +14,10 @@ Given an image specified by the user which contains a subarray readout, return t
 Usage
 =====
 
-    >>> python
-    >>> from wfc3tools import sub2full
-    >>> coords=sub2full(filename,x=None, y=None,fullExtent=False)
+.. code-block:: python
+
+    from wfc3tools import sub2full
+    coords=sub2full(filename,x=None, y=None,fullExtent=False)
 
 
 Parameters

@@ -42,27 +42,33 @@ The standalone call will produce a RAC fits file by default. This contains only 
 For more information the the WFC3 CTE please see `the WFC3 CTE webpage <http://www.stsci.edu/hst/wfc3/ins_performance/CTE/>`_ .
 
 Running `wf3cte` from a python terminal
-=========================================
+---------------------------------------
 
-    In Python without TEAL:
+In Python without TEAL:
 
-    >>> from wfc3tools import wf3cte
-    >>> wf3cte(filename)
+.. code-block:: python
 
-    In Python with TEAL:
+    from wfc3tools import wf3cte
+    wf3cte(filename)
 
-    >>> from stsci.tools import teal
-    >>> from wfc3tools import wf3cte
-    >>> teal.teal('wf3cte')
+In Python with TEAL:
 
-    In Pyraf:
+.. code-block:: python
 
-    >>> import wfc3tools
-    >>> epar wf3cte
+    from stsci.tools import teal
+    from wfc3tools import wf3cte
+    teal.teal('wf3cte')
+
+In Pyraf:
+
+.. code-block:: python
+
+    import wfc3tools
+    epar wf3cte
 
 
 Displaying output from wf3ccd in a Jupyter Notebook
-===================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When calling `wf3cte` from a Jupyter notebook, informational text output from the underlying `wf3cte.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3cte`. As output is read from the underlying program, the `wf3cte` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `wf3cte` to the Python logging system by passing the `logging.debug` function or similar.)
 
@@ -70,11 +76,11 @@ If `log_func=None` is passed, informational text output from the underlying prog
 
 
 
-Parameters
-==========
+Input Parameters for the Python interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-    input : str
+    input: str
         Name of input files
             * a single filename (``iaa012wdq_raw.fits``)
             * a Python list of filenames
@@ -82,17 +88,21 @@ Parameters
             * filename of an ASN table (``\*asn.fits``)
             * an at-file (``@input``)
 
-    -1 : value, as in minus one, this will make sure only 1 processor/thread is used during processing, otherwise all available are used.
+    -1: value, as in minus one, this will make sure only 1 processor/thread is used during processing, otherwise all available are used.
 
     verbose: bool, optional
         Print verbose time stamps?
 
 
-**The wf3cte function can also be called directly from the OS command line:**
+Command Line Options for the wf3cte executable
+----------------------------------------------
 
->>> wf3cte.e input  [-options]
+.. code-block:: shell
 
-Where the OS options include:
+    wf3cte.e input  [-options]
+
+
+Where the options include:
 
 * -v: verbose
 * -1: turn off multiprocessing
@@ -149,11 +159,11 @@ The PCTETAB reference file has 4 extensions, two tables and two images:
 
 ::
 
-        Filename: wfc3_cte.fits
+        Filename: zcv2057mi_cte.fits
         No.    Name         Type      Cards   Dimensions   Format
         0    PRIMARY     PrimaryHDU      21   ()
-        1    QPROF       BinTableHDU     16   999R x 3C    ['i', 'i', 'i']
-        2    SCLBYCOL    BinTableHDU     20   8412R x 5C   ['i', 'e', 'e', 'e', 'e']
+        1    QPROF       BinTableHDU     16   999R x 4C    ['i', 'j', 'e', '20A']
+        2    SCLBYCOL    BinTableHDU     20   8412R x 6C   ['i', 'e', 'e', 'e', 'e', '20A']
         3    RPROF       ImageHDU        12   (999, 100)   float32
         4    CPROF       ImageHDU        12   (999, 100)   float32
 
@@ -169,7 +179,7 @@ The fourth extension contains the cumulative CTE trail profile as a function of 
 Output Files
 ------------
 
-If you are running the separate `wf3cte.e` step a _rac.fits file will be output. This the same as a _raw.fits file except the CTE correction has been applied to the data.
+If you are running the separate `wf3cte.e` step a _rac.fits file will be output. This is the same as a _raw.fits file except the CTE correction has been applied to the data.
 
 If the PCTECORR step is set to PEFORM:
 

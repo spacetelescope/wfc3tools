@@ -9,9 +9,11 @@ Given an image specified by the user which contains a subarray readout, return a
 Usage
 =====
 
-    >>> python
-    >>> from wfc3tools import embedsub
-    >>> embedsub(files)
+.. code-block:: python
+
+    python
+    from wfc3tools import embedsub
+    embedsub(files)
 
 
 Parameters
@@ -36,7 +38,6 @@ This is the default output:
 
 ::
 
-
-    > wfc3tools.embedsub.embedsub('ic5p02eeq_flt.fits')
-    > Subarray image section [x1,x2,y1,y2] = [2828:3339,215:726]
-    > Image saved to: ic5p02eef_flt.fits
+    wfc3tools.embedsub.embedsub('ic5p02eeq_flt.fits')
+    Subarray image section [x1,x2,y1,y2] = [2828:3339,215:726]
+    Image saved to: ic5p02eef_flt.fits

@@ -86,7 +86,7 @@ Parameters
 Usage
 =====
 
+.. code-block:: python
 
-    >>> python
-    >>> from wfc3tools import pstack
-    >>> xdata,ydata=pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")
+    from wfc3tools import pstack
+    xdata,ydata=pstack(inputFilename,column=x,row=y,extname="sci",units="counts|rate",title="",ylabel="",xlabel="")

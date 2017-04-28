@@ -105,11 +105,9 @@ Parameters
 Usage
 =====
 
-::
+pstat.py  inputFilename [pixel range]
 
-    pstat.py  inputFilename [pixel range]
+.. code-block:: python
 
-
-    >>> python
-    >>> from wfc3tools import pstat
-    >>> pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="" )
+    from wfc3tools import pstat
+    pstat(inputFilename,extname="sci",units="counts",stat="midpt",title="",xlabel="",ylabel="" )
