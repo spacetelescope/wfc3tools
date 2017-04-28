@@ -6,10 +6,10 @@ IR Pipeline
 
 IR pipeline output files using the RAW file as input:
 
-    * flt.fits: output calibrated, ramp-fitted exposure produced after CRCORR has been run
-    * ima.fits: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents the average flux between that particular readout and the zero read.
-    * _crj.fits: a cosmic-ray rejected sub-product produced from images in an association table
-    * .tra: output text information about the processing
+    * **flt.fits**: output calibrated, ramp-fitted exposure produced after CRCORR has been run
+    * **ima.fits**: output ramp calibrated exposure. Remember that the signal rate recorded in each SCI extension of the ima file represents the average flux between that particular readout and the zero read.
+    * **_crj.fits**: a cosmic-ray rejected sub-product produced from images in an association table
+    * **.tra**: output text information about the processing
 
 
 .. _irflow:
@@ -227,5 +227,8 @@ The min, mean, maxmin and max SNR (for the SCI and ERR) for data values flagged 
 
 Reject cosmic rays from multiple images (RPTCORR)
 -------------------------------------------------
+Reject cosmic rays from multiple images. REPEAT-OBS exposures get combined with :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure. CR-SPLIT is not used for the IR channel. All dithered observation get combined with Astrodrizzle  (see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ ), which will also correct for geometric distortion.
 
-Reject cosmic rays from multiple images. CR-SPLIT and REPEAT-OBS exposures get combined, other members of the association file must be combined with Astrodrizzle  (see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ ), which will also correct for geometric distortion. This step is also referred to as :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure.
+.. warning::
+
+     All WFC3 observations, not just dithered images, need to be processed with AstroDrizzle to correct for geometric distortion and pixel area effects.

@@ -12,42 +12,48 @@ The wf32d primary functions include:
   * FLATCORR: flat-fielding
   * PHOTCORR: photometric keyword calculations
   * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
-  
+
 Only those steps with a switch value of PERFORM in the input files will be executed, after which the switch
 will be set to COMPLETE in the corresponding output files.
 
 Examples
 ========
 
-    In Python without TEAL:
+In Python without TEAL:
 
-    >>> from wfc3tools import wf32d
-    >>> wf32d(filename)
+.. code-block:: python
 
-    In Python with TEAL:
+    from wfc3tools import wf32d
+    wf32d(filename)
 
-    >>> from stsci.tools import teal
-    >>> from wfc3tools import wf32d
-    >>> teal.teal('wf32d')
+In Python with TEAL:
 
-    In Pyraf:
+.. code-block:: python
 
-    >>> import wfc3tools
-    >>> epar wf32d
+    from stsci.tools import teal
+    from wfc3tools import wf32d
+    teal.teal('wf32d')
 
-    
+In Pyraf:
+
+.. code-block:: python
+
+    import wfc3tools
+    epar wf32d
+
+
 
 Parameters
 ==========
 
-    input : str
+    input: str
         Name of input files
 
             * a single filename (``iaa012wdq_raw.fits``)
             * a Python list of filenames
             * a partial filename with wildcards (``\*raw.fits``)
             * filename of an ASN table (``\*asn.fits``)
-            * an at-file (``@input``) 
+            * an at-file (``@input``)
 
     output: str
         Name of the output FITS file.
@@ -69,7 +75,7 @@ Parameters
 
     fluxcorr; str, "PERFORM/OMIT", optional
         Perform chip photometry normalization
-        
+
     verbose: bool, optional
         Print verbose time stamps?
 
@@ -77,11 +83,16 @@ Parameters
         Print messages only to trailer file?
 
 
-**The wf32d function can also be called directly from the OS command line:**
+Command Line Options for the wf32d executable
+=============================================
 
->>> wf32d.e input output [-options]
+.. code-block:: shell
 
-Where the OS options include:
+    wf32d.e input output [-options]
+
+input may be a single filename
+
+Where the options include:
 
 * -v: verbose
 * -f: print time stamps

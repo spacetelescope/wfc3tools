@@ -49,10 +49,10 @@ matrix:
 
     # Test Documentation Builds
     - python: 2.7
-      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib'
+      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib' PIP_DEPENDENCIES='sphinx_rtd_theme git+https://github.com/spacetelescope/stsci.tools.git'
 
     - python: 3.5
-      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib'
+      env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib' PIP_DEPENDENCIES='sphinx_rtd_theme git+https://github.com/spacetelescope/stsci.tools.git'
 
     # Try Astropy development and LTS versions
     - python: 2.7
