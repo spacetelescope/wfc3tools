@@ -1,14 +1,13 @@
-from __future__ import division
-from __future__ import print_function
+from __future__ import division, print_function
 
 # get the auto update version
-from .version import __version_date__,__version__
+from .version import __version_date__, __version__
 
 # STDLIB
 import os
 from astropy.io import fits
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from scipy.stats import mode as mode
 
 # STSCI
@@ -16,6 +15,7 @@ from stsci.tools import teal
 
 __taskname__ = "pstat"
 
+plt.ion()
 
 def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
           xlabel=None, ylabel=None, plot=True):
@@ -152,6 +152,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
                                                             xend, ystart, yend)
         plt.title(title)
         plt.plot(xaxis, yaxis, "+")
+        plt.draw()
 
     return xaxis, yaxis
 
