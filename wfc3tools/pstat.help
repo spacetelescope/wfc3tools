@@ -92,6 +92,10 @@ Parameters:
 
 * plot = True [bool]  set plot to false if you only want the data returned
 
+* overplot = False [bool] 
+   If True, the results will be overplotted on the previous plot
+   
+
 Usage:
 
 ::
