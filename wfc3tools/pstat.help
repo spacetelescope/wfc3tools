@@ -68,6 +68,7 @@ Parameters:
 
 * extname = "sci" [string, allowed values: sci | err | dq ]
     Extension name (EXTNAME keyword value) of data to plot.
+
 * units = "counts" [string, allowed values: counts | rate]
     Plot "sci" or  "err"  data  in  units  of  counts  or  countrate
     ("rate").   Input data can be in either unit; conversion will be
@@ -77,10 +78,19 @@ Parameters:
 * stat = "midpt" [string, allowed values: mean|midpt|mode|stddev|min|max]
     Type of statistic to compute.
 
-* mask = `numpy.ndarray` (bool), optional
+* mask = None [`numpy.ndarray` (bool), optional]
     A boolean mask with the same shape as ``data``, where a `True`
     value indicates the corresponding element of ``data`` is masked.
     Masked pixels are excluded when computing the statistics.
+
+* low_limit = None [float, (optional)]
+       If set, the statistics will be calculated using only pixels that are
+       above this value.
+
+*  high_limit = None [float, (optional)]
+       If set, the statistics will be calculated using only pixels that are
+       below this value.
+
 
 * title = "" [string]
    Title  for  the  plot.   If  left  blank,  the name of the input
