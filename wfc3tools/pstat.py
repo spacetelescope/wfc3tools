@@ -15,10 +15,10 @@ from stsci.tools import teal
 
 __taskname__ = "pstat"
 
-plt.ion()
+#plt.ion()
 
 def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
-          xlabel=None, ylabel=None, plot=True):
+          xlabel=None, ylabel=None, plot=True, overplot=False):
     """A function to plot the statistics of one or more pixels up an IR ramp.
 
     Pixel values here are 0 based, not 1 based """
@@ -127,7 +127,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
                 yaxis[i-1] *= exptime
 
     if plot:
-        plt.clf()  # clear out any current plot
+        if not overplot: plt.clf()  # clear out any current plot
         if not ylabel:
             if "rate" in units.lower():
                 if "/" in bunit.lower():
