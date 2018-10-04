@@ -43,7 +43,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
     stat: { "mean", "midpt", "mode", "stddev", "min", "max"}
        Type of statistic to compute.
 
-   mask: `numpy.ndarray` (bool), optional
+    mask: `numpy.ndarray` (bool), optional
        A boolean mask with the same shape as ``data``, where a `True`
        value indicates the corresponding element of ``data`` is masked.
        Masked pixels are excluded when computing the statistics.
