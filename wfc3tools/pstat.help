@@ -77,6 +77,11 @@ Parameters:
 * stat = "midpt" [string, allowed values: mean|midpt|mode|stddev|min|max]
     Type of statistic to compute.
 
+* mask = `numpy.ndarray` (bool), optional
+    A boolean mask with the same shape as ``data``, where a `True`
+    value indicates the corresponding element of ``data`` is masked.
+    Masked pixels are excluded when computing the statistics.
+
 * title = "" [string]
    Title  for  the  plot.   If  left  blank,  the name of the input
    image, appended with the extname and image section, is used.

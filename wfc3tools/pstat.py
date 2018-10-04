@@ -18,8 +18,8 @@ __taskname__ = "pstat"
 plt.ion()
 
 
-def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
-          xlabel=None, ylabel=None, plot=True, overplot=False):
+def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
+          title=None, xlabel=None, ylabel=None, plot=True, overplot=False):
     """A function to plot the statistics of one or more pixels up an IR ramp.
 
     Parameters
@@ -43,6 +43,11 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
     stat: { "mean", "midpt", "mode", "stddev", "min", "max"}
        Type of statistic to compute.
 
+   mask: `numpy.ndarray` (bool), optional
+       A boolean mask with the same shape as ``data``, where a `True`
+       value indicates the corresponding element of ``data`` is masked.
+       Masked pixels are excluded when computing the statistics.
+
     title: str
        Title  for  the  plot.   If  left  blank,  the name of the input image,
        appended with the extname and image section, is used.
@@ -63,10 +68,10 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
 
     Returns
     -------
-    xaxis: numpy.ndarray
+    xaxis: `numpy.ndarray`
        Array of x-axis values that will be plotted
 
-    yaxis: numpuy.ndarray
+    yaxis: `numpuy.ndarray`
        Array of y-axis values that will be plotted as specified by 'units'
 
 
@@ -150,24 +155,27 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
             yend = myfile[1].header["NAXIS2"]  # full y size
 
         for i in range(1, nsamp, 1):
+            data = myfile[extname.upper(), i].data[xstart:xend, ystart:yend]
+            if mask is not None:
+                data = data[~mask[xstart:xend, ystart:yend]]
+
             if "midpt" in stat:
-                yaxis[i-1] = np.median(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.median(data)
 
             if "mean" in stat:
-                yaxis[i-1] = np.mean(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.mean(data)
 
             if "mode" in stat:
-                yaxis[i-1] = mode(myfile[extname.upper(),i].data[xstart:xend, ystart:yend],
-                                    axis=None)[0]
+                yaxis[i-1] = mode(data, axis=None)[0]
 
             if "min" in stat:
-                yaxis[i-1] = np.min(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.min(data)
 
             if "max" in stat:
-                yaxis[i-1] = np.max(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.max(data)
 
             if "stddev" in stat:
-                yaxis[i-1] = np.std(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.std(data)
 
             exptime = myfile["SCI", i].header['SAMPTIME']
             xaxis[i-1] = exptime
