@@ -83,8 +83,8 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
         imagename = filename
     elif (section_start > 0):
         imagename = filename[:section_start]
-        if (filename[section_start + 1].isalpha()):
-            print(filename[section_start + 1])
+        if (filename[section_start+1].isalpha()):
+            print(filename[section_start+1])
             print("Please only specify a pixel range, not an extension \
                    in the filename")
             return 0, 0
@@ -103,10 +103,10 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
     # use the entire image if no section specified
     if not all_pixels:
         # pull the section off
-        section = filename[section_start + 1:-1]
+        section = filename[section_start+1:-1]
         comma = section.find(",")
         xsec = section[:comma]
-        ysec = section[comma + 1:]
+        ysec = section[comma+1:]
         xs = xsec.find(":")
         if xs < 0:
             print("Invalid image section specified")
@@ -117,7 +117,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
             print("Problem getting xstart")
             return
         try:
-            xend = int(xsec[xs + 1:])
+            xend = int(xsec[xs+1:])
         except ValueError:
             print("Problem getting xend")
             return
@@ -132,7 +132,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
             print("Problems getting ystart")
             return
         try:
-            yend = int(ysec[ys + 1:])
+            yend = int(ysec[ys+1:])
         except ValueError:
             print("Problem getting yend")
             return
@@ -151,40 +151,33 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
 
         for i in range(1, nsamp, 1):
             if "midpt" in stat:
-                yaxis[i - 1] = np.median(myfile[extname.upper(),
-                                                i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.median(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
 
             if "mean" in stat:
-                yaxis[i - 1] = np.mean(myfile[extname.upper(),
-                                              i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.mean(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
 
             if "mode" in stat:
-                yaxis[i - 1] = mode(myfile[extname.upper(),
-                                           i].data[xstart:xend,
-                                                   ystart:yend],
+                yaxis[i-1] = mode(myfile[extname.upper(),i].data[xstart:xend, ystart:yend],
                                     axis=None)[0]
 
             if "min" in stat:
-                yaxis[i - 1] = np.min(myfile[extname.upper(),
-                                             i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.min(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
 
             if "max" in stat:
-                yaxis[i - 1] = np.max(myfile[extname.upper(),
-                                             i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.max(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
 
             if "stddev" in stat:
-                yaxis[i - 1] = np.std(myfile[extname.upper(),
-                                             i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.std(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
 
             exptime = myfile["SCI", i].header['SAMPTIME']
-            xaxis[i - 1] = exptime
+            xaxis[i-1] = exptime
 
             # convert to countrate
             if "rate" in units.lower() and "/" not in bunit.lower():
-                yaxis[i - 1] /= exptime
+                yaxis[i-1] /= exptime
             # convert to counts
             if "counts" in units.lower() and "/" in bunit.lower():
-                yaxis[i - 1] *= exptime
+                yaxis[i-1] *= exptime
 
     if plot:
         if not overplot:
