@@ -19,7 +19,8 @@ plt.ion()
 
 
 def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
-          title=None, xlabel=None, ylabel=None, plot=True, overplot=False):
+          low_limit = None, high_limit = None, title=None, xlabel=None,
+          ylabel=None, plot=True, overplot=False):
     """A function to plot the statistics of one or more pixels up an IR ramp.
 
     Parameters
@@ -47,6 +48,14 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
        A boolean mask with the same shape as ``data``, where a `True`
        value indicates the corresponding element of ``data`` is masked.
        Masked pixels are excluded when computing the statistics.
+
+    low_limit: float, (optional)
+       If set, the statistics will be calculated using only pixels that are
+       above this value.
+
+    high_limit: float, (optional)
+       If set, the statistics will be calculated using only pixels that are
+       below this value.
 
     title: str
        Title  for  the  plot.   If  left  blank,  the name of the input image,
@@ -156,8 +165,20 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
 
         for i in range(1, nsamp, 1):
             data = myfile[extname.upper(), i].data[xstart:xend, ystart:yend]
+
+            # mask the data and remove outlyier values
             if mask is not None:
                 data = data[~mask[xstart:xend, ystart:yend]]
+
+            if high_limit is not None:
+                data = data[data < high_limit]
+
+            if low_limit is not None:
+                data = data[data > low_limit]
+
+            if data.size == 0:
+                print("No valid pixels in ext {} of {}".format(i, imagename))
+                return xaxis, yaxis
 
             if "midpt" in stat:
                 yaxis[i-1] = np.median(data)
