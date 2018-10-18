@@ -52,13 +52,13 @@ def make_flattened_ramp_flt(raw_file,
 	-----------
 	raw_file : string
 		Full path to raw file.
-	stats : string
-		Type of statistic to calculate and subtract (median or mean). Defaults to median. 
-	sigma : int
-		If 'stats' is mean, integer sigma for sigma clipping 
 	stats_subregion : tuple
 		Tuple of ((xmin, xmax), (ymin, ymax)) to specify region for average calculation.
 		Defaults to whole image, excluding the 5-pixel overscan region.
+	outfile : str
+		output file name. Defaults to original file rootnames with 'flt'
+	verbose : bool
+		*** This flag requires a not yet implemented fix in calwf3. 
 		
 	Outputs
 	--------
