@@ -31,6 +31,7 @@ def _reprocess_raw_crcorr(raw_file):
 	if verbose == True:
 		print('Generating initial IMA')
 	calwf3(raw_file, verbose = verbose)
+	
 def make_flattened_ramp_flt(raw_file, 
 							stats_subregion = None, outfile = None, verbose = False):
 
@@ -141,55 +142,6 @@ def make_flattened_ramp_flt(raw_file,
 		if '_ima' in f:
 			print(f,f.replace('_ima','',1))
 			os.rename(f,f.replace('_ima','',1))
-	
-# def ir_satmask(raw_file, region_filename, imset):
-#     """
-#     Mask satellite trails in the DQ array of individual IMA read.
-# 
-#     Note that if the raw file is part of an association, the .asn file must be
-#     in the same directory as the raw file.
-# 
-#     Parameters
-#     ----------
-#     raw_input : str
-#         Input raw file to be sattelite corrected
-# 
-#     region_filename: str
-#         Input region file name. Expecting DS9 style region file
-# 
-#     imset: int
-#         Imset (Read number) that needs to be satellite corrected.
-# 
-#     """
-#     
-# 	orig_raw_path = raw_file
-# 	basename_raw = os.path.basename(orig_raw_path)
-# 	os.rename(raw_file, raw_file.replace(basename_raw,'flattened_'+basename_raw))
-# 	raw_file = raw_file.replace(basename_raw,'flattened_'+basename_raw)
-# 	raw_hdu = fits.open(raw_file, mode = 'update')
-# 	### if raw file is part of an asn, assert that .asn is in same directory as .raw
-# 	asn_tab = raw_hdu[0].header['ASN_TAB']
-# 	if asn_tab != '':
-# 		if not os.path.isfile(asn_tab):
-# 			raise OSError("{} must be in same directory as raw file.".format(asn_tab))
-# 	### generate ima file with CRCORR set to OMIT 
-# 	orig_setting = raw_hdu[0].header['CRCORR']
-# 	raw_hdu[0].header['CRCORR'] = 'OMIT'	
-# 	raw_hdu.close()
-# 	if verbose == True:
-# 		print('Removing existing calwf3 outputs for {}'.format(raw_file))
-# 	### remove existing files with same name
-# 	for ext in ['flt','ima']:
-# 		if os.path.isfile(raw_file.replace('raw',ext)):
-# 			os.remove(raw_file.replace('raw',ext))
-# 	if os.path.isfile(raw_file.replace('_raw.fits','.tra')):
-# 		os.remove(raw_file.replace('_raw.fits','.tra'))
-# 	### run calwf3
-# 	if verbose == True:
-# 		print('Generating initial IMA')
-# 	calwf3(raw_file, verbose = verbose)
-# 	
-	
 	
 	
 	
