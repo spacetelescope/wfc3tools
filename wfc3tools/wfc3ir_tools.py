@@ -130,8 +130,9 @@ def make_flattened_ramp_flt(raw_file, stats_subregion = None, stats_method = 'me
 			raise ValueError('sigma_clip = False, but parameters {} were set'.\
 								format(true_params))
 	else:
-		if not sigma:
-			raise ValueError('sigma_clipping = True, parameter sigma must be provided')
+		if not (sigma):
+			if not (sigma_upper and sigma_lower):
+				raise ValueError('Must set sigma, or both sigma_upper and sigma_lower.')
 					
 	starting_path = os.getcwd()
 	basename_raw = os.path.basename(raw_file)
@@ -139,7 +140,8 @@ def make_flattened_ramp_flt(raw_file, stats_subregion = None, stats_method = 'me
 	raw_hdu = fits.open(raw_file, mode = 'update')
 
 	### must work in pwd for calwf3 
-	os.chdir(path_raw)
+	if path_raw != '':
+		os.chdir(path_raw)
 	### run calwf3 w/ CRCORR off on raw to make ima
 	_reprocess_raw_crcorr(basename_raw)
 	
@@ -178,4 +180,5 @@ def make_flattened_ramp_flt(raw_file, stats_subregion = None, stats_method = 'me
 		if ('_ima_' in f) or ('.tra' in f):
 			os.rename(f,f.replace('_ima','',1))
 
-	os.chdir(starting_path)
+	if path_raw != '':
+		os.chdir(starting_path)
