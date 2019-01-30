@@ -64,7 +64,7 @@ If you want to save the plotting data into the variables ``time`` and ``counts``
 Parameters:
 
 * filename [file]
-    Input   MultiAccum   image  name  with  optional  image  section  specification.  If no image section  is  specified,  the  entire image  is  used.   This  should  be  either a _raw or _ima file, containing all  the  data  from  multiple  readouts.   You  must specify  just  the  file name and image section, with no extname designation.
+    Input   MultiAccum   image  name  with  optional  image  section  specification.  If no image section  is  specified,  the  entire image  is  used.   This  should  be  either a _raw or _ima file, containing all  the  data  from  multiple  readouts.   You  must specify  just  the  file name and image section, with no extname designation.  Note that the image section must be specified in `[row_start:row_end, col_start:col_end]` order due to numpy array indexing.
 
 * extname = "sci" [string, allowed values: sci | err | dq ]
     Extension name (EXTNAME keyword value) of data to plot.
@@ -90,10 +90,15 @@ Parameters:
    default based on the plot units and the extname of the  data  is
    generated.
 
-* plot = True [bool]  set plot to false if you only want the data returned
+* plot = True [bool]  
+   Set plot to false if you only want the data returned
 
 * overplot = False [bool] 
    If True, the results will be overplotted on the previous plot
+   
+* diff = False [bool]
+   If True, compute difference between reads for statistic. Computing 
+   the difference returns NSAMP-1 points.
    
 
 Usage:

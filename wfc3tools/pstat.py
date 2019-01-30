@@ -19,9 +19,8 @@ plt.ion()
 
 
 def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
-          xlabel=None, ylabel=None, plot=True, overplot=False):
+          xlabel=None, ylabel=None, plot=True, overplot=False, diff=False):
     """A function to plot the statistics of one or more pixels up an IR ramp.
-
     Parameters
     ----------
     filename: string
@@ -30,46 +29,37 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
        is  used.   This  should  be  either a _raw or _ima file, containing all
        the  data  from  multiple  readouts.   You  must specify  just  the
        file name and image section, with no extname designation.
-
     extname:  {"sci", "err", "dq"}
        Extension name (EXTNAME keyword value) of data to plot.
-
     units: {"counts", "rate"}
        Plot "sci" or  "err"  data  in  units  of  counts  or  countrate
        ("rate").   Input data can be in either unit; conversion will be
        performed automatically.  Ignored when  plotting  "dq",  "samp", or
        "time" data.
-
     stat: { "mean", "midpt", "mode", "stddev", "min", "max"}
        Type of statistic to compute.
-
     title: str
        Title  for  the  plot.   If  left  blank,  the name of the input image,
        appended with the extname and image section, is used.
-
     xlabel: str
        Label for the X-axis of the plot.  If  left  blank,  a  suitable default
        is generated.
-
     ylabel: str
        Label  for  the  Y-axis  of  the plot. If left blank, a suitable default
        based on the plot units and the extname of the  data  is generated.
-
     plot: Bool
        Set plot to false if you only want the data returned
-
     overplot: Bool
        If True, the results will be overplotted on the previous plot
-
+    diff: Bool
+        If true compute difference between reads for statistic. Computing the
+        difference returns NSAMP-1 points.
     Returns
     -------
     xaxis: numpy.ndarray
        Array of x-axis values that will be plotted
-
     yaxis: numpuy.ndarray
        Array of y-axis values that will be plotted as specified by 'units'
-
-
     Notes
     -----
     Pixel values here are 0 based, not 1 based
@@ -179,6 +169,18 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
             if "counts" in units.lower() and "/" in bunit.lower():
                 yaxis[i-1] *= exptime
 
+    if diff:
+        if "counts" in units.lower():
+            yaxis = np.diff(yaxis) * -1
+            xaxis = xaxis[:-1]
+        elif "rate" in units.lower():
+            total = yaxis * xaxis
+            dtotal = np.diff(total) * -1
+            dtime = np.diff(xaxis) * -1
+            drate = dtotal/dtime
+            yaxis = drate
+            xaxis = xaxis[:-1]
+
     if plot:
         if not overplot:
             plt.clf()  # clear out any current plot
@@ -204,6 +206,8 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
         if not title:
             title = "%s   Pixel stats for [%d:%d,%d:%d]" % (filename, xstart,
                                                             xend, ystart, yend)
+            if diff:
+                title = title.replace('Pixel ', 'Pixel Differential ')
         plt.title(title)
         plt.plot(xaxis, yaxis, "+")
         plt.draw()
@@ -231,7 +235,6 @@ def getHelpAsString(docstring=False):
 def help(file=None):
     """
     Print out syntax help for running wf3ir
-
     """
 
     helpstr = getHelpAsString(docstring=True)
