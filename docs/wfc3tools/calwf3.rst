@@ -4,7 +4,7 @@ calwf3
 ******
 
 
-`calwf3` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code is organized into subtaks that the main `calwf3` calls appropriatly. Users may run the subtasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the UVIS pipeline as a whole, while :num:`Figure#irflow` contains the flow for the IR pipeline.
+`calwf3` is the name of the  main executable which processes data from the WFC3 instrument onboard Hubble taken with either the UVIS or IR detectors. The code is organized into subtasks that the main `calwf3` calls appropriately. Users may run the subtasks independently if they desire special processing for their datasets. :ref:`wf3cte`, :ref:`wf3ccd` and :ref:`wf32d` are used for processing UVIS images, while IR image processing is done with :ref:`wf3ir`. The :ref:`wf3rej` program is used for both UVIS and IR images to combine multiple exposures contained in a CR-SPLIT or REPEAT-OBS set. :num:`Figure#calflow` is the flow diagram for the UVIS pipeline as a whole, while :num:`Figure#irflow` contains the flow for the IR pipeline.
 
 .. note::
 
@@ -40,7 +40,7 @@ You may also submit a github issue for either the HSTCAL or WFC3TOOLs repositori
 Running calwf3
 ==============
 
-`calwf3` can be run on a single input raw file or an asn table listing the members of an associtaion.
+`calwf3` can be run on a single input raw file or an asn table listing the members of an association.
 When processing an association, it retrieves calibration switch and reference file keyword settings from
 the first image listed in the asn table. `calwf3` does not accept a user-defined list of input images on the
 command line (e.g. ``*raw.fits`` to process all raw files in the current directory).
@@ -190,7 +190,7 @@ EXP-CRn   An input CR-SPLIT exposure for CR-combined image n (multiple sets)
 PROD-CRJ  CR-combined output product from a single set
 PROD-CRn  CR-combined output product n from multiple sets
 EXP-RPT   An input REPEAT-OBS exposure for a single set
-EXP-RPn   An input REPEAT-OBS expsosure for repeated image n
+EXP-RPn   An input REPEAT-OBS exposure for repeated image n
 PROD-RPT  An output product for a REPEAT-OBS combined single set
 PROD-RPn  REPEAT-OBS combined output product n from multiple sets
 EXP-DTH   An input dithered exposure
@@ -320,8 +320,8 @@ Keyword Usage
 
 Using CRDS to update your reference files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-CRDS is the reference file managment software used by STSCI for organizing and assiging reference files to datasets.
-Users can querry CRDS to get the best references files for their data at hand. The following link details how you
+CRDS is the reference file management software used by STSCI for organizing and assigning reference files to datasets.
+Users can query CRDS to get the best references files for their data at hand. The following link details how you
 can use this locally : `Using CRDS to find the best reference files for your data <https://hst-crds.stsci.edu/bestrefs/>`_
 
 
