@@ -166,7 +166,7 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
         for i in range(1, nsamp, 1):
             data = myfile[extname.upper(), i].data[xstart:xend, ystart:yend]
 
-            # mask the data and remove outlyier values
+            # mask the data and remove outlier values
             if mask is not None:
                 data = data[~mask[xstart:xend, ystart:yend]]
 
@@ -182,20 +182,15 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
 
             if "midpt" in stat:
                 yaxis[i-1] = np.median(data)
-
-            if "mean" in stat:
+            elif "mean" in stat:
                 yaxis[i-1] = np.mean(data)
-
-            if "mode" in stat:
-                yaxis[i-1] = mode(data, axis=None)[0]
-
-            if "min" in stat:
+            elif "mode" in stat:
+                yaxis[i-1] = mode(data, axis=None)[0]=
+            elif "min" in stat:
                 yaxis[i-1] = np.min(data)
-
-            if "max" in stat:
+            elif "max" in stat:
                 yaxis[i-1] = np.max(data)
-
-            if "stddev" in stat:
+            elif "stddev" in stat:
                 yaxis[i-1] = np.std(data)
 
             exptime = myfile["SCI", i].header['SAMPTIME']
