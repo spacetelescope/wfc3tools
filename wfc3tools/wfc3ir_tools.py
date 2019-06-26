@@ -23,12 +23,17 @@ def _reprocess_raw_crcorr(raw_file):
 	raw_hdu[0].header['CRCORR'] = 'OMIT'	
 	raw_hdu.close()
 	
-	### if part of an association, assert .ASN is in same directory as .RAW
-	### catch error now - later the .ima won't run though the pipeline without the .asn.
+	## if part of an association, assert .ASN is in same directory as .RAW
+	## catch error now - later the .ima won't run though the pipeline without the .asn.
 	asn_tab = raw_hdu[0].header['ASN_TAB']
-	if asn_tab != '':
-		if not os.path.isfile(asn_tab):
-			raise OSError("{} must be in same directory as raw file.".format(asn_tab))
+	if asn_tab == 'NONE': #make dummy asn table. remove this clause once calwf3 is patched
+		new_asn_tab = np.rec.array([(os.path.basename(raw_file)[0:9],'EXP-DTH', 1)], formats = 'S14,S14,i1', names='MEMNAME,MEMTYPE,MEMPRSNT')
+		hdu_1 = fits.BinTableHDU(new_asn_tab)
+		none_hdu_list = fits.HDUList([fits.open(raw_file)[0], hdu_1])
+		none_hdu_list.writeto('NONE')
+
+	if not os.path.isfile(asn_tab):
+		raise OSError("{} must be in same directory as raw file.".format(asn_tab))
 
 	### remove existing 'temp' files from previous run with same name, if they exist
 	exts = ['flt','flc','ima']
