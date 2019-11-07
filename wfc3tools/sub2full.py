@@ -1,4 +1,4 @@
-from __future__ import division, print_function  
+from __future__ import division, print_function
 
 # get the auto update version
 from .version import __version_date__, __version__
@@ -12,10 +12,11 @@ __taskname__ = "sub2full"
 
 
 def sub2full(filename, x=None, y=None, fullExtent=False):
-    """ 
+    """
     Given an image specified by the user which contains a subarray readout,
-    returns the location of the corner of the subarray in a full frame reference 
-    image (including the full physical extent of the chip) in 1-indexed pixels.
+    returns the location of the corner of the subarray in a full-frame
+    reference image (including the full physical extent of the chip) in
+    1-indexed pixels.
 
     If the user supplies an X and Y coordinate, then the translated location of
     that point will be returned.
@@ -23,21 +24,21 @@ def sub2full(filename, x=None, y=None, fullExtent=False):
     Parameters
     -----------
     filename : str or list of str
-        Input image or list of input images. This function requires that for 
+        Input image or list of input images. This function requires that for
         each file in ``filename``, the associated SPT file must be in the same
-        directory. 
+        directory.
     x, y : None, int (optional)
-        Specify an x/y coordinate in the subarray to translate. If an x and y 
-        are specified, the ``fullExtent`` option is turned off and only the 
+        Specify an x/y coordinate in the subarray to translate. If an x and y
+        are specified, the ``fullExtent`` option is turned off and only the
         translated x,y coords are returned.
     fullExtent : bool (Default = False, optional)
-        If set, the returned values will include the full extent of the 
+        If set, the returned values will include the full extent of the
         subarray in the reference image, for example: (x0,x1,y0,y1).
 
     Returns
     -------
     coords : tuple or list of tuples
-        A list of tuples which specify the translated coordinates, either 
+        A list of tuples which specify the translated coordinates, either
         (x0,y0) for each image or the full extent sections.
     """
 
@@ -49,7 +50,8 @@ def sub2full(filename, x=None, y=None, fullExtent=False):
 
     for f in infiles:
 
-        spt = os.path.join(os.path.dirname(f), os.path.basename(f)[0:9] + '_spt.fits')
+        spt = os.path.join(os.path.dirname(f), os.path.basename(f)[0:9] +
+                           '_spt.fits')
         uvis_x_size = 2051
         serial_over = 25.0
         ir_overscan = 5.0
