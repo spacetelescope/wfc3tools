@@ -20,7 +20,8 @@ def sub2full(filename, x=None, y=None, fullExtent=False):
     coords = list()
 
     for f in infiles:
-        spt = f[0:9] + '_spt.fits'
+
+        spt = os.path.join(os.path.dirname(f), os.path.basename(f)[0:9] + '_spt.fits')
         uvis_x_size = 2051
         serial_over = 25.0
         ir_overscan = 5.0
