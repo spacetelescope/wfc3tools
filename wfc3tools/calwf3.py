@@ -9,15 +9,6 @@ from .version import __version_date__, __version__
 from stsci.tools import parseinput
 from .util import error_code
 
-try:
-    from stsci.tools import teal
-    has_teal = True
-except ImportError:
-    has_teal = False
-    print("Teal not available")
-
-__taskname__ = "calwf3"
-
 
 def calwf3(input=None, output=None, printtime=False, save_tmp=False,
            verbose=False, debug=False, parallel=True, version=False,
