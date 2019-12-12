@@ -110,8 +110,6 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
     call_list = ['calwf3.e']
     return_code = None
 
-    if version and input is None:
-        call_list.append('-r')
     else:
         if printtime:
             call_list.append('-t')
