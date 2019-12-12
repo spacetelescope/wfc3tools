@@ -1,15 +1,10 @@
-from __future__ import absolute_import, division, print_function
-
-# get the auto update version
 from .version import __version__, __version_date__
 from .sub2full import sub2full
 
-# STDLIB
 from astropy.io import fits
 import os
 import numpy
 
-# STSCI
 from stsci.tools import parseinput
 from stsci.tools import teal
 

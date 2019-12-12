@@ -1,5 +1,3 @@
-from __future__ import division, print_function
-
 # get the auto update version
 from .version import __version_date__, __version__
 

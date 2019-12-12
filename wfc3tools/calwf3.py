@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 # STDLIB
 import os.path
 import subprocess

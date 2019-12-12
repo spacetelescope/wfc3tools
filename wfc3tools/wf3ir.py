@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 # get the auto update version for the call to teal help
 from .version import __version_date__, __version__
 

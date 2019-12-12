@@ -1,5 +1,3 @@
-from __future__ import absolute_import, print_function, division
-
 # get the auto update version for the call to  help
 from .version import __version__, __version_date__
 
