@@ -1,9 +1,11 @@
-# STDLIB
+
+# Licensed under a 3-clause BSD style license - see LICENSE.rst
+
+
 import os.path
 import subprocess
 from .version import __version_date__, __version__
 
-# STSCI
 from stsci.tools import parseinput
 from .util import error_code
 
