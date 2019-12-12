@@ -139,9 +139,6 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
 
         call_list.append(input)
 
-        if output:
-            call_list.append(str(output))
-
     proc = subprocess.Popen(
         call_list,
         stderr=subprocess.STDOUT,
