@@ -1,8 +1,8 @@
-language: c
+language: python
 
 python:
-  - 3.5
   - 3.6
+  - 3.7
 
 os:
   - linux
@@ -22,7 +22,7 @@ addons:
 env:
     global:
         # SET DEFAULTS TO AVOID REPEATING IN MOST CASES
-        - PYTHON_VERSION=3.5
+        - PYTHON_VERSION=3.7
         - NUMPY_VERSION=stable
         - ASTROPY_VERSION=stable
         - CONDA_CHANNELS='http://ssb.stsci.edu/astroconda'
@@ -48,15 +48,15 @@ matrix:
   include:
 
     # Test Documentation Builds
-    - python: 3.5
+    - python: 3.7
       env: SETUP_CMD='build_sphinx' CONDA_DEPENDENCIES='ipython scipy matplotlib' PIP_DEPENDENCIES='sphinx_rtd_theme git+https://github.com/spacetelescope/stsci.tools.git'
 
     # Try Astropy development and LTS versions
-    - python: 3.5
+    - python: 3.7
       env: ASTROPY_VERSION=development
 
     # Try older numpy versions
-    - python: 3.5
+    - python: 3.7
       env: NUMPY_VERSION=1.14
 
 
