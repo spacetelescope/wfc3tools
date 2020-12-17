@@ -18,8 +18,9 @@ __taskname__ = "pstat"
 plt.ion()
 
 
-def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
-          xlabel=None, ylabel=None, plot=True, overplot=False):
+def pstat(filename, extname="sci", units="counts", stat="midpt", mask=None,
+          low_limit = None, high_limit = None, title=None, xlabel=None,
+          ylabel=None, plot=True, overplot=False):
     """A function to plot the statistics of one or more pixels up an IR ramp.
 
     Parameters
@@ -43,6 +44,19 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
     stat: { "mean", "midpt", "mode", "stddev", "min", "max"}
        Type of statistic to compute.
 
+    mask: `numpy.ndarray` (bool), optional
+       A boolean mask with the same shape as ``data``, where a `True`
+       value indicates the corresponding element of ``data`` is masked.
+       Masked pixels are excluded when computing the statistics.
+
+    low_limit: float, (optional)
+       If set, the statistics will be calculated using only pixels that are
+       above this value.
+
+    high_limit: float, (optional)
+       If set, the statistics will be calculated using only pixels that are
+       below this value.
+
     title: str
        Title  for  the  plot.   If  left  blank,  the name of the input image,
        appended with the extname and image section, is used.
@@ -63,10 +77,10 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
 
     Returns
     -------
-    xaxis: numpy.ndarray
+    xaxis: `numpy.ndarray`
        Array of x-axis values that will be plotted
 
-    yaxis: numpuy.ndarray
+    yaxis: `numpuy.ndarray`
        Array of y-axis values that will be plotted as specified by 'units'
 
 
@@ -150,24 +164,34 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
             yend = myfile[1].header["NAXIS2"]  # full y size
 
         for i in range(1, nsamp, 1):
+            data = myfile[extname.upper(), i].data[xstart:xend, ystart:yend]
+
+            # mask the data and remove outlier values
+            if mask is not None:
+                data = data[~mask[xstart:xend, ystart:yend]]
+
+            if high_limit is not None:
+                data = data[data < high_limit]
+
+            if low_limit is not None:
+                data = data[data > low_limit]
+
+            if data.size == 0:
+                print("No valid pixels in ext {} of {}".format(i, imagename))
+                return xaxis, yaxis
+
             if "midpt" in stat:
-                yaxis[i-1] = np.median(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
-
-            if "mean" in stat:
-                yaxis[i-1] = np.mean(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
-
-            if "mode" in stat:
-                yaxis[i-1] = mode(myfile[extname.upper(),i].data[xstart:xend, ystart:yend],
-                                    axis=None)[0]
-
-            if "min" in stat:
-                yaxis[i-1] = np.min(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
-
-            if "max" in stat:
-                yaxis[i-1] = np.max(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
-
-            if "stddev" in stat:
-                yaxis[i-1] = np.std(myfile[extname.upper(), i].data[xstart:xend, ystart:yend])
+                yaxis[i-1] = np.median(data)
+            elif "mean" in stat:
+                yaxis[i-1] = np.mean(data)
+            elif "mode" in stat:
+                yaxis[i-1] = mode(data, axis=None)[0]=
+            elif "min" in stat:
+                yaxis[i-1] = np.min(data)
+            elif "max" in stat:
+                yaxis[i-1] = np.max(data)
+            elif "stddev" in stat:
+                yaxis[i-1] = np.std(data)
 
             exptime = myfile["SCI", i].header['SAMPTIME']
             xaxis[i-1] = exptime
