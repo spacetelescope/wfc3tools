@@ -7,7 +7,7 @@
 WFC3 Python User Tools
 ===============================================
 See the team website  http://www.stsci.edu/hst/wfc3/ and the
-`WFC3 Data Handbook <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentDHB/>`_ for more information.
+`WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_ for more information.
 
 
 ============================
