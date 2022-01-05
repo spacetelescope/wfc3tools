@@ -1,7 +1,8 @@
 from __future__ import print_function
 
 # STDLIB
-import os.path
+import os
+import sys
 import subprocess
 from .version import __version_date__, __version__
 
@@ -60,10 +61,18 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         if output:
             call_list.append(str(output))
 
+    # Prepend environment bin directory to PATH if necessary
+    env_bin = os.path.join(sys.exec_prefix, 'bin')
+    if (env_bin not in os.getenv('PATH')) & os.path.exists(env_bin):
+        _path = ':'.join([env_bin, os.getenv('PATH')])
+    else:
+        _path = os.getenv('PATH')
+
     proc = subprocess.Popen(
         call_list,
         stderr=subprocess.STDOUT,
         stdout=subprocess.PIPE,
+        env={'PATH':_path}
     )
 
     if log_func is not None:
