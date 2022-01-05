@@ -72,7 +72,8 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         call_list,
         stderr=subprocess.STDOUT,
         stdout=subprocess.PIPE,
-        env={'PATH':_path}
+        env={'PATH':_path, 
+             'iref':os.getenv('iref')}
     )
 
     if log_func is not None:
