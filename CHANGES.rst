@@ -1,6 +1,7 @@
 1.3.6 (unreleased)
 ------------------
 - fixed matplotlib plotting issue, added explicit draw and interaction plots
+- updates to package setup, removed support for TEAL interface [#63]
 
 1.3.5 (released)
 ----------------

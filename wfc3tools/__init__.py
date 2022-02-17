@@ -7,8 +7,6 @@ module.
 
 
 """
-from __future__ import absolute_import, print_function
-
 from .calwf3 import calwf3
 from .wf32d import wf32d
 from .wf3ccd import wf3ccd
@@ -21,14 +19,9 @@ from .pstat import pstat
 from .sub2full import sub2full
 from .embedsub import embedsub
 from .util import *
-from .version import *
 
-import os
-
-# These lines allow TEAL to print out the names of TEAL-enabled tasks
-# upon importing this package.
 try:
-    from stsci.tools import teal
-    teal.print_tasknames(__name__, os.path.dirname(__file__))
-except (ImportError, UnboundLocalError):
-    print("Teal not installed, gui param editing disabled")
+    from .version import version as __version__
+except ImportError:
+    __version__ = ''
+

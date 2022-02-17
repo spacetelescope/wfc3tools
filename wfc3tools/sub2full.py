@@ -1,12 +1,7 @@
-from __future__ import division, print_function  
-
-# get the auto update version
-from .version import __version_date__, __version__
-
 # STDLIB
 from astropy.io import fits
 import os
-from stsci.tools import parseinput, teal
+from stsci.tools import parseinput
 
 __taskname__ = "sub2full"
 
@@ -97,35 +92,3 @@ def sub2full(filename, x=None, y=None, fullExtent=False):
 
     # return the tuple list of coordinates
     return coords
-
-
-def getHelpAsString(docstring=False):
-    """
-    Returns documentation on the 'sub2full' function.
-
-    return useful help from a file in the script directory called
-    __taskname__.help
-
-    """
-
-    install_dir = os.path.dirname(__file__)
-    helpfile = os.path.join(install_dir, __taskname__ + '.help')
-
-    if docstring or (not docstring):
-        helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __version_date__]) + '\n\n'
-    if os.path.exists(helpfile):
-            helpString += teal.getHelpFileAsString(__taskname__, __file__)
-
-    return helpString
-
-
-def help():
-    print(getHelpAsString(docstring=True))
-
-sub2full.__doc__ = getHelpAsString(docstring=True)
-
-if __name__ == "main":
-    """called from system shell, return the default corner locations """
-    import sys
-    sub2full(sys.argv[1])

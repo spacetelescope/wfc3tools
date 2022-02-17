@@ -1,8 +1,3 @@
-from __future__ import absolute_import, print_function, division
-
-# get the auto update version for the call to  help
-from .version import __version__, __version_date__
-
 # STDLIB
 from astropy.io import fits
 import os
@@ -10,7 +5,6 @@ import numpy as np
 
 # STSCI
 from stsci.tools import parseinput
-from stsci.tools import teal
 
 __taskname__ = "sampinfo"
 
@@ -98,31 +92,3 @@ def sampinfo(imagelist, add_keys=None, mean=False, median=False):
                                                            samp].data)))
             print(printline)
         current.close()
-
-
-def getHelpAsString(docstring=False):
-    """
-    Returns documentation on the 'sampinfo' function.
-
-    return useful help from a file in the script directory called
-    __taskname__.help
-
-    """
-
-    install_dir = os.path.dirname(__file__)
-    helpfile = os.path.join(install_dir, __taskname__ + '.help')
-
-    if docstring or (not docstring):
-        helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __version_date__]) + '\n\n'
-    if os.path.exists(helpfile):
-            helpString += teal.getHelpFileAsString(__taskname__, __file__)
-
-    return helpString
-
-
-def help():
-    print(getHelpAsString(docstring=True))
-
-
-sampinfo.__doc__ = getHelpAsString(docstring=True)
