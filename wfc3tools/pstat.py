@@ -1,17 +1,9 @@
-from __future__ import division, print_function
-
-# get the auto update version
-from .version import __version_date__, __version__
-
 # STDLIB
 import os
 from astropy.io import fits
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.stats import mode as mode
-
-# STSCI
-from stsci.tools import teal
 
 __taskname__ = "pstat"
 
@@ -210,39 +202,3 @@ def pstat(filename, extname="sci", units="counts", stat="midpt", title=None,
 
     return xaxis, yaxis
 
-
-def getHelpAsString(docstring=False):
-    """Return documentation on the 'wf3ir' function. Required by TEAL."""
-
-    install_dir = os.path.dirname(__file__)
-    htmlfile = os.path.join(install_dir, 'htmlhelp', __taskname__ + '.html')
-    helpfile = os.path.join(install_dir, __taskname__ + '.help')
-    if docstring or (not docstring and not os.path.exists(htmlfile)):
-        helpString = ' '.join([__taskname__, 'Version', __version__,
-                               ' updated on ', __version_date__]) + '\n\n'
-        if os.path.exists(helpfile):
-            helpString += teal.getHelpFileAsString(__taskname__, __file__)
-    else:
-        helpString = 'file://' + htmlfile
-
-    return helpString
-
-
-def help(file=None):
-    """
-    Print out syntax help for running wf3ir
-
-    """
-
-    helpstr = getHelpAsString(docstring=True)
-    if file is None:
-        print(helpstr)
-    else:
-        if os.path.exists(file):
-            os.remove(file)
-        f = open(file, mode='w')
-        f.write(helpstr)
-        f.close()
-
-
-pstat.__doc__ = getHelpAsString(docstring=True)

@@ -1,15 +1,9 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 
-from __future__ import print_function, division
 import warnings
-from .version import __version__
+from importlib.metadata import version
 
 __all__ = ["display_help"]
-
-try:
-    from stsci.tools import teal
-except:
-    teal = None
 
 
 def display_help():
@@ -19,8 +13,8 @@ def display_help():
     try:
         import webbrowser
         # grab the version that's installed
-        if "dev" not in __version__:
-            url += "en/{0:s}/".format(__version__)
+        if "dev" not in version('wfc3tools'):
+            url += "en/{0:s}/".format(version('wfc3tools'))
         webbrowser.open(url)
     except ImportError:
         warnings.warn("webbrowser module not installed, see {0:s} help \
