@@ -1,20 +1,151 @@
+"""
+wf3rej:
+
+    wf3rej, the cosmic-ray rejection and image combination task in calwf3,
+    combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
+    detecting and then replacing flagged pixels. The task uses the same
+    statistical detection algorithm developed for ACS (acsrej), STIS (ocrrej),
+    and WFPC2 data (crrej), providing a well-tested and robust procedure.
+
+    First, wf3rej temporarily removes the sky background from each input image
+    (if requested via the SKYSUB parameter in the CRREJTAB), usually computed
+    using the mode of each image. Sky subtraction is performed before any
+    statistical checks are made for cosmic rays. Next, wf3rej constructs an
+    initial comparison image from each sky-subtracted exposure. This comparison
+    image can either be a median- or minimum-value sky-subtracted image
+    constructed from all the input images, and it represents the ‘initial
+    guess’ of a cosmic-ray free image. The comparison image serves as the basis
+    for determining the statistical deviation of each pixel within the input
+    images.
+
+    A detection threshold is then calculated for each pixel based on the
+    comparison image. The actual detection criterion for a cosmic ray is
+    also calculated. If the etection criterion is greater than the detection
+    threshold, the pixel is flagged as a cosmic ray in the input image’s DQ
+    array and is ignored when images are summed together. Surrounding pixels
+    within some expansion radius (CRRADIUS) are marked as ‘SPILL’ pixels and
+    are given less stringent detection thresholds.
+
+    In summary, the cosmic ray rejection task sums all non-rejected pixel
+    values, computes the true exposure time for that pixel, and scales the sum
+    to correspond to the total exposure time. The final scaled, cleaned pixel
+    is written to the comparison image to be used for the next iteration. This
+    process is then repeated with increasingly stringent detection thresholds,
+    as specified by CRSIGMAS. See Section 3.4.5 of the WFC3 Data Handbook for
+    more information.
+
+The wf3rej executable can also be called directly from the OS command line
+prompt:
+
+    >>> wf3rej.e input output [-options]
+
+    Input can be a single file, or a comma-delimited list of files.
+
+    Where the OS options include:
+
+        * -v: verbose
+        * -t: print the timestamps
+        * -shadcorr: perform shading shutter correction
+        * -crmask: flag CR in input DQ images
+        * -table <filename>: the crrejtab filename
+        * -scale <number>: scale factor for noise
+        * -init <med|min>: initial value estimate scheme
+        * -sky <none|median|mode>: how to compute sky
+        * -sigmas: rejection levels for each iteration
+        * -radius <number>: CR expansion radius
+        * -thresh <number> : rejection propagation threshold
+        * -pdq <number>: data quality flag bits to reject
+
+"""
+
 # STDLIB
 import os.path
 import subprocess
 
-
 # STSCI
 from stsci.tools import parseinput
 from .util import error_code
-
-__taskname__ = "wf3rej"
 
 
 def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
            skysub="", crsigmas="", crradius=0, crthresh=0,
            badinpdq=0, crmask=False, shadcorr=False, verbose=False,
            log_func=print):
-    """call the calwf3.e executable"""
+    """
+    Call the calwf3.e executable.
+
+    wf3rej, the cosmic-ray rejection and image combination task in calwf3,
+    combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
+    detecting and then replacing flagged pixels.
+
+    In summary, the cosmic ray rejection task sums all non-rejected pixel
+    values, computes the true exposure time for that pixel, and scales the sum
+    to correspond to the total exposure time. The final scaled, cleaned pixel
+    is written to the comparison image to be used for the next iteration. This
+    process is then repeated with increasingly stringent detection thresholds,
+    as specified by CRSIGMAS.
+
+    Parameters
+    ----------
+    input : str or list
+        Name of input files, such as
+        - a single filename (``iaa012wdq_raw.fits``)
+        - a Python list of filenames
+        - a partial filename with wildcards (``*raw.fits``)
+        - filename of an ASN table (``*asn.fits``)
+        - an at-file (``@input``)
+
+    output : str, default=""
+        Name of the output FITS file.
+
+    crrejtab : str, default=""
+        Reference file name.
+
+    scalense : str, default="" (IS THIS A FLOAT)
+        Scale factor applied to noise.
+
+    initgues : str, default=""
+        Initial value estimate scheme (min|med).
+
+    skysub : str, default=""
+        How to compute the sky (none|mode|mean).
+
+    crsigmas : str, default="" (IS THIS A FLOAT)
+        Rejection levels in each iteration.
+
+    crradius : float, default=0
+        Cosmic ray expansion radius in pixels.
+
+    crthresh : float, default=0
+        Rejection propagation threshold.
+
+    badinpdq : int, default=0
+        Data quality flag bits to reject.
+
+    crmask : bool, default=False
+        If True, flag CR in input DQ images.
+
+    shadcorr : bool, default=False
+        If True, perform shading shutter correction.
+
+    verbose : bool, optional, default=False
+        If True, Print verbose time stamps.
+
+    log_func : func(), default=print()
+        If not specified, the print function is used for logging to facilitate
+        use in the Jupyter notebook.
+
+    Returns
+    -------
+    None
+
+    Examples
+    --------
+    >>> from wfc3tools import wf3rej
+    >>> filename = '/path/to/some/wfc3/image.fits'
+    >>> wf3rej(filename)
+
+    """
 
     call_list = ["wf3rej.e"]
     return_code = None

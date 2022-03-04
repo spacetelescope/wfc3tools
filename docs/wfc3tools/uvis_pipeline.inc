@@ -6,7 +6,6 @@ UVIS Pipleline
 
 
 .. _calflow:
-
 .. figure:: ../_static/calwf3_flow.png
     :align: center
     :alt: Flow diagram for ``calwf3`` data using

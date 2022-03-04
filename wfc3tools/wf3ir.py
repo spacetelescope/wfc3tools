@@ -1,3 +1,41 @@
+"""
+wf3ir:
+
+    Use this function to facilitate batch runs.
+
+    This routine contains all the instrumental calibration steps for
+    WFC3 IR channel images. The steps are:
+
+        - DQICORR: initialize the data quality array
+        - ZSIGCORR: estimate the amount of signal in the zeroth-read
+        - BLEVCORR: subtract the bias level from the reference pixels
+        - ZOFFCORR: subtract the zeroth read image
+        - NLINCORR: correct for detector non-linear response
+        - DARKCORR: subtract the dark current image
+        - PHOTCORR: compute the photometric keyword values
+        - UNITCORR: convert to units of count rate
+        - CRCORR: fit accumulating signal and identify the cr hits
+        - FLATCORR: divide by the flatfield images and apply gain conversion
+
+    The output images include the calibrated image ramp (ima file) and the
+    accumulated ramp image (flt file).
+
+    Only those steps with a switch value of PERFORM in the input files
+    will be executed, after which the switch will be set to COMPLETE in the
+    corresponding output files. See Section 3.4.4 of the WFC3 Data Handbook for
+    more information.
+
+   The wf3ir function can also be called directly from the OS command line:
+
+    >>> wf32ir.e input output [-options]
+
+    Where the OS options include:
+
+        * -v: verbose
+        * -t: print time stamps
+
+"""
+
 # STDLIB
 import os.path
 import subprocess
@@ -6,11 +44,57 @@ import subprocess
 from stsci.tools import parseinput
 from .util import error_code
 
-__taskname__ = "wf3ir"
-
 
 def wf3ir(input, output=None, verbose=False, quiet=True, log_func=print):
-    """Call the wf3ir.e executable """
+    """
+    Call the wf3ir.e executable.
+
+    Perform the following calibration steps on an input file:
+        - DQICORR: initialize the data quality array
+        - ZSIGCORR: estimate the amount of signal in the zeroth-read
+        - BLEVCORR: subtract the bias level from the reference pixels
+        - ZOFFCORR: subtract the zeroth read image
+        - NLINCORR: correct for detector non-linear response
+        - DARKCORR: subtract the dark current image
+        - PHOTCORR: compute the photometric keyword values
+        - UNITCORR: convert to units of count rate
+        - CRCORR: fit accumulating signal and identify the cr hits
+        - FLATCORR: divide by the flatfield images and apply gain conversion
+
+    Parameters
+    ----------
+    input : str
+        Name of input files, such as
+        - a single filename (``iaa012wdq_raw.fits``)
+        - a Python list of filenames
+        - a partial filename with wildcards (``*raw.fits``)
+        - filename of an ASN table (``*asn.fits``)
+        - an at-file (``@input``)
+
+    output : str, default=None
+        Name of the output FITS file.
+
+    verbose : bool, optional, default=False
+        If True, print verbose time stamps.
+
+    quiet : bool, optional, default=True
+        If True, print messages only to trailer file.
+
+    log_func : func(), default=print()
+        If not specified, the print function is used for logging to facilitate
+        use in the Jupyter notebook.
+
+    Returns
+    -------
+    None
+
+    Examples
+    --------
+    >>> from wfc3tools import wf3ir
+    >>> filename = '/path/to/some/wfc3/image.fits'
+    >>> wf3ir(filename)
+
+    """
 
     call_list = ['wf3ir.e']
     return_code = None
