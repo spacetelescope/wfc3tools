@@ -1,7 +1,14 @@
-1.3.6 (unreleased)
+1.3.7 (unreleased)
+------------------
+
+1.3.6 (2022-03-10)
 ------------------
 - fixed matplotlib plotting issue, added explicit draw and interaction plots
 - updates to package setup, removed support for TEAL interface [#63]
+- changes to documentation infrastructure and text [#64]
+- fixed bug in sub2full.py that required input file to be in pwd, now a file path can be supplied [#64]
+- removed 'version' argument (which corresponds to the command line -r flag) from calwf3 python interface [#64]
+- updates to module docstrings [#64]
 
 1.3.5 (released)
 ----------------

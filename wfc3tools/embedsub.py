@@ -79,9 +79,9 @@ def embedsub(files):
 
         if not uvis:
             samp = numpy.zeros([xaxis, yaxis], dtype=numpy.int16)
-            time = numpy.zeros([xaxis,yaxis],dtype=numpy.float32)
+            time = numpy.zeros([xaxis, yaxis], dtype=numpy.float32)
             samp[y1-1:y2, x1-1:x2] = flt[4].data
-            time[y1-1:y2,x1-1:x2] = flt[5].data
+            time[y1-1:y2, x1-1:x2] = flt[5].data
 
         # Reset a few WCS values to make them appropriate for a
         # full-chip image
@@ -94,8 +94,8 @@ def embedsub(files):
         for i in range(1, 4):
             flt[i].header['crpix1'] = crpix1 + x1 - 1
             flt[i].header['crpix2'] = crpix2 + y1 - 1
-            flt[i].header['ltv1']  = 0.0
-            flt[i].header['ltv2']  = 0.0
+            flt[i].header['ltv1'] = 0.0
+            flt[i].header['ltv2'] = 0.0
 
         # set the header value of SUBARRAY to False since it's now
         # regular size image
