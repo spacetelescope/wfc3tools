@@ -1,7 +1,7 @@
-1.3.7 (unreleased)
+1.4.1 (unreleased)
 ------------------
 
-1.3.6 (2022-03-10)
+1.4.0 (2022-03-10)
 ------------------
 - fixed matplotlib plotting issue, added explicit draw and interaction plots
 - updates to package setup, removed support for TEAL interface [#63]
