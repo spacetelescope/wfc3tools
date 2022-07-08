@@ -6,6 +6,43 @@ Software Update History for HSTCAL.CALWF3
 
 .. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
 
+**Updates for Version 3.7.0 16-Feb-2022 - MDD**
+    -  Implemented algorithm change to use an image to detect and flag full-well saturation versus a simple scalar.
+       The new routine, dofwsat.c, is similar to what has been done for calacs. The WFC3 implementation
+       is more complicated in that there are serial virtual overscan columns, as well as binned images,
+       to accommodate.  The detection/flagging occurs after blev and bias correction while the output is
+       still in counts.
+
+**Updates for Version 3.6.2 27-May-2021 - MDD**
+    - Fixed bug to address calwf3.e crashing (Abort trap: 6) when taking an existing _ima.fits (IR) file
+      (produced with FLATCORR=PERFORM and CRCORR=OMIT) with CRCORR set to PERFORM. This re-entrant
+      processing is fundamental to being able to remove the variable IR background during the course
+      of an exposure. Problem: char variable declared too small to hold its largest possible contents.
+
+**Updates for Version 3.6.1 28-Apr-2021 - MDD**
+    - Fixed bug to address a problem detected when processing a Tungsten flat with a high background.
+      Uninitialized values were used for further computation causing an eventual exception.
+
+**Updates for Version 3.6.0 31-Dec-2020 - MDD**
+    - Implemented a significantly upgraded CTE correction as defined/derived by J. Anderson.
+      The upgraded CTE algorithm is also streamlined and executes faster then the previous version.
+
+**Updates for Version 3.5.2 12-Aug-2020 - MDD**
+    - Added MJD as a parameterized variable for the PHOTMODE keyword to
+      enable a time-dependent photometric correction for the UVIS only.
+    - Fixed a bug in the IMPHTTAB package to support properly data with
+      multiple imsets, in conjunction with a parameterized value.
+
+**Updates for Version 3.5.1 24-Jun-2020 - MDD**
+    - Replaced/modified routines based upon copyright numerical recipes routines.
+      Updates implemented Oct 2019, but installation delayed for higher priority updates.
+
+**Updates for Version 3.5.0 14-Oct-2018 - JAN/MDD**
+    - Fixed bugs in the CTE correction to address out of bounds memory access and remove unnecessary critical section.
+
+**Updates for Version 3.4.2 19-Jan-2018 - JAN/MDD**
+    - Implemented a number of code robustness improvements (address memory leaks, fix detected bugs).
+
 **Updates for Version 3.4.1 10-Apr-2017 - MLS**
     - Fixed missed init for header vars in cte code
 
