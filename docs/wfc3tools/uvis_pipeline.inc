@@ -64,7 +64,8 @@ DATALOST         2      data replaced by fill value
 DETECTORPROB     4      bad detector pixel or beyond aperture
 DATAMASKED       8      masked by occulting bar
 HOTPIX           16     hot pixel
-CTETAIL          32     UVIS CTE tail
+CTETAIL          32     UVIS CTE tail (pre-November 2012)
+CTETAIL          32     UVIS unstable pixel (post-November 2012)
 WARMPIX          64     warm pixel
 BADBIAS          128    bad bias value
 SATPIXEL         256    full-well or a-to-d saturated pixel
