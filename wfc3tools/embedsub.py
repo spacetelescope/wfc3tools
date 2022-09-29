@@ -101,18 +101,22 @@ def embedsub(files):
         # regular size image
         flt[0].header['SUBARRAY'] = False
 
+        # Make a duplicate of the input file and name it variable full
+        os.system(f"cp {filename} {full}")
+        
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
-        hdulist = fits.HDUList()
-        hdulist.append(fits.ImageHDU(flt[0].data, header=flt[0].header))
-        hdulist.append(fits.ImageHDU(sci, header=flt[1].header, name='SCI'))
-        hdulist.append(fits.ImageHDU(err, header=flt[2].header, name='ERR'))
-        hdulist.append(fits.ImageHDU(dq, header=flt[3].header, name='DQ'))
-
-        if not uvis:
-            hdulist.append(fits.ImageHDU(dq, header=flt[4].header, name='SAMP'))
-            hdulist.append(fits.ImageHDU(dq, header=flt[5].header, name='TIME'))
-
-        hdulist.writeto(full, clobber=False)
+        with fits.open(full,mode='update') as hdu:
+            hdu[1].data = sci
+            hdu[1].header = flt[1].header
+            hdu[2].data = err
+            hdu[2].header = flt[2].header
+            hdu[3].data = dq
+            hdu[3].header = flt[3].header
+            if not uvis:
+                hdu[4].data = dq
+                hdu[4].header = flt[4].header
+                hdu[5].data = dq
+                hdu[5].header = flt[5].header
 
         # close the input files
         flt.close()
