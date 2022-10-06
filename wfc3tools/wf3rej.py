@@ -1,48 +1,22 @@
 """
 wf3rej:
 
-    wf3rej, the cosmic-ray rejection and image combination task in calwf3,
-    combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
-    detecting and then replacing flagged pixels. The task uses the same
-    statistical detection algorithm developed for ACS (acsrej), STIS (ocrrej),
-    and WFPC2 data (crrej), providing a well-tested and robust procedure.
+    Background discussion cn the wf3rej algorithm can be found in the following locations:
+        https://wfc3tools.readthedocs.io/en/latest/wfc3tools/wf3rej.html,
 
-    First, wf3rej temporarily removes the sky background from each input image
-    (if requested via the SKYSUB parameter in the CRREJTAB), usually computed
-    using the mode of each image. Sky subtraction is performed before any
-    statistical checks are made for cosmic rays. Next, wf3rej constructs an
-    initial comparison image from each sky-subtracted exposure. This comparison
-    image can either be a median- or minimum-value sky-subtracted image
-    constructed from all the input images, and it represents the ‘initial
-    guess’ of a cosmic-ray free image. The comparison image serves as the basis
-    for determining the statistical deviation of each pixel within the input
-    images.
+    This routine performs the cosmic ray rejection on input FLT/FLC images and will
+    produce an output CRJ/CRC image.  In contrast to this module, wf3rej.py, which is
+    a Python wrapper around the C executable, the wf3rej.e C executable can also be
+    called directly from the OS command line prompt:
 
-    A detection threshold is then calculated for each pixel based on the
-    comparison image. The actual detection criterion for a cosmic ray is
-    also calculated. If the etection criterion is greater than the detection
-    threshold, the pixel is flagged as a cosmic ray in the input image’s DQ
-    array and is ignored when images are summed together. Surrounding pixels
-    within some expansion radius (CRRADIUS) are marked as ‘SPILL’ pixels and
-    are given less stringent detection thresholds.
+    $ wf3rej.e input output [-options]
 
-    In summary, the cosmic ray rejection task sums all non-rejected pixel
-    values, computes the true exposure time for that pixel, and scales the sum
-    to correspond to the total exposure time. The final scaled, cleaned pixel
-    is written to the comparison image to be used for the next iteration. This
-    process is then repeated with increasingly stringent detection thresholds,
-    as specified by CRSIGMAS. See Section 3.4.5 of the WFC3 Data Handbook for
-    more information.
+    Input can be a comma-delimited list of files, and an output file must be specified.
+    $ wf3rej.e ibfma4jqq_flt.fits,ibfma4jtq_flt.fits output.fits -t -table mycrejtab.fits
 
-The wf3rej executable can also be called directly from the OS command line
-prompt:
+    Where the C executable options include:
 
-    >>> wf3rej.e input output [-options]
-
-    Input can be a single file, or a comma-delimited list of files.
-
-    Where the OS options include:
-
+        * -r: report version of code and exit (no other options selected)
         * -v: verbose
         * -t: print the timestamps
         * -shadcorr: perform shading shutter correction
@@ -67,13 +41,11 @@ from stsci.tools import parseinput
 from .util import error_code
 
 
-def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
-           skysub="", crsigmas="", crradius=0, crthresh=0,
+def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
+           skysub="", crsigmas="", crradius=0., crthresh=0.,
            badinpdq=0, crmask=False, shadcorr=False, verbose=False,
            log_func=print):
     """
-    Call the calwf3.e executable.
-
     wf3rej, the cosmic-ray rejection and image combination task in calwf3,
     combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
     detecting and then replacing flagged pixels.
@@ -89,19 +61,17 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     ----------
     input : str or list
         Name of input files, such as
-        - a single filename (``iaa012wdq_raw.fits``)
         - a Python list of filenames
-        - a partial filename with wildcards (``*raw.fits``)
-        - filename of an ASN table (``*asn.fits``)
+        - a partial filename with wildcards (``*flt.fits``)
         - an at-file (``@input``)
 
-    output : str, default=""
+    output : str
         Name of the output FITS file.
 
     crrejtab : str, default=""
         Reference file name.
 
-    scalense : str, default="" (IS THIS A FLOAT)
+    scalense : float, default=0.
         Scale factor applied to noise.
 
     initgues : str, default=""
@@ -113,17 +83,20 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     crsigmas : str, default="" (IS THIS A FLOAT)
         Rejection levels in each iteration.
 
-    crradius : float, default=0
+    crradius : float, default=0.
         Cosmic ray expansion radius in pixels.
 
-    crthresh : float, default=0
+    crthresh : float, default=0.
         Rejection propagation threshold.
 
     badinpdq : int, default=0
         Data quality flag bits to reject.
 
     crmask : bool, default=False
-        If True, flag CR in input DQ images.
+        If True, flag CR in DQ extension of the input images. If False, the wf3rej
+        program will read the value of crmask from the CRREJTAB file and follow the
+        specification.  If True in the file, flag CR in DQ extensions of the input
+        images.  If False, do NOT flag CR in the DQ extension of input images.
 
     shadcorr : bool, default=False
         If True, perform shading shutter correction.
@@ -142,26 +115,26 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
     Examples
     --------
     >>> from wfc3tools import wf3rej
-    >>> filename = '/path/to/some/wfc3/image.fits'
-    >>> wf3rej(filename)
+    >>> from glob import glob
+    >>> infiles = glob("*flt.fits")
+    >>> wf3rej(infiles, "output.fits", verbose=True)
 
+    >>> wf3rej("*flt.fits", "output.fits", verbose=True)
+
+    >>> wf3rej("@input.lst", "output.fits", verbose=True)
     """
 
     call_list = ["wf3rej.e"]
     return_code = None
 
     infiles, dummy = parseinput.parseinput(input)
-    if "_asn" in input:
-        raise IOError("wf3rej does not accept association tables")
-    if len(parseinput.irafglob(input)) == 0:
-        raise IOError("No valid image specified")
-    if len(parseinput.irafglob(input)) > 1:
-        raise IOError("wf3rej can only accept 1 file for"
-                      "input at a time: {0}".format(infiles))
 
     for image in infiles:
         if not os.path.exists(image):
             raise IOError("Input file not found: {0}".format(image))
+
+    # Generate a comma-separated string of the input filenames
+    input = ','.join(infiles)
 
     call_list.append(input)
 
