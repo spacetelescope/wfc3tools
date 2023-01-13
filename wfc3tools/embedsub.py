@@ -106,6 +106,7 @@ def embedsub(files):
         
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
         with fits.open(full,mode='update') as hdu:
+            hdu[0].header = flt[0].header
             hdu[1].data = sci
             hdu[1].header = flt[1].header
             hdu[2].data = err
@@ -113,9 +114,9 @@ def embedsub(files):
             hdu[3].data = dq
             hdu[3].header = flt[3].header
             if not uvis:
-                hdu[4].data = dq
+                hdu[4].data = samp
                 hdu[4].header = flt[4].header
-                hdu[5].data = dq
+                hdu[5].data = time
                 hdu[5].header = flt[5].header
 
         # close the input files
