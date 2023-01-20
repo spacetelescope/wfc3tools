@@ -91,33 +91,43 @@ def embedsub(files):
         flt[1].header['sizaxis1'] = yaxis
         flt[1].header['sizaxis2'] = xaxis
 
-        for i in range(1, 4):
-            flt[i].header['crpix1'] = crpix1 + x1 - 1
-            flt[i].header['crpix2'] = crpix2 + y1 - 1
-            flt[i].header['ltv1'] = 0.0
-            flt[i].header['ltv2'] = 0.0
+        # loop through each possible fits extension and modify keywords if they exist
+        for i in range(1, len(flt)):
+            try:
+                _ = flt[i].header['crpix1'] # if crpix1 doesn't exist this will cause a KeyError
+                flt[i].header['crpix1'] = crpix1 + x1 - 1
+                flt[i].header['crpix2'] = crpix2 + y1 - 1
+                _ = flt[i].header['ltv1'] # if ltv1 doesn't exist this will cause a KeyError
+                flt[i].header['ltv1'] = 0.0
+                flt[i].header['ltv2'] = 0.0
+            except KeyError:
+                # if crpix1 doesn't exist pass to the next extension
+                pass
+                # Note: it's ok to keep this all under one try because there will 
+                # never be a scenario where crpix1 doesn't exist but ltv1 does.
+                # However, there are some extensions where crpix1 exists but ltv1 doesn't.
 
         # set the header value of SUBARRAY to False since it's now
         # regular size image
         flt[0].header['SUBARRAY'] = False
-
-        # Make a duplicate of the input file and name it variable full
-        os.system(f"cp {filename} {full}")
         
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
-        with fits.open(full,mode='update') as hdu:
-            hdu[0].header = flt[0].header
-            hdu[1].data = sci
-            hdu[1].header = flt[1].header
-            hdu[2].data = err
-            hdu[2].header = flt[2].header
-            hdu[3].data = dq
-            hdu[3].header = flt[3].header
-            if not uvis:
-                hdu[4].data = samp
-                hdu[4].header = flt[4].header
-                hdu[5].data = time
-                hdu[5].header = flt[5].header
+        hdu_list = fits.open(filename)
+        hdu_list[0].header = flt[0].header
+        hdu_list[1].data = sci
+        hdu_list[1].header = flt[1].header
+        hdu_list[2].data = err
+        hdu_list[2].header = flt[2].header
+        hdu_list[3].data = dq
+        hdu_list[3].header = flt[3].header
+        if not uvis:
+            hdu_list[4].data = samp
+            hdu_list[4].header = flt[4].header
+            hdu_list[5].data = time
+            hdu_list[5].header = flt[5].header
+
+        hdu_list.writeto(full, overwrite=False)
+        hdu_list.close() 
 
         # close the input files
         flt.close()
