@@ -65,9 +65,6 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         If True, run the code with OpemMP parallel processing turned on for the
         UVIS CTE correction.
 
-    version : bool, default=False
-        If True, WHAT IS VERSION???
-
     log_func : func(), default=print()
         If not specified, the print function is used for logging to facilitate
         use in the Jupyter notebook.
@@ -117,6 +114,9 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
     >>> from glob import glob
     >>> for fits in glob('j*_raw.fits'):
     >>>     calwf3(fits)
+    
+    >>> # Check calwf3 version:
+    >>> !calwf3.e -r 
 
     Notes
     ------
