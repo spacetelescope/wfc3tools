@@ -46,6 +46,7 @@ def embedsub(files):
         full = root[0:len(root)-1] + 'f_flt.fits'
 
         try:
+            # open input file read-only
             flt = fits.open(filename)
         except EnvironmentError:
             print("Problem opening fits file %s" % (filename))
@@ -91,8 +92,7 @@ def embedsub(files):
         flt[1].header['sizaxis1'] = yaxis
         flt[1].header['sizaxis2'] = xaxis
 
-        # loop through each possible fits extension and modify keywords if they exist
-        for i in range(1, len(flt)):
+        for i in range(1, 4):
             if 'CRPIX1' in flt[i].header:
                 flt[i].header['crpix1'] = crpix1 + x1 - 1
                 flt[i].header['crpix2'] = crpix2 + y1 - 1
@@ -105,23 +105,15 @@ def embedsub(files):
         flt[0].header['SUBARRAY'] = False
         
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
-        hdu_list = fits.open(filename)
-        for i in range(0, len(flt)):
-            hdu_list[i].header = flt[i].header
-            if i == 1:
-                hdu_list[i].data = sci
-            if i == 2:
-                hdu_list[i].data = err
-            if i == 3:
-                hdu_list[i].data = dq
-            if not uvis:
-                if i == 4:
-                    hdu_list[i].data = samp
-                if i == 5:
-                    hdu_list[i].data = time
+        flt[1].data = sci 
+        flt[2].data = err
+        flt[3].data = dq
+        
+        if not uvis:
+            flt[4].data = samp
+            flt[5].data = time    
 
-        hdu_list.writeto(full, overwrite=False)
-        hdu_list.close() 
+        flt.writeto(full, overwrite=False)
 
         # close the input files
         flt.close()
