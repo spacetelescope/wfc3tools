@@ -46,6 +46,7 @@ def embedsub(files):
         full = root[0:len(root)-1] + 'f_flt.fits'
 
         try:
+            # open input file read-only
             flt = fits.open(filename)
         except EnvironmentError:
             print("Problem opening fits file %s" % (filename))
@@ -92,27 +93,27 @@ def embedsub(files):
         flt[1].header['sizaxis2'] = xaxis
 
         for i in range(1, 4):
-            flt[i].header['crpix1'] = crpix1 + x1 - 1
-            flt[i].header['crpix2'] = crpix2 + y1 - 1
-            flt[i].header['ltv1'] = 0.0
-            flt[i].header['ltv2'] = 0.0
+            if 'CRPIX1' in flt[i].header:
+                flt[i].header['crpix1'] = crpix1 + x1 - 1
+                flt[i].header['crpix2'] = crpix2 + y1 - 1
+            if 'LTV1' in flt[i].header:
+                flt[i].header['ltv1'] = 0.0
+                flt[i].header['ltv2'] = 0.0
 
         # set the header value of SUBARRAY to False since it's now
         # regular size image
         flt[0].header['SUBARRAY'] = False
-
+        
         # Now write out the SCI, ERR, DQ extensions to the full-chip file
-        hdulist = fits.HDUList()
-        hdulist.append(fits.ImageHDU(flt[0].data, header=flt[0].header))
-        hdulist.append(fits.ImageHDU(sci, header=flt[1].header, name='SCI'))
-        hdulist.append(fits.ImageHDU(err, header=flt[2].header, name='ERR'))
-        hdulist.append(fits.ImageHDU(dq, header=flt[3].header, name='DQ'))
-
+        flt[1].data = sci 
+        flt[2].data = err
+        flt[3].data = dq
+        
         if not uvis:
-            hdulist.append(fits.ImageHDU(dq, header=flt[4].header, name='SAMP'))
-            hdulist.append(fits.ImageHDU(dq, header=flt[5].header, name='TIME'))
+            flt[4].data = samp
+            flt[5].data = time    
 
-        hdulist.writeto(full, clobber=False)
+        flt.writeto(full, overwrite=False)
 
         # close the input files
         flt.close()
