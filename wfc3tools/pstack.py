@@ -19,20 +19,20 @@ pstack:
 Usage:
 
     >>> from wfc3tools import pstack
-    >>> xdata,ydata=pstack.pstack('ibh719grq_ima.fits',
-                                    column=100,
-                                    row=25,
-                                    extname='sci')
+    >>> xdata,ydata=pstack('ibh719grq_ima.fits',
+                           column=100,
+                           row=25,
+                           extname='sci')
     >>> xdata
     array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
              64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
              28.838205,   21.65683 ,   14.475455,    7.29408 ,    0.112705,
               0.      ])
     >>> ydata
-    array([ 221.36606389,  219.5396653 ,  182.63100095,  169.178308  ,
-            186.44084352,  158.3105126 ,  129.46997895,  129.92935701,
-            106.14521852,   72.71721539,   69.68652119,   55.98828663,
-             42.30755279,   13.12659422,   27.71404187,    0.        ])
+    array([ 136.75660802,  151.46077054,  133.8688648 ,  108.50410805,
+            109.17918583,   81.5139582 ,   90.26712192,   61.68512157,
+             59.11241987,   39.01870227,   32.63157047,   16.07532735,
+             33.69198196,   16.90631634,   13.54113704,    0.        ])
 
 Warning:
 
@@ -141,7 +141,9 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts",
             if time:
                 yaxis[i-1] = myfile["SCI", i].header['SAMPTIME']
             else:
-                yaxis[i-1] = myfile[extname.upper(), i].data[column, row]
+                # Numpy is row-major with array indices written row-first
+                # (lexicographical access order)
+                yaxis[i-1] = myfile[extname.upper(), i].data[row, column]
                 xaxis[i-1] = myfile["SCI", i].header['SAMPTIME']
 
                 # convert to countrate
