@@ -32,9 +32,26 @@ Usage:
             86.42073624,    80.97576756,    70.44724733,    53.37688116,
             33.1249918 ,    12.25499919,    -4.88105808,     0.        ])
 
-Warning:
+.. Warning::
 
     Note that the arrays are structured in SCI order, so the final exposure is the first element in the array.
+
+.. Warning::
+    The interface to this utility has been updated from previous versions and 
+    is **not backwards compatible.**  Here is an example to illustrate the "original"
+    syntax, the "original syntax corrected for row/column order", and finally the
+    "new" syntax which requires column and row sections to be specified as tuples.
+
+    | Example: To plot the left edge of the detector
+
+    | Original syntax: [y1:y2, x1:x2]
+    | time, counts = pstat('ibohbfb9q_ima.fits[1:1014,100:300]')
+
+    | Original syntax, but correcting the row/column order: [x1:x2, y1:y2]
+    | time, counts = pstat('ibohbfb9q_ima.fits[100:300,1:1014]')
+
+    | New syntax using tuples for col_slice and row_slice to specify the section:
+    | time, counts = pstat('ibohbfb9q_ima.fits', col_slice=(100,300), row_slice=(1,1014))
 
 """
 
@@ -112,14 +129,16 @@ def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts
     -----
     Pixel values here are 0 based, not 1 based.
 
+
     Examples
     --------
-    Using an image section to generate output in counts
-    >>> from wfc3tools import pstat
-    >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
 
-    Using the entire image to generate output in countrate
-    >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=None, row_slice=None, units="rate")
+    | Using an image section to generate output in counts
+    | >>> from wfc3tools import pstat
+    | >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
+
+    | Using the entire image to generate output in countrate
+    | >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=None, row_slice=None, units="rate")
 
     """
 
