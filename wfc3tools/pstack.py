@@ -19,10 +19,10 @@ pstack:
 Usage:
 
     >>> from wfc3tools import pstack
-    >>> xdata,ydata=pstack('ibh719grq_ima.fits',
-                           column=100,
-                           row=25,
-                           extname='sci')
+    >>> xdata, ydata = pstack('ibh719grq_ima.fits',
+                              column=100,
+                              row=25,
+                              extname='sci')
     >>> xdata
     array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
              64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
@@ -34,7 +34,7 @@ Usage:
              59.11241987,   39.01870227,   32.63157047,   16.07532735,
              33.69198196,   16.90631634,   13.54113704,    0.        ])
 
-Warning:
+.. Warning:
 
     Note that the arrays are structured in SCI order, so the final exposure is
     the first element in the array.
@@ -100,7 +100,7 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts",
     xaxis : numpy.ndarray
        Array of x-axis values that will be plotted.
 
-    yaxis : numpuy.ndarray
+    yaxis : numpy.ndarray
        Array of y-axis values that will be plotted as specified by 'units'.
 
     Examples
@@ -108,14 +108,14 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts",
     >>> from wfc3tools import pstack
     >>> inputFilename = 'ibh719grq_ima.fits'
     >>> x, y = 100, 25
-    >>> xdata,ydata=pstack(inputFilename,
-                            column=x,
-                            row=y,
-                            extname="sci",
-                            units="counts",
-                            title="",
-                            xlabel="",
-                            ylabel="")
+    >>> xdata, ydata = pstack(inputFilename,
+                              column=x,
+                              row=y,
+                              extname="sci",
+                              units="counts",
+                              title="",
+                              xlabel="",
+                              ylabel="")
 
     """
 
