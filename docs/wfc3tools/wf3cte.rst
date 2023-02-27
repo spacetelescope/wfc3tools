@@ -40,15 +40,15 @@ file also contains parameters for the CTE correction algorithm. These parameters
 and important scalars which are used to correct the data are stored in the output 
 image headers. Users who wish to use other settings for the CTE correction algorithm 
 can adjust the pertinent keywords in their dataset header and the `wf3cte` component 
-of `calwf3` will give these values preference. See the 
-(`UVIS2.0 reference ISR <https://www.stsci.edu/files/live/sites/www/files/home/hst/
+of `calwf3` will give these values preference. See 
+(`WFC3 ISR 2016-01 <https://www.stsci.edu/files/live/sites/www/files/home/hst/
 instrumentation/wfc3/documentation/instrument-science-reports-isrs/
 _documents/2016/WFC3-2016-01.pdf>`_) 
 for more information regarding the parameter settings.  Please also see 
-the `ISR from 2021 <https://innerspace.stsci.edu/display/WFC3RSRC/
-Instrument+Science+Reports?preview=/90064318/272889913/WFC3-ISR-2021-09.pdf>`_ 
-which discusses the latest improvements in the CTE algorithm.
-sdjsd
+the `WFC3 ISR 2021-09 <https://www.stsci.edu/files/live/sites/www/files/home/hst/
+instrumentation/wfc3/documentation/instrument-science-reports-isrs/
+_documents/2021/WFC3-ISR-2021-09.pdf>`_ 
+for the latest improvements in the CTE algorithm.
 
 `wf3cte` performs the CTE correction on raw data files. The calibration 
 step keyword is PCTECORR; if this is set to 
@@ -76,7 +76,9 @@ PERFORM, then the CTE correction will be applied to the dataset. Some caveats fo
 
 .. note::
 
-   The WFC3 CTE algorithm was updated in `calwf3`/`wf3cte` v3.6.0 (December 2020) where the pixel-based model is better constrained for both low and high pixel values.  See the thorough discussion regarding the update in `ISR WFC3 2021-09 <https://innerspace.stsci.edu/display/WFC3RSRC/Instrument+Science+Reports?preview=/90064318/272889913/WFC3-ISR-2021-09.pdf>`_.
+   The WFC3 CTE algorithm was updated in `calwf3`/`wf3cte` v3.6.0 (December 2020) where the pixel-based model is better constrained for both low and high pixel values.  See the thorough discussion regarding the update in `WFC3 ISR 2021-09 
+ <https://www.stsci.edu/files/live/sites/www/files/home/hst/ instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2021/WFC3-ISR-2021-09.pdf>`_.
+
 
 The standalone call of `wf3cte` will produce a RAC fits (\*_rac_tmp.fits) file by default. This contains only the CTE corrected data, no other calibrations have been performed.
 
@@ -147,7 +149,7 @@ Command Line Options for the `wf3cte` C Executable
         -r : print version number and date of software (e.g., Current version: 3.6.2 (May-27-2021)) and exit
         -t : print a detailed time stamp
         -v : print verbose time stamps and information
-        -1 : suppress the OpemMP parallel processing for the UVIS CTE correction
+        -1 : suppress the OpenMP parallel processing for the UVIS CTE correction
     --help : print the syntax for executing this command and exit
  --version : print version number of software (e.g., 3.6.2) and exit
  --gitinfo : print git information (if it can be obtained) and exit
@@ -162,7 +164,7 @@ Basic Steps In The CTE Correction
 * The reference bias image named in the BIACFILE header keyword is subtracted from the data.
 * Parameters from the CTE parameter table, referenced in the PCTETAB header keyword, are read and stored.
 * The data is reformatted so that each quadrant has been rotated such that the readout amp is located at the lower left of the array. The reoriented four quadrants are then arranged into a single 8412x2070 image (including the overscan pixels) with amps CDAB in that order. In this format, the pixels are all parallel-shifted down, then serial-shifted to the left.
-* An additional bias correction is performed using the residual bias level measured for each amplifier from the steadiest pixels in the horizontal overscan, this value is then subtracted from all the pixels in each respective amp.
+* An additional bias correction is performed using the residual bias level measured for each amplifier from the steadiest pixels in the horizontal overscan. This value is then subtracted from all the pixels in each respective amp.
 * The image is corrected for gain.
 * The smoothest image that is consistent with being the observed image plus read-noise is found and subtracted. This is necessary because we want the CTE correction algorithm to produce the smoothest possible reconstruction, consistent with the original image and the known read-noise. The algorithm then constructs a model that is smooth where the pixel-to-pixel variations aren't too large. It respects the pixel values, using a 2-sigma threshold to mitigate read-noise amplification, and iteration is not done when the deblurring is less than the read-noise.
 * The CTE correction itself is calculated and then subtracted from the original, raw, uncorrected and uncalibrated image.
@@ -197,13 +199,13 @@ PCTENPAR  number of iterations used in the parallel transfer
 PCTENSMD  read-noise mitigation algorithm
 PCTETRSH  over-subtraction threshold
 PCTEFRAC  cte scaling frac calculated from expstart and used in the algorithm
-PCTERNOI  readnoise clipping level to use (OBSOLETE)
+PCTERNOI  read-noise clipping level to use (OBSOLETE)
 FIXROCR   make allowance for readout cosmic rays
 ========  ====================================================================
 
 .. note::
 
-   The value PCTERNOI is the readnoise clipping level to use during processing.  This value is no longer used from the PCTETAB file since `calwf3` v3.6.0 (December 2020). If the PCTERNOI keyword value in the raw science image header is non-zero, it will be used for the CTE computations.  Otherwise, the value is computed on-the-fly based upon the raw image data.
+   The value PCTERNOI is the read-noise clipping level to use during processing.  This value is no longer used from the PCTETAB file since `calwf3` v3.6.0 (December 2020). If the PCTERNOI keyword value in the raw science image header is non-zero, it will be used for the CTE computations.  Otherwise, the value is computed on-the-fly based upon the raw image data.
 
 The PCTETAB reference file has 4 extensions, two tables and two images:
 
@@ -218,7 +220,7 @@ The PCTETAB reference file has 4 extensions, two tables and two images:
         4  CPROF         1 ImageHDU        33   (999, 100)   float32   
 
 
-The first extension lists the charge-trap levels, the columns are respectively the trap number, the charge-packet size it applies to (in electrons), and the size of the trap (also in electrons), and
+The first extension lists the charge-trap levels, the columns are respectively the trap number, the charge-packet size it applies to (in electrons), the size of the trap (in electrons), and
 a description.
 
 The second extension contains the CTE scalings as a function of column number. There are 6 columns, each with 8412 elements. The first column contains the integer column number in the amp readout-aligned large array. The other columns contain the CTE scaling appropriate for that column at the 512th, 1024th, 1536th, and 2048th rows, respectively.  The final column provides a description.
