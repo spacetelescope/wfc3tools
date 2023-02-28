@@ -77,7 +77,7 @@ PERFORM, then the CTE correction will be applied to the dataset. Some caveats fo
 .. note::
 
    The WFC3 CTE algorithm was updated in `calwf3`/`wf3cte` v3.6.0 (December 2020) where the pixel-based model is better constrained for both low and high pixel values.  See the thorough discussion regarding the update in `WFC3 ISR 2021-09 
- <https://www.stsci.edu/files/live/sites/www/files/home/hst/ instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2021/WFC3-ISR-2021-09.pdf>`_.
+ <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2021/WFC3-ISR-2021-09.pdf>`_.
 
 
 The standalone call of `wf3cte` will produce a RAC fits (\*_rac_tmp.fits) file by default. This contains only the CTE corrected data, no other calibrations have been performed.
