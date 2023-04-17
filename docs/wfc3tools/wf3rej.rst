@@ -11,7 +11,7 @@ statistical detection algorithm developed for ACS (`acsrej`), STIS (`ocrrej`),
 and WFPC2 data (`crrej`), providing a well-tested and robust procedure.
 
 First, `wf3rej` temporarily removes the sky background from each input image
-(if requested via the SKYSUB in the CRREJTAB or by a parameter passed
+(if specified via the SKYSUB parameter in the CRREJTAB, or by a parameter passed
 to the Python script or C executable), usually computed using the mathematical
 mode of each image. Sky subtraction is performed before any
 statistical checks are made for cosmic rays. Next, `wf3rej` constructs an

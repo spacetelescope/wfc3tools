@@ -1,8 +1,9 @@
 """
 wf3rej:
 
-    Background discussion cn the wf3rej algorithm can be found in the following locations:
-        https://wfc3tools.readthedocs.io/en/latest/wfc3tools/wf3rej.html,
+    Background discussion on the wf3rej algorithm can be found in the following locations:
+    https://wfc3tools.readthedocs.io/en/latest/wfc3tools/wf3rej.html, and Section 3.4.5 of
+    the WFC3 Data Handbook.
 
     This routine performs the cosmic ray rejection on input FLT/FLC images and will
     produce an output CRJ/CRC image.  In contrast to this module, wf3rej.py, which is
@@ -160,17 +161,14 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
     if (initgues != ""):
         options = ["min", "med"]
         if initgues not in options:
-            print("Invalid option for intigues")
-            return ValueError
+            raise ValueError("Invalid option for initgues")
         else:
             call_list += ["-init", str(initgues)]
 
     if (skysub != ""):
         options = ["none", "mode", "median"]
         if skysub not in options:
-            print(("Invalid skysub option: %s") % (skysub))
-            print(options)
-            return ValueError
+            raise ValueError(f"Invalid skysub option {options}: {skysub}")
         else:
             call_list += ["-sky", str(skysub)]
 
@@ -180,21 +178,18 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
     if (crradius >= 0.):
         call_list += ["-radius", str(crradius)]
     else:
-        print("Invalid crradius specified")
-        return ValueError
+        raise ValueError("Invalid crradius specified")
 
     if (crthresh >= 0.):
         call_list += ["-thresh", str(crthresh)]
     else:
-        print("Invalid crthresh specified")
-        return ValueError
+        raise ValueError("Invalid crthresh specified")
 
     if (badinpdq >= 0):
         call_list += ["-pdq", str(badinpdq)]
 
     else:
-        print("Invalid DQ value specified")
-        return ValueError
+        raise ValueError("Invalid DQ value specified")
 
     proc = subprocess.Popen(
         call_list,
@@ -209,6 +204,5 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
     ec = error_code(return_code)
     if return_code:
         if ec is None:
-            print("Unknown return code found!")
-            ec = return_code
-        raise RuntimeError("wf3rej.e exited with code {}".format(ec))
+            raise RuntimeError(f"wf3rej.e exited with unknown return code {return_code}.")
+        raise RuntimeError(f"wf3rej.e exited with return code {ec}.")
