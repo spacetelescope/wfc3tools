@@ -444,16 +444,18 @@ performed. Reference file keywords indicate which reference files to use in the 
 calibration steps. Users who wish to perform custom reprocessing of their data may change 
 the values of these keywords in the ``_raw.fits`` file primary headers and then rerun the 
 modified file through `calwf3`. See the 
-`WFC3 Data Handbook <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/_documents/wfc3_dhb.pdf>`_ 
+`WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_
 for a more complete description of these keywords and their values.
 
 
 Using CRDS to Update Your Reference Files
 =========================================
-CRDS is the reference file management software used by STScI for organizing and assigning reference files to datasets.
-Users can query CRDS to get the best reference files for their data available at the time of the request. The following 
-link explains how you
-can use this facility locally: `Using CRDS to find the best reference files for your data <https://hst-crds.stsci.edu/bestrefs/>`_.
+CRDS is the reference file management software used by STScI for organizing and assigning reference files to 
+datasets.  Users can query CRDS to get the best reference files for their data available at the time of the 
+request. The following link explains how you
+can use this facility via a web interface, 
+`Using CRDS to find the best reference files for your data <https://hst-crds.stsci.edu/bestrefs/>`_, or 
+from the `command line <https://hst-crds.stsci.edu/docs/cmdline_bestrefs/>`_.
 
 
 .. include:: ./uvis_pipeline.inc

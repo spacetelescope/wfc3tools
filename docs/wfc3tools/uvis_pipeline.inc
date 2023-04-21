@@ -16,33 +16,40 @@ As of `calwf3 v3.3`, the calwf3 pipeline processes all UVIS data twice, once wit
 
 * Calculate and remove and CTE found in the image (PCTECORR)
 * Calculate a noise model for each pixel and record in the error array (ERR) of the image (NOISCORR)
-* Initialize the data quality(DQ) array of the image (DQICORR)
+* Initialize the data quality (DQ) array of the image (DQICORR)
 * Correct for A-to-D conversion errors where necessary, currently skipped (ATODCORR)
 * Subtract bias level determined from overscan regions (BLEVCORR)
 * Subtract the bias image (BIASCORR)
-Any calibration reference file data which is in units of electrons
 * Detect and record SINK pixels in the DQ mask (performed if DQICORR is set to PERFORM)
 * Subtract the post-flash image, if applicable (FLSHCORR)
 * Scale and subtract the dark image (DARKCORR)
 * Perform flatfielding (FLATCORR)
-* Perform unit conversion
+* Perform unit conversion (FLATCORR)
 * Perform shutter-shading correction where necessary, currently skipped (SHADCORR)
 * Populate photometric header keywords (PHOTCORR)
 * Calculate image statistics for the header
 * Correct chips to be on the same zeropoint (FLUXCORR)
+* Calculate basic pixel statistics for the image and store the values in relevant header keywords (no switch)
+
+The ATODCORR step is currently skipped as WFC3 ground tests did not show a bias toward the assignment
+of certain DN values, so this correction is not needed.  The SHADCOR step which corrects the science image 
+for differential exposure time across the detector caused by the amount of time it takes for the shutter 
+to open and close completely is an insignificant effect. This step is always set to OMIT.
 
 Correction For Charge Transfer Efficiency (PCTECORR)
 ----------------------------------------------------
-The charge transfer (CTE) of the UVIS detector has been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources, in particular, can suffer large flux losses or even be lost entirely if observations are not planned and analyzed carefully. The CTE depends on the morphology of the source, the distribution of electrons in the field of view, and the population of charge traps in the detector column between the source and the transfer register. Further details of the current understanding of the state of the WFC3/UVIS charge transfer efficiency (CTE) are presented 
-in `WFC3 ISR 2021-13 <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2021/WFC3-ISR-2021-13-FINAL.pdf>`_, as well as other ISRs found in the WFC3 documentation <https://www.stsci.edu/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs>`_.  The PCTECORR step aims to mitigate the flux loss incurred from CTE.
+The charge transfer (CTE) of the UVIS detector has been declining over time as on-orbit radiation damage creates charge traps in the CCDs. Faint sources, in particular, can suffer large flux losses or even be lost entirely if observations are not planned and analyzed carefully. The CTE depends on the morphology of the source, the distribution of electrons in the field of view, and the population of charge traps in the detector column between the source and the transfer register. Further details regarding the understanding of the WFC3/UVIS charge transfer efficiency (CTE) are presented in several documents.  Please see
+`WFC3 ISR 2021-13 <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2021/WFC3-ISR-2021-13-FINAL.pdf>`_, as well as other ISRs found in the WFC3 documentation <https://www.stsci.edu/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs>`_.  The PCTECORR step aims to mitigate the flux loss incurred from CTE.
 
 More information on this part of the pipeline can be found in the :ref:`wf3cte` documentation.
 
 
-Error Array Initialization
---------------------------
+Error Array Initialization (NOISCORR)
+-------------------------------------
 
 The image error array is initialized. The function examines the ERR extension of the input data to determine the state of the array. The input _raw image contains an empty ERR array. If the ERR array has already been expanded and contains values other than zero, then this function does nothing. Otherwise it will initialize the ERR array by assigning pixel values based on a simple noise model. The noise model uses the science (SCI) array and for each pixel calculates the error value :math:`\sigma` in units of DN:
+Tne NOISCORR calibration step keyword is not explicitly listed in the image header (i.e., it is not 
+user-accessible), and it is always set to PERFORM.
 
 .. math::
 
@@ -89,20 +96,14 @@ Flagging of SINK pixels in the DQ extension of calibrated images is controlled w
 * Extract the MJD of the science exposure
 * Go through the reference image pixel by pixel looking for those pixels with values greater than 999, which indicates that the current pixel is a sink pixel. The value of this pixel in the reference file corresponds to the date at which this pixel exhibited the sink behavior.
 * If the turn on date of the sink pixel is after the exposure date of the science image, then we ignore the sink pixel in this exposure and move on to the next pixel
-* If the turn on date of the sink pixel is before the exposure date of the science image, then this science pixel was compromised at the time of the exposure.The corresponding DQ extension pixel for this science pixel is flagged with the "charge trap" flag of 1024.
+* If the turn on date of the sink pixel is before the exposure date of the science image, then this science pixel was compromised at the time of the exposure. The corresponding DQ extension pixel for this science pixel is flagged with the "charge trap" flag of 1024.
 * If the pixel "below" the sink pixel in the long format image has a value of -1 in the reference image, then it is also flagged with the "charge trap" value in the DQ extension. We then proceed vertically "up" from the sink pixel and compare each pixel in the reference file to the value of the sink pixel in the science exposure at hand. If the value of the sink pixel in the exposure is below the value of the upstream pixel in the reference image, we flag that pixel with the "charge trap" value in the DQ extension. We continue to flag pixels until the value of the pixel in the reference image is zero or until the value of the sink pixel in the exposure is greater than the value of the upstream pixel in the reference image.
 
 
 `WFC3 ISR 2014-19 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-19.pdf>`_ has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in `WFC3 ISR 2014-22 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-22.pdf>`_ .
 
-Sink pixels are currently only flagged in full frame science images, `calwf3v3.4` will also perform flagging in subarray images.
-**The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels**
-
-
-Bias Correction (BIASCORR)
---------------------------
-
-This step subtracts the two dimensional bias structure from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full and subarray images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of :ref:`wf3ccd` are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, `calwf3` will extract the matching region from the full-size bias file and apply it to the subarray image.
+Sink pixels were originally only flagged in full frame science images, but since `calwf3 v3.4` sink pixel flagging has also been done 
+in subarray images.  **The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels**
 
 
 Overscan Bias Correction (BLEVCORR)
@@ -110,17 +111,17 @@ Overscan Bias Correction (BLEVCORR)
 
 The location of the overscan regions in a raw image varies, depending upon the type of readout that is performed. The overscan regions are used to monitor the instrument as well as provide a measure of the bias level at the time the detector was exposed. The bias level which is calculated for subtraction is done on a line-by-line basis in the image. If the image has no overscan region the BIAS level to be subtracted is obtained from the CCDTAB reference file. Otherwise, the columns to use for the calculation are referenced in the OSCNTAB reference file. The OSCNTAB refers to all regions in pixel coordinates, even when the image is binned. A bias drift calculation is made if there are virtual overscan pixels which exist, if neither of the virtual overscan regions are specified, then the physical overscan region is used.
 
-If there are two sections available to use for the line because only 1 amp was used, then they are averaged. The parallel overscan region is split into two if there is more than one amp. If the virtual overscan is used, a straight line is fit as a function of the column number. The fit is evaluated for each line and then subtracted from the data.  Iterative sigma clipping is used to reject outliers from the array of bias values.
+If there are two sections available to use for the line because only one amp was used, then they are averaged. The parallel overscan region is split into two if there is more than one amp. If the virtual overscan is used, a straight line is fit as a function of the column number. The fit is evaluated for each line and then subtracted from the data.  Iterative sigma clipping is used to reject outliers from the array of bias values.
 
 The mean value of all the bias levels which were subtracted is recorded in the SCI extension output header in MEANBLEV.
 
-::
+.. code-block:: sh
 
         parallel readout direction, amp A
         |
         |
         v
-        (VX1,VX2)     (VX2,VY2)
+        (VX1,VY1)     (VX2,VY2)
         A       /         \     B
         -----/-----------+---
         |   |/     |      |   | } TRIMY2
@@ -155,33 +156,39 @@ The mean value of all the bias levels which were subtracted is recorded in the S
         TRIMY2    - Number of line to trim off end of each column
 
 
+Bias Correction (BIASCORR)
+--------------------------
+
+This step subtracts the two dimensional bias structure from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full-frame and subarray images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of :ref:`wf3ccd` are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, `calwf3` will extract the matching region from the full-size bias file and apply it to the subarray image.
+
+
 Post-Flash Correction (UVIS ONLY) (FLSHCORR)
 --------------------------------------------
 
-WFC3 has post-flash capability to provide a means of mitigating the effects of Charge Transfer Efficiency (CTE) degradation.  When FLSHCORR=PERFORM, this routine subtracts the post-flash reference image, FLSHFILE, from the science image after DARKCORR in the WF32D step. The success of the post-flash operation during the exposure is first verified by checking the keyword FLASHSTA. The FLSHFILE is renormalized to the appropriate post-flash current level (LOW, MED, HIGH) recorded in the FLASHCUR keyword, and the flash duration (FLASHDUR) and is then subtracted from the science image. The mean value of the scaled post-flash image is written to MEANFLSH in the output SCI extension header. Different members of an association can have different values of SHUTRPOS because it varies by exposure, and this is fine for calibration because the references files are populated separately for each exposure.
+WFC3 has post-flash capability to provide a means of mitigating the effects of Charge Transfer Efficiency (CTE) degradation.  When FLSHCORR=PERFORM, this routine subtracts the post-flash reference image, FLSHFILE, from the science image step. The success of the post-flash operation during the exposure is first verified by checking the keyword FLASHSTA. The FLSHFILE is renormalized to the appropriate post-flash current level (LOW, MED, HIGH) recorded in the FLASHCUR keyword, and the flash duration (FLASHDUR) is then subtracted from the science image. The mean value of the scaled post-flash image is written to MEANFLSH in the output SCI extension header. Different members of an association can have different values of SHUTRPOS because it varies by exposure, and this is fine for calibration because the references files are populated separately for each exposure.
 
 =========   =======================================================================================================================
 KEYWORD     DESCRIPTION
 =========   =======================================================================================================================
 FLSHDUR     is the length of time of the flash exposure
-FLSHCUR     is the current that was used to the lamp as calculated by TRANS, which also calculates FLASHEXP, (ZERO, LOW, MED,HIGH)
+FLSHCUR     is the current that was used to the lamp as calculated by TRANS, which also calculates FLASHEXP, (ZERO, LOW, MED, HIGH)
 FLSHFILE    is the flash reference file, which has an illumination pattern for each shutter
 SHUTRPOS    says which shutter was used
 FLASHSTA    indicates an interrupted exposure (ABORTED, SUCCESSFUL, NOT PERFORMED)
-FLASHLVL    post flash level in electrons
+FLASHLVL    post-flash level in electrons
 MEANFLSH    the mean level which `calwf3` calculated and then subtracted
 =========   =======================================================================================================================
 
 
 Further reading:
-    * `WFC3 Post-Flash Calibration ISR <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2013-12.pdf>`_
-    * `CTE-Loss Mitigation Before Data Acquisition <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c06_uvis10.html#439394>`_
+    * `WFC3 Post-Flash Calibration (WFC3 ISR 2013-12) <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2013-12.pdf>`_
+    * WFC3 Instrument Handbook Chapter 6.9.2: `CTE-Loss Mitigation Before Data Acquisition <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c06_uvis10.html#439394>`_
 
 
 Dark Current Subtraction (DARKCORR)
 -----------------------------------
 
-The reference file listed under the DARKFILE header keyword is used as the reference dark image.  In the UVIS, the dark image is scaled by EXPTIME and FLASHDUR.  The reference file pointed to with DARKFILE is used for the non-CTE corrected data, while the reference file pointed to with DRKCFILE is used for the CTE corrected data
+The reference file listed under the DARKFILE header keyword is used as the reference dark image.  In the UVIS, the dark image is scaled by EXPTIME and FLASHDUR.  The reference file pointed to with DARKFILE is used for the non-CTE corrected data, while the reference file pointed to with DRKCFILE is used for the CTE corrected data.
 
 
 FLATCORR
@@ -215,7 +222,7 @@ This step corrects the science image for differential exposure time across the d
     corrected = uncorrected \times EXPTIME \div (EXPTIME + SHADFILE)
 
 
-WFC3 tests have shown that the shutter shading effect is insignificant (< 1%), even for the shortest allowed UVIS exposure time of 0.5 seconds (see `WFC3 ISR 2007-17 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2007-17.pdf>`_). Therefore this step is **ALWAYS set to OMIT** in `calwf3`.
+WFC3 tests have shown that the shutter shading effect is insignificant (< 1%), even for the shortest allowed UVIS exposure time of 0.5 seconds (`WFC3 ISR 2007-17 <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2007/WFC3-2007-17.pdf>`_). Therefore this step is **ALWAYS set to OMIT** in `calwf3`.
 
 
 Photometry Keywords (PHOTCORR)
@@ -226,24 +233,24 @@ The PHOTCORR step is performed using tables of precomputed values. Instead of ca
 If you do not wish to use this feature, set the header keyword PHOTCORR to OMIT. However, if you intend to use the FLUXCORR step, then PHOTCORR must be set to PERFORM as well.
 
 
-* PHOTFNU: the inverse sensitivity in units of :math: Jansky sec electron^{-1}`
-* PHOTFLAM: the inverse sensitivity in units of :math:`ergs\  cm^{-2} A^{-1} electron^{-1}`
-* PHOTPLAM: the bandpass pivot wavelength
-* PHOTBW: the bandpass RMS width
-* PHTFLAM1: the inverse sensitivity in units of :math:`ergs cm^{-2} A^{-1} electron^{-1}`
-* PHTFLAM2: the inverse sensitivity in units of :math:`ergs cm^{-2} A^{-1} electron^{-1}`
+* PHOTFNU: the inverse sensitivity in units of :math:`Jansky\ sec\ electron^{-1}`
+* PHOTFLAM: the inverse sensitivity in units of :math:`ergs\ cm^{-2} A^{-1} electron^{-1}`
+* PHOTPLAM: the bandpass pivot wavelength :math:`A`
+* PHOTBW: the bandpass RMS width :math:`A`
+* PHTFLAM1: the inverse sensitivity in units of :math:`ergs\ cm^{-2} A^{-1} electron^{-1}`
+* PHTFLAM2: the inverse sensitivity in units of :math:`ergs\ cm^{-2} A^{-1} electron^{-1}`
 
 For versions 3.3 and beyond, the value PHOTFNU is calculated specific to each UVIS chip, see the section on FLUXCORR for more information.
 
 The SCI headers for each chip contain the PHOTFNU keyword, which is valid for its respective chip, where PHOTFNU is calculated as:
 
-For UVIS 1:  :math:`photfnu = 3.33564e^{4} * PHTFLAM1 * PHOTPLAM^{2}`
+For UVIS1:  :math:`photfnu = 3.33564e^{4} * PHTFLAM1 * PHOTPLAM^{2}`
 
-For UVIS 2:  :math:`photfnu = 3.33564e^{4} * PHTFLAM2 * PHOTPLAM^{2}`
+For UVIS2:  :math:`photfnu = 3.33564e^{4} * PHTFLAM2 * PHOTPLAM^{2}`
 
 
 
-The IMPHTTAB file format for WFC3 UVIS is as follows:
+The IMPHTTAB file format for WFC3/UVIS is as follows:
 
 ::
 
@@ -263,18 +270,19 @@ where each extension contains the photometry keyword information for that specif
 
 Flux normalization for UVIS1 and UVIS2 (FLUXCORR)
 -------------------------------------------------
-The FLUXCORR step was added in calwf3 v3.1.2 as a way to scale the UVIS chips
-so that the flux correction over both chips is uniform. This requires new keywords
+The FLUXCORR step was added in `calwf3 v3.2` as a way to scale the UVIS chips
+so that the flux correction over both chips is uniform. This required new keywords
 which specify new PHOTFLAM values to use for each chip as well as a keyword to specify the scaling factor
-for the chips. New flatfields must be used and will replace the old flatfields in CDBS but the change will
-not be noticeable to users. Users should be aware that flatfield images used in conjunction with v3.2.1
-of the software should not be used with older versions as the data, and vice versa as the scaling will be incorrect.
+for the chips. New flatfields must be used and will replace the old flatfields in CRDS but the change will
+not be noticeable to users. Users should be aware that flatfield images used in conjunction with 
+`calwf3 v3.2` of the software should not be used with older versions as the data, and vice versa as the 
+scaling will be incorrect.
 
 The new keywords include:
 
-* PHTFLAM1: The FLAM for UVIS 1
-* PHTFLAM2: The FLAM for UVIS 2
-* PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by calwf3 and is multiplied with UVIS2 (SCI,1 in the data file)
+* PHTFLAM1: The FLAM for UVIS1
+* PHTFLAM2: The FLAM for UVIS2
+* PHTRATIO: The ratio: PHTFLAM2 / PHTFLAM1, which is calculated by `calwf3` and is multiplied with UVIS2 (SCI,1 in the data file)
 
 .. note::
 
@@ -286,4 +294,4 @@ This step is performed by default in the pipeline and the PHOTFLAM keyword will 
 
 Cosmic-ray rejection
 --------------------
-Associations with more than one member, which have been associated using either CR-SPLIT or REPEAT-OBS, will be combined using :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIS (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure. The DRZ and DRC products will be created from the association, with `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_, which will also correct for geometric distortion.
+Associations with more than one member, which have been associated using either CR-SPLIT or REPEAT-OBS, will be combined using :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIS (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure. The DRZ and DRC products will be created from the association, with `AstroDrizzle <https://www.stsci.edu/scientific-community/software/drizzlepac.html>`_, which will also correct for geometric distortion.
