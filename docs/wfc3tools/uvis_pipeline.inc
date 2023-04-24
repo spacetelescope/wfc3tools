@@ -48,7 +48,7 @@ Error Array Initialization (NOISCORR)
 -------------------------------------
 
 The image error array is initialized. The function examines the ERR extension of the input data to determine the state of the array. The input _raw image contains an empty ERR array. If the ERR array has already been expanded and contains values other than zero, then this function does nothing. Otherwise it will initialize the ERR array by assigning pixel values based on a simple noise model. The noise model uses the science (SCI) array and for each pixel calculates the error value :math:`\sigma` in units of DN:
-Tne NOISCORR calibration step keyword is not explicitly listed in the image header (i.e., it is not 
+The NOISCORR calibration step keyword is not explicitly listed in the image header (i.e., it is not 
 user-accessible), and it is always set to PERFORM.
 
 .. math::
@@ -100,7 +100,8 @@ Flagging of SINK pixels in the DQ extension of calibrated images is controlled w
 * If the pixel "below" the sink pixel in the long format image has a value of -1 in the reference image, then it is also flagged with the "charge trap" value in the DQ extension. We then proceed vertically "up" from the sink pixel and compare each pixel in the reference file to the value of the sink pixel in the science exposure at hand. If the value of the sink pixel in the exposure is below the value of the upstream pixel in the reference image, we flag that pixel with the "charge trap" value in the DQ extension. We continue to flag pixels until the value of the pixel in the reference image is zero or until the value of the sink pixel in the exposure is greater than the value of the upstream pixel in the reference image.
 
 
-`WFC3 ISR 2014-19 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-19.pdf>`_ has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in `WFC3 ISR 2014-22 <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2014-22.pdf>`_ .
+`WFC3 ISR 2014-19 <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2014/WFC3-2014-19.pdf>`_
+has a detailed analysis on detection of the sink pixels, while the strategy for flagging them is discussed in `WFC3 ISR 2014-22 <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2014/WFC3-2014-22.pdf>`_.
 
 Sink pixels were originally only flagged in full frame science images, but since `calwf3 v3.4` sink pixel flagging has also been done 
 in subarray images.  **The pipeline currently does no further analysis or correction on pixels which have been flagged as affected by sink pixels**
@@ -159,7 +160,7 @@ The mean value of all the bias levels which were subtracted is recorded in the S
 Bias Correction (BIASCORR)
 --------------------------
 
-This step subtracts the two dimensional bias structure from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full-frame and subarray images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of :ref:`wf3ccd` are the science images trimmed to their final calibrated size. The same reference image is used for full-frame and subarray images, `calwf3` will extract the matching region from the full-size bias file and apply it to the subarray image.
+This step subtracts the two dimensional bias structure from the image using the superbias reference image listed in the header keyword BIASFILE. The dimensions of the image are used to distinguish between full-frame and subarray images. Because the bias image is already overscan-subtracted, it will have a mean pixel value of less than one. The BIASFILE has the same dimensions as a full-size science image, complete with overscan regions. Only after completion of :ref:`wf3ccd` are the science images trimmed to their final calibrated size. Since the same reference image is used for full-frame and subarray images, `calwf3` will extract the matching region from the full-size bias file and apply it to the subarray image.
 
 
 Post-Flash Correction (UVIS ONLY) (FLSHCORR)
@@ -181,8 +182,8 @@ MEANFLSH    the mean level which `calwf3` calculated and then subtracted
 
 
 Further reading:
-    * `WFC3 Post-Flash Calibration (WFC3 ISR 2013-12) <http://www.stsci.edu/hst/wfc3/documents/ISRs/WFC3-2013-12.pdf>`_
-    * WFC3 Instrument Handbook Chapter 6.9.2: `CTE-Loss Mitigation Before Data Acquisition <http://www.stsci.edu/hst/wfc3/documents/handbooks/currentIHB/c06_uvis10.html#439394>`_
+    * `WFC3 Post-Flash Calibration (WFC3 ISR 2013-12) <https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2013/WFC3-2013-12.pdf>`_
+    * WFC3 Instrument Handbook Chapter 6.9.2: `CTE-Loss Mitigation Before Data Acquisition <https://hst-docs.stsci.edu/wfc3ihb/chapter-6-uvis-imaging-with-wfc3/6-9-charge-transfer-efficiency#id-6.9ChargeTransferEfficiency-6.9.2CTE-LossMitigationBeforeDataAcquisition:ObservationPlanning>`_
 
 
 Dark Current Subtraction (DARKCORR)
@@ -244,9 +245,9 @@ For versions 3.3 and beyond, the value PHOTFNU is calculated specific to each UV
 
 The SCI headers for each chip contain the PHOTFNU keyword, which is valid for its respective chip, where PHOTFNU is calculated as:
 
-For UVIS1:  :math:`photfnu = 3.33564e^{4} * PHTFLAM1 * PHOTPLAM^{2}`
+For UVIS1:  :math:`photfnu = 3.33564 x 10^{4} * PHTFLAM1 * PHOTPLAM^{2}`
 
-For UVIS2:  :math:`photfnu = 3.33564e^{4} * PHTFLAM2 * PHOTPLAM^{2}`
+For UVIS2:  :math:`photfnu = 3.33564 x 10^{4} * PHTFLAM2 * PHOTPLAM^{2}`
 
 
 
