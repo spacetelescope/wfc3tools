@@ -185,3 +185,6 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
             print("Unknown return code found!")
             ec = return_code
         raise RuntimeError("calwf3.e exited with code {}".format(ec))
+
+    # return 1 if pipeline runs without error
+    return 1
