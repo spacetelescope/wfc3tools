@@ -1,6 +1,7 @@
 .. _ir_pipeline:
 
 
+===========
 IR Pipeline
 ===========
 
@@ -22,7 +23,7 @@ IR pipeline output files using the RAW file as input:
 
 
 Data Quality Initialization (DQICORR)
--------------------------------------
+=====================================
 
 Initialize the data quality array for the image using the reference file specified in its header with BPIXTAB. The DQ array is no longer updated to reflect any TDF transition during the sample. If you want to update DQ pixel values yourself before running further processing, do it after this first step has been completed, remembering that the data in this extension is always in units of UNSIGNED INTEGER. The following table lists the DQ flag values and their meanings:
 
@@ -52,7 +53,7 @@ RESERVED2        32768  can't use
 
 
 Estimate the signal in the zero read (ZSIGCORR)
------------------------------------------------
+===============================================
 
 This step measures the signal between the super zero read in the linearity reference file (NLINFILE) and the science zero read exposure, the steps are roughly as follows:
 
@@ -67,19 +68,19 @@ This step measures the signal between the super zero read in the linearity refer
 * This step acutally subtractes the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.
 
 Bias Correction (BLEVCORR)
---------------------------
+==========================
 
 This step subtracts the bias level using the reference pixels around the perimeter of the detector, the boundries fo the reference pixels are defined in the OSCNTAB reference file. There are 5 reference pixels on each end of each row, but 1 is ignored on each side, for a total of 8 being used per row. The resistent mean of the standard deviation of all the reference pixels in the image is subtracted from the entire image and the value is stored in the MEANBLEV keyword in the output image header. The reference pixels are left in place in the IMA output image through processeing, but the final FLT image has been trimmed to just the science pixels.
 
 
 Zero read subtraction (ZOFFCORR)
---------------------------------
+================================
 
 The original zero read is subtracted from all groups in the science image, including the zeroth read itself, combining the DQ arrays with a logical OR. The ERR and SAMP arrays are unchanged and the TIME arrays are subtracted from each other. The exposure time for the group being corrected is reduced by an amount equal to the exposure time of the zero-read. At this point we've subtracted the mean bias using the reference pixels (BLEVCORR) and added back in the signal from the super zero read (done at the end of ZSIGCORR). What's left in the zero read of the science image is the superbias subtracted signal. The TIME and SAMP arrays are saved to the FLT image only AFTER the CRCORR step has been completed.
 
 
 Error array initialization
---------------------------
+==========================
 
 The errors associated with the raw data are estimated according  to the noise model for the detector which currently includes a simple combination of detector readnoise and poisson noise from the pixel. Readnoise and gain are read from the CCDTAB reference file. The ERR array continues to be summed in quadrature as the SCI array is processed. Inside the final FLT image, the ERR array is calculated by CRCORR as the calculated uncertainty of the count-rate fit to the multiaccum samples.
 
@@ -89,7 +90,7 @@ The errors associated with the raw data are estimated according  to the noise mo
 
 
 Detector Non-linearity Correction (NLINCORR)
---------------------------------------------
+============================================
 
 The integrated counts in the science images are corrected for the  non-linear response of the detectors, flagging pixels which extend into saturation (as defined in the saturation extension of the NLINFILE reference image. The observed response of the detector can be represented by two regimes:
 
@@ -135,14 +136,14 @@ The format of the linearity reference file:
 
 
 Dark Current Subtraction (DARKCORR)
------------------------------------
+===================================
 
 The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from the stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and the science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from the science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.
 
 
 
 Photometry Keywords (PHOTCORR)
-------------------------------
+==============================
 
 The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step. The format of the file for the IR detectors is:
 
@@ -163,14 +164,14 @@ where each extension contains the photometry keyword information for that specif
 * PHOTBW: the bandpass RMS width
 
 Conversion to Signal Rate (UNITCORR)
-------------------------------------
+====================================
 
 This step converts the science data from a time-integrated signal to a signal rate by dividing the SCI and ERR arrays for reach readout by the TIME array. No reference file is needed. The BUNIT keyword in the output data header reflects the appropriate data units. The FLATCORR keyword is checked to decide on  proper units for BUNIT and skip this step if "countrate" is found. If FLATCORR is set to "complete", then the units should be electrons, otherwise they are counts (the digitized signal from the FPA).
 
 
 
 Fit accumulating signal and identify cosmic ray hits (CRCORR)
--------------------------------------------------------------
+=============================================================
 
 This step fits the accumulating signal up the image ramp and identifies cosmic-ray hits for each sample using the `Fixsen et al (2000) <http://adsabs.harvard.edu/abs/2000PASP..112.1350F>`_  methods.
 
@@ -206,13 +207,13 @@ The result of this step  is stored as a single imset in the output FLT file. In 
 
 
 Flatfield Correction (FLATCORR)
--------------------------------
+===============================
 
 This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from the flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.
 
 
 Calculation of image statistics
--------------------------------
+===============================
 
 The min, mean, maxmin and max SNR (for the SCI and ERR) for data values flagged as "good" in the DQ array (i.e. zero) are calculated and stored in the output SCI image header, the reference pixels are not used. This is performed for all samples in the IMA file as well as the FLT image but the input data is not modified in any way. Updated keywords in the science header include:
 
@@ -226,7 +227,7 @@ The min, mean, maxmin and max SNR (for the SCI and ERR) for data values flagged 
 
 
 Reject cosmic rays from multiple images (RPTCORR)
--------------------------------------------------
+=================================================
 Reject cosmic rays from multiple images. REPEAT-OBS exposures get combined with :ref:`wf3rej`. The task uses the same statistical detection algorithm developed for ACS (acsrej), STIC (ocrrj) and WFPC2(crrej), providing a well-tested and robust procedure. CR-SPLIT is not used for the IR channel. All dithered observation get combined with Astrodrizzle  (see `Astrodrizzle <http://www.stsci.edu/hst/HST_overview/drizzlepac/>`_ ), which will also correct for geometric distortion.
 
 .. warning::

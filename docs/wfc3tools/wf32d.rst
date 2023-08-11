@@ -11,7 +11,8 @@ This routine performs the remaining series of tasks in the UVIS pipeline.
 The wf32d primary functions include:
 
   * DARKCORR: dark current subtraction
-  * FLATCORR: flat-fielding
+  * FLATCORR: flat-fielding and conversion to electrons
+  * SHADCORR: apply shutter shading correction (currently skipped)
   * PHOTCORR: photometric keyword calculations
   * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
 
@@ -20,8 +21,20 @@ executed, after which the switch will be set to COMPLETE in the corresponding
 output files. See `Section 3.4.3 of the WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_ for more information.
 
 
+Running `wf32d` from a Python Terminal
+=======================================
+
+.. code-block:: shell
+
+    from wfc3tools import wf32d
+    wf32d(filename)
+
+
+Input Parameters for the Python Interface 
+-----------------------------------------
+
 Parameters
-==========
+~~~~~~~~~~
 
     input : str or list
         Name of input files, such as
@@ -69,13 +82,13 @@ Parameters
 
 
 Returns
-=======
+~~~~~~~
 
     None
 
 
 Usage
-=====
+~~~~~
 
 .. code-block:: python
 
@@ -83,8 +96,8 @@ Usage
     wf32d(filename)
 
 
-Command Line Options for the wf32d executable
-=============================================
+Command Line Options for the `wf32d` C Executable
+=================================================
 
 .. code-block:: shell
 
