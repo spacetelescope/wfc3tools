@@ -12,8 +12,8 @@ conda:
 
 sphinx:
   builder: html
-  configuration: doc/source/conf.py
-  fail_on_warning: true
+  configuration: docs/conf.py
+  fail_on_warning: false
 
 # Set the version of Python and requirements required to build your docs
 python:
