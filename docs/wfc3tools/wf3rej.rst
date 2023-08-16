@@ -64,7 +64,7 @@ Parameters
 
     input : str or list
         Name of input files, such as
-            * common separated (no spaces) filenames (``iaao01k8q_flc.fits,iaao01k9q_flc.fits``)
+            * comma-separated (no spaces) filenames (``iaao01k8q_flc.fits,iaao01k9q_flc.fits``)
             * a Python list of filenames
             * a partial filename with wildcards (``*flt.fits``)
             * an at-file (``@input``)
