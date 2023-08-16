@@ -33,7 +33,7 @@ from .util import error_code
 
 
 def calwf3(input=None, printtime=False, save_tmp=False,
-           verbose=None, debug=False, parallel=True, version=False, log_func=print):
+           verbose=False, debug=False, parallel=True, version=False, log_func=print):
     """
     Run the calwf3.e executable as from the shell.
 
