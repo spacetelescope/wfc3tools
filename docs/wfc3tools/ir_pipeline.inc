@@ -145,7 +145,7 @@ The reference file listed under the DARKFILE header keyword is used to subtract 
 Photometry Keywords (PHOTCORR)
 ==============================
 
-The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for ``calwf3`` to perform the PHOTCORR step. The format of the file for the IR detectors is:
+The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for `calwf3` to perform the PHOTCORR step. The format of the file for the IR detectors is:
 
 ::
 
