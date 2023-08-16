@@ -32,8 +32,8 @@ from stsci.tools import parseinput
 from .util import error_code
 
 
-def calwf3(input=None, output=None, printtime=False, save_tmp=False,
-           verbose=False, debug=False, parallel=True, log_func=print):
+def calwf3(input=None, printtime=False, save_tmp=False,
+           verbose=False, debug=False, parallel=True, version=False, log_func=print):
     """
     Run the calwf3.e executable as from the shell.
 
@@ -45,9 +45,6 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         - a Python list of filenames
         - a partial filename with wildcards (*raw.fits)
         - filename of an ASN table (*asn.fits)
-
-    output : str, default=None
-        Name of the output FITS file.
 
     printtime : bool, default=False
         If True, print a detailed time stamp.
@@ -66,7 +63,9 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         UVIS CTE correction.
 
     version : bool, default=False
-        If True, WHAT IS VERSION???
+        If True, the version of calwf3 will be printed.  In this case, no
+        filename should be provided. If a filename is provided, it will
+        be ignored.
 
     log_func : func(), default=print()
         If not specified, the print function is used for logging to facilitate
@@ -118,12 +117,16 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
     >>> for fits in glob('j*_raw.fits'):
     >>>     calwf3(fits)
 
+    >>> # Just query for the version of the pipeline
+    >>> from wfc3tools import calwf3
+    >>> calwf3(version=True)
+
+
     Notes
     ------
         - If an intermediate step file (i.e _ima.fits) file is provided as
             input, the pipeline will pick up at the step following the
-            production of that file. Output file names may be unexpected, so
-            proceed with caution when using this option.
+            production of that file.
         - Output files depend on input (IR or UVIS, _ima.fits or _raw.fits, and
             if input is an association or single file) and the save_tmp flag.
         - If an IR association is passed in, the associated _spt.fits files
@@ -146,6 +149,9 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
     if verbose:
         call_list.append('-v')
 
+    if version:
+        call_list.append('--version')
+
     if debug:
         call_list.append('-d')
 
@@ -153,7 +159,7 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         call_list.append('-1')
 
     infiles, dummy = parseinput.parseinput(input)
-    if len(parseinput.irafglob(input)) == 0:
+    if (len(parseinput.irafglob(input)) == 0) and not version:
         raise IOError("No valid image specified")
     if len(parseinput.irafglob(input)) > 1:
         raise IOError("calwf3 can only accept 1 file for"
@@ -163,10 +169,8 @@ def calwf3(input=None, output=None, printtime=False, save_tmp=False,
         if not os.path.exists(image):
             raise IOError("Input file not found: {0}".format(image))
 
-    call_list.append(input)
-
-    if output:
-        call_list.append(str(output))
+    if input and not version:
+        call_list.append(input)
 
     proc = subprocess.Popen(
         call_list,
