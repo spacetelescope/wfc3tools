@@ -96,7 +96,7 @@ Running `wf3cte` from a Python Terminal
 Displaying output from `wf3cte` in a Jupyter Notebook
 -----------------------------------------------------
 
-When calling `wf3cte` from a Jupyter notebook, informational text output from the underlying `wf3cte.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3cte`. As output is read from the underlying program, the `wf3cte` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `wf3cte` to the Python logging system by passing the `logging.debug` function or similar.)
+When calling `wf3cte` from a Jupyter notebook, informational text output from the underlying `wf3cte.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3cte`. As output is read from the underlying program, the `wf3cte` Python wrapper will call `log_func` with the contents of each line. `print` is an obvious choice for a log function, but this also provides a way to connect `wf3cte` to the Python logging system by passing the `logging.debug` function or similar.
 
 If `log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
