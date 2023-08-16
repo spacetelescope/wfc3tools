@@ -4,7 +4,7 @@
 Software Update History for HSTCAL.CALWF3
 *****************************************
 
-.. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
+.. warning:: The IRAF version of WFC3 is no longer maintained or delivered; use WFC3TOOLS in HSTCAL or call the executable, calwf3.e, from your operating system command line. With version 3.3, the pipeline now produces two versions of each calibrated file: one set with the CTE correction applied and one set without the CTE correction applied.
 
 **Updates for Version 3.7.0 08-Jun-2023 - MDD**
     -  Implemented a change to use an image to detect and flag full-well saturation versus a simple scalar.
