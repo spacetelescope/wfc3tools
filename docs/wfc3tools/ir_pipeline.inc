@@ -65,12 +65,12 @@ This step measures the signal between the super zero read in the linearity refer
 * low signal pixels are masked out by setting them to zero
 * the NLINCOR file has an extension with saturation values for each pixel which is referenced here. Pixels which are saturated in the zeroth or first reads are flagged in the DQ and the number of found saturated pixels are reported.
 * This step works poorly for bright targets which are already begining to saturate in the zeroth and first reads
-* This step acutally subtractes the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.
+* This step acutally subtracts the super zero read from the science zero read instead of calculating an estimated signal based on the first read and zero read + estimated exposure time between them so that the difference in readout time for subarrays is not an issue.
 
 Bias Correction (BLEVCORR)
 ==========================
 
-This step subtracts the bias level using the reference pixels around the perimeter of the detector, the boundries fo the reference pixels are defined in the OSCNTAB reference file. There are 5 reference pixels on each end of each row, but 1 is ignored on each side, for a total of 8 being used per row. The resistent mean of the standard deviation of all the reference pixels in the image is subtracted from the entire image and the value is stored in the MEANBLEV keyword in the output image header. The reference pixels are left in place in the IMA output image through processeing, but the final FLT image has been trimmed to just the science pixels.
+This step subtracts the bias level using the reference pixels around the perimeter of the detector, the boundries of the reference pixels are defined in the OSCNTAB reference file. There are 5 reference pixels on each end of each row, but 1 is ignored on each side, for a total of 8 being used per row. The resistent mean of the standard deviation of all the reference pixels in the image is subtracted from the entire image and the value is stored in the MEANBLEV keyword in the output image header. The reference pixels are left in place in the IMA output image through processing, but the final FLT image has been trimmed to just the science pixels.
 
 
 Zero read subtraction (ZOFFCORR)
@@ -82,7 +82,7 @@ The original zero read is subtracted from all groups in the science image, inclu
 Error array initialization
 ==========================
 
-The errors associated with the raw data are estimated according  to the noise model for the detector which currently includes a simple combination of detector readnoise and poisson noise from the pixel. Readnoise and gain are read from the CCDTAB reference file. The ERR array continues to be summed in quadrature as the SCI array is processed. Inside the final FLT image, the ERR array is calculated by CRCORR as the calculated uncertainty of the count-rate fit to the multiaccum samples.
+The errors associated with the raw data are estimated according  to the noise model for the detector which currently includes a simple combination of detector readnoise and Poisson noise from the pixel. Readnoise and gain are read from the CCDTAB reference file. The ERR array continues to be summed in quadrature as the SCI array is processed. Inside the final FLT image, the ERR array is calculated by CRCORR as the calculated uncertainty of the count-rate fit to the multiaccum samples.
 
 .. math::
 
@@ -92,7 +92,7 @@ The errors associated with the raw data are estimated according  to the noise mo
 Detector Non-linearity Correction (NLINCORR)
 ============================================
 
-The integrated counts in the science images are corrected for the  non-linear response of the detectors, flagging pixels which extend into saturation (as defined in the saturation extension of the NLINFILE reference image. The observed response of the detector can be represented by two regimes:
+The integrated counts in the science images are corrected for the  non-linear response of the detectors, flagging pixels which extend into saturation (as defined in the saturation extension of the NLINFILE reference image). The observed response of the detector can be represented by two regimes:
 
 * At low and intermediate signal levels the detector response deviates from the incident flux in a way that is correctable using the following expression
 
@@ -138,14 +138,14 @@ The format of the linearity reference file:
 Dark Current Subtraction (DARKCORR)
 ===================================
 
-The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effecets in the first one or two reads of an exposure, the dark current subtraction is not aplied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from the stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and the science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from the science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.
+The reference file listed under the DARKFILE header keyword is used to subtract the dark current from each sample. Due to potential non-linearities in some of the signal components, such as reet-related effects in the first one or two reads of an exposure, the dark current subtraction is not applied by simply scaling a generic reference dark image to the exposure time and then subtracting it. Instead, a library of dark current images is maintained that includes darks taken in each of the available predefined multiaccum sample sequences, as well as the available sub-array readout modes. The multiaccum dark reference file is subtracted read-by-read from the stack of science image readouts so that there is an exact match in the timings and other characteristics of the dark image and the science image. The subtraction does not include the reference pixel. The ERR and DQ arrays from the reference dark file are combined with the SCI and DQ arrays from the science image, but the SAMP and TIME arrays are unchanged. The mean of the dark image is saved to the MEANDARK keyword in the output science image header.
 
 
 
 Photometry Keywords (PHOTCORR)
 ==============================
 
-The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for calwf3 to perform the PHOTCORR step. The format of the file for the IR detectors is:
+The PHOTCORR step is performed using tables of precomputed values instead of calls  to SYNPHOT. The correct table for a given image must be specified in the IMPHTTAB header keyword in order for ``calwf3`` to perform the PHOTCORR step. The format of the file for the IR detectors is:
 
 ::
 
@@ -209,7 +209,7 @@ The result of this step  is stored as a single imset in the output FLT file. In 
 Flatfield Correction (FLATCORR)
 ===============================
 
-This step corrects for sensativity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps is used to convert to the image to units of electrons. Errors and DQ flags from the flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.
+This step corrects for sensitivity variations across the detector by dividing the images by one or more reference flatfields (taken from the PFLTFILE, DFLTFILE or LFLTFILE header keywords). The mean gain from all the amps are used to convert to the image to units of electrons. Errors and DQ flags from the flatfields are combined with the science data errors and flag, the TIME and SAMP arrays are unchanged.
 
 
 Calculation of image statistics
