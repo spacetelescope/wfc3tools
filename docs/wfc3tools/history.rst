@@ -4,14 +4,17 @@
 Software Update History for HSTCAL.CALWF3
 *****************************************
 
-.. warning:: IRAF version of WFC3 no longer maintained or delivered, use WFC3TOOLS in HSTCAL or call the executable from your operating system command line. With version 3.3 the pipeline now produces two versions of each calibrated file, one set with the CTE correction applied and one set without the CTE correction applied
+.. warning:: The IRAF version of WFC3 is no longer maintained or delivered; use WFC3TOOLS in HSTCAL or call the executable, calwf3.e, from your operating system command line. With version 3.3, the pipeline now produces two versions of each calibrated file: one set with the CTE correction applied and one set without the CTE correction applied.
 
-**Updates for Version 3.7.0 16-Feb-2022 - MDD**
-    -  Implemented algorithm change to use an image to detect and flag full-well saturation versus a simple scalar.
+**Updates for Version 3.7.0 08-Jun-2023 - MDD**
+    -  Implemented a change to use an image to detect and flag full-well saturation versus a simple scalar.
        The new routine, dofwsat.c, is similar to what has been done for calacs. The WFC3 implementation
        is more complicated in that there are serial virtual overscan columns, as well as binned images,
-       to accommodate.  The detection/flagging occurs after blev and bias correction while the output is
-       still in counts.
+       to accommodate.  The detection/flagging occurs after blev and bias corrections while the output is
+       still in counts.  If the SATUFILE keyword is missing from the FITS header, or the keyword does
+       not have a valid filename as a value, the code will revert to using the original method of flagging
+       full-well saturation.  The flagging will be done in doDQI and use a single value as the saturation 
+       threshold.
 
 **Updates for Version 3.6.2 27-May-2021 - MDD**
     - Fixed bug to address calwf3.e crashing (Abort trap: 6) when taking an existing _ima.fits (IR) file

@@ -84,16 +84,28 @@ The standalone call of `wf3cte` will produce a RAC fits (\*_rac_tmp.fits) file b
 For more information please see `the WFC3 CTE webpage <https://www.stsci.edu/hst/instrumentation/wfc3/performance/cte>`_ and `Section 3.4.1 of the WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_.
 
 
-Displaying output from `wf3cte` in a Jupyter Notebook
-=====================================================
+Running `wf3cte` from a Python Terminal
+=======================================
 
-When calling `wf3cte` from a Jupyter notebook, informational text output from the underlying `wf3cte.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3cte`. As output is read from the underlying program, the `wf3cte` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `wf3cte` to the Python logging system by passing the `logging.debug` function or similar.)
+.. code-block:: shell
+
+    from wfc3tools import wf3cte
+    wf3cte(filename)
+
+
+Displaying output from `wf3cte` in a Jupyter Notebook
+-----------------------------------------------------
+
+When calling `wf3cte` from a Jupyter notebook, informational text output from the underlying `wf3cte.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3cte`. As output is read from the underlying program, the `wf3cte` Python wrapper will call `log_func` with the contents of each line. `print` is an obvious choice for a log function, but this also provides a way to connect `wf3cte` to the Python logging system by passing the `logging.debug` function or similar.
 
 If `log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
 
+Input Parameters for the Python Interface 
+-----------------------------------------
+
 Parameters
-==========
+~~~~~~~~~~
 
     input : str or list
         Name of input files, such as
@@ -116,13 +128,13 @@ Parameters
 
 
 Returns
-=======
+~~~~~~~
 
     None
 
 
 Usage
-=====
+~~~~~
 
 .. code-block:: python
 

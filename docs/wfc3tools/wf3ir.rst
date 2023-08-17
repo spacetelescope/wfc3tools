@@ -30,16 +30,28 @@ will be set to COMPLETE in the corresponding output files.
 See `Section 3.4.4 of the WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_ for more information.
 
 
-Displaying output from wf3ir in a Jupyter Notebook
-==================================================
+Running `wf3ir` from a Python Terminal
+=======================================
 
-When calling `wf3ir` from a Jupyter notebook, informational text output from the underlying `wf3ir.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3ir`. As output is read from the underlying program, the `wf3ir` Python wrapper will call `log_func` with the contents of each line. (`print` is an obvious choice for a log function, but this also provides a way to connect `wf3ir` to the Python logging system by passing the `logging.debug` function or similar.)
+.. code-block:: shell
+
+    from wfc3tools import wf3ir
+    wf3ir(filename)
+
+
+Displaying output from `wf3ir` in a Jupyter Notebook
+----------------------------------------------------
+
+When calling `wf3ir` from a Jupyter notebook, informational text output from the underlying `wf3ir.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3ir`. As output is read from the underlying program, the `wf3ir` Python wrapper will call `log_func` with the contents of each line. `print` is an obvious choice for a log function, but this also provides a way to connect `wf3ir` to the Python logging system by passing the `logging.debug` function or similar.
 
 If `log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
 
+Input Parameters for the Python Interface 
+-----------------------------------------
+
 Parameters
-==========
+~~~~~~~~~~
 
     input : str
         Name of input files, such as
@@ -65,13 +77,13 @@ Parameters
 
 
 Returns
-=======
+~~~~~~~
 
     None
 
 
 Usage
-=====
+~~~~~
 
 .. code-block:: python
 
@@ -79,8 +91,8 @@ Usage
     wf3ir(filename)
 
 
-Command Line Options for the wf3ir executable
-=============================================
+Command Line Options for the `wf3ir` C Executable
+=================================================
 
 .. code-block:: shell
 

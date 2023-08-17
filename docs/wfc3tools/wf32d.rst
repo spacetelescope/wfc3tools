@@ -11,7 +11,8 @@ This routine performs the remaining series of tasks in the UVIS pipeline.
 The wf32d primary functions include:
 
   * DARKCORR: dark current subtraction
-  * FLATCORR: flat-fielding
+  * FLATCORR: flat-fielding and conversion to electrons
+  * SHADCORR: apply shutter shading correction (currently skipped)
   * PHOTCORR: photometric keyword calculations
   * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
 
@@ -20,8 +21,27 @@ executed, after which the switch will be set to COMPLETE in the corresponding
 output files. See `Section 3.4.3 of the WFC3 Data Handbook <https://hst-docs.stsci.edu/wfc3dhb>`_ for more information.
 
 
+Running `wf32d` from a Python Terminal
+=======================================
+
+.. code-block:: shell
+
+    from wfc3tools import wf32d
+    wf32d(filename)
+
+Displaying output from `wf32d` in a Jupyter Notebook
+-----------------------------------------------------
+
+When calling `wf32d` from a Jupyter notebook, informational text output from the underlying `wf32d.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf32d`. As output is read from the underlying program, the `wf32d` Python wrapper will call `log_func` with the contents of each line. `print` is an obvious choice for a log function, but this also provides a way to connect `wf32d` to the Python logging system by passing the `logging.debug` function or similar.
+
+If `log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
+
+
+Input Parameters for the Python Interface 
+-----------------------------------------
+
 Parameters
-==========
+~~~~~~~~~~
 
     input : str or list
         Name of input files, such as
@@ -69,13 +89,13 @@ Parameters
 
 
 Returns
-=======
+~~~~~~~
 
     None
 
 
 Usage
-=====
+~~~~~
 
 .. code-block:: python
 
@@ -83,8 +103,8 @@ Usage
     wf32d(filename)
 
 
-Command Line Options for the wf32d executable
-=============================================
+Command Line Options for the `wf32d` C Executable
+=================================================
 
 .. code-block:: shell
 

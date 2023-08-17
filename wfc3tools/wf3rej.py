@@ -13,7 +13,7 @@ wf3rej:
     $ wf3rej.e input output [-options]
 
     Input can be a comma-delimited list of files, and an output file must be specified.
-    $ wf3rej.e ibfma4jqq_flt.fits,ibfma4jtq_flt.fits output.fits -t -table mycrejtab.fits
+    $ wf3rej.e iaao01k8q_flc.fits,iaao01k9q_flc.fits output.fits -t
 
     Where the C executable options include:
 
@@ -62,6 +62,7 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
     ----------
     input : str or list
         Name of input files, such as
+        - comma-separated (no spaces) filenames (``iaao01k8q_flc.fits,iaao01k9q_flc.fits``)
         - a Python list of filenames
         - a partial filename with wildcards (``*flt.fits``)
         - an at-file (``@input``)

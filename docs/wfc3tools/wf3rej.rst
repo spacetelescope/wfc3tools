@@ -40,19 +40,31 @@ as specified by CRSIGMAS. See `Section 3.4.5 of the WFC3 Data Handbook
 for more information.
 
 
-Displaying Output from `wf3rej` in a Jupyter Notebook
-=====================================================
+Running `wf3rej` from a Python Terminal
+=======================================
 
-When calling `wf3rej` from a Jupyter notebook, informational text output from the underlying `wf3rej.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3rej`. As output is read from the underlying program, the `wf3rej` Python wrapper will call `log_func` with the contents of each line. Note that `print` is an obvious choice for a log function, but this also provides a way to connect `wf3rej` to the Python logging system by passing the logging.debug function or similar.
+.. code-block:: shell
+
+    from wfc3tools import wf3rej
+    wf3rej([filename1, filename2])
+
+
+Displaying Output from `wf3rej` in a Jupyter Notebook
+-----------------------------------------------------
+
+When calling `wf3rej` from a Jupyter notebook, informational text output from the underlying `wf3rej.e` program will be passed through `print` as the calibration runs by default, and show up in the user's cell. This behavior can be customized by passing your own function as the `log_func` keyword argument to `wf3rej`. As output is read from the underlying program, the `wf3rej` Python wrapper will call `log_func` with the contents of each line. Note that `print` is an obvious choice for a log function, but this also provides a way to connect `wf3rej` to the Python logging system by passing the `logging.debug` function or similar.
 
 If `log_func=None` is passed, informational text output from the underlying program will be ignored, but the program's exit code will still be checked for successful completion.
 
+Input Parameters for the Python Interface 
+-----------------------------------------
 
 Parameters
-==========
+~~~~~~~~~~
 
     input : str or list
         Name of input files, such as
+            * comma-separated (no spaces) filenames (``iaao01k8q_flc.fits,iaao01k9q_flc.fits``)
             * a Python list of filenames
             * a partial filename with wildcards (``*flt.fits``)
             * an at-file (``@input``)
@@ -99,13 +111,13 @@ Parameters
 
 
 Returns
-=======
+~~~~~~~
 
     None
 
 
 Usage
-=====
+~~~~~
 
 .. code-block:: python
 
@@ -131,7 +143,7 @@ Command Line Options for the `wf3rej` C Executable
 
 
     Example - Process data with timestamps and a custom cosmic ray rejection table:
-    wf3rej.e ibfma4jqq_flt.fits,ibfma4jtq_flt.fits output.fits -t -table mycrejtab.fits
+    wf3rej.e iaao01k8q_flc.fits,iaao01k9q_flc.fits output.fits -t
 
     Example - Print the code version and exit:
     wf3rej.e -r
