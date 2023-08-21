@@ -1,5 +1,12 @@
-1.4.1 (unreleased)
+1.5.0 (2023-11-21)
 ------------------
+- Major updates to the readthedocs documentation, particularly for the UVIS pipeline [#68, #83]
+- Updated some Python APIs for ``calwf3`` component wrappers and explained parameters [#69, #71, #85]
+- Updated embedsub.py to ensure all input extensions are included in the output file [#70]
+- Reversed the use of column and row parameters when accessing image data and updated example for pstack [#73]
+- Modified how an image section is specified and reversed the use of column and row parameters for pstat [#75]
+- Dropped support for Python 3.8 [#79]
+
 
 1.4.0 (2022-03-10)
 ------------------
