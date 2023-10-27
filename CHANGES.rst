@@ -1,6 +1,6 @@
-1.5.0 (2023-11-21)
+1.5.0 (2023-10-18)
 ------------------
-- Major updates to the readthedocs documentation, particularly for the UVIS pipeline [#68, #83]
+- Major updates to the readthedocs documentation, particularly for UVIS pipeline and new full-well saturation [#68, #83]
 - Updated some Python APIs for ``calwf3`` component wrappers and explained parameters [#69, #71, #85]
 - Updated embedsub.py to ensure all input extensions are included in the output file [#70]
 - Reversed the use of column and row parameters when accessing image data and updated example for pstack [#73]
