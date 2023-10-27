@@ -7,8 +7,8 @@ Software Update History for HSTCAL.CALWF3
 .. warning:: The IRAF version of WFC3 is no longer maintained or delivered; use WFC3TOOLS in HSTCAL or call the executable, calwf3.e, from your operating system command line. With version 3.3, the pipeline now produces two versions of each calibrated file: one set with the CTE correction applied and one set without the CTE correction applied.
 
 **Updates for Version 3.7.1 18-Oct-2023 - MDD**
-    - Updates to reconcile the old and new algorithms for flagging full-well saturated pixels.  
-      The new algorithm uses a saturation image which is applied after BLECORR/BIASCORR, and
+    - Updates to reconcile the old and new algorithms for flagging full-well saturated pixels.
+      The new algorithm uses a saturation image which is applied after BLECORR/BIASCORR, where
       the image is already trimmed of the overscan regions. The old algorithm used a single
       scalar value applied to the ENTIRE readout (science data and overscan).  Added flagging
       in DQICORR of the overscan regions when the saturation image of the new algorithm is to
