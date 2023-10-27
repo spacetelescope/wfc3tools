@@ -1,4 +1,4 @@
-1.5.0 (2023-11-21)
+1.5.0 (2023-10-18)
 ------------------
 - Major updates to the readthedocs documentation, particularly for the UVIS pipeline [#68, #83]
 - Updated some Python APIs for ``calwf3`` component wrappers and explained parameters [#69, #71, #85]
