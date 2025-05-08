@@ -1,3 +1,67 @@
+[project]
+name = "wfc3tools"
+description = "Python Tools for HST WFC3 Data"
+requires-python = ">=3.9"
+authors = [
+    { name = "STScI", email = "help@stsci.edu" },
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "astropy>=4.2.0",
+    "numpy>=1.21.0",
+    "matplotlib>=3.5.1",
+    "stsci.tools>=4.0.1",
+    "scipy>=1.8.0",
+]
+dynamic = [
+    "version",
+]
+github-project = "spacetelescope/wfc3tools"
+description-file = "README.rst"
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.license]
+file = "LICENSE.txt"
+content-type = "text/plain"
+
+[project.urls]
+Homepage = "http://wfc3tools.readthedocs.io/"
+"Bug Reports" = "https://github.com/spacetelescope/wfc3tools/issues/"
+Source = "https://github.com/spacetelescope/wfc3tools/"
+Help = "https://hsthelp.stsci.edu"
+homepage = "http:://wfc3tools.readthedocs.io/"
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "sphinx-automodapi",
+    "sphinx-rtd-theme",
+]
+
 [build-system]
-requires = ["setuptools>=42", "setuptools_scm[toml]>=3.4", "wheel"]
+requires = [
+    "setuptools>=61.2",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = false
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.setuptools_scm]
+write_to = "wfc3tools/version.py"
