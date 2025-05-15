@@ -5,9 +5,9 @@ requires-python = ">=3.9"
 authors = [
     { name = "STScI", email = "help@stsci.edu" },
 ]
+license-files = ["LICENSE.txt"]
 classifiers = [
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering :: Astronomy",
@@ -23,23 +23,16 @@ dependencies = [
 dynamic = [
     "version",
 ]
-github-project = "spacetelescope/wfc3tools"
-description-file = "README.rst"
 
 [project.readme]
 file = "README.rst"
 content-type = "text/x-rst"
-
-[project.license]
-file = "LICENSE.txt"
-content-type = "text/plain"
 
 [project.urls]
 Homepage = "http://wfc3tools.readthedocs.io/"
 "Bug Reports" = "https://github.com/spacetelescope/wfc3tools/issues/"
 Source = "https://github.com/spacetelescope/wfc3tools/"
 Help = "https://hsthelp.stsci.edu"
-homepage = "http:://wfc3tools.readthedocs.io/"
 
 [project.optional-dependencies]
 docs = [
