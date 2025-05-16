@@ -13,6 +13,7 @@ jobs:
   test:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
     with:
+      conda: true
       envs: |
         - linux: py311-xdist
         - linux: py312-xdist
