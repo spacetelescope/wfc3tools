@@ -15,8 +15,8 @@ jobs:
     with:
       conda: true
       envs: |
-        - linux: py311-xdist
-        - linux: py312-xdist
-        - macos: py312-xdist
-        - linux: py3-cov-xdist
+        - linux: py311
+        - linux: py312
+        - macos: py312
+        - linux: py3-cov
           coverage: codecov
