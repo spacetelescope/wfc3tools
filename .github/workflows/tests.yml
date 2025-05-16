@@ -18,5 +18,3 @@ jobs:
         - linux: py311
         - linux: py312
         - macos: py312
-        - linux: py3-cov
-          coverage: codecov
