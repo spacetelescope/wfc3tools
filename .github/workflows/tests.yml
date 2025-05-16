@@ -1,0 +1,20 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+      - '*x'
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  test:
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
+    with:
+      conda: true
+      envs: |
+        - linux: py311
+        - linux: py312
+        - macos: py312
