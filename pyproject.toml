@@ -34,7 +34,6 @@ Homepage = "http://wfc3tools.readthedocs.io/"
 "Bug Reports" = "https://github.com/spacetelescope/wfc3tools/issues/"
 Source = "https://github.com/spacetelescope/wfc3tools/"
 Help = "https://hsthelp.stsci.edu"
-homepage = "http:://wfc3tools.readthedocs.io/"
 
 [project.optional-dependencies]
 tests = [
