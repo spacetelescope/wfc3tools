@@ -9,13 +9,18 @@
 from configparser import ConfigParser
 import datetime
 import os
+from pathlib import Path
 import sys
 
 from wfc3tools import __version__
 
-conf = ConfigParser()
-conf.read([os.path.join(os.path.dirname(__file__), '..', 'setup.cfg')])
-setup_cfg = dict(conf.items('metadata'))
+if sys.version_info < (3, 11):
+    import tomli as tomllib
+else:
+    import tomllib
+
+with open(Path(__file__).parent.parent / "pyproject.toml", "rb") as configuration_file:
+    metadata = tomllib.load(configuration_file)["project"]
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -28,9 +33,9 @@ sys.path.insert(0, os.path.abspath('exts/'))
 
 
 # -- Project information -----------------------------------------------------
-project = setup_cfg['name']
-author = setup_cfg['author']
-copyright = '{0}, {1}'.format(datetime.datetime.now().year, author)
+project = metadata["name"]
+author = f'{metadata["authors"][0]["name"]}'
+copyright = f"{datetime.datetime.now().year}, {author}"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
