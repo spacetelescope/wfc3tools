@@ -3,7 +3,7 @@ name = "wfc3tools"
 description = "Python Tools for HST WFC3 Data"
 requires-python = ">=3.9"
 authors = [
-    { name = "STScI", email = "help@stsci.edu" },
+    { name = "STScI" },
 ]
 license-files = ["LICENSE.txt"]
 classifiers = [
