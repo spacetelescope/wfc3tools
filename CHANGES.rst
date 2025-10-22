@@ -1,3 +1,6 @@
+1.7.0 (unreleased)
+------------------
+
 1.6.0 (2025-10-21)
 ------------------
 - Follow PEP621 to move build configuration pyproject.toml [#90]
