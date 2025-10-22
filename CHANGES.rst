@@ -1,3 +1,7 @@
+1.6.0 (2025-10-21)
+------------------
+- Follow PEP621 to move build configuration pyproject.toml [#90]
+
 1.5.0 (2023-10-18)
 ------------------
 - Major updates to the readthedocs documentation, particularly for UVIS pipeline and new full-well saturation [#68, #83]
@@ -6,7 +10,6 @@
 - Reversed the use of column and row parameters when accessing image data and updated example for pstack [#73]
 - Modified how an image section is specified and reversed the use of column and row parameters for pstat [#75]
 - Dropped support for Python 3.8 [#79]
-
 
 1.4.0 (2022-03-10)
 ------------------
