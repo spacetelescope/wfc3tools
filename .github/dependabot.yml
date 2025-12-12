@@ -7,8 +7,9 @@ updates:
     target-branch: "main"
     schedule:
       interval: monthly
-      time: "03:30"
     groups:
       actions:
         patterns:
           - "*"
+    cooldown:
+      default-days: 7
