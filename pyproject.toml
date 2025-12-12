@@ -63,9 +63,3 @@ namespaces = false
 
 [tool.setuptools_scm]
 version_file = "wfc3tools/version.py"
-
-[tool.ruff]
-extend-ignore = [
-    "E501", # Line too long
-]
-line-length = 127
