@@ -8,7 +8,7 @@ __all__ = ["display_help"]
 
 def display_help():
     """display local html help in a browser window"""
-    url = "http://wfc3tools.readthedocs.io/"
+    url = "https://wfc3tools.readthedocs.io/"
     print(url)
     try:
         import webbrowser
