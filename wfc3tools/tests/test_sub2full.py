@@ -1,24 +1,23 @@
-from wfc3tools import sub2full
-from astropy.io import fits
-
-from astroquery.mast import Observations
-import pytest
 import os
 
+import pytest
+from astropy.io import fits
+from astroquery.mast import Observations
 
-def download_test_data(filenames, local_path='', cache=False):
+from wfc3tools import sub2full
+
+
+def download_test_data(filenames, local_path=os.curdir, cache=True):
     for f in filenames:
         Observations.download_file(f'mast:HST/product/{f}', cache=cache,
                                    local_path=local_path)
 
 
-def test_sub2full(tmpdir):
+def test_sub2full(_jail):
     flt = 'ibbso1fdq_flt.fits'
     spt = 'ibbso1fdq_spt.fits'
 
-    download_test_data([flt, spt], local_path=tmpdir)
-
-    os.chdir(tmpdir)
+    download_test_data([flt, spt])
 
     # default args
     coords = sub2full(flt, x=None, y=None, fullExtent=False)
