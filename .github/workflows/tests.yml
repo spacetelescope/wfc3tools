@@ -13,6 +13,13 @@ on:
     - cron: "0 9 * * 3"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   test:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@9f1fedda61294df4c004c05519a3fbf3b8e1f32f  # v2.3.1
