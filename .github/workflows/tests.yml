@@ -8,6 +8,10 @@ on:
     tags:
       - '*'
   pull_request:
+  schedule:
+    # Weekly Wednesday 9AM build
+    - cron: "0 9 * * 3"
+  workflow_dispatch:
 
 jobs:
   test:
