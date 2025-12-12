@@ -38,6 +38,7 @@ Help = "https://hsthelp.stsci.edu"
 tests = [
     "pytest",
     "astroquery",
+    "ci-watson",
 ]
 docs = [
     "sphinx",
