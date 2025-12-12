@@ -1,15 +1,12 @@
 import os
 
-from astroquery.mast import Observations
 import numpy as np
+from astroquery.mast import Observations
 
 from wfc3tools import pstack
 
 
-def test_pstack(tmpdir):
-
-    os.chdir(tmpdir)
-
+def test_pstack(_jail):
     filename = 'ibh719grq_ima.fits'
     Observations.download_file(f'mast:HST/product/{filename}', cache=True)
 
@@ -27,5 +24,6 @@ def test_pstack(tmpdir):
                         59.11241987, 39.01870227, 32.63157047, 16.07532735,
                         33.69198196, 16.90631634, 13.54113704, 0.])
 
-    np.testing.assert_allclose(x_data, x_truth)
-    np.testing.assert_allclose(y_data, y_truth)
+    # MAST data can change over time, 1% agreement is good enough.
+    np.testing.assert_allclose(x_data, x_truth, rtol=0.01)
+    np.testing.assert_allclose(y_data, y_truth, rtol=0.01)
