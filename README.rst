@@ -1,22 +1,20 @@
 WFC3TOOLS
 =========
 
+.. image:: https://github.com/spacetelescope/wfc3tools/actions/workflows/tests.yml/badge.svg?branch=main
+    :target: https://github.com/spacetelescope/wfc3tools/actions/workflows/tests.yml
+    :alt: tests
+
 .. image:: https://readthedocs.org/projects/wfc3tools/badge/?version=latest
-    :target: http://wfc3tools.readthedocs.io/en/latest/?badge=latest
+    :target: https://wfc3tools.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
-    :target: http://www.astropy.org
+.. image:: https://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
+    :target: https://www.astropy.org
     :alt: Powered by Astropy Badge
 
 
-For more information please see the `online documentation <http://wfc3tools.readthedocs.io/>`_.
-
-You can also display the docs locally after install, import ``wfc3tools`` and then issue the following command to display the help docs in your local browser:
-
-::
-
-    wfc3tools.display_help()
+For more information please see the `online documentation <https://wfc3tools.readthedocs.io/>`_.
 
 To install using pip:
 
@@ -42,19 +40,11 @@ or haven't used github before, please feel free to contact `HST Help Desk <https
 Feedback and feature requests?   Is there something missing you would like
 to see?  Please open an issue or contact `HST Help Desk <https://stsci.service-now.com/hst>`_.
 
-``wfc3tools`` follows the `Astropy Code of Conduct`_ and strives to provide a
+``wfc3tools`` follows the STScI Code of Conduct and strives to provide a
 welcoming community to all of our users and contributors.
-
-Want more information about how to make a contribution?  Take a look at
-the the astropy `contributing`_ and `developer`_ documentation.
 
 
 License
 -------
 
 ``wfc3tools`` is licensed under a 3-clause BSD style license (see the ``LICENSE.txt`` file).
-
-.. _AstroPy: http://www.astropy.org/
-.. _contributing: http://docs.astropy.org/en/stable/index.html#contributing
-.. _developer: http://docs.astropy.org/en/stable/index.html#developer-documentation
-.. _Astropy Code of Conduct:  http://www.astropy.org/about.html#codeofconduct
