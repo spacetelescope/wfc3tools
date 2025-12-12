@@ -18,4 +18,5 @@ jobs:
         - linux: py311
         - linux: py312
         - macos: py313
-        - linux: py314
+        # https://github.com/OpenAstronomy/github-actions-workflows/issues/342
+        #- linux: py314
