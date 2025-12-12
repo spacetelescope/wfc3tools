@@ -42,16 +42,14 @@ Usage:
 """
 
 # STDLIB
-import os
-from astropy.io import fits
 import numpy as np
+from astropy.io import fits
 from matplotlib import pyplot as plt
 
 plt.ion()
 
 
-def pstack(filename, column=0, row=0, extname="sci", units="counts",
-           title=None, xlabel=None, ylabel=None, plot=True):
+def pstack(filename, column=0, row=0, extname="sci", units="counts", title=None, xlabel=None, ylabel=None, plot=True):
     """
     A function to plot the statistics of one pixels up the IR ramp image.
     Original implementation in the iraf nicmos package. Pixel values here are
@@ -139,28 +137,28 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts",
 
         for i in range(1, nsamp, 1):
             if time:
-                yaxis[i-1] = myfile["SCI", i].header['SAMPTIME']
+                yaxis[i - 1] = myfile["SCI", i].header["SAMPTIME"]
             else:
                 # Numpy is row-major with array indices written row-first
                 # (lexicographical access order)
-                yaxis[i-1] = myfile[extname.upper(), i].data[row, column]
-                xaxis[i-1] = myfile["SCI", i].header['SAMPTIME']
+                yaxis[i - 1] = myfile[extname.upper(), i].data[row, column]
+                xaxis[i - 1] = myfile["SCI", i].header["SAMPTIME"]
 
                 # convert to countrate
                 if "rate" in units.lower() and "/" not in bunit.lower():
-                    exptime = myfile["SCI", i].header['SAMPTIME']
-                    yaxis[i-1] /= exptime
+                    exptime = myfile["SCI", i].header["SAMPTIME"]
+                    yaxis[i - 1] /= exptime
                 # convert to counts
                 if "counts" in units.lower() and "/" in bunit.lower():
-                    exptime = myfile["SCI", i].header['SAMPTIME']
-                    yaxis[i-1] *= exptime
+                    exptime = myfile["SCI", i].header["SAMPTIME"]
+                    yaxis[i - 1] *= exptime
 
     if not ylabel:
         if "rate" in units.lower():
             if "/" in bunit.lower():
                 ylabel = bunit
             else:
-                ylabel = bunit+" per second"
+                ylabel = bunit + " per second"
         else:
             if "/" in bunit:
                 stop_index = bunit.find("/")
@@ -177,8 +175,7 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts",
             plt.xlabel("Sample time")
 
         if not title:
-            title = "%s   Pixel stack for col=%d, row=%d" % (filename, column,
-                                                             row)
+            title = "%s   Pixel stack for col=%d, row=%d" % (filename, column, row)
         plt.title(title)
 
         if time:

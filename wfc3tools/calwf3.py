@@ -29,11 +29,13 @@ import subprocess
 
 # STSCI
 from stsci.tools import parseinput
+
 from .util import error_code
 
 
-def calwf3(input=None, printtime=False, save_tmp=False,
-           verbose=False, debug=False, parallel=True, version=False, log_func=print):
+def calwf3(
+    input=None, printtime=False, save_tmp=False, verbose=False, debug=False, parallel=True, version=False, log_func=print
+):
     """
     Run the calwf3.e executable as from the shell.
 
@@ -137,33 +139,32 @@ def calwf3(input=None, printtime=False, save_tmp=False,
 
     """
 
-    call_list = ['calwf3.e']
+    call_list = ["calwf3.e"]
     return_code = None
 
     if printtime:
-        call_list.append('-t')
+        call_list.append("-t")
 
     if save_tmp:
-        call_list.append('-s')
+        call_list.append("-s")
 
     if verbose:
-        call_list.append('-v')
+        call_list.append("-v")
 
     if version:
-        call_list.append('--version')
+        call_list.append("--version")
 
     if debug:
-        call_list.append('-d')
+        call_list.append("-d")
 
     if not parallel:
-        call_list.append('-1')
+        call_list.append("-1")
 
     infiles, dummy = parseinput.parseinput(input)
     if (len(parseinput.irafglob(input)) == 0) and not version:
         raise IOError("No valid image specified")
     if len(parseinput.irafglob(input)) > 1:
-        raise IOError("calwf3 can only accept 1 file for"
-                      "input at a time: {0}".format(infiles))
+        raise IOError("calwf3 can only accept 1 file forinput at a time: {0}".format(infiles))
 
     for image in infiles:
         if not os.path.exists(image):
@@ -180,7 +181,7 @@ def calwf3(input=None, printtime=False, save_tmp=False,
 
     if log_func is not None:
         for line in proc.stdout:
-            log_func(line.decode('utf8'))
+            log_func(line.decode("utf8"))
 
     return_code = proc.wait()
     ec = error_code(return_code)

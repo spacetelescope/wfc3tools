@@ -40,12 +40,23 @@ import subprocess
 
 # STSCI
 from stsci.tools import parseinput
+
 from .util import error_code
 
 
-def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
-          flatcorr="PERFORM", shadcorr="PERFORM", photcorr="PERFORM",
-          verbose=False, quiet=True, debug=False, log_func=print):
+def wf32d(
+    input,
+    output=None,
+    dqicorr="PERFORM",
+    darkcorr="PERFORM",
+    flatcorr="PERFORM",
+    shadcorr="PERFORM",
+    photcorr="PERFORM",
+    verbose=False,
+    quiet=True,
+    debug=False,
+    log_func=print,
+):
     """
     Call the wf32d.e executable.
 
@@ -115,29 +126,29 @@ def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
 
     """
 
-    call_list = ['wf32d.e']
+    call_list = ["wf32d.e"]
     return_code = None
 
     if verbose:
-        call_list += ['-v', '-t']
+        call_list += ["-v", "-t"]
 
     if debug:
-        call_list.append('-d')
+        call_list.append("-d")
 
-    if (darkcorr == "PERFORM"):
-        call_list.append('-dark')
+    if darkcorr == "PERFORM":
+        call_list.append("-dark")
 
-    if (dqicorr == "PERFORM"):
-        call_list.append('-dqi')
+    if dqicorr == "PERFORM":
+        call_list.append("-dqi")
 
-    if (flatcorr == "PERFORM"):
-        call_list.append('-flat')
+    if flatcorr == "PERFORM":
+        call_list.append("-flat")
 
-    if (shadcorr == "PERFORM"):
-        call_list.append('-shad')
+    if shadcorr == "PERFORM":
+        call_list.append("-shad")
 
-    if (photcorr == "PERFORM"):
-        call_list.append('-phot')
+    if photcorr == "PERFORM":
+        call_list.append("-phot")
 
     infiles, dummy = parseinput.parseinput(input)
     if "_asn" in input:
@@ -145,8 +156,7 @@ def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
     if len(parseinput.irafglob(input)) == 0:
         raise IOError("No valid image specified")
     if len(parseinput.irafglob(input)) > 1:
-        raise IOError("wf32d can only accept 1 file for"
-                      "input at a time: {0}".format(infiles))
+        raise IOError("wf32d can only accept 1 file forinput at a time: {0}".format(infiles))
 
     for image in infiles:
         if not os.path.exists(image):
@@ -164,7 +174,7 @@ def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
     )
     if log_func is not None:
         for line in proc.stdout:
-            log_func(line.decode('utf8'))
+            log_func(line.decode("utf8"))
 
     return_code = proc.wait()
     ec = error_code(return_code)

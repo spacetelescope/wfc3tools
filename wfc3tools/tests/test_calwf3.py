@@ -1,22 +1,14 @@
-"""Licensed under a 3-clause BSD style license - see LICENSE.rst."""
-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 import pytest
+
 from wfc3tools import calwf3
 
 
-def test_no_valid_input():
+def test_no_valid_input(_jail):
     """Run a very simple aliveness test."""
-    with pytest.raises(IOError) as e:
-        def cal():
-            calwf3()
-        cal()
-    assert 'No valid image specified' in str(e.value)
+    with pytest.raises(IOError, match="No valid image specified"):
+        calwf3()
 
 
-def test_version_print():
+def test_version_print(_jail):
     """Make sure no error results from version print."""
-    def cal():
-        calwf3(version=True)
-    cal()
+    calwf3(version=True)

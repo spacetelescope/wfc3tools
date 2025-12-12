@@ -39,13 +39,26 @@ import subprocess
 
 # STSCI
 from stsci.tools import parseinput
+
 from .util import error_code
 
 
-def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
-           skysub="", crsigmas="", crradius=0., crthresh=0.,
-           badinpdq=0, crmask=False, shadcorr=False, verbose=False,
-           log_func=print):
+def wf3rej(
+    input,
+    output,
+    crrejtab="",
+    scalense=0.0,
+    initgues="",
+    skysub="",
+    crsigmas="",
+    crradius=0.0,
+    crthresh=0.0,
+    badinpdq=0,
+    crmask=False,
+    shadcorr=False,
+    verbose=False,
+    log_func=print,
+):
     """
     wf3rej, the cosmic-ray rejection and image combination task in calwf3,
     combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
@@ -136,7 +149,7 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
             raise IOError("Input file not found: {0}".format(image))
 
     # Generate a comma-separated string of the input filenames
-    input = ','.join(infiles)
+    input = ",".join(infiles)
 
     call_list.append(input)
 
@@ -147,46 +160,46 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
         call_list.append("-v")
         call_list.append("-t")
 
-    if (shadcorr):
+    if shadcorr:
         call_list.append("-shadcorr")
 
-    if (crmask):
+    if crmask:
         call_list.append("-crmask")
 
-    if (crrejtab != ""):
+    if crrejtab != "":
         call_list += ["-table", crrejtab]
 
-    if (scalense != ""):
+    if scalense != "":
         call_list += ["-scale", str(scalense)]
 
-    if (initgues != ""):
+    if initgues != "":
         options = ["min", "med"]
         if initgues not in options:
             raise ValueError("Invalid option for initgues")
         else:
             call_list += ["-init", str(initgues)]
 
-    if (skysub != ""):
+    if skysub != "":
         options = ["none", "mode", "median"]
         if skysub not in options:
             raise ValueError(f"Invalid skysub option {options}: {skysub}")
         else:
             call_list += ["-sky", str(skysub)]
 
-    if (crsigmas != ""):
+    if crsigmas != "":
         call_list += ["-sigmas", str(crsigmas)]
 
-    if (crradius >= 0.):
+    if crradius >= 0.0:
         call_list += ["-radius", str(crradius)]
     else:
         raise ValueError("Invalid crradius specified")
 
-    if (crthresh >= 0.):
+    if crthresh >= 0.0:
         call_list += ["-thresh", str(crthresh)]
     else:
         raise ValueError("Invalid crthresh specified")
 
-    if (badinpdq >= 0):
+    if badinpdq >= 0:
         call_list += ["-pdq", str(badinpdq)]
 
     else:
@@ -199,7 +212,7 @@ def wf3rej(input, output, crrejtab="", scalense=0., initgues="",
     )
     if log_func is not None:
         for line in proc.stdout:
-            log_func(line.decode('utf8'))
+            log_func(line.decode("utf8"))
 
     return_code = proc.wait()
     ec = error_code(return_code)
