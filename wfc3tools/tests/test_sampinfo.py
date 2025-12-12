@@ -1,7 +1,9 @@
-from wfc3tools import sampinfo
-from astroquery.mast import Observations
-import re
 import os
+import re
+
+from astroquery.mast import Observations
+
+from wfc3tools import sampinfo
 
 
 def normalize(r):
@@ -10,10 +12,7 @@ def normalize(r):
     return [re.sub(r'\s+', ' ', s.strip()) for s in r.split('\n')]
 
 
-def test_sampinfo(capsys, tmpdir):
-
-    os.chdir(tmpdir)
-
+def test_sampinfo(capsys, _jail):
     filename = 'ibcf02faq_raw.fits'
     Observations.download_file(f'mast:HST/product/{filename}', cache=True)
     capsys.readouterr()  # clear buffer
