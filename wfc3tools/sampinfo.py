@@ -74,9 +74,9 @@ Usage:
 """
 
 # STDLIB
-from astropy.io import fits
-import os
+
 import numpy as np
+from astropy.io import fits
 
 # STSCI
 from stsci.tools import parseinput
@@ -132,11 +132,11 @@ def sampinfo(imagelist, add_keys=None, mean=False, median=False):
         ir_list += add_keys
 
     # measure the min and max data
-    if (mean):
-        if (add_keys):
-            if ("DATAMIN" not in add_keys):
+    if mean:
+        if add_keys:
+            if "DATAMIN" not in add_keys:
                 ir_list += ["DATAMIN"]
-            if ("DATAMAX" not in add_keys):
+            if "DATAMAX" not in add_keys:
                 ir_list += ["DATAMAX"]
         else:
             ir_list += ["DATAMIN", "DATAMAX"]
@@ -155,19 +155,18 @@ def sampinfo(imagelist, add_keys=None, mean=False, median=False):
         samp_seq = header0["SAMP_SEQ"]
 
         print("IMAGE\t\t\tNEXTEND\tSAMP_SEQ\tNSAMP\tEXPTIME")
-        print("%s\t%d\t%s\t\t%d\t%f\n" % (image, nextend, samp_seq,
-                                          nsamp, exptime))
+        print("%s\t%d\t%s\t\t%d\t%f\n" % (image, nextend, samp_seq, nsamp, exptime))
         printline = "IMSET\tSAMPNUM"
 
         for key in ir_list:
-            printline += ("\t"+key)
+            printline += "\t" + key
         print(printline)
 
         # loop through all the samples for the image and print stuff as we go
-        for samp in range(1, nsamp+1, 1):
+        for samp in range(1, nsamp + 1, 1):
             printline = ""
             printline += str(samp)
-            printline += ("\t"+str(nsamp-samp))
+            printline += "\t" + str(nsamp - samp)
             for key in ir_list:
                 if "DATAMIN" in key:
                     datamin = True
@@ -176,16 +175,15 @@ def sampinfo(imagelist, add_keys=None, mean=False, median=False):
                     datamax = True
                     datamaxval = np.max(current["SCI", samp].data)
                 try:
-                    printline += ("\t"+str(current["SCI", samp].header[key]))
+                    printline += "\t" + str(current["SCI", samp].header[key])
                 except KeyError:
                     try:
-                        printline += ("\t"+str(current[0].header[key]))
+                        printline += "\t" + str(current[0].header[key])
                     except KeyError as e:
-                        printline += ("\tNA")
-            if (datamin and datamax):
-                printline += ("\tAvgPixel: "+str((dataminval+datamaxval)/2.))
-            if (median):
-                printline += ("\tMedPixel: "+str(np.median(current["SCI",
-                                                           samp].data)))
+                        printline += "\tNA"
+            if datamin and datamax:
+                printline += "\tAvgPixel: " + str((dataminval + datamaxval) / 2.0)
+            if median:
+                printline += "\tMedPixel: " + str(np.median(current["SCI", samp].data))
             print(printline)
         current.close()

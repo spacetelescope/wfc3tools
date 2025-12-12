@@ -37,7 +37,7 @@ Usage:
     Note that the arrays are structured in SCI order, so the final exposure is the first element in the array.
 
 .. Warning::
-    The interface to this utility has been updated from previous versions and 
+    The interface to this utility has been updated from previous versions and
     is **not backwards compatible.**  Here is an example to illustrate the "original"
     syntax, the "original syntax corrected for row/column order", and finally the
     "new" syntax which requires column and row sections to be specified as tuples.
@@ -56,17 +56,27 @@ Usage:
 """
 
 # STDLIB
-import os
-from astropy.io import fits
 import numpy as np
+from astropy.io import fits
 from matplotlib import pyplot as plt
 from scipy.stats import mode as mode
 
 plt.ion()
 
 
-def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts",
-          stat="midpt", title=None, xlabel=None, ylabel=None, plot=True, overplot=False):
+def pstat(
+    filename,
+    col_slice=None,
+    row_slice=None,
+    extname="sci",
+    units="counts",
+    stat="midpt",
+    title=None,
+    xlabel=None,
+    ylabel=None,
+    plot=True,
+    overplot=False,
+):
     """
     A function to plot the statistics of one or more pixels up an IR ramp.
 
@@ -147,9 +157,9 @@ def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts
     bracket_loc = filename.find("[")
 
     # get the base filename and strip off any extra information as necessary
-    if (bracket_loc < 0):
+    if bracket_loc < 0:
         imagename = filename
-    elif (bracket_loc > 0):
+    elif bracket_loc > 0:
         imagename = filename[:bracket_loc]
         print("Any extension name or image section must be specified via parameters.")
         print("Input filename has been stripped of data in brackets, %s" % (imagename))
@@ -169,14 +179,14 @@ def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts
     all_cols = False
     if not col_slice:
         all_cols = True
-    elif not(isinstance(col_slice, tuple) and len(col_slice) == 2 and all(isinstance(val, int) for val in col_slice)):
+    elif not (isinstance(col_slice, tuple) and len(col_slice) == 2 and all(isinstance(val, int) for val in col_slice)):
         print("Invalid specification for col_slice which must be a tuple of two integer values.")
         return 0, 0
 
     all_rows = False
     if not row_slice:
         all_rows = True
-    elif not(isinstance(row_slice, tuple) and len(row_slice) == 2 and all(isinstance(val, int) for val in row_slice)):
+    elif not (isinstance(row_slice, tuple) and len(row_slice) == 2 and all(isinstance(val, int) for val in row_slice)):
         print("Invalid specification for row_slice which must be a tuple of two integer values.")
         return 0, 0
 
@@ -207,33 +217,32 @@ def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts
 
         for i in range(1, nsamp, 1):
             if "midpt" in stat:
-                yaxis[i-1] = np.median(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
+                yaxis[i - 1] = np.median(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
 
             if "mean" in stat:
-                yaxis[i-1] = np.mean(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
+                yaxis[i - 1] = np.mean(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
 
             if "mode" in stat:
-                yaxis[i-1] = mode(myfile[extname.upper(), i].data[ystart:yend, xstart:xend],
-                                  axis=None)[0]
+                yaxis[i - 1] = mode(myfile[extname.upper(), i].data[ystart:yend, xstart:xend], axis=None)[0]
 
             if "min" in stat:
-                yaxis[i-1] = np.min(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
+                yaxis[i - 1] = np.min(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
 
             if "max" in stat:
-                yaxis[i-1] = np.max(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
+                yaxis[i - 1] = np.max(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
 
             if "stddev" in stat:
-                yaxis[i-1] = np.std(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
+                yaxis[i - 1] = np.std(myfile[extname.upper(), i].data[ystart:yend, xstart:xend])
 
-            exptime = myfile["SCI", i].header['SAMPTIME']
-            xaxis[i-1] = exptime
+            exptime = myfile["SCI", i].header["SAMPTIME"]
+            xaxis[i - 1] = exptime
 
             # convert to countrate
             if "rate" in units.lower() and "/" not in bunit.lower():
-                yaxis[i-1] /= exptime
+                yaxis[i - 1] /= exptime
             # convert to counts
             if "counts" in units.lower() and "/" in bunit.lower():
-                yaxis[i-1] *= exptime
+                yaxis[i - 1] *= exptime
 
     if plot:
         if not overplot:
@@ -251,15 +260,14 @@ def pstat(filename, col_slice=None, row_slice=None, extname="sci", units="counts
                 else:
                     ylabel = bunit
 
-        ylabel += ("   %s" % (stat))
+        ylabel += "   %s" % (stat)
         plt.ylabel(ylabel)
 
         if not xlabel:
             plt.xlabel("Sample time (s)")
 
         if not title:
-            title = "%s   Pixel stats for [%d:%d,%d:%d]" % (imagename, xstart,
-                                                            xend, ystart, yend)
+            title = "%s   Pixel stats for [%d:%d,%d:%d]" % (imagename, xstart, xend, ystart, yend)
         plt.title(title)
         plt.plot(xaxis, yaxis, "+")
         plt.draw()
