@@ -43,7 +43,7 @@ tests = [
 docs = [
     "sphinx",
     "sphinx-automodapi",
-    "sphinx-rtd-theme",
+    "sphinx-rtd-theme>1.2.0",
 ]
 
 [build-system]
