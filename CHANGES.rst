@@ -1,3 +1,6 @@
+1.7.0 (unreleased)
+------------------
+
 1.6.1 (2026-02-06)
 ------------------
 - Maintenance release for CALDP build. No functional change.
