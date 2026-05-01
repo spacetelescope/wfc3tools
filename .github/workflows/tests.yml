@@ -24,7 +24,6 @@ jobs:
   test:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@2835f0cacddf3f8de198db9afdb5354a5cebe0ef  # v2.6.3
     with:
-      conda: true
       envs: |
         - linux: py311
         - linux: py312
