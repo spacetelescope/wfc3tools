@@ -1,4 +1,6 @@
 wfc3tools/version.py
+docs/_build/
+docs/api/
 build/
 dist/
 *.pyc

@@ -1,55 +1,60 @@
+"""Run wf3ccd step in calwf3.
+
+This routine contains the initial processing steps for all the WFC3 UVIS
+channel data. These steps are:
+
+* DQICORR - initialize the data quality array with values
+  from BPIXTAB, flag for A-to-D saturation, and potentially flag for
+  full-well saturation using scalar value as the threshold
+  (fall-back algorithm)
+* ATODCORR - perform the a-to-d conversion correction
+* BLEVCORR - subtract the bias level from the overscan region
+* BIASCORR - subtract the bias image
+* Flag for full-well saturation using a two-dimensional image
+* Detect and record SINK pixels in the DQ mask
+  (performed if DQICORR is set to PERFORM)
+* FLSHCORR - subtract the post-flash image
+
+This step processes everything in counts. If a calibration reference file
+is in units of electrons when used during processing, the calibration data
+are divided by the gain before use. The conversion to electrons happens
+in :ref:`wf32d`.
+
+``wf3ccd`` first subtracts the bias and trims the overscan regions from the
+image. If an associated set of UVIS CR-SPLIT or REPEAT-OBS images is being
+processed, all of the overscan-trimmed images are sent through ``wf3rej``to
+be combined and receive cosmic-ray rejection. The resulting combined image
+then receives final calibration with ``wf32d``, which includes dark
+subtraction and flat-fielding. If there are multiple sets of CR-SPLIT or
+REPEAT-OBS images in an association, each set goes through the cycle of
+``wf3ccd``, ``wf3rej``, and ``wf32d`` processing.
+
+If BLEVCORR is performed the output contains the overcan-trimmed region.
+
+Only those steps with a switch value of PERFORM in the input files will be
+executed, after which the switch will be set to COMPLETE in the
+corresponding output files. See the WFC3 Data Handbook for
+more information.
+
+.. note::
+    Strictly speaking, the application of the full-well saturation *image* is
+    not a calibration step (i.e., there is no SATCORR), but the application
+    of a 2D image to flag pixels versus using a single scalar value to flag
+    saturated pixels as previously done in DQICORR will be done in ``doFullWellSat()``
+    after BLEVCORR and BIASCORR.  This correction should only be done if both
+    BLEVCORR and BIASCORR have been performed.  This flagging is only applicable
+    for the UVIS.
+
 """
-wf3ccd:
 
-    This routine contains the initial processing steps for all the WFC3 UVIS
-    channel data. These steps are:
-
-        - DQICORR: initializing the data quality array
-        - ATODCORR: perform the a to d conversion correction
-        - BLEVCORR: subtract the bias level from the overscan region
-        - BIASCORR: subtract the bias image
-        - FLSHCORR: subtract the post-flash image
-
-    ``wf3ccd`` first subtracts the bias and trims the overscan regions from the
-    image. If an associated set of UVIS CR-SPLIT or REPEAT-OBS images is being
-    processed, all of the overscan-trimmed images are sent through ``wf3rej``to
-    be combined and receive cosmic-ray rejection. The resulting combined image
-    then receives final calibration with ``wf32d``, which includes dark
-    subtraction and flat-fielding. If there are multiple sets of CR-SPLIT or
-    REPEAT-OBS images in an association, each set goes through the cycle of
-    ``wf3ccd``, ``wf3rej`` and ``wf32d`` processing.
-
-    If BLEVCORR is performed the output contains the overcan-trimmed region.
-
-    Only those steps with a switch value of PERFORM in the input files will be
-    executed, after which the switch will be set to COMPLETE in the
-    corresponding output files. See Section 3.4.2 of the WFC3 Data Handbook for
-    more information.
-
-The wf3ccd function can also be called directly from the OS command line:
-
-    >>> wf32ccd.e input output [-options]
-
-    Where the OS options include:
-
-        * -v: verbose
-        * -t: print time stamps
-        * -dqi: udpate the DQ array
-        * -atod: perform gain correction
-        * -blev: subtract bias from overscan
-        * -bias: perform bias correction
-        * -flash: remove post-flash image
-
-"""
-
-# STDLIB
 import os.path
 import subprocess
 
-# STSCI
 from stsci.tools import parseinput
 
 from .util import error_code
+
+__all__ = ["wf3ccd"]
 
 
 def wf3ccd(
@@ -69,52 +74,56 @@ def wf3ccd(
 
     ``wf3ccd`` first subtracts the bias and trims the overscan regions from the
     image. If an associated set of UVIS CR-SPLIT or REPEAT-OBS images is being
-    processed, all of the overscan-trimmed images are sent through ``wf3rej``to
+    processed, all of the overscan-trimmed images are sent through ``wf3rej`` to
     be combined and receive cosmic-ray rejection.
 
     Parameters
     ----------
     input : str or list
-        Name of input files, such as
+        Name of input files, such as:
+
         - a single filename (``iaa012wdq_raw.fits``)
         - a Python list of filenames
         - a partial filename with wildcards (``*raw.fits``)
         - filename of an ASN table (``*asn.fits``)
         - an at-file (``@input``)
 
-    output : str, default=None
-        Name of the output FITS file.
+    output : str
+        Name of the output FITS file. Default is `None`.
 
-    dqicorr : str, optional, default="PERFORM"
-        Update the dq array from bad pixel table. Allowed values are "PERFORM"
-        and "OMIT".
+    dqicorr : str, optional
+        Update the DQ array from bad pixel table, as well as flag the A-to-D saturation.
+        If the comparatively new FITS keyword (mid-2023) SATUFILE is missing or not
+        populated in the input file, the full-well saturation will also be flagged using
+        a single value as the threshold. Allowed values are "PERFORM" and "OMIT".
+        Default is "PERFORM".
 
-    atodcorr : str, optional, default="PERFORM"
+    atodcorr : str, optional
         Analog to digital correction. Allowed values are "PERFORM" and "OMIT".
+        Default is "PERFORM".
 
-    blevcorr : str, optional, default="PERFORM"
+    blevcorr : str, optional
         Subtract bias from overscan regions. Allowed values are "PERFORM" and
-        "OMIT".
+        "OMIT". Default is "PERFORM".
 
-    biascorr : str, optional, default="PERFORM"
+    biascorr : str, optional
         Subtract bias image. Allowed values are "PERFORM" and "OMIT".
+        Default is "PERFORM".
 
-    flashcorr : str, optional, default="PERFORM"
+    flashcorr : str, optional
         Subtract post-flash image. Allowed values are "PERFORM" and "OMIT".
+        Default is "PERFORM".
 
-    verbose : bool, optional, default=False
-        If True, print verbose time stamps.
+    verbose : bool, optional
+        If `True`, print verbose time stamps. Default is `False`.
 
-    quiet : bool, optional, default=True
-        If True, print messages only to trailer file.
+    quiet : bool, optional
+        If `True`, print messages only to trailer file.
+        Default is `True`.
 
-    log_func : func(), default=print()
-        If not specified, the print function is used for logging to facilitate
+    log_func : func
+        By default, the print function is used for logging to facilitate
         use in the Jupyter notebook.
-
-    Returns
-    -------
-    None
 
     Examples
     --------

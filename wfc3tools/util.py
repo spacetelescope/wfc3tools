@@ -3,11 +3,11 @@
 import warnings
 from importlib.metadata import version
 
-__all__ = ["display_help"]
+__all__ = ["display_help", "error_code"]
 
 
 def display_help():
-    """display local html help in a browser window"""
+    """Display HTML help in a browser window."""
     url = "https://wfc3tools.readthedocs.io/"
     print(url)
     try:
@@ -18,14 +18,11 @@ def display_help():
             url += "en/{0:s}/".format(version("wfc3tools"))
         webbrowser.open(url)
     except ImportError:
-        warnings.warn(
-            "webbrowser module not installed, see {0:s} help \
-                       pages".format(url)
-        )
+        warnings.warn(f"webbrowser module not installed, see {url} help pages")
 
 
 def error_code(code=None):
-    """return the error code text, or all if code is None."""
+    """Return the error code text, or all if code is None."""
 
     codes = {
         2: "ERROR_RETURN",

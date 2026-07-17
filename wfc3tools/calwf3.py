@@ -32,6 +32,8 @@ from stsci.tools import parseinput
 
 from .util import error_code
 
+__all__ = ["calwf3"]
+
 
 def calwf3(
     input=None, printtime=False, save_tmp=False, verbose=False, debug=False, parallel=True, version=False, log_func=print

@@ -1,9 +1,6 @@
 .. _pstack:
 
-******
 pstack
-******
+======
 
-.. automodule:: wfc3tools.pstack
-.. autofunction:: wfc3tools.pstack
-
+.. automodapi:: wfc3tools.pstack

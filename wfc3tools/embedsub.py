@@ -1,28 +1,41 @@
 import numpy
-
-# STDLIB
 from astropy.io import fits
-
-# STSCI
 from stsci.tools import parseinput
 
 from .sub2full import sub2full
 
 __taskname__ = "embedsub"
+__all__ = ["embedsub"]
 
 
 def embedsub(files):
-    """Return the full-frame location of the subarray.
+    """Embed subarray in fullframe image.
+
+    Given an image specified by the user which contains a subarray readout,
+    return a full-frame image with the subarray implanted at the
+    appropriate location.
+
+    The output file will contain the subarray image placed inside the full
+    frame extent of a regular image.
 
     Parameters
     ----------
-    filename : string
-       The name of the image file containing the subarray. This can be a
-       single filename or a list of files. The ippsoot will be used to
-       construct the output filename. You should input an FLT image
+    files : str or list
+        The name of the image file containing the subarray. This can be a
+        single filename or a list of files. The ipppssoot will be used to
+        construct the output filename. You should input an FLT image.
 
-    The output file will contain the subarray image placed inside the full
-    frame extent of a regular image
+    Examples
+    --------
+    This function calls :ref:`sub2full` to calculate the subarray
+    position on the full frame image.
+
+    .. code-block:: python
+
+        >>> from wfc3tools import embedsub
+        >>> embedsub('ic5p02eeq_flt.fits')
+        Subarray image section [x1,x2,y1,y2] = [2828:3339,215:726]
+        Image saved to: ic5p02eef_flt.fits
 
     """
     uvis = False
