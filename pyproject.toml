@@ -35,7 +35,7 @@ Source = "https://github.com/spacetelescope/wfc3tools/"
 Help = "https://hsthelp.stsci.edu"
 
 [project.optional-dependencies]
-tests = [
+test = [
     "pytest",
     "ci-watson",
 ]
