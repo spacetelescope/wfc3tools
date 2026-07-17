@@ -37,7 +37,6 @@ Help = "https://hsthelp.stsci.edu"
 [project.optional-dependencies]
 tests = [
     "pytest",
-    "astroquery",
     "ci-watson",
 ]
 docs = [
