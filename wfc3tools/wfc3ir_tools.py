@@ -1,4 +1,3 @@
-import glob
 import os
 
 import numpy as np
@@ -36,9 +35,7 @@ def _reprocess_raw_crcorr(raw_file):
         # TODO: Remove this block to make dummy ASN when calwf3 is patched.
         if asn_tab == "NONE":
             asn_tab = "dummy_asn.fits"
-            new_asn_tab = np.rec.array(
-                [(rootname, "EXP-DTH", 1)], formats="S14,S14,i1", names="MEMNAME,MEMTYPE,MEMPRSNT"
-            )
+            new_asn_tab = np.rec.array([(rootname, "EXP-DTH", 1)], formats="S14,S14,i1", names="MEMNAME,MEMTYPE,MEMPRSNT")
             hdu_1 = fits.BinTableHDU(new_asn_tab)
             none_hdu_list = fits.HDUList([raw_hdu[0], hdu_1])
             none_hdu_list.writeto(asn_tab, overwrite=True)
@@ -188,7 +185,7 @@ def make_flattened_ramp_flt(
         )
 
         for i in range(2, ima_hdu[0].header["NSAMP"] + 1):
-            ext = ("SCI, i)
+            ext = ("SCI", i)
             avg = _calc_avg(ima_hdu[ext].data[sly, slx], stats_method, sigma_clip, sigma, sigma_upper, sigma_lower, iters)
             ima_hdu[ext].data += total_countrate - avg
 
