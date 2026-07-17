@@ -122,7 +122,7 @@ def make_flattened_ramp_flt(
     * ``<rootname>.tra`` (trailer file from calwf3 run on flattened IMA)
 
     Parameters
-    -----------
+    ----------
     raw_file : str
         RAW filename.
     stats_subregion : tuple or None

@@ -1,46 +1,13 @@
-"""
-wf3rej:
+"""Run wf3rej step in calwf3."""
 
-    Background discussion on the wf3rej algorithm can be found in the following locations:
-    https://wfc3tools.readthedocs.io/en/latest/wfc3tools/wf3rej.html, and Section 3.4.5 of
-    the WFC3 Data Handbook.
-
-    This routine performs the cosmic ray rejection on input FLT/FLC images and will
-    produce an output CRJ/CRC image.  In contrast to this module, wf3rej.py, which is
-    a Python wrapper around the C executable, the wf3rej.e C executable can also be
-    called directly from the OS command line prompt:
-
-    $ wf3rej.e input output [-options]
-
-    Input can be a comma-delimited list of files, and an output file must be specified.
-    $ wf3rej.e iaao01k8q_flc.fits,iaao01k9q_flc.fits output.fits -t
-
-    Where the C executable options include:
-
-        * -r: report version of code and exit (no other options selected)
-        * -v: verbose
-        * -t: print the timestamps
-        * -shadcorr: perform shading shutter correction
-        * -crmask: flag CR in input DQ images
-        * -table <filename>: the crrejtab filename
-        * -scale <number>: scale factor for noise
-        * -init <med|min>: initial value estimate scheme
-        * -sky <none|median|mode>: how to compute sky
-        * -sigmas: rejection levels for each iteration
-        * -radius <number>: CR expansion radius
-        * -thresh <number> : rejection propagation threshold
-        * -pdq <number>: data quality flag bits to reject
-
-"""
-
-# STDLIB
 import os.path
 import subprocess
 
-# STSCI
 from stsci.tools import parseinput
 
 from .util import error_code
+
+__all__ = ["wf3rej"]
 
 
 def wf3rej(
@@ -60,8 +27,7 @@ def wf3rej(
     log_func=print,
 ):
     """
-    wf3rej, the cosmic-ray rejection and image combination task in calwf3,
-    combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
+    Combines CR-SPLIT or REPEAT-OBS exposures into a single image, first
     detecting and then replacing flagged pixels.
 
     In summary, the cosmic ray rejection task sums all non-rejected pixel
@@ -74,7 +40,8 @@ def wf3rej(
     Parameters
     ----------
     input : str or list
-        Name of input files, such as
+        Name of input files, such as:
+
         - comma-separated (no spaces) filenames (``iaao01k8q_flc.fits,iaao01k9q_flc.fits``)
         - a Python list of filenames
         - a partial filename with wildcards (``*flt.fits``)
@@ -83,49 +50,50 @@ def wf3rej(
     output : str
         Name of the output FITS file.
 
-    crrejtab : str, default=""
-        Reference file name.
+    crrejtab : str, optional
+        Reference file name. Default is empty string.
 
-    scalense : float, default=0.
-        Scale factor applied to noise.
+    scalense : float, optional
+        Scale factor applied to noise. Default is 0.
 
-    initgues : str, default=""
+    initgues : str, optional
         Initial value estimate scheme (min|med).
+        Default is empty string.
 
-    skysub : str, default=""
+    skysub : str, optional
         How to compute the sky (none|mode|mean).
+        Default is empty string.
 
-    crsigmas : str, default="" (IS THIS A FLOAT)
-        Rejection levels in each iteration.
+    crsigmas : str, optional
+        Rejection levels (float) in each iteration.
+        Default is empty string.
 
-    crradius : float, default=0.
+    crradius : float, optional
         Cosmic ray expansion radius in pixels.
+        Default is 0.
 
-    crthresh : float, default=0.
-        Rejection propagation threshold.
+    crthresh : float, optional
+        Rejection propagation threshold. Default is 0.
 
-    badinpdq : int, default=0
-        Data quality flag bits to reject.
+    badinpdq : int, optional
+        Data quality flag bits to reject. Default is 0.
 
-    crmask : bool, default=False
-        If True, flag CR in DQ extension of the input images. If False, the wf3rej
-        program will read the value of crmask from the CRREJTAB file and follow the
-        specification.  If True in the file, flag CR in DQ extensions of the input
-        images.  If False, do NOT flag CR in the DQ extension of input images.
+    crmask : bool, optional
+        If `True`, flag CR in DQ extension of the input images.
+        If `False`, the value of crmask is read from the CRREJTAB
+        file and used as the specification. Default is `False`.
 
-    shadcorr : bool, default=False
-        If True, perform shading shutter correction.
+    shadcorr : bool, optional
+        If `True`, perform shading shutter correction.
+        Default is `False` (read from SHADCORR keyword value
+        in primary header of first image to process).
 
-    verbose : bool, optional, default=False
-        If True, Print verbose time stamps.
+    verbose : bool, optional
+        If `True`, print verbose time stamps. Default is `False`.
 
-    log_func : func(), default=print()
-        If not specified, the print function is used for logging to facilitate
+    log_func : func
+        By default, the print function is used for logging to facilitate
         use in the Jupyter notebook.
-
-    Returns
-    -------
-    None
 
     Examples
     --------
@@ -133,9 +101,8 @@ def wf3rej(
     >>> from glob import glob
     >>> infiles = glob("*flt.fits")
     >>> wf3rej(infiles, "output.fits", verbose=True)
-
+    >>> wf3rej([filename1, filename2], "output.fits", verbose=True)
     >>> wf3rej("*flt.fits", "output.fits", verbose=True)
-
     >>> wf3rej("@input.lst", "output.fits", verbose=True)
     """
 

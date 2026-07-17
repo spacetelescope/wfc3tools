@@ -42,7 +42,8 @@ test = [
 docs = [
     "sphinx",
     "sphinx-automodapi",
-    "sphinx-rtd-theme>1.2.0",
+    "sphinx-rtd-theme",
+    "numpydoc",
 ]
 
 [build-system]

@@ -1,28 +1,24 @@
 """
-pstack:
+Plot the stack of MultiAccum sample values for a specified pixel in an
+IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image
+extensions can be plotted.  The total number of samples  is determined from
+the primary header keyword NSAMP and all samples (excluding the zeroth
+read) are plotted.  The SCI, ERR, DQ, values are plotted as a function of
+sample time, while TIME values are plotted as a  function  of  sample
+number.   The sample times  are read from the SAMPTIME keyword in the SCI
+header for each readout. If any of the ERR, DQ, SAMP, or TIME extensions
+have null data  arrays,  the value of the PIXVALUE extension header keyword
+is substituted for the pixel values.  The plotted data values can be saved
+to an output text table or printed to the terminal.
 
-    Plot the stack of MultiAccum sample values for a specified pixel in an
-    IR multiaccum image.  Pixels from any of the SCI, ERR, DQ, or TIME image
-    extensions can be plotted.  The total number of samples  is determined from
-    the primary header keyword NSAMP and all samples (excluding the zeroth
-    read) are plotted.  The SCI, ERR, DQ, values are plotted as a function of
-    sample time, while TIME values are plotted as a  function  of  sample
-    number.   The sample times  are read from the SAMPTIME keyword in the SCI
-    header for each readout. If any of the ERR, DQ, SAMP, or TIME extensions
-    have null data  arrays,  the value of the PIXVALUE extension header keyword
-    is substituted for the pixel values.  The plotted data values can be saved
-    to an output text table or printed to the terminal.
+The BUNIT keyword value is used to determine the starting units of the data,
+but you can plot either counts or rate using the optional keyword ``units``.
 
-    The BUNIT keyword value is used to determine the starting units of the data,
-    but you can plot either counts or rate using the optional keyword ``units``.
-
-Usage:
+.. code-block:: python
 
     >>> from wfc3tools import pstack
-    >>> xdata, ydata = pstack('ibh719grq_ima.fits',
-                              column=100,
-                              row=25,
-                              extname='sci')
+    >>> xdata, ydata = pstack(
+    ...     'ibh719grq_ima.fits', column=100, row=25, extname='sci')
     >>> xdata
     array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
              64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
@@ -34,19 +30,17 @@ Usage:
              59.11241987,   39.01870227,   32.63157047,   16.07532735,
              33.69198196,   16.90631634,   13.54113704,    0.        ])
 
-.. Warning:
-
+.. warning::
     Note that the arrays are structured in SCI order, so the final exposure is
     the first element in the array.
 
 """
 
-# STDLIB
 import numpy as np
 from astropy.io import fits
 from matplotlib import pyplot as plt
 
-plt.ion()
+__all__ = ["pstack"]
 
 
 def pstack(filename, column=0, row=0, extname="sci", units="counts", title=None, xlabel=None, ylabel=None, plot=True):
@@ -116,6 +110,8 @@ def pstack(filename, column=0, row=0, extname="sci", units="counts", title=None,
                               ylabel="")
 
     """
+    if plot:
+        plt.ion()
 
     time = False
     valid_ext = ["sci", "err", "dq", "time"]

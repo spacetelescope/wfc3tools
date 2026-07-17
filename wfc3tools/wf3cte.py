@@ -1,23 +1,10 @@
-"""
-wf3cte:
+"""Run wf3cte step in calwf3."""
 
-    Background discussion on the CTE algorithm can be found in the following
-    locations:
-        https://wfc3tools.readthedocs.io/en/latest/wfc3tools/wf3cte.html,
-        https://www.stsci.edu/hst/instrumentation/wfc3/performance/cte, and
-        Section 3.4.1 of the WFC3 Data Handbook.
-
-    This routine performs the CTE correction on RAW data files and will produce
-    a RAC_TMP file (*_raw.fits -> *_rac_tmp.fits).  The output file contains
-    only the CTE corrected data, no other calibrations have been performed.
-
-"""
-
-# STDLIB
 import subprocess
 
-# STSCI
 from stsci.tools import parseinput
+
+__all__ = ["wf3cte"]
 
 
 def wf3cte(input, parallel=True, verbose=False, log_func=print):
@@ -31,26 +18,23 @@ def wf3cte(input, parallel=True, verbose=False, log_func=print):
     Parameters
     ----------
     input : str or list
-        Name of input files, such as
+        Name of input files, such as:
+
         - a single filename (``iaa012wdq_raw.fits``)
         - a Python list of filenames
         - a partial filename with wildcards (``*raw.fits``)
         - an at-file (``@input``)
 
-    parallel : bool, default=True
-        If True, run the code with OpemMP parallel processing turned on for the
-        UVIS CTE correction.
+    parallel : bool, optional
+        If `True`, run the code with OpemMP parallel processing turned on for the
+        UVIS CTE correction. Default is `True`.
 
-    verbose: bool, optional, default=False
-        If True, print verbose time stamps.
+    verbose: bool, optional
+        If True, print verbose time stamps. Default is `False`.
 
-    log_func : func(), default=print()
-        If not specified, the print function is used for logging to facilitate
+    log_func : func
+        By default, the print function is used for logging to facilitate
         use in the Jupyter notebook.
-
-    Returns
-    -------
-    None
 
     Examples
     --------

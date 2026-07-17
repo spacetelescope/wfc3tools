@@ -1,26 +1,25 @@
 """
-pstat:
+Plot statistics for a specified image section up the stack of an IR
+MultiAccum image.  Sections from any of the SCI, ERR, DQ, image extensions
+can be plotted.  A choice of  mean, midpt (median), mode, standard deviation,
+minimum, and maximum statistics is available. The total number of samples is
+determined from the primary header keyword NSAMP and all samples (excluding
+the zeroth-read) are plotted. The SCI, ERR, DQ statistics are plotted as a
+function of sample time. The sample times are read from the SAMPTIME
+keyword in the SCI header for each readout.
 
-    Plot statistics for a specified image section up the stack of an IR
-    MultiAccum image.  Sections from any of the SCI, ERR, DQ, image extensions
-    can be plotted.  A choice of  mean, midpt (median), mode, standard deviation,
-    minimum, and maximum statistics is available. The total number of samples is
-    determined from the primary header keyword NSAMP and all samples (excluding
-    the zeroth-read) are plotted. The SCI, ERR, DQ statistics are plotted as a
-    function of sample time. The sample times are read from the SAMPTIME
-    keyword in the SCI header for each readout.
+SAMP and TIME are not generally populated until the FLT image stage. To plot
+the samptime vs sample, use wfc3tools.pstat and the "time" extension.
 
-    SAMP and TIME are not generally populated until the FLT image stage. To plot
-    the samptime vs sample, use wfc3tools.pstat and the "time" extension.
+When specifying an image section, note the Python slicing rules are in play
+which means the valid data within the bounds of the start:stop values will be
+used for any computation.
 
-    When specifying an image section, note the Python slicing rules are in play
-    which means the valid data within the bounds of the start:stop values will be
-    used for any computation.
-
-Usage:
+.. code-block:: python
 
     >>> from wfc3tools import pstat
-    >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
+    >>> time, counts = pstat(
+    ...     'ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
     >>> time
     array([ 100.651947,   93.470573,   86.2892  ,   79.107826,   71.926453,
              64.745079,   57.563702,   50.382328,   43.200954,   36.019581,
@@ -32,36 +31,34 @@ Usage:
             86.42073624,    80.97576756,    70.44724733,    53.37688116,
             33.1249918 ,    12.25499919,    -4.88105808,     0.        ])
 
-.. Warning::
-
+.. warning::
     Note that the arrays are structured in SCI order, so the final exposure is the first element in the array.
 
-.. Warning::
+.. warning::
     The interface to this utility has been updated from previous versions and
     is **not backwards compatible.**  Here is an example to illustrate the "original"
     syntax, the "original syntax corrected for row/column order", and finally the
     "new" syntax which requires column and row sections to be specified as tuples.
 
-    | Example: To plot the left edge of the detector
+    For example, to plot the left edge of the detector::
 
-    | Original syntax: [y1:y2, x1:x2]
-    | time, counts = pstat('ibohbfb9q_ima.fits[1:1014,100:300]')
+        # Original syntax: [y1:y2, x1:x2]
+        time, counts = pstat('ibohbfb9q_ima.fits[1:1014,100:300]')
 
-    | Original syntax, but correcting the row/column order: [x1:x2, y1:y2]
-    | time, counts = pstat('ibohbfb9q_ima.fits[100:300,1:1014]')
+        # Original syntax, but correcting the row/column order: [x1:x2, y1:y2]
+        time, counts = pstat('ibohbfb9q_ima.fits[100:300,1:1014]')
 
-    | New syntax using tuples for col_slice and row_slice to specify the section:
-    | time, counts = pstat('ibohbfb9q_ima.fits', col_slice=(100,300), row_slice=(1,1014))
+        # New syntax using tuples for col_slice and row_slice to specify the section:
+        time, counts = pstat('ibohbfb9q_ima.fits', col_slice=(100,300), row_slice=(1,1014))
 
 """
 
-# STDLIB
 import numpy as np
 from astropy.io import fits
 from matplotlib import pyplot as plt
 from scipy.stats import mode as mode
 
-plt.ion()
+__all__ = ["pstat"]
 
 
 def pstat(
@@ -143,14 +140,18 @@ def pstat(
     Examples
     --------
 
-    | Using an image section to generate output in counts
-    | >>> from wfc3tools import pstat
-    | >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
+    Using an image section to generate output in counts:
 
-    | Using the entire image to generate output in countrate
-    | >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=None, row_slice=None, units="rate")
+    >>> from wfc3tools import pstat
+    >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=(100, 104), row_slice=(20, 25), units="counts")
+
+    Using the entire image to generate output in countrate:
+
+    >>> time, counts = pstat('ibh719grq_ima.fits', col_slice=None, row_slice=None, units="rate")
 
     """
+    if plot:
+        plt.ion()
 
     # ignore any image extension or section specified on the filename string
     # now that the extension and image section are specified via parameters

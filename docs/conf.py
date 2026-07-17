@@ -53,13 +53,18 @@ version = '.'.join(release.split('.')[:2])
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'numpydoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.inheritance_diagram',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
-    ]
+    'sphinx_automodapi.automodapi',
+    'sphinx_automodapi.automodsumm',
+    'sphinx_automodapi.autodoc_enhancements',
+    'sphinx_automodapi.smart_resolver',
+]
 
 numfig = True
 
@@ -145,3 +150,6 @@ latex_show_urls = 'True'
 
 # If false, no module index is generated.
 latex_domain_indices = True
+
+# Enable nitpicky mode - which ensures that all references in the docs resolve.
+nitpicky = True
