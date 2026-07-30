@@ -39,6 +39,7 @@ def _reprocess_raw_crcorr(raw_file):
             hdu_1 = fits.BinTableHDU(new_asn_tab)
             none_hdu_list = fits.HDUList([raw_hdu[0], hdu_1])
             none_hdu_list.writeto(asn_tab, overwrite=True)
+            raw_hdu[0].header["ASN_TAB"] = asn_tab
 
     # If part of an association, assert ASN is in same directory as RAW
     # so we can catch error now because IMA cannot run though the pipeline without the ASN.
