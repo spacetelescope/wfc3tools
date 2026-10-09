@@ -30,21 +30,6 @@ def _reprocess_raw_crcorr(raw_file):
     with fits.open(raw_file, mode="update") as raw_hdu:
         orig_crcorr = raw_hdu[0].header["CRCORR"]
         raw_hdu[0].header["CRCORR"] = "OMIT"
-        asn_tab = raw_hdu[0].header["ASN_TAB"]
-
-        # TODO: Remove this block to make dummy ASN when calwf3 is patched.
-        if asn_tab == "NONE":
-            asn_tab = "dummy_asn.fits"
-            new_asn_tab = np.rec.array([(rootname, "EXP-DTH", 1)], formats="S14,S14,i1", names="MEMNAME,MEMTYPE,MEMPRSNT")
-            hdu_1 = fits.BinTableHDU(new_asn_tab)
-            none_hdu_list = fits.HDUList([raw_hdu[0], hdu_1])
-            none_hdu_list.writeto(asn_tab, overwrite=True)
-            raw_hdu[0].header["ASN_TAB"] = asn_tab
-
-    # If part of an association, assert ASN is in same directory as RAW
-    # so we can catch error now because IMA cannot run though the pipeline without the ASN.
-    if not os.path.isfile(asn_tab):
-        raise OSError(f"{asn_tab} must be in same directory as RAW file.")
 
     # Remove any outputs from previous run so calwf3 does not crash.
     for ext in ("flt", "flc", "ima"):
@@ -56,13 +41,10 @@ def _reprocess_raw_crcorr(raw_file):
     calwf3(raw_file)
 
     # Removing resulting FL? and TRA, we just want IMA generated with CRCORR off
-    for ext in ("flt", "flc"):
-        f = f"{rootname}_{ext}.fits"
+    for suffix in ("_flt.fits", "_flc.fits", ".tra"):
+        f = f"{rootname}{suffix}"
         if os.path.isfile(f):
             os.remove(f)
-    f = f"{rootname}.tra"
-    if os.path.isfile(f):
-        os.remove(f)
 
     # Restore original CRCORR
     with fits.open(raw_file, mode="update") as raw_hdu:
@@ -107,8 +89,7 @@ def make_flattened_ramp_flt(
     statistics. Finally, calwf3 is run again on the flattened IMA to produce an FLT.
 
     Note that if the RAW file is part of an association, the ASN file must be in the
-    same directory as the RAW file. If ASN_TAB is NONE, a dummy ASN file will be created
-    in the working directory.
+    same directory as the RAW file.
 
     Users may provide a region for the median to be computed, otherwise this
     will default to the median over the whole image excluding the 5 pixel overscan
@@ -116,7 +97,6 @@ def make_flattened_ramp_flt(
 
     The following output files will be created:
 
-    * ``dummy_asn.fits`` (if dummy ASN is needed for processing)
     * ``<rootname>_ima.fits`` (flattened IMA as described above)
     * ``<rootname>_flt.fits`` (FLT from flattened IMA)
     * ``<rootname>_flc.fits`` (if PCTECORR is done)
