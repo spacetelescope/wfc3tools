@@ -73,6 +73,7 @@ def pstat(
     ylabel=None,
     plot=True,
     overplot=False,
+    diff=False,
 ):
     """
     A function to plot the statistics of one or more pixels up an IR ramp.
@@ -124,6 +125,10 @@ def pstat(
     overplot : bool, default=False
        If True, the results will be overplotted on the previous plot.
 
+    diff : bool, default=False
+        If `True`, compute difference between reads for statistics. Computing the
+        difference returns ``NSAMP - 1`` points.
+
     Returns
     -------
     xaxis : numpy.ndarray
@@ -136,10 +141,8 @@ def pstat(
     -----
     Pixel values here are 0 based, not 1 based.
 
-
     Examples
     --------
-
     Using an image section to generate output in counts:
 
     >>> from wfc3tools import pstat
@@ -163,17 +166,17 @@ def pstat(
     elif bracket_loc > 0:
         imagename = filename[:bracket_loc]
         print("Any extension name or image section must be specified via parameters.")
-        print("Input filename has been stripped of data in brackets, %s" % (imagename))
+        print(f"Input filename has been stripped of data in brackets, {imagename}")
 
     # check for a valid stat value
     valid_stats = ["midpt", "mean", "mode", "stddev", "min", "max"]
     if stat not in valid_stats:
-        print("Invalid value given for stat: %s" % (valid_stats))
+        print(f"Invalid value given for stat: {valid_stats}")
         return 0, 0
 
     valid_ext = ["sci", "err", "dq"]
     if extname.lower() not in valid_ext:
-        print("Invalid value given for extname: %s" % (valid_ext))
+        print(f"Invalid value given for extname: {valid_ext}")
         return 0, 0
 
     # check on image section specification
@@ -191,10 +194,15 @@ def pstat(
         print("Invalid specification for row_slice which must be a tuple of two integer values.")
         return 0, 0
 
+    units = units.lower()
+    is_counts = "counts" in units
+    is_rate = "rate" in units
+
     # open the file and get the data
     with fits.open(imagename) as myfile:
         nsamp = myfile[0].header["NSAMP"]
         bunit = myfile[1].header["BUNIT"]  # must look at header for units
+        div_in_bunit = "/" in bunit
         yaxis = np.zeros(nsamp)
         xaxis = np.zeros(nsamp)
 
@@ -239,36 +247,55 @@ def pstat(
             xaxis[i - 1] = exptime
 
             # convert to countrate
-            if "rate" in units.lower() and "/" not in bunit.lower():
-                yaxis[i - 1] /= exptime
+            if is_rate:
+                if not div_in_bunit:
+                    yaxis[i - 1] /= exptime
             # convert to counts
-            if "counts" in units.lower() and "/" in bunit.lower():
-                yaxis[i - 1] *= exptime
+            elif is_counts:
+                if div_in_bunit:
+                    yaxis[i - 1] *= exptime
+
+    if diff:
+        if is_counts:
+            yaxis = np.diff(yaxis) * -1
+            xaxis = xaxis[:-1]
+        elif is_rate:
+            total = yaxis * xaxis
+            dtotal = np.diff(total) * -1
+            dtime = np.diff(xaxis) * -1
+            drate = dtotal / dtime
+            yaxis = drate
+            xaxis = xaxis[:-1]
+        else:
+            diff = False  # Nothing to do
 
     if plot:
         if not overplot:
             plt.clf()  # clear out any current plot
         if not ylabel:
-            if "rate" in units.lower():
-                if "/" in bunit.lower():
+            if is_rate:
+                if div_in_bunit:
                     ylabel = bunit
                 else:
                     ylabel = bunit + " per second"
+            elif div_in_bunit:
+                stop_index = bunit.find("/")
+                ylabel = bunit[:stop_index]
             else:
-                if "/" in bunit:
-                    stop_index = bunit.find("/")
-                    ylabel = bunit[:stop_index]
-                else:
-                    ylabel = bunit
+                ylabel = bunit
 
-        ylabel += "   %s" % (stat)
+        ylabel += f"   {stat}"
         plt.ylabel(ylabel)
 
         if not xlabel:
             plt.xlabel("Sample time (s)")
 
         if not title:
-            title = "%s   Pixel stats for [%d:%d,%d:%d]" % (imagename, xstart, xend, ystart, yend)
+            if not diff:
+                # TODO: Should the index printout follow Python standards [{ystart}:{yend},{xstart}:{xend}]
+                title = f"{imagename}   Pixel stats for [{xstart}:{xend},{ystart}:{yend}]"
+            else:
+                title = f"{imagename}   Pixel Differential stats for [{xstart}:{xend},{ystart}:{yend}]"
         plt.title(title)
         plt.plot(xaxis, yaxis, "+")
         plt.draw()
