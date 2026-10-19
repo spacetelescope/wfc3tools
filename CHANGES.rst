@@ -1,5 +1,7 @@
 1.7.0 (unreleased)
 ------------------
+- Dropped support for Python 3.9 and 3.10 that had reached
+  end-of-life. [#138]
 
 1.6.1 (2026-02-06)
 ------------------
@@ -50,4 +52,3 @@ This release incorporates documentations changes for CALWF3 which will increase 
 - package reorganization
 - addition of output capture/logging to the calwf3 executables, help display text in jupyter notebook
 - moved the documentation to readthedocs and removed the local build, users will now be pointed to RTD from the display_help() function
-

@@ -1,7 +1,7 @@
 [project]
 name = "wfc3tools"
 description = "Python Tools for HST WFC3 Data"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 authors = [
     { name = "STScI" },
 ]
@@ -14,11 +14,11 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "astropy>=4.2.0",
-    "numpy>=1.21.0",
-    "matplotlib>=3.5.1",
-    "stsci.tools>=4.0.1",
-    "scipy>=1.8.0",
+    "astropy",
+    "numpy",
+    "matplotlib",
+    "stsci.tools",
+    "scipy",
 ]
 dynamic = [
     "version",
@@ -48,8 +48,8 @@ docs = [
 
 [build-system]
 requires = [
-    "setuptools>=61.2",
-    "setuptools_scm[toml]>=3.4",
+    "setuptools",
+    "setuptools_scm[toml]",
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
