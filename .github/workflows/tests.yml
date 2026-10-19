@@ -26,6 +26,6 @@ jobs:
     with:
       envs: |
         - linux: py311
-        - linux: py312
         - macos: py313
         - linux: py314
+        - linux: py315
