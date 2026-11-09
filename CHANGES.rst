@@ -1,5 +1,9 @@
 1.7.0 (unreleased)
 ------------------
+- Added new ``wfc3_irtools`` module that currently only contains ``make_flattened_ramp_flt()``
+  function to correct for non-variable background and produce a "flattened" FLT and IMA. [#36]
+- Added a new ``diff`` option for ``pstat()`` that computes the difference between IMA reads
+  for statistics. [#130]
 - Dropped support for Python 3.9 and 3.10 that had reached
   end-of-life. [#138]
 
